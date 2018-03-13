@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <html>
 <head>
 <!-- Latest compiled and minified CSS -->
@@ -12,9 +13,26 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<title>Insert title here</title>
+<title><tiles:getAsString name="title"/></title>
 </head>
 <body>
+<div align="center">
+	<div style="width:960px">
+	<div style="min-height: 100px">
+		<tiles:insertAttribute name="header"/>
+	</div>
+	<div style="min-height: 70px">
+		<tiles:insertAttribute name="nav"/>
+	</div>
+	<div style="min-height: 500px">
+		<tiles:insertAttribute name="body"/>
+	</div>
+	<div style="min-height: 120px">
+		<tiles:insertAttribute name="footer"/>
+	</div>
+	</div>
+	</div>
+
 
 </body>
 </html>
