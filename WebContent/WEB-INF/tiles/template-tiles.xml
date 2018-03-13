@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-<!--  -->
-	<definition>
-	
+	<!-- Index Template -->
+	<definition name="insta_abstract" template="/WEB-INF/template/insta-template.jsp">
+		<put-attribute name="title" value="MeshTagram"></put-attribute>
+		<put-attribute name="header" value="/WEB-INF/template/header.jsp"></put-attribute>
+		<put-attribute name="nav"  value="/WEB-INF/template/nav.jsp"></put-attribute>
+		<put-attribute name="footer"  value="/WEB-INF/template/footer.jsp"></put-attribute>
 	</definition>
+	<!-- index 전체 게시글 표시 -->
+	<definition name="insta_index" extends="insta_abstract">
+		<put-attribute name="body" value="/WEB-INF/index.jsp"></put-attribute>
+	</definition>
+	<definition name="insta_register" extends="insta_abstract">
+		<put-attribute name="body" value="/WEB-INF/account/account.jsp"></put-attribute>
+	</definition>
+	
 </tiles-definitions>
