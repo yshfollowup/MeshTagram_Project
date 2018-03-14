@@ -21,12 +21,15 @@ public class CheckController {
 		String email=(String)se.getAttribute("email");
 		System.out.println("key"+key+"받았다."+rst);
 		if(rst.equals(key)) {
-			System.out.println("설공");
+			boolean a=true;
+			System.out.println("설공"+email+rst);
 			map.put("email", email);
+			map.put("rst", a);
+			
 		}else {
 			System.out.println("실패");
 		}
 		
-		return "account/join";
+		return "insta_register";
 	}
 }
