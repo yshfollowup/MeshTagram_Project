@@ -7,9 +7,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController {
 
 		
-	@RequestMapping("/index.do")
-	public String indexHandle() {
+	@RequestMapping("/register.do")
+	public String registerHandle() {
 		
 		return "insta_register";
+	}
+	@RequestMapping("/login.do")
+	public String indexHandle() {
+		
+		return "insta_login";
+	}
+	@RequestMapping("/upload.do")
+	public String uploadHandle() {
+		
+		return "insta_upload";
 	}
 }
