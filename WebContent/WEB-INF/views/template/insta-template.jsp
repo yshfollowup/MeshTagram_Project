@@ -17,11 +17,7 @@
 </head>
 <body>
 <div align="center">
-	<div style="width:960px">
 	<div style="min-height: 100px">
-		<tiles:insertAttribute name="header"/>
-	</div>
-	<div style="min-height: 70px">
 		<tiles:insertAttribute name="nav"/>
 	</div>
 	<div style="min-height: 500px">

@@ -43,7 +43,7 @@
 	<!-- mybatis-spring으로 연동할때는, mapperLocaions의 경로가 classpath가 아님, 웹경로로 생각함. -->
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="c3p0" />
-		<property name="mapperLocations" value="/WEB-INF/mappers/*-mapper.xml" />
+		<property name="mapperLocations" value="/WEB-INF/mapper/*-mapper.xml" />
 	</bean>
 
 
@@ -57,4 +57,19 @@
 	<!-- 파일 업로드 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+		
+	<!-- mailAPI -->
+	<bean class="org.springframework.mail.javamail.JavaMailSenderImpl" id="mailSender">
+		<property name="host" value="smtp.gmail.com"/>
+		<property name="username" value="jujucenter123@gmail.com"/>
+		<property name="password" value="akeoakeo10"></property>
+		<property name="port" value="587"/>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.auth">true</prop>
+			</props>
+		</property>
+		
+	</bean>
 </beans>
