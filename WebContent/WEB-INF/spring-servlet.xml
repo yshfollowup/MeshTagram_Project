@@ -34,9 +34,9 @@
 	<!-- My batis 작업 -->
 	<bean id="c3p0" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver" />
-		<property name="jdbcUrl" value="jdbc:oracle:thin:@192.168.104.13:1521:xe" /> <!-- 아이피 작업 -->
-		<property name="user" value="root" /><!-- 아이디 작업 -->
-		<property name="password" value="oracle" /><!-- 비밀번호 작업 -->
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@192.168.104.240:1521:xe" /> <!-- 아이피 작업 -->
+		<property name="user" value="foobar" /><!-- 아이디 작업 -->
+		<property name="password" value="foobar" /><!-- 비밀번호 작업 -->
 		<property name="initialPoolSize" value="1" />
 	</bean>
 
@@ -48,7 +48,7 @@
 
 
 	<!-- 몽고 작업 -->
-	<mongo:mongo-client host="192.168.104.13" port="27017" /><!--아이피 작업 -->
+	<mongo:mongo-client host="192.168.104.240" port="27017" /><!--아이피 작업 -->
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg name="mongo" ref="mongo" />
 		<constructor-arg name="databaseName" value="root" /> <!-- 아이디 작업 -->
@@ -61,8 +61,8 @@
 	<!-- mailAPI -->
 	<bean class="org.springframework.mail.javamail.JavaMailSenderImpl" id="mailSender">
 		<property name="host" value="smtp.gmail.com"/>
-		<property name="username" value="jujucenter123@gmail.com"/>
-		<property name="password" value="akeoakeo10"></property>
+		<property name="username" value="dlwo7213@gmail.com"/>
+		<property name="password" value="asdfasdfasdf"></property>
 		<property name="port" value="587"/>
 		<property name="javaMailProperties">
 			<props>
