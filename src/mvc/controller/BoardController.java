@@ -12,13 +12,15 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import mvc.service.PostDAO;
-
-public class UploadController {
+@Controller
+@RequestMapping("/account")
+public class BoardController {
 
 	@Autowired
 	ServletContext ctx;
@@ -54,6 +56,7 @@ public class UploadController {
 		System.out.println(map);
 		map.put("writer", id);
 		map.put("image","/"+ target.getName());
+		map.put("time", str);
 		map.put("comment", comm);
 		map.put("tags", li);
 		//template.insert(map, "instagram");
@@ -61,6 +64,6 @@ public class UploadController {
 		}
 		
 		}
-		return "redirect:/main.do";
+		return "insta_register";
 	}
 }

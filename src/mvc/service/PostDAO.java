@@ -1,9 +1,7 @@
 package mvc.service;
 
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -22,10 +20,12 @@ public class PostDAO {
 	//Insert -- 게시물 등록 
 	public Map<String, Object> insertImage(Map param) {
 		Map<String, Object> map = new LinkedHashMap<>();
-			map.put("url", param.get("writer"));
-			map.put("content", param.get("image"));
-			map.put("tags", param.get(""));
-			map.put("date", param.get(""));
+		//System.out.println((String)param.get("writer")+(String)param.get("image"));
+			map.put("id", (String)param.get("writer"));
+			map.put("image", (String)param.get("image"));
+			map.put("date", (String)param.get("time"));
+			map.put("comment", (String)param.get("comment"));
+			map.put("tags", (List)param.get("tags"));
 			template.insert(map,"MeshTagram-Upload");
 		return map;
 	}
