@@ -26,7 +26,8 @@ public class BoardController {
 	ServletContext ctx;
 	@Autowired
 	PostDAO dao;
-	
+	//=======================================
+	//게시물 업로드
 	@RequestMapping("/uploadp.do")
 	public String uploadHandle(@RequestParam("photo") MultipartFile file,
 			  HttpServletRequest req,@RequestParam("comment") String comm, @RequestParam("id") String id) throws IOException, InterruptedException {
@@ -65,5 +66,10 @@ public class BoardController {
 		
 		}
 		return "insta_register";
+	}
+	//==============================================================
+	//게시물 FindAll
+	public String FindAll() {
+		return"insta_register";
 	}
 }
