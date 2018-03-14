@@ -19,13 +19,14 @@ public class PostDAO {
 	@Autowired
 	MongoTemplate template;
 	
-	//Insert
+	//Insert -- 게시물 등록 
 	public Map<String, Object> insertImage(Map param) {
 		Map<String, Object> map = new LinkedHashMap<>();
-			map.put("url", param.get(""));
-			map.put("content", param.get(""));
+			map.put("url", param.get("writer"));
+			map.put("content", param.get("image"));
 			map.put("tags", param.get(""));
 			map.put("date", param.get(""));
+			template.insert(map,"MeshTagram-Upload");
 		return map;
 	}
 	

@@ -22,4 +22,9 @@ public class IndexController {
 		
 		return "insta_upload";
 	}
+	@RequestMapping("/main.do")
+	public String mainHandle() {
+		
+		return"insta_main";
+	}
 }
