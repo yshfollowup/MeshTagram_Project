@@ -11,15 +11,20 @@
 	<definition name="insta_main" extends="insta_abstract">
 		<put-attribute name="body" value="/WEB-INF/views/account/main.jsp"></put-attribute>
 	</definition>
-	<definition name="insta_register" template="/WEB-INF/views/template/register-template.jsp">
+	<definition name="insta_login" template="/WEB-INF/views/template/register-template.jsp">
 		<put-attribute name="title" value="MeshTagram"></put-attribute>
-		<put-attribute name="body" value="/WEB-INF/views/index.jsp"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/account/login.jsp"></put-attribute>
 	</definition>
-		<definition name="insta_login" template="/WEB-INF/views/template/register-template.jsp">
+		<definition name="insta_join" template="/WEB-INF/views/template/register-template.jsp">
 		<put-attribute name="title" value="MeshTagram"></put-attribute>
-		<put-attribute name="body" value="/WEB-INF/views/login.jsp"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/account/join.jsp"></put-attribute>
 	</definition>
-		<definition name="insta_upload" extends="insta_abstract">
+		<definition name="insta_main" extends="insta_abstract">
+		<put-attribute name="title" value="MeshTagram"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/main.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="insta_upload" extends="insta_abstract">
 		<put-attribute name="body" value="/WEB-INF/views/account/upload.jsp"></put-attribute>
 	</definition>
 </tiles-definitions>

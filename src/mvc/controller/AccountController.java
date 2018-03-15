@@ -11,17 +11,24 @@ import mvc.model.AccountDTO;
 import mvc.service.AccountDAO;
 
 @Controller
-public class IndexController {
+@RequestMapping("/account")
+public class AccountController {
 
 	@Autowired
 	AccountDAO aDAO;
 		//회원가입 페이지
-	@RequestMapping("/register.do")
+	@RequestMapping("/join.do")
 	public String registerHandle() {
 		
-		return "insta_register";
+		return "insta_join";
 	}
-	//로그인 페이지
+		//로그인 페이지
+	@RequestMapping("/loginPage.do")
+	public String loginPageHandle() {
+		
+		return "insta_login";
+	}
+	//접속
 	@RequestMapping("/login.do")
 	public String loginHandle(@RequestParam MultiValueMap<String, String> vmap, ModelMap modelMap) {
 		String id = vmap.getFirst("id");
@@ -35,7 +42,7 @@ public class IndexController {
 		
 		modelMap.put("aDTO", aDTO);
 		System.out.println("[SERVER]: login success");
-		return "insta_login";
+		return "insta_main";
 	}
 	//게시물 업로드 페이지
 	@RequestMapping("/upload.do")

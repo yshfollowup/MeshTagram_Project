@@ -31,14 +31,15 @@ public class BoardController {
 	@RequestMapping("/uploadp.do")
 	public String uploadHandle(@RequestParam("photo") MultipartFile file,
 			  HttpServletRequest req,@RequestParam("comment") String comm, @RequestParam("id") String id) throws IOException, InterruptedException {
+		System.out.println("들어옴");
 		if(!file.isEmpty()) {
 		String path=ctx.getRealPath("/");
 		SimpleDateFormat sdf= new SimpleDateFormat("yyyMMddHHmmss");
 		String str=sdf.format(System.currentTimeMillis());
 		File target= new File(path, str+".png");
+		System.out.println(file+comm+id);
 		boolean rst;
 		try {
-			
 			file.transferTo(target);
 			rst=true;
 		}catch(Exception e) {
@@ -54,18 +55,18 @@ public class BoardController {
 		}
 		if(rst) {
 		Map map=new LinkedHashMap<>();
-		System.out.println(map);
 		map.put("writer", id);
 		map.put("image","/"+ target.getName());
 		map.put("time", str);
 		map.put("comment", comm);
 		map.put("tags", li);
+		System.out.println(map);
 		//template.insert(map, "instagram");
 		dao.insertImage(map);
 		}
 		
 		}
-		return "insta_register";
+		return "insta_main";
 	}
 	//==============================================================
 	//게시물 FindAll
