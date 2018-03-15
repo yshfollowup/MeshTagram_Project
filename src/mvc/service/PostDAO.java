@@ -8,8 +8,9 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
 /*
- * Meshtagram의 게시물 구성 - 파일의 url, 내용, 태그(#붙은 것들)
  * db의 이름 : post
+ * 컬럼 : id, image, date, comment, tags
+ * mongo로 테스트하다가 HBase로 넘길 것임
  */
 
 @Repository
@@ -26,7 +27,7 @@ public class PostDAO {
 			map.put("date", (String)param.get("time"));
 			map.put("comment", (String)param.get("comment"));
 			map.put("tags", (List)param.get("tags"));
-			template.insert(map,"MeshTagram-Upload");
+			template.insert(map,"MeshTagramUpload");
 		return map;
 	}
 	

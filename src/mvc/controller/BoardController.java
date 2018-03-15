@@ -30,41 +30,41 @@ public class BoardController {
 	//게시물 업로드
 	@RequestMapping("/uploadp.do")
 	public String uploadHandle(@RequestParam("photo") MultipartFile file,
-			  HttpServletRequest req,@RequestParam("comment") String comm, @RequestParam("id") String id) throws IOException, InterruptedException {
+			HttpServletRequest req,@RequestParam("comment") String comm, @RequestParam("id") String id) throws IOException, InterruptedException {
 		System.out.println("들어옴");
 		if(!file.isEmpty()) {
-		String path=ctx.getRealPath("/");
-		SimpleDateFormat sdf= new SimpleDateFormat("yyyMMddHHmmss");
-		String str=sdf.format(System.currentTimeMillis());
-		File target= new File(path, str+".png");
-		System.out.println(file+comm+id);
-		boolean rst;
-		try {
-			file.transferTo(target);
-			rst=true;
-		}catch(Exception e) {
-			rst=false;
-		}
-		
-		String[] comment=comm.split("\\s");
-		List<String> li=new ArrayList<>();
-		for(String tag : comment) {
-			if(tag.startsWith("#")) {
-				li.add(tag);
+			String path=ctx.getRealPath("/");
+			SimpleDateFormat sdf= new SimpleDateFormat("yyyMMddHHmmss");
+			String str=sdf.format(System.currentTimeMillis());
+			File target= new File(path, str+".png");
+			System.out.println(file+comm+id);
+			boolean rst;
+			try {
+				file.transferTo(target);
+				rst=true;
+			}catch(Exception e) {
+				rst=false;
 			}
-		}
-		if(rst) {
-		Map map=new LinkedHashMap<>();
-		map.put("writer", id);
-		map.put("image","/"+ target.getName());
-		map.put("time", str);
-		map.put("comment", comm);
-		map.put("tags", li);
-		System.out.println(map);
-		//template.insert(map, "instagram");
-		dao.insertImage(map);
-		}
-		
+
+			String[] comment=comm.split("\\s");
+			List<String> li=new ArrayList<>();
+			for(String tag : comment) {
+				if(tag.startsWith("#")) {
+					li.add(tag);
+				}
+			}
+			if(rst) {
+				Map map=new LinkedHashMap<>();
+				map.put("writer", id);
+				map.put("image","/"+ target.getName());
+				map.put("time", str);
+				map.put("comment", comm);
+				map.put("tags", li);
+				System.out.println(map);
+				//template.insert(map, "instagram");
+				dao.insertImage(map);
+			}
+
 		}
 		return "insta_main";
 	}
