@@ -26,7 +26,8 @@ public class PostDAO {
 			map.put("date", (String)param.get("time"));
 			map.put("comment", (String)param.get("comment"));
 			map.put("tags", (List)param.get("tags"));
-			template.insert(map,"MeshTagram-Upload");
+			template.insert(map,"MeshTagramUpload");
+			System.out.println("성공");
 		return map;
 	}
 	

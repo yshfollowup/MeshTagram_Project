@@ -27,4 +27,7 @@
 	<definition name="insta_upload" extends="insta_abstract">
 		<put-attribute name="body" value="/WEB-INF/views/account/upload.jsp"></put-attribute>
 	</definition>
+	<definition name="insta_follow" extends="insta_abstract">
+		<put-attribute name="body" value="/WEB-INF/views/follow/index.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>

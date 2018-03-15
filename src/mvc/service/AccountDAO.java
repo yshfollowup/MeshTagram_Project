@@ -53,6 +53,21 @@ public class AccountDAO {
 			return aDTO;
 		}
 	}
+	public AccountDTO selectAllAccount(String id) {
+		Map map = new HashMap<>();
+			map.put("id", id);
+		AccountDTO aDTO = new AccountDTO();
+			
+		SqlSession session = factory.openSession();
+		try {
+			aDTO = session.selectOne("account.selectAllAccount", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+			return aDTO;
+		}
+	}
 
 	public int deleteAccount(String id, String pass) {
 		Map map = new HashMap<>();

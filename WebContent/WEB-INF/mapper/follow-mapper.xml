@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="follow">
+	<insert id="insertFollow">
+		insert into follow(no,me,target,scope) values(follow_seq.nextval, #{me }, #{target }, 0)
+	</insert>
+	<update id="updateFollow">
+		update follow
+		<set>
+			
+		</set>
+	</update>
+	<select id="selectMyFollow">
+		select * from follow
+		where me=#{me }
+	</select>
+</mapper>

@@ -35,7 +35,7 @@
 	<bean id="c3p0" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="jdbcUrl" value="jdbc:oracle:thin:@192.168.104.13:1521:xe" /> <!-- 아이피 작업 -->
-		<property name="user" value="root" /><!-- 아이디 작업 -->
+		<property name="user" value="insta" /><!-- 아이디 작업 -->
 		<property name="password" value="oracle" /><!-- 비밀번호 작업 -->
 		<property name="initialPoolSize" value="1" />
 	</bean>
