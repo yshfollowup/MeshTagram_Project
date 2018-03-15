@@ -9,7 +9,7 @@
 	</definition>
 	<!-- index 전체 게시글 표시 -->
 	<definition name="insta_main" extends="insta_abstract">
-		<put-attribute name="body" value="/WEB-INF/views/account/main.jsp"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/main.jsp"></put-attribute>
 	</definition>
 	<definition name="insta_login" template="/WEB-INF/views/template/register-template.jsp">
 		<put-attribute name="title" value="MeshTagram"></put-attribute>

@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,10 +28,12 @@ public class FollowController {
 	@Autowired
 	Gson gson;
 	@RequestMapping("index.do")
-	public String indexHandle(@RequestParam ("id") String id) {
+	public String indexHandle(@RequestParam ("id") String id,ModelMap map) {
 		List<Map> list= new ArrayList<>();
+		
 		list=adao.selectAllAccount(id);
 		
+		map.put("follow", list);
 		return "insta_follow";
 	}
 	@RequestMapping("/insert.do")

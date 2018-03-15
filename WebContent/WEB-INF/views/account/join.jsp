@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div>
-<form action="/account/join.do" autocomplete="off">
+<form action="/key/join.do" autocomplete="off">
 	<p>
 		<input type="text" id="id" name="id" placeholder="아이디"
 			style="padding: 5px; font-size: 14pt; width: 250px;"
@@ -21,12 +21,12 @@
 
 	</p>
 	<p>
-		<input type="text" id="pass1" name="pass1" placeholder="비밀번호"
+		<input type="password" id="pass1" name="pass1" placeholder="비밀번호"
 			pattern="[A-Za-z0-9]+"
 			style="padding: 5px; font-size: 14pt; width: 250px;" />
 	</p>
 	<p>
-		<input type="text" id="pass2" name="pass2" placeholder="비밀번호 확인"
+		<input type="password" id="pass2" name="pass2" placeholder="비밀번호 확인"
 			pattern="[A-Za-z0-9]+"
 			style="padding: 5px; font-size: 14pt; width: 250px;" /><span
 			id="check">영문과 숫자 조합 8자리 이상</span>

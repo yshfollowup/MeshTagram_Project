@@ -18,7 +18,7 @@ import mvc.service.AccountDAO;
 import mvc.service.JoinService;
 
 @Controller
-@RequestMapping("/Key")
+@RequestMapping("/key")
 public class JoinController {
 	@Autowired
 	JoinService joinService;

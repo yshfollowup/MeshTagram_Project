@@ -35,7 +35,7 @@ public class JoinService {
 			message.addRecipients(RecipientType.TO, email);
 			message.setSubject("인증키입니다.");
 			String text="<h3>인증키</h3>";
-			text+="<p>전송받은 인증키 <a href=\"http://192.168.104.13/account/check.do?key="+key+"\">"+key+"</a>를 입력해주세요.";
+			text+="<p>전송받은 인증키 <a href=\"http://localhost/account/check.do?key="+key+"\">"+key+"</a>를 입력해주세요.";
 			//message.setText(text, "UTF-8");
 			
 			message.setContent(text, "text/html; charset= UTF-8");

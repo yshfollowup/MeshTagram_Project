@@ -30,6 +30,6 @@ public class CheckController {
 			System.out.println("실패");
 		}
 		
-		return "insta_register";
+		return "insta_join";
 	}
 }

@@ -1,7 +1,6 @@
 package mvc.service;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -53,19 +52,19 @@ public class AccountDAO {
 			return aDTO;
 		}
 	}
-	public AccountDTO selectAllAccount(String id) {
+	public List<Map> selectAllAccount(String id) {
 		Map map = new HashMap<>();
 			map.put("id", id);
-		AccountDTO aDTO = new AccountDTO();
+			List<Map> amap=null;
 			
 		SqlSession session = factory.openSession();
 		try {
-			aDTO = session.selectOne("account.selectAllAccount", map);
+			amap = session.selectOne("account.selectAllAccount", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			session.close();
-			return aDTO;
+			return amap;
 		}
 	}
 

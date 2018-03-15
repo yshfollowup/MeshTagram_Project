@@ -45,7 +45,7 @@ public class AccountController {
 	public String loginHandle(@RequestParam MultiValueMap<String, String> vmap, ModelMap modelMap) {
 		String id = vmap.getFirst("id");
 		String pass = vmap.getFirst("pass");
-		
+		System.out.println(id+pass+"받음");
 		AccountDTO aDTO = aDAO.selectOneAccount(id, pass);
 		if (aDTO == null) {
 			System.out.println("[SERVER]: login failed");
@@ -78,11 +78,5 @@ public class AccountController {
 	public String uploadHandle() {
 		
 		return "insta_upload";
-	}
-	//메인 페이지
-	@RequestMapping("/main.do")
-	public String mainHandle() {
-		
-		return"insta_main";
 	}
 }
