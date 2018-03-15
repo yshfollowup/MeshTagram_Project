@@ -9,6 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
+/*
+ * db의 이름 : reply
+ * 컬럼 : id, like, content, date
+ * mongo로 테스트하다가 HBase로 넘길 것임
+ */
+
+
 @Repository
 public class ReplyDAO {
 	@Autowired
@@ -18,6 +25,7 @@ public class ReplyDAO {
 	public Map<String, Object> insertReply(Map param) {
 		Map<String, Object> map = new LinkedHashMap<>();
 			map.put("id", param.get(""));
+			map.put("like", param.get(""));
 			map.put("content", param.get(""));
 			map.put("date", param.get(""));
 		return map;
