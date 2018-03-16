@@ -13,8 +13,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from account where id = #{id } and pass = #{pass }
 	</select>
 	
-	<select id="selectAllAccount" resultType="java.util.LinkedHashMap">
-		select * from account where id != #{id }
+	<select id="selectAllAccount" resultType="mvc.model.AccountDTO">
+		select * from account
 	</select>
 	
 	<!-- 업데이트 -->
