@@ -10,9 +10,9 @@
 			<p align="center">
 			<input type="text" id="tag" name="tag"/></p>
 			</form>
-				<a href="/follow/index.do?id=${aDTO.id }">팔로우</a> |
-				<a href="/account/upload.do?id=${aDTO.id }">글쓰기</a> |
-				<a href="/account/myPage.do?id=${aDTP.id }">마이페이지</a>
+				<a href="/follow/index.do">팔로우</a> |
+				<a href="/account/upload.do">글쓰기</a> |
+				<a href="/account/myPage.do">마이페이지</a>
 			</div>
 		</div>
 	</div>

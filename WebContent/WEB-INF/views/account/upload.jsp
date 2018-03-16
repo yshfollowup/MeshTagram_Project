@@ -6,15 +6,11 @@
 	<small>사진을 선택한 후, 멘트를 달아주세요.</small>
 	<form action="/account/uploadp.do" method="post" enctype="multipart/form-data">
 		<div>
-			<img src="/image/insta.jpg"
-				style="width: 300px; height: 300px; border-radius: 30px"
-				id="preview">
+			<img src="/image/insta.jpg" style="width: 300px; height: 300px; border-radius: 30px" id="preview">		
 		</div>
-		<input type="file" name="photo" id="photo" accept="image/*"
-			style="display: none" />
-		<textarea name="comment"
-			style="resize: none; width: 294px; height: 70px; padding: 2px; font-family: 맑은고딕"></textarea>
-		<input type="hidden" name="id" value="ma" />
+		<input type="file" name="photo" id="photo" accept="image/*" style="display:none"/>
+		<textarea name="comment" style="resize: none; width: 294px; height: 70px; padding: 2px; font-family: 맑은고딕"></textarea>
+		<input type="hidden" name="id" value="ma"/>
 		<p>
 			<button type="submit">등록</button>
 		</p>
