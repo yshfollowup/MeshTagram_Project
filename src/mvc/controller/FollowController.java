@@ -34,11 +34,22 @@ public class FollowController {
 	
 	@RequestMapping("index.do")
 	public String indexHandle(@CookieValue(name="setId", required=false) String id, ModelMap map) {
-		List<AccountDTO> list = new ArrayList<>();
+		// 전체 회원 리스트
+		List<AccountDTO> memberList = new ArrayList<>();
+		memberList = aDAO.selectAllAccountNotMe(id);
 		
-		list = aDAO.selectAllAccount(id);
+		// 팔로잉 - 내가 구독한 사람들
+		List<AccountDTO> followingList = new ArrayList<>();
+		followingList = aDAO.selectAllAccountFollowing(id);
 		
-		map.put("follow", list);
+		// 팔로워 - 나를 구독하는 사람들
+		List<AccountDTO> followerList = new ArrayList<>();
+		followerList = aDAO.selectAllAccountFollower(id);
+		
+		map.put("member", memberList);
+		map.put("following", followingList);
+		map.put("follower", followerList);
+		
 		return "insta_follow";
 	}
 	@RequestMapping("/insert.do")

@@ -3,9 +3,13 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="follow">
+	<!-- insert follow -->
 	<insert id="insertFollow">
 		insert into follow(no,me,target,scope) values(follow_seq.nextval, #{me }, #{target }, 0)
 	</insert>
+	
+	
+	<!-- update follow -->
 	<update id="updateFollow">
 		update follow
 		<set>
@@ -13,8 +17,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</set>
 		where id=#{id }
 	</update>
-	<select id="selectMyFollow">
-		select * from follow
-		where me=#{me }
+	
+	
+	<!-- select follow -->
+	<select id="selectFollowing" resultType="java.util.LinkedHashMap"> <!-- [me] ====follow====> [friend] -->
+		select * from follow where me = #{id }
+	</select>
+	
+	<select id="selectFollower" resultType="java.util.LinkedHashMap"> <!-- [friend] ====follow====> [me] -->
+		select * from follow where target = #{id }
 	</select>
 </mapper>
