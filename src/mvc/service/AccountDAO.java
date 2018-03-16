@@ -56,7 +56,6 @@ public class AccountDAO {
 			return aDTO;
 		}
 	}
-<<<<<<< HEAD
 	//새로고침 --쿠키
 	public AccountDTO selectOneAccountre(String id) {
 		Map map = new HashMap<>();
@@ -74,10 +73,7 @@ public class AccountDAO {
 		}
 	}
 	//나를 제외하고 모든 회원을 출력
-	public List<AccountDTO> selectAllAccount(String id) {
-=======
 	public List<AccountDTO> selectAllAccountNotMe(String id) {
->>>>>>> refs/heads/jaylee
 		Map map = new HashMap<>();
 			map.put("id", id);
 		List<AccountDTO> aList=null;
@@ -92,9 +88,7 @@ public class AccountDAO {
 			return aList;
 		}
 	}
-<<<<<<< HEAD
 //	회원 탈퇴
-=======
 	
 	public List<AccountDTO> selectAllAccountFollowing(String id) {
 		Map map = new HashMap<>();
@@ -131,7 +125,6 @@ public class AccountDAO {
 	}
 	
 
->>>>>>> refs/heads/jaylee
 	public int deleteAccount(String id, String pass) {
 		Map map = new HashMap<>();
 			map.put("id", id);
