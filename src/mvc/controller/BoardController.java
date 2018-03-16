@@ -29,21 +29,36 @@ public class BoardController {
 	//=======================================
 	//게시물 업로드
 	@RequestMapping("/uploadp.do")
-	public String uploadHandle(@RequestParam("photo") MultipartFile file,
+	public String uploadHandle(@RequestParam("photo") MultipartFile[] files,
 			HttpServletRequest req,@RequestParam("comment") String comm, @RequestParam("id") String id) throws IOException, InterruptedException {
 		System.out.println("들어옴");
-		if(!file.isEmpty()) {
+		boolean rst = true;
+		if(files.length != 0) {
+			File target = null;
 			String path=ctx.getRealPath("/");
+			System.out.println(path);
 			SimpleDateFormat sdf= new SimpleDateFormat("yyyMMddHHmmss");
 			String str=sdf.format(System.currentTimeMillis());
-			File target= new File(path, str+".png");
-			System.out.println(file+comm+id);
-			boolean rst;
-			try {
-				file.transferTo(target);
-				rst=true;
-			}catch(Exception e) {
-				rst=false;
+			
+			List<File> result = new ArrayList<>();
+			for(MultipartFile file : files) {
+				String name = file.getName();
+				Long size = file.getSize();
+				if(size < (1024*1024*10)) {
+					target = new File(path, name+".png");
+					//File target= new File(path, str+".png");
+					System.out.println(file+comm+id);
+					result.add(target);
+					try {
+						for(int i = 0; i<result.size(); i++) {
+							String upPath = result.get(i).getAbsolutePath();
+							file.transferTo(result.get(i));					
+						}
+						rst=true;
+					}catch(Exception e) {
+						rst=false;
+					}
+				}
 			}
 
 			String[] comment=comm.split("\\s");
@@ -56,7 +71,8 @@ public class BoardController {
 			if(rst) {
 				Map map=new LinkedHashMap<>();
 				map.put("writer", id);
-				map.put("image","/"+ target.getName());
+				map.put("image", "/"+ result);
+				System.out.println(result);
 				map.put("time", str);
 				map.put("comment", comm);
 				map.put("tags", li);

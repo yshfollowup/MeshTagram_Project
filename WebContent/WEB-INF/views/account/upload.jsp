@@ -11,7 +11,7 @@
 				style="width: 300px; height: 300px; border-radius: 30px"
 				id="preview">
 		</div>
-		<input type="file" name="photo" id="photo" accept="image/*"
+		<input multiple="multiple" type="file" name="photo" id="photo" accept="image/*"
 			style="display: none" />
 		<textarea name="comment"
 			style="resize: none; width: 294px; height: 70px; padding: 2px; font-family: 맑은고딕"></textarea>
