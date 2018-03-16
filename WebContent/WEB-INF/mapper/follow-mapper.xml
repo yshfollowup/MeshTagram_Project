@@ -9,8 +9,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateFollow">
 		update follow
 		<set>
-			
+			<if test="scope = 0">scope=1</if>
 		</set>
+		where id=#{id }
 	</update>
 	<select id="selectMyFollow">
 		select * from follow

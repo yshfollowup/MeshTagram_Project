@@ -56,10 +56,9 @@ public class AccountDAO {
 		Map map = new HashMap<>();
 			map.put("id", id);
 			List<Map> amap=null;
-			
 		SqlSession session = factory.openSession();
 		try {
-			amap = session.selectOne("account.selectAllAccount", map);
+			amap = session.selectList("account.selectAllAccount", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

@@ -30,9 +30,8 @@ public class FollowController {
 	@RequestMapping("index.do")
 	public String indexHandle(@RequestParam ("id") String id,ModelMap map) {
 		List<Map> list= new ArrayList<>();
-		
+		System.out.println("팔로우" +id);
 		list=adao.selectAllAccount(id);
-		
 		map.put("follow", list);
 		return "insta_follow";
 	}

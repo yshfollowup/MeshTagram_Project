@@ -6,8 +6,8 @@
 <form action="/follow/plus.do" >
 <c:forEach var="obj" items="${follow }"> 
 <p style="float: left; width: 33%;">
-<a href="/account/myPage.do?id=${follow.id }"><img src="/image/insta.jpg" style="width: 30px; border-radius:100%" id="profile"/></a>
-<a href="/account/myPage.do?id=${follow.id }" name="id">${follow.id }</a>
+<a href="/account/myPage.do?id=${obj.id }"><img src="${applicationScope.path }${obj.PROFILE}" style="width: 30px; border-radius:100%" id="profile"/></a>
+<a href="/follow/myPage.do?id=${obj.id }" name="id">${obj.ID }</a>
 <button type="submit" >팔로우</button>
 </p>
 </c:forEach>
