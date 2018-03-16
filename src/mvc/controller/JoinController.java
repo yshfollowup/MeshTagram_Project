@@ -52,7 +52,7 @@ public class JoinController {
 		int r = aDAO.insertAccount(id, pass, email, name);
 		if (r == 0) {  // join fail
 			System.out.println("[SERVER]: join failed");
-			return "insta_register";
+			return "insta_loginPage";
 		}
 		System.out.println("[SERVER]: join success");
 		return "insta_login";  // join success

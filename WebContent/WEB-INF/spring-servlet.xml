@@ -34,10 +34,9 @@
 	<!-- My batis 작업 -->
 	<bean id="c3p0" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver" />
-		<property name="jdbcUrl" value="jdbc:oracle:thin:@192.168.104.13:1521:xe" /> <!-- 아이피 작업 -->
-		<property name="user" value="insta" /><!-- 아이디 작업 -->
-		<property name="password" value="oracle" /><!-- 비밀번호 작업 -->
-		<property name="initialPoolSize" value="1" />
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@project-db.cp7kpz5x3pae.ap-northeast-2.rds.amazonaws.com:1521:orcl" /> <!-- 아이피 작업 -->
+		<property name="user" value="mj" /><!-- 아이디 작업 -->
+		<property name="password" value="1q2w3e4r" /><!-- 비밀번호 작업 -->
 	</bean>
 
 	<!-- mybatis-spring으로 연동할때는, mapperLocaions의 경로가 classpath가 아님, 웹경로로 생각함. -->
@@ -48,7 +47,7 @@
 
 
 	<!-- 몽고 작업 -->
-	<mongo:mongo-client host="192.168.104.13" port="27017" /><!--아이피 작업 -->
+	<mongo:mongo-client host="13.125.195.100" port="27017" /><!--아이피 작업 -->
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg name="mongo" ref="mongo" />
 		<constructor-arg name="databaseName" value="root" /> <!-- 아이디 작업 -->
