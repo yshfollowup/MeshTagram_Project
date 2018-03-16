@@ -10,8 +10,6 @@
 		</div>
 		<input multiple="multiple" type="file" name="photo" id="photo" accept="image/*"
 			style="display: none" />
-		<textarea name="comment"
-			style="resize: none; width: 294px; height: 70px; padding: 2px; font-family: 맑은고딕"></textarea>
 		<input type="hidden" name="id" value="ma" />
 		<input type="file" name="photo" id="photo" accept="image/*" style="display:none"/>
 		<textarea name="comment" style="resize: none; width: 294px; height: 70px; padding: 2px; font-family: 맑은고딕"></textarea>
