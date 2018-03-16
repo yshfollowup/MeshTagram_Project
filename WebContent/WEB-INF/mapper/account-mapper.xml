@@ -23,14 +23,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from account
 	</select>
 
-	<resultMap type="FollowDTO" id="FollowDTO">
+<!-- 	<resultMap type="FollowDTO" id="followDTO">
 		<result column="no" property="no" />
 		<result column="me" property="me" />
 		<result column="target" property="target" />
 		<result column="scope" property="scope" />
 	</resultMap>
 
-	<resultMap type="AccountDTO" id="AccountDTO">
+	<resultMap type="AccountDTO" id="accountDTO">
 		<result column="id" property="id" />
 		<result column="pass" property="pass" />
 		<result column="email" property="email" />
@@ -41,13 +41,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="intro" property="intro" />
 		<result column="scope" property="scope" />
 		<collection property="FollowDTO" resultMap="FollowDTO" />
-	</resultMap>
+	</resultMap> -->
 	
-	<select id="selectAllAccountFollowing" parameterType="List" resultMap="AccountDTO">
+	<select id="selectAllAccountFollowing" resultType="java.util.LinkedHashMap">
 		select * from account inner join follow on account.id = follow.me where account.id = #{id }
 	</select>
 	
-	<select id="selectAllAccountFollower" parameterType="List" resultMap="AccountDTO">
+	<select id="selectAllAccountFollower" resultType="java.util.LinkedHashMap">
 		select * from account inner join follow on account.id = follow.target where follow.target = #{target }
 	</select>
 	

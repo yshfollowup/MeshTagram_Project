@@ -107,9 +107,9 @@ public class AccountDAO {
 		
 	}
 	
-	public List<AccountDTO> selectAllAccountFollower(String id) {
+	public List<AccountDTO> selectAllAccountFollower(String target) {
 		Map map = new HashMap<>();
-			map.put("id", id);
+			map.put("target", target);
 		List<AccountDTO> aList = null;
 
 		SqlSession session = factory.openSession();
