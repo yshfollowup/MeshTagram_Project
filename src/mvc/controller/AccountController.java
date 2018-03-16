@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import mvc.model.AccountDTO;
+import mvc.model.FollowDTO;
 import mvc.service.AccountDAO;
+import mvc.service.FollowDAO;
 import mvc.service.MessengerDAO;
 import mvc.service.PostDAO;
 import mvc.service.ReplyDAO;
@@ -25,7 +27,8 @@ import mvc.service.ReplyDAO;
 @Controller
 @RequestMapping("/account")
 public class AccountController {
-
+	@Autowired
+	FollowDAO fDAO;
 	@Autowired
 	AccountDAO aDAO;
 	@Autowired
@@ -99,6 +102,54 @@ public class AccountController {
 		System.out.println("[SERVER]: login success");
 		return "insta_main";
 	}
+	//접속
+	@RequestMapping(path="/login.do", method=RequestMethod.GET)
+	public String logingetHandle(ModelMap modelMap,	HttpServletResponse resp, @CookieValue(name="setId", required=false) String setId) {
+		System.out.println("[SERVER]: login success"+setId);
+		String id = setId;
+		//계정 정보
+		AccountDTO aDTO = aDAO.selectOneAccountre(id);
+		modelMap.put("aDTO", aDTO);
+		
+		//이전에 쓴 모든 게시물 정보
+		List<Map> allPost = pDAO.findAllPost();
+		if(allPost != null) 
+			modelMap.put("allPost", allPost);
+		
+		//이전에 달았던 모든 댓글 정보
+		List<Map> allReply = rDAO.findAllReply();
+		if(allReply != null)
+			modelMap.put("allReply", allReply);
+		
+		//이전에 대화한 모든 메시지
+		List<Map> allMessage = mDAO.findAllMessage();
+		if(allMessage != null)
+			modelMap.put("allMessage", allMessage);
+		
+		System.out.println("[SERVER]: login success");
+		return "insta_main";
+	}
+	
+	@RequestMapping("/myPage.do")
+	public String MyPageHandle(@CookieValue(name="setId", required=false) String setId,ModelMap modelMap) {
+		System.out.println("[SERVER]: MyPage success"+setId);
+		String id = setId;
+		//계정 정보
+		AccountDTO aDTO = aDAO.selectOneAccountre(id);
+		modelMap.put("aDTO", aDTO);
+		
+		//이전에 쓴 모든 게시물 정보
+		List<Map> myPost = pDAO.findAllPost();
+		if(myPost != null) 
+		modelMap.put("myPost", myPost);
+		
+		//List<FollowDTO> fDTO =fDAO.findMe(setId);
+		//if(fDTO != null) 
+		//modelMap.put("fDTO", fDTO);
+		
+		return "insta_myPage";
+	}
+	
 	//게시물 업로드 페이지
 	@RequestMapping("/upload.do")
 	public String uploadHandle() {
