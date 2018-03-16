@@ -1,6 +1,9 @@
 package mvc.service;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -8,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import mvc.model.AccountDTO;
+import mvc.model.FollowDTO;
 
 
 
@@ -52,6 +56,7 @@ public class AccountDAO {
 			return aDTO;
 		}
 	}
+<<<<<<< HEAD
 	//새로고침 --쿠키
 	public AccountDTO selectOneAccountre(String id) {
 		Map map = new HashMap<>();
@@ -70,9 +75,11 @@ public class AccountDAO {
 	}
 	//나를 제외하고 모든 회원을 출력
 	public List<AccountDTO> selectAllAccount(String id) {
+=======
+	public List<AccountDTO> selectAllAccountNotMe(String id) {
+>>>>>>> refs/heads/jaylee
 		Map map = new HashMap<>();
 			map.put("id", id);
-			List<Map> amap=null;
 		List<AccountDTO> aList=null;
 			
 		SqlSession session = factory.openSession();
@@ -85,7 +92,46 @@ public class AccountDAO {
 			return aList;
 		}
 	}
+<<<<<<< HEAD
 //	회원 탈퇴
+=======
+	
+	public List<AccountDTO> selectAllAccountFollowing(String id) {
+		Map map = new HashMap<>();
+			map.put("id", id);
+		List<AccountDTO> aList = null;
+
+		SqlSession session = factory.openSession();
+		try {
+			aList = session.selectList("account.selectAllAccountFollowing", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+			return aList;
+		}
+		
+	}
+	
+	public List<AccountDTO> selectAllAccountFollower(String id) {
+		Map map = new HashMap<>();
+			map.put("id", id);
+		List<AccountDTO> aList = null;
+
+		SqlSession session = factory.openSession();
+		try {
+			aList = session.selectList("account.selectAllAccountFollower", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+			return aList;
+		}
+		
+	}
+	
+
+>>>>>>> refs/heads/jaylee
 	public int deleteAccount(String id, String pass) {
 		Map map = new HashMap<>();
 			map.put("id", id);

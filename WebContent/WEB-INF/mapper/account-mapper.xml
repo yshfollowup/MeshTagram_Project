@@ -22,6 +22,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectAllAccount" resultType="mvc.model.AccountDTO">
 		select * from account
 	</select>
+
+	<resultMap type="FollowDTO" id="FollowDTO">
+		<result column="no" property="no" />
+		<result column="me" property="me" />
+		<result column="target" property="target" />
+		<result column="scope" property="scope" />
+	</resultMap>
+
+	<resultMap type="AccountDTO" id="AccountDTO">
+		<result column="id" property="id" />
+		<result column="pass" property="pass" />
+		<result column="email" property="email" />
+		<result column="name" property="name" />
+		<result column="phone" property="phone" />
+		<result column="profile" property="profile" />
+		<result column="nick" property="nick" />
+		<result column="intro" property="intro" />
+		<result column="scope" property="scope" />
+		<collection property="FollowDTO" resultMap="FollowDTO" />
+	</resultMap>
+	
+	<select id="selectAllAccountFollowing" parameterType="List" resultMap="AccountDTO">
+		select * from account inner join follow on account.id = follow.me where account.id = #{id }
+	</select>
+	
+	<select id="selectAllAccountFollower" parameterType="List" resultMap="AccountDTO">
+		select * from account inner join follow on account.id = follow.target where follow.target = #{target }
+	</select>
+	
 	
 	<!-- 업데이트 -->
 	<delete id="deleteAccount">
