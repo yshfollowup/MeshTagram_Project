@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.WebRequest;
 
 import mvc.model.AccountDTO;
 import mvc.service.AccountDAO;
@@ -50,36 +49,41 @@ public class AccountController {
 	//접속
 	@RequestMapping(path="/login.do", method=RequestMethod.POST)
 	public String loginHandle(@RequestParam MultiValueMap<String, String> vmap, ModelMap modelMap,
-			HttpServletResponse resp, WebRequest web, @CookieValue(name="setId", required=false) String setId) {
+			HttpServletRequest req, HttpServletResponse resp, @CookieValue(name="setId", required=false) String setId) {
 		String id = vmap.getFirst("id");
 		String pass = vmap.getFirst("pass");
-		System.out.println(id+pass+"받음");
+		System.out.println("[SERVER]: received id & pass: "+id+", "+pass);
 		AccountDTO aDTO = aDAO.selectOneAccount(id, pass);
 		if (aDTO == null) {
 			System.out.println("[SERVER]: login failed");
 			return "insta_login";
 		}
+		System.out.println("[SERVER]: login success");
 		
 		//계정 정보
 		modelMap.put("aDTO", aDTO);
 		
-		String value=new String(id);
-		Cookie cookie= null;
+		//사용자 id 쿠키 등록
+		String value = new String(id);
+		Cookie[] cookies = req.getCookies();
+		Cookie cookie = null;
+		for (Cookie c : cookies) {
+			if (c.equals(value)) {
+				cookie = c;
+				break;
+			}
+		}
 		
-		
-		if(setId !=null) {
-					System.out.println("쿠키 존재");
-					cookie=new Cookie("setId",value);
-					
-				}else {
-					System.out.println("쿠키 없을때 생성한다.");
-					cookie=new Cookie("setId",value);
-				}
-		
-		cookie.setPath("/");
-		cookie.setMaxAge(60*60*24);
-		resp.addCookie(cookie);
-		
+		if (setId != null) {
+			System.out.println("[SERVER]: cookie(user id: " + setId + ") exist");
+		} else {
+			System.out.println("[SERVER]: new cookie created");
+			cookie = new Cookie("setId", value);
+			cookie.setPath("/");
+			cookie.setMaxAge(60*60*24);
+			resp.addCookie(cookie);
+		}
+
 		//이전에 쓴 모든 게시물 정보
 		List<Map> allPost = pDAO.findAllPost();
 		if(allPost != null) 
