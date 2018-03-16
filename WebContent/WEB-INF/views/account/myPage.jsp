@@ -5,10 +5,8 @@
 
 
 <div>
-	<img src="/image/insta.jpg" style="width: 300px; height: 300px; border-radius: 30px" id="preview"> ${aDTO.ID }</br>
+	<img src="/image/insta.jpg" style="width: 300px; height: 300px; border-radius: 30px" id="preview"> </br>
 	게시물${fn:length(myPost) } 팔로워${fn:length(follow.target) } 팔로우${fn:length(follow.me) }</br>
-	${aDTO.NAME }
-
 </div>
 
 <div>

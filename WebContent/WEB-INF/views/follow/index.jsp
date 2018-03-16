@@ -6,8 +6,15 @@
 <form action="/follow/plus.do" >
 <c:forEach var="obj" items="${follow }"> 
 <p style="float: left; width: 33%;">
-<a href="/account/myPage.do?id=${obj.id }"><img src="${applicationScope.path }${obj.PROFILE}" style="width: 30px; border-radius:100%" id="profile"/></a>
-<a href="/follow/myPage.do?id=${obj.id }" name="id">${obj.ID }</a>
+<c:choose >
+<c:when test="${empty obj.PROFILE }">
+<img src="/image/insta.jpg" style="width: 30px; height: 30px; border-radius: 30px" id="preview">
+</c:when>
+<c:otherwise>
+<img src="${applicationScope.path }${obj.PROFILE}" style="width: 30px; border-radius:100%" id="profile"/>
+</c:otherwise>
+</c:choose>
+<a href="/account/myPage.do?id=${obj.ID}" name="id">${obj.ID }</a>
 <button type="submit" >팔로우</button>
 </p>
 </c:forEach>

@@ -104,7 +104,7 @@ public class AccountController {
 	}
 	//접속
 	@RequestMapping(path="/login.do", method=RequestMethod.GET)
-	public String logingetHandle(ModelMap modelMap,	HttpServletResponse resp, @CookieValue(name="setId", required=false) String setId) {
+	public String logingetHandle(ModelMap modelMap, @CookieValue(name="setId", required=false) String setId) {
 		System.out.println("[SERVER]: login success"+setId);
 		String id = setId;
 		//계정 정보
@@ -149,6 +149,9 @@ public class AccountController {
 		
 		return "insta_myPage";
 	}
+	
+	
+	
 	
 	//게시물 업로드 페이지
 	@RequestMapping("/upload.do")
