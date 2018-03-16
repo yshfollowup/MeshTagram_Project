@@ -12,13 +12,3 @@
 </p>
 </c:forEach>
 </form>
-	<form action="/follow/plus.do">
-		<c:forEach var="obj" items="${follow }">
-			<p style="float: left; width: 33%;">
-				<a href="/account/myPage.do?id=${cookie.setId }"><img src="/image/insta.jpg" style="width: 30px; border-radius: 100%" id="profile" /></a> <a href="/account/myPage.do?id=${cookie.setId }" name="id">${cookie.setId }</a>
-				<button type="submit">팔로우</button>
-			</p>
-		</c:forEach>
-	</form>
->>>>>>> branch 'master' of https://github.com/maskd9/Insta_Project.git
-</div>

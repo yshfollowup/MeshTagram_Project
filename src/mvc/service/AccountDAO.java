@@ -60,8 +60,7 @@ public class AccountDAO {
 			
 		SqlSession session = factory.openSession();
 		try {
-			amap = session.selectList("account.selectAllAccount", map);
-			aList = session.selectList("account.selectAllAccount", map);
+			aList = session.selectList("account.selectAllAccountNotme", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

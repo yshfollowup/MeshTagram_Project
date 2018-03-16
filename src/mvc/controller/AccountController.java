@@ -49,7 +49,7 @@ public class AccountController {
 	//접속
 	@RequestMapping(path="/login.do", method=RequestMethod.POST)
 	public String loginHandle(@RequestParam MultiValueMap<String, String> vmap, ModelMap modelMap,
-			HttpServletRequest req, HttpServletResponse resp, @CookieValue(name="setId", required=false) String setId) {
+		HttpServletResponse resp, @CookieValue(name="setId", required=false) String setId) {
 		String id = vmap.getFirst("id");
 		String pass = vmap.getFirst("pass");
 		System.out.println("[SERVER]: received id & pass: "+id+", "+pass);
@@ -64,25 +64,22 @@ public class AccountController {
 		modelMap.put("aDTO", aDTO);
 		
 		//사용자 id 쿠키 등록
-		String value = new String(id);
-		Cookie[] cookies = req.getCookies();
-		Cookie cookie = null;
-		for (Cookie c : cookies) {
-			if (c.equals(value)) {
-				cookie = c;
-				break;
-			}
-		}
+		String value=new String(id);
+		Cookie cookie= null;
 		
-		if (setId != null) {
-			System.out.println("[SERVER]: cookie(user id: " + setId + ") exist");
-		} else {
-			System.out.println("[SERVER]: new cookie created");
-			cookie = new Cookie("setId", value);
-			cookie.setPath("/");
-			cookie.setMaxAge(60*60*24);
-			resp.addCookie(cookie);
-		}
+		
+		if(setId !=null) {
+					System.out.println("쿠키 존재");
+					cookie=new Cookie("setId",value);
+					
+				}else {
+					System.out.println("쿠키 없을때 생성한다.");
+					cookie=new Cookie("setId",value);
+				}
+		
+		cookie.setPath("/");
+		cookie.setMaxAge(60*60*24);
+		resp.addCookie(cookie);
 
 		//이전에 쓴 모든 게시물 정보
 		List<Map> allPost = pDAO.findAllPost();
