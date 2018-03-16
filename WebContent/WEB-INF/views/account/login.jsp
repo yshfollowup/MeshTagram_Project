@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div id="login">
-<form action="/account/login.do" autocomplete="off">
+<form action="/account/login.do" autocomplete="off" method="post">
 	<p>
 		<input type="text" id="id" name="id" placeholder="아이디"  
 		style="padding: 5px; font-size: 14pt; width: 250px;" pattern="[A-Za-z0-9]+"/>

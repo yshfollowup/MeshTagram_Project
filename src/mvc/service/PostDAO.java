@@ -35,7 +35,8 @@ public class PostDAO {
 	//Find(=Search)
 	public List<Map> findAllPost() {
 		List<Map> list = new LinkedList<>();
-		list = template.findAll(Map.class, "post");
+		System.out.println("게시물 받음");
+		list = template.findAll(Map.class, "MeshTagramUpload");
 		return list;
 	}
 	

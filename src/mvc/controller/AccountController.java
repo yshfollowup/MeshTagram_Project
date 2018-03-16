@@ -3,12 +3,18 @@ package mvc.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 
 import mvc.model.AccountDTO;
 import mvc.service.AccountDAO;
@@ -41,8 +47,9 @@ public class AccountController {
 		return "insta_login";
 	}
 	//접속
-	@RequestMapping("/login.do")
-	public String loginHandle(@RequestParam MultiValueMap<String, String> vmap, ModelMap modelMap) {
+	@RequestMapping(path="/login.do", method=RequestMethod.POST)
+	public String loginHandle(@RequestParam MultiValueMap<String, String> vmap, ModelMap modelMap,
+			HttpServletResponse resp,HttpServletRequest req, WebRequest web) {
 		String id = vmap.getFirst("id");
 		String pass = vmap.getFirst("pass");
 		System.out.println(id+pass+"받음");
@@ -55,6 +62,29 @@ public class AccountController {
 		//계정 정보
 		modelMap.put("aDTO", aDTO);
 		
+		/*String value=new String(id+","+pass);
+		Cookie cookie= null;
+		
+		Cookie[] getCookie= req.getCookies();
+		if(getCookie !=null) {
+			for(int i=0; i<getCookie.length;i++) {
+				Cookie c=getCookie[i];
+				if(c.getName().equals("setid")) {
+					System.out.println("쿠키 존재");
+					String nId=c.getName()+","+c.getValue();
+					cookie=new Cookie("setId",nId);
+					
+				}else {
+					System.out.println("쿠키 없을때 생성한다.");
+					cookie=new Cookie("setId",value);
+				}
+			}
+		}
+		
+		cookie.setPath("/");
+		cookie.setMaxAge(60*60*24);
+		resp.addCookie(cookie);
+		*/
 		//이전에 쓴 모든 게시물 정보
 		List<Map> allPost = pDAO.findAllPost();
 		if(allPost != null) 
