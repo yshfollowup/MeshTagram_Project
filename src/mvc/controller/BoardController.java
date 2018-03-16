@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,7 +29,7 @@ public class BoardController {
 	PostDAO dao;
 	//=======================================
 	//게시물 업로드
-	@RequestMapping("/uploadp.do")
+	@RequestMapping(path="/uploadp.do", method=RequestMethod.POST)
 	public String uploadHandle(@RequestParam("photo") MultipartFile file,
 			HttpServletRequest req,@RequestParam("comment") String comm, @RequestParam("id") String id) throws IOException, InterruptedException {
 		System.out.println("들어옴");
@@ -42,6 +43,7 @@ public class BoardController {
 			try {
 				file.transferTo(target);
 				rst=true;
+				System.out.println("업로드");
 			}catch(Exception e) {
 				rst=false;
 			}

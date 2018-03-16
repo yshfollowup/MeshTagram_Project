@@ -4,8 +4,7 @@
 <div style="margin-top: 20px" align="center">
 	<h2>게시물 등록</h2>
 	<small>사진을 선택한 후, 멘트를 달아주세요.</small>
-	<form action="/account/uploadp.do" method="post"
-		enctype="multipart/form-data">
+	<form action="/account/uploadp.do" method="post" enctype="multipart/form-data">
 		<div>
 			<img src="/image/insta.jpg"
 				style="width: 300px; height: 300px; border-radius: 30px"

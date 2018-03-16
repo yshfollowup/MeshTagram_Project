@@ -12,6 +12,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectOneAccount" resultType="mvc.model.AccountDTO">
 		select * from account where id = #{id } and pass = #{pass }
 	</select>
+	<select id="selectOneAccountre" resultType="mvc.model.AccountDTO">
+		select * from account where id = #{id } and pass = #{pass }
+	</select>
 	
 	<select id="selectAllAccountNotme" resultType="java.util.LinkedHashMap">
 		select * from account where id != #{id}

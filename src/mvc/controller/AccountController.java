@@ -99,6 +99,34 @@ public class AccountController {
 		System.out.println("[SERVER]: login success");
 		return "insta_main";
 	}
+	//접속
+	@RequestMapping(path="/login.do", method=RequestMethod.GET)
+	public String logingetHandle(ModelMap modelMap,	HttpServletResponse resp, @CookieValue(name="setId", required=false) String setId) {
+		System.out.println("[SERVER]: login success"+setId);
+		String id = setId;
+		//계정 정보
+		AccountDTO aDTO = aDAO.selectOneAccountre(id);
+		modelMap.put("aDTO", aDTO);
+		
+		//이전에 쓴 모든 게시물 정보
+		List<Map> allPost = pDAO.findAllPost();
+		if(allPost != null) 
+			modelMap.put("allPost", allPost);
+		
+		//이전에 달았던 모든 댓글 정보
+		List<Map> allReply = rDAO.findAllReply();
+		if(allReply != null)
+			modelMap.put("allReply", allReply);
+		
+		//이전에 대화한 모든 메시지
+		List<Map> allMessage = mDAO.findAllMessage();
+		if(allMessage != null)
+			modelMap.put("allMessage", allMessage);
+		
+		System.out.println("[SERVER]: login success");
+		return "insta_main";
+	}
+	
 	//게시물 업로드 페이지
 	@RequestMapping("/upload.do")
 	public String uploadHandle() {

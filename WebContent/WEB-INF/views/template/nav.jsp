@@ -4,7 +4,7 @@
 <div>
 	<div>
 		<div>
-		<a href="/account/login.do?" align="left">홈페이지</a> 
+		<a href="/account/login.do" align="left">홈페이지</a> 
 			<div align="right">
 			<form action="/account/search.do?tag="method="get">
 			<p align="center">

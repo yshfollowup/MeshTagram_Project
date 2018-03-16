@@ -3,11 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-${aDTO.id}
 
-<c:forEach var="obj" items="${allPost }">
-<img src="/image/insta.jpg" style="width: 300px; height: 300px; border-radius: 30px" id="preview">	
-</c:forEach>
 
 <div align="center" style="min-height: 590px;">
 		<c:forEach var="obj" items="${allPost}">
