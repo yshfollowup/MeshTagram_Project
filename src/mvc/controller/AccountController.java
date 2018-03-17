@@ -66,20 +66,17 @@ public class AccountController {
 		//계정 정보
 		modelMap.put("aDTO", aDTO);
 		
-		//사용자 id 쿠키 등록
-		String value=new String(id);
+		//현재 사용자 id 쿠키 등록, 이전 사용자의 쿠키는 지워야함.
 		Cookie cookie= null;
 		
-		
-		if(setId !=null) {
-					System.out.println("쿠키 존재");
-					cookie=new Cookie("setId",value);
-					
-				}else {
-					System.out.println("쿠키 없을때 생성한다.");
-					cookie=new Cookie("setId",value);
-				}
-		
+		if (setId != null) {
+			System.out.println("[SERVER]: cookie exist");
+			cookie = new Cookie("setId", id);
+		} else {
+			System.out.println("[SERVER]: cookie create");
+			cookie = new Cookie("setId", id);
+		}
+
 		cookie.setPath("/");
 		cookie.setMaxAge(60*60*24);
 		resp.addCookie(cookie);

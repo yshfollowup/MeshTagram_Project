@@ -52,17 +52,35 @@ public class FollowController {
 		
 		return "insta_follow";
 	}
+	
 	@RequestMapping("/insert.do")
 	public String insertHandle(@RequestParam MultiValueMap<String,String> vmap) {
-		String me=vmap.getFirst("me");
-		String target=vmap.getFirst("target");
+		String me = vmap.getFirst("me");
+		String target = vmap.getFirst("target");
+		System.out.println("[SERVER]: insert follow, me->"+me+" | target->"+target);
 		
 		int r= fDAO.insertFollow(me, target);
 		if(r==0) {
-			System.out.println("[SERVER]: follow failed"+r);
+			System.out.println("[SERVER]: follow failed "+r);
 			return "insta_follow";
 		}
 		System.out.println("[SERVER]: follow success");
+		
+		return "insta_follow";
+	}
+	
+	@RequestMapping("/delete.do")
+	public String deleteHandle(@RequestParam MultiValueMap<String,String> vmap) {
+		String me = vmap.getFirst("me");
+		String target = vmap.getFirst("target");
+		System.out.println("[SERVER]: delete follow, me->"+me+" | target->"+target);
+		
+		int r= fDAO.deleteFollow(me, target);
+		if(r==0) {
+			System.out.println("[SERVER]: delete failed "+r);
+			return "insta_follow";
+		}
+		System.out.println("[SERVER]: delete success");
 		
 		return "insta_follow";
 	}

@@ -65,7 +65,9 @@
 			$("#rst").html(obj.result);
 		});
 	});
-	disabled();
+	
+	// 테스트 위해 일단 주석처리함.
+/* 	disabled();
 	function disabled() {
 		$(".btn").prop("disabled", true);
 		if ("${rst }" == "true") {
@@ -73,6 +75,6 @@
 			$(".btn-default").prop("disabled", false);
 		}
 
-	}
+	} */
 
 </script>

@@ -19,17 +19,38 @@ public class FollowDAO {
 	SqlSessionFactory factory;
 	
 	public int insertFollow(String me ,String target) {
+		Map map = new HashMap();
+			map.put("me", me);
+			map.put("target", target);
+		
 		FollowDTO fDTO = new FollowDTO();
-		fDTO.setMe(me);
-		fDTO.setTarget(target);
+			fDTO.setMe(me);
+			fDTO.setTarget(target);
+			
 		SqlSession session=factory.openSession();
 		int r =0;
 		try {
-			r= session.insert("follow.insertFollow", fDTO);
-			
+			r= session.insert("follow.insertFollow", map);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
+			session.close();
+			return r;
+		}
+	}
+	
+	public int deleteFollow(String me, String target) {
+		FollowDTO fDTO = new FollowDTO();
+			fDTO.setMe(me);
+			fDTO.setTarget(target);
+
+		SqlSession session = factory.openSession();
+		int r = 0;
+		try {
+			r = session.delete("follow.deleteFollow", fDTO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
 			session.close();
 			return r;
 		}

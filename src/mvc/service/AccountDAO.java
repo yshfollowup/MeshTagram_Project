@@ -88,9 +88,9 @@ public class AccountDAO {
 			return aList;
 		}
 	}
-//	회원 탈퇴
 	
-	public List<AccountDTO> selectAllAccountFollowing(String id) {
+	// 팔로잉 (내가 팔로우한 친구) 모두 선택
+	public List<AccountDTO> selectAllAccountFollowing(String id) {  // id 는 사용자
 		Map map = new HashMap<>();
 			map.put("id", id);
 		List<AccountDTO> aList = null;
@@ -107,7 +107,8 @@ public class AccountDAO {
 		
 	}
 	
-	public List<AccountDTO> selectAllAccountFollower(String target) {
+	// 팔로워 (나를 팔로우한 친구들) 모두 선택
+	public List<AccountDTO> selectAllAccountFollower(String target) {  // target 은 사용자
 		Map map = new HashMap<>();
 			map.put("target", target);
 		List<AccountDTO> aList = null;
