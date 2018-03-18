@@ -30,7 +30,13 @@
 	<definition name="insta_follow" extends="insta_abstract">
 		<put-attribute name="body" value="/WEB-INF/views/follow/index.jsp"></put-attribute>
 	</definition>
-		<definition name="insta_myPage" extends="insta_abstract">
-		<put-attribute name="body" value="/WEB-INF/views/account/myPage.jsp"></put-attribute>
+	<definition name="insta_myPage" extends="insta_abstract">
+		<put-attribute name="body" value="/WEB-INF/views/mypage/myPage.jsp"></put-attribute>
+	</definition>
+	<definition name="myPage_follower" extends="insta_abstract">
+		<put-attribute name="body" value="/WEB-INF/views/mypage/follower.jsp"></put-attribute>
+	</definition>
+	<definition name="myPage_following" extends="insta_abstract">
+		<put-attribute name="body" value="/WEB-INF/views/mypage/following.jsp"></put-attribute>
 	</definition>
 </tiles-definitions>

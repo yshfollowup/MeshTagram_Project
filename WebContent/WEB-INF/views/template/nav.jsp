@@ -12,7 +12,7 @@
 			</form>
 				<a href="/follow/index.do">팔로우</a> |
 				<a href="/account/upload.do">글쓰기</a> |
-				<a href="/account/myPage.do">마이페이지</a>
+				<a href="/mypage/index.do">마이페이지</a>
 			</div>
 		</div>
 	</div>

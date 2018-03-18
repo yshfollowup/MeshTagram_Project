@@ -6,9 +6,9 @@
 
 <div align="center" style="min-height: 490px;">
 	<p>
-		<h4><b>모든 회원</b></h4>
+		<h4 align="left"><b>사람 찾기</b></h4><a href="/follow/all.do"><small align="right">모두보기</small></a>
 	</p>
-	<c:forEach var="obj" items="${member }">
+		<c:forEach var="obj" items="${member }">
 		<p style="float: left; width: 25%;">
 			<c:choose>
 				<c:when test="${empty obj.PROFILE }">
@@ -20,56 +20,36 @@
 				</c:otherwise>
 			</c:choose>
 			<a href="/account/myPage.do?id=${obj.ID}" name="id">${obj.ID }</a>
-			<input  type="button" name="${obj.ID }" value="팔로우" onclick="location.href='/follow/insert.do?me=${cookie.setId.value}&target=${obj.ID}'"/>
-		</p>
-	</c:forEach>
-</div>
-
-<hr/>
-<div align="center" style="min-hight: 490px">
-	<p>
-		<h4><b>팔로잉 - 내가 팔로우한 친구</b></h4>
-	</p>
-	<c:forEach var="obj" items="${following }">
-		<p style="float: left; width: 25%;">
 			<c:choose>
-				<c:when test="${empty obj.PROFILE }">
-					<img src="/image/insta.jpg" style="width: 30px; height: 30px; border-radius: 30px" id="preview">
-				</c:when>
-				<c:otherwise>
-					<img src="${applicationScope.path }${obj.PROFILE}" style="width: 30px; border-radius: 100%" id="profile" />
-				</c:otherwise>
+			<c:when test="${empty obj.TARGET }">
+				<input  class="follower" type="button" name="${obj.ID }" value="팔로우" />
+			</c:when>	
+			<c:otherwise>
+				<input  class="following" type="button" name="${obj.ID }" value="팔로잉" />
+			</c:otherwise>	
 			</c:choose>
-			<a href="/account/myPage.do?id=${obj.ID}" name="id">${obj.ID }</a>
-			<input  type="button" name="${obj.ID }" value="언팔로우" onclick="location.href='/follow/delete.do?me=${cookie.setId.value}&target=${obj.ID}'"/>
 		</p>
 	</c:forEach>
+	
 </div>
-
-<hr/>
-<div align="center" style="min-hight: 490px">
-	<p>
-		<h4><b>팔로워 - 나를 팔로우한 친구</b></h4>
-	</p>
-	<c:forEach var="obj" items="${follower }">
-		<p style="float: left; width: 25%;">
-			<c:choose>
-				<c:when test="${empty obj.PROFILE }">
-					<img src="/image/insta.jpg" style="width: 30px; height: 30px; border-radius: 30px" id="preview">
-				</c:when>
-				<c:otherwise>
-					<img src="${applicationScope.path }${obj.PROFILE}" style="width: 30px; border-radius: 100%" id="profile" />
-				</c:otherwise>
-			</c:choose>
-			<a href="/account/myPage.do?id=${obj.ID}" name="id">${obj.ID }</a>
-			<input  type="button" name="${obj.ID }" value="팔로우" onclick="location.href='/follow/insert.do?me=${cookie.setId.value}&target=${obj.ID}'"/>
-		</p>
-	</c:forEach>
-</div>
-
-
+<!-- =========================================================================================================== -->
 
 <script>
 
-
+$(".follower").click(function(){
+	if($(this).val() =="팔로우"){
+	var a=$(this).attr("name");
+		console.log(a);
+		$(this).val("팔로잉");
+		location.href="/follow/insert.do?me=${cookie.setId.value}&target="+a;
+	}
+});
+$(".following").click(function(){
+	if($(this).val() =="팔로잉"){
+		var a=$(this).attr("name");
+		console.log(this);
+		$(this).val("팔로우");
+		location.href="/follow/delete.do?me=${cookie.setId.value}&target="+a;
+	}
+});
 </script>

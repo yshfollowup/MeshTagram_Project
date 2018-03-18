@@ -127,26 +127,7 @@ public class AccountController {
 		return "insta_main";
 	}
 	
-	@RequestMapping("/myPage.do")
-	public String MyPageHandle(@CookieValue(name="setId", required=false) String setId,ModelMap modelMap) {
-		System.out.println("[SERVER]: MyPage success"+setId);
-		String id = setId;
-		//계정 정보
-		AccountDTO aDTO = aDAO.selectOneAccountre(id);
-		modelMap.put("aDTO", aDTO);
-		
-		//이전에 쓴 모든 게시물 정보
-		List<Map> myPost = pDAO.findAllPost();
-		if(myPost != null) 
-		modelMap.put("myPost", myPost);
-		
-		//List<FollowDTO> fDTO =fDAO.findMe(setId);
-		//if(fDTO != null) 
-		//modelMap.put("fDTO", fDTO);
-		
-		return "insta_myPage";
-	}
-	
+
 	
 	
 	

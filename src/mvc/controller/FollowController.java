@@ -66,7 +66,7 @@ public class FollowController {
 		}
 		System.out.println("[SERVER]: follow success");
 		
-		return "insta_follow";
+		return "redirect:/follow/index.do";
 	}
 	
 	@RequestMapping("/delete.do")
@@ -82,6 +82,6 @@ public class FollowController {
 		}
 		System.out.println("[SERVER]: delete success");
 		
-		return "insta_follow";
+		return "redirect:/follow/index.do";
 	}
 }
