@@ -23,8 +23,9 @@ public class PostDAO {
 		Map<String, Object> map = new LinkedHashMap<>();
 		//System.out.println((String)param.get("writer")+(String)param.get("image"));
 			map.put("id", (String)param.get("writer"));
-			map.put("image", (String)param.get("image"));
-			map.put("date", (String)param.get("time"));
+			map.put("image", param.get("image"));
+			//map.put("path", param.get("path"));
+			map.put("date", param.get("time"));
 			map.put("comment", (String)param.get("comment"));
 			map.put("tags", (List)param.get("tags"));
 			template.insert(map,"MeshTagramUpload");
