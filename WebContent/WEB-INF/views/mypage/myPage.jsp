@@ -5,7 +5,8 @@
 
 <span id="all-screen" aria-hidden="true">
 <div>
-	<img src="/image/insta.jpg" style="width: 300px; height: 300px; border-radius: 30px" id="preview"> </br>
+	<img src="/image/insta.jpg" style="width: 300px; height: 300px; border-radius: 30px" id="preview">${aDTO.id } 
+	<button type="button" onclick="location.href='/mypage/edit.do'">프로필 편집</button> <br/>
 	게시물${fn:length(myPost) } <a href="follower.do" id="follower">팔로워${fn:length(follower) }</span>  <a href="following.do" id="following">팔로우${fn:length(following) }</span></br>
 </div>
 

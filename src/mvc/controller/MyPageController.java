@@ -10,6 +10,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import mvc.model.AccountDTO;
@@ -135,5 +136,40 @@ public class MyPageController {
 		
 		return "redirect:/mypage/following.do";
 	}
+	@RequestMapping(path="/edit.do", method=RequestMethod.GET)
+	public String editHandle(ModelMap modelMap, @CookieValue(name="setId", required=false) String setId) {
+		System.out.println("[SERVER]: login success"+setId);
+		String id = setId;
+		//계정 정보
+		AccountDTO aDTO = aDAO.selectOneAccountre(id);
+		modelMap.put("aDTO", aDTO);
+		
+		System.out.println("[SERVER]: login success");
+		return "mypage_edit";
+	}
+	@RequestMapping(path="/edit.do", method=RequestMethod.POST)
+	public String editUpdateHandle(ModelMap modelMap, @CookieValue(name="setId", required=false) String setId) {
+		System.out.println("[SERVER]: login success"+setId);
+		String id = setId;
+		//계정 정보
+		int r = aDAO.updateAccount(id);
+		
+		AccountDTO aDTO = aDAO.selectOneAccountre(id);
+		modelMap.put("aDTO", aDTO);
+		
+		System.out.println("[SERVER]: login success");
+		return "redirect:/mypage/index.do";
+	}
 
+	@RequestMapping(path="/pass.do", method=RequestMethod.GET)
+	public String passHandle(ModelMap modelMap, @CookieValue(name="setId", required=false) String setId) {
+		System.out.println("[SERVER]: login success"+setId);
+		String id = setId;
+		//계정 정보
+		AccountDTO aDTO = aDAO.selectOneAccountre(id);
+		modelMap.put("aDTO", aDTO);
+		
+		System.out.println("[SERVER]: login success");
+		return "mypage_pass";
+	}
 }
