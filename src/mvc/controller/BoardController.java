@@ -7,12 +7,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +30,7 @@ public class BoardController {
 	@Autowired
 	ServletContext ctx;
 	@Autowired
-	PostDAO dao;
+	PostDAO pDao;
 
 	// =======================================
 	// 게시물 업로드
@@ -46,6 +48,7 @@ public class BoardController {
 				li.add(tag);
 			}
 		}
+		
 		if (files.length != 0) {
 			File target = null;
 			String path = ctx.getRealPath("/");
@@ -53,15 +56,17 @@ public class BoardController {
 			System.out.println(path);
 
 			
-			List<File> result = new ArrayList<>();
+			List<String> result = new ArrayList<>();
 			for (MultipartFile file : files) {
 				String str = sdf.format(System.currentTimeMillis());
 				Long size = file.getSize();
+				String original = file.getOriginalFilename();
 				if (size < (1024 * 1024 * 10)) {
-					target = new File(path, str + ".png");
-					System.out.println(file + comm + id);
-					result.add(target);
-					
+					target = new File(path, str +"."+ FilenameUtils.getExtension(original));
+					String targetName = target.getName();
+					System.out.println(targetName +"//"+ comm +"//"+ id);
+					result.add("/" + targetName);
+					//System.out.println(result);
 					try {
 						file.transferTo(target);
 						rst = true;
@@ -71,22 +76,22 @@ public class BoardController {
 				}
 			}
 			
+			
 			if (rst) {
-				//업로드한 파일의 갯수만큼 li2에 저장
-				List<List> li2 = new ArrayList<>();
-				for (File result2 : result) {
-					li2.add((List) result2);
-				}
 				Map map = new LinkedHashMap<>();
 				map.put("writer", id);
-				map.put("image", "/" + li2);
-				System.out.println();
+				//업로드한 파일의 갯수만큼 uploads에 저장
+				for(String uploads : result) {
+					map.put("image", uploads);
+					System.out.println(uploads);
+				}
+				//map.put("path", path);
 				map.put("time", new Date());
 				map.put("comment", comm);
 				map.put("tags", li);
 				System.out.println(map);
 				// template.insert(map, "instagram");
-				dao.insertImage(map);
+				pDao.insertImage(map);
 			}
 
 		}

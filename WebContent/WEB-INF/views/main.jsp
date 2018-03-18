@@ -11,7 +11,7 @@
 				<small><c:forEach items="${obj.tags }" var="tag">
 						<a href="/account/search.do?tag=${fn:replace(tag,'#','%23') }">${tag }</a>
 				</c:forEach> </small> <br /> 
-				<img src="${applicationScope.path }${i.image}"
+				<img src="${obj.path }${obj.image}"
 					style="width: 230px; height: 230px;" onclick="openDialog('${i._id}')" />
 			</p>
 		</c:forEach>
