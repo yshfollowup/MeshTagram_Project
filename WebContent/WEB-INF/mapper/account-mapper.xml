@@ -12,6 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectOneAccount" resultType="mvc.model.AccountDTO">
 		select * from account where id = #{id } and pass = #{pass }
 	</select>
+	
 	<select id="selectOneAccountre" resultType="mvc.model.AccountDTO">
 		select * from account where id = #{id }
 	</select>
@@ -19,35 +20,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectAllAccountNotme" resultType="java.util.LinkedHashMap">
 		select * from account where id != #{id}
 		</select>
+		
 	<select id="selectAllAccount" resultType="mvc.model.AccountDTO">
 		select * from account
 	</select>
+	
+	<select id="selectTop5Account" resultType="java.util.LinkedHashMap">
+		select id, count(*) as cnt from account inner join follow on account.id = follow.target where follow.target != #{id }
+	</select>
 
-
-	<!-- 내가 following 한 친구 찾기 -->
-	<select id="selectAllAccountFollowing1" resultType="java.util.LinkedHashMap">
-		select * from account inner join follow on account.id = follow.user2 where (follow.user1 = #{user1 } and follow.following1 = 1)
-	</select>
-	<select id="selectAllAccountFollowing2" resultType="java.util.LinkedHashMap">
-		select * from account inner join follow on account.id = follow.user1 where (follow.user1 = #{user2 } and follow.following2 = 1)
-	</select>
-	
-	<!-- 나를 follow 한 친구 찾기 -->
-	<select id="selectAllAccountFollower1" resultType="java.util.LinkedHashMap">
-		select * from account inner join follow on account.id = follow.user2 where follow.user1 = #{user1 }
-	</select>
-	<select id="selectAllAccountFollower2" resultType="java.util.LinkedHashMap">
-		select * from account inner join follow on account.id = follow.user1 where follow.user1 = #{user2 }
-	</select>
-	
-	
-	
-	<!-- 업데이트 -->
+	<!-- 계정 삭제 -->
 	<delete id="deleteAccount">
 		delete * from account where id= #{id }
 	</delete>
 	
+	
+	<!-- 프로필 편집 -->
 	<update id="updateAccont">
 		update * set phone= #{phone }, profile= #{profile }, nick= #{nick }, gender= #{gender }, birth= #{birth }, intro= #{intro }, scope= #{scope } where id= #{id }
 	</update>
+	
+	
+	<!-- 내가 follwing 한 사람 리스트 -->
+	<select id="selectAllAccountFollowing" resultType="java.util.LinkedHashMap">
+		select * from account inner join follow on account.id = follow.target where follow.owner = #{owner }
+	</select>
+	
+	<!-- 나를 follow 한 사람 리스트 -->
+	<select id="selectAllAccountFollower" resultType="java.util.LinkedHashMap">
+		select * from account inner join follow on account.id = follow.owner where follow.target = #{target }
+	</select>
+	
 </mapper>

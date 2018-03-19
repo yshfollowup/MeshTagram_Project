@@ -89,18 +89,32 @@ public class AccountDAO {
 		}
 	}
 	
-	// 팔로잉 (내가 팔로우한 친구) 모두 선택
-	public List<AccountDTO> selectAllAccountFollowing(String user1) {  // id 는 사용자
+	// 나를 제외한 모든 회원 중 follow 수 top5 출력
+	public List<AccountDTO> selectTop5Account(String id) {
 		Map map = new HashMap<>();
-			map.put("user1", user1);
+			map.put("id", id);
+		List<AccountDTO> aList=null;
+		
+		SqlSession session = factory.openSession();
+		try {
+			aList = session.selectList("account.selectTop5Account", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+			return aList;
+		}
+	}
+	
+	// 팔로잉 (내가 팔로우한 친구) 모두 선택
+	public List<AccountDTO> selectAllAccountFollowing(String owner) {  // owner 는 나
+		Map map = new HashMap<>();
+			map.put("owner", owner);
 		List<AccountDTO> aList = null;
-		List<AccountDTO> aList2 = null;
 
 		SqlSession session = factory.openSession();
 		try {
-			aList = session.selectList("account.selectAllAccountFollowing1", map);
-			aList2 = session.selectList("account.selectAllAccountFollowing2", map);
-			aList.addAll(aList2);
+			aList = session.selectList("account.selectAllAccountFollowing", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -111,27 +125,23 @@ public class AccountDAO {
 	}
 	
 	// 팔로워 (나를 팔로우한 친구들) 모두 선택
-	public List<AccountDTO> selectAllAccountFollower(String user1) {  // target 은 사용자
+	public List<AccountDTO> selectAllAccountFollower(String target) {  // target 은 나
 		Map map = new HashMap<>();
-			map.put("user1", user1);
+			map.put("target", target);
 		List<AccountDTO> aList = null;
-		List<AccountDTO> aList2 = null;
 
 		SqlSession session = factory.openSession();
 		try {
-			aList = session.selectList("account.selectAllAccountFollower1", map);
-			aList2 = session.selectList("account.selectAllAccountFollower2", map);
-			aList.addAll(aList2);
+			aList = session.selectList("account.selectAllAccountFollower", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			session.close();
 			return aList;
 		}
-		
 	}
 	
-
+	// 삭제
 	public int deleteAccount(String id, String pass) {
 		Map map = new HashMap<>();
 			map.put("id", id);

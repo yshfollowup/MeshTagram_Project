@@ -18,14 +18,14 @@ public class FollowDAO {
 	@Autowired
 	SqlSessionFactory factory;
 
-	public boolean selectOneFollow(String user1, String user2) {
+	public boolean selectOneFollow(String owner, String target) {
 		Map map = new HashMap();
-			map.put("user1", user1);
-			map.put("user2", user2);
+			map.put("owner", owner);
+			map.put("target", target);
 		
 		SqlSession session=factory.openSession();
 		try {
-			if (session.selectOne("follow.selectOneFollow") == null) {
+			if (session.selectOne("follow.selectOneFollow", map) == null) {
 				return true;
 			} else {
 				return false;
@@ -36,14 +36,14 @@ public class FollowDAO {
 		return false;
 	}
 	
-	public boolean selectOppositeFollow(String user1, String user2) {
+	public boolean selectOppositeFollow(String target, String owner) {
 		Map map = new HashMap();
-			map.put("user1", user1);
-			map.put("user2", user2);
+			map.put("target", target);
+			map.put("owner", owner);
 		
 		SqlSession session=factory.openSession();
 		try {
-			if (session.selectOne("follow.selectOppositeFollow") == null) {
+			if (session.selectOne("follow.selectOneFollow", map) == null) {
 				return true;
 			} else {
 				return false;
@@ -54,11 +54,11 @@ public class FollowDAO {
 		return false;
 	}
 	
-	// follow 로우 새로 삽입
-	public int insertFollow(String user1 ,String user2) {
+	// follow 로우 새로 삽입(owner, target 모두 not null)
+	public int insertFollow(String owner ,String target) {
 		Map map = new HashMap();
-			map.put("user1", user1);
-			map.put("user2", user2);
+			map.put("owner", owner);
+			map.put("target", target);
 		
 //		FollowDTO fDTO = new FollowDTO();
 //			fDTO.setUser1(user1);
@@ -77,44 +77,10 @@ public class FollowDAO {
 		}
 	}
 	
-	// follwing 의 업데이트
-	public int updateFollowUser1(String user1) {
+	public int deleteFollow(String owner, String target) {
 		FollowDTO fDTO = new FollowDTO();
-			fDTO.setUser1(user1);
-			
-		SqlSession session = factory.openSession();
-		int r = 0;
-		try {
-			r = session.update("follow.updateFollowUser1", fDTO);
-		} catch(Exception e) {
-			e.printStackTrace();
-		} finally {
-			session.close();
-			return r;
-		}
-	}
-	
-	// following1,2 모두 0일 떄 삭제
-	public int updateFollowUser2(String user1) {
-		FollowDTO fDTO = new FollowDTO();
-			fDTO.setUser2(user1);
-			
-		SqlSession session = factory.openSession();
-		int r = 0;
-		try {
-			r = session.update("follow.updateFollowUser2", fDTO);
-		} catch(Exception e) {
-			e.printStackTrace();
-		} finally {
-			session.close();
-			return r;
-		}
-	}
-	
-	public int deleteFollow(String user1, String user2) {
-		FollowDTO fDTO = new FollowDTO();
-			fDTO.setUser1(user1);
-			fDTO.setUser2(user2);
+			fDTO.setOwner(owner);
+			fDTO.setTarget(target);
 
 		SqlSession session = factory.openSession();
 		int r = 0;
@@ -128,10 +94,10 @@ public class FollowDAO {
 		}
 	}
 	
-	public List<FollowDTO> selectFollwing(String user1, String user2) {
+	// 내가 팔로잉한 사람들을 찾는다.
+	public List<FollowDTO> selectFollwing(String owner) { // owner 는 나
 		Map map = new HashMap<>();
-			map.put("user1", user1);
-			map.put("user2", user2);
+			map.put("owner", owner);
 		List<FollowDTO> fList = null;
 		
 		SqlSession session = factory.openSession();
@@ -145,10 +111,10 @@ public class FollowDAO {
 		}
 	}
 	
-	public List<FollowDTO> selectFollwer(String user1, String user2) {
+	// 나를 팔로우하고 있는 사람들을 찾는다.
+	public List<FollowDTO> selectFollwer(String target) {  // target 은 나
 		Map map = new HashMap<>();
-			map.put("user1", user1);
-			map.put("user2", user2);
+			map.put("target", target);
 		List<FollowDTO> fList = null;
 		
 		SqlSession session = factory.openSession();

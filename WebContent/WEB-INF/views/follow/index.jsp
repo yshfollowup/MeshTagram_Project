@@ -9,7 +9,6 @@
 		<h4 align="left"><b>사람 찾기</b></h4><a href="/follow/all.do"><small align="right">모두보기</small></a>
 	</p>
 		<c:forEach var="obj" items="${member }">
-		<c:forEach var="fobj" items="${following }">
 		<p style="float: left; width: 25%;">
 			<c:choose>
 				<c:when test="${empty obj.PROFILE }">
@@ -22,36 +21,67 @@
 			</c:choose>
 			<a href="/account/myPage.do?id=${obj.ID}" name="id">${obj.ID }</a>
 			<c:choose>
-			<c:when test="${obj.ID eq fobj.USER2 }">
+			<c:when test="${empty result}">
 				<input  class="follower" type="button" name="${obj.ID }" value="팔로우" />
 			</c:when>	
 			<c:otherwise>
 				<input  class="following" type="button" name="${obj.ID }" value="팔로잉" />
 			</c:otherwise>	
 			</c:choose>
-			</c:forEach>
 		</p>
 	</c:forEach>
-	
 </div>
 <!-- =========================================================================================================== -->
 
 <script>
-
-$(".follower").click(function(){
-	if($(this).val() =="팔로우"){
-	var a=$(this).attr("name");
-		console.log(a);
-		$(this).val("팔로잉");
-		location.href="/follow/insert.do?user1=${cookie.setId.value}&user2="+a;
-	}
-});
-$(".following").click(function(){
-	if($(this).val() =="팔로잉"){
-		var a=$(this).attr("name");
-		console.log(this);
-		$(this).val("팔로우");
-		location.href="/follow/delete.do?user1=${cookie.setId.value}&user2="+a;
-	}
-});
+	function refresh(){
+		$.ajac("/follow/info.do",{
+			"method" :"post",
+			"async" : true,
+			"data" : {
+				"me" : "${cookie.setId.value}",
+				
+			}
+		}).done(function(obj){
+			console.log("새로고침"+obj.status);
+			if(obj.status == "ok"){
+				src.html("팔로잉");
+			}
+		});
+	};
+	//refresh();
+	$(".follower").click(function() {
+		var setid="${cookie.setId.value}";
+		var src =$(this);
+		var a = $(this).attr("name");
+		
+		if($(this).html() == "팔로잉"){
+			$.ajax("/follow/delete.do",{
+				"method" : "get",
+				"async" : true,
+				"data" :{
+					"me" : setid,
+					"target" : a
+				}
+			}).done(function(obj2){
+				console.log("삭제 들어왔다.");
+				src.html("팔로우");
+				src.attr("name","${obj.ID}")
+			});
+		}else{
+			
+		$.ajax("/follow/insert.do",{
+			"method" : "get",
+			"async" : true,
+			"data" :{
+				"me" : "${cookie.setId.value}",
+				"target" : a
+			}
+		}).done(function(obj){
+			console.log("들어왔다.");
+			src.html("팔로잉");
+		});
+		}
+	});
+	
 </script>

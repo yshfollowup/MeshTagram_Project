@@ -12,7 +12,9 @@
 						<a href="/account/search.do?tag=${fn:replace(tag,'#','%23') }">${tag }</a>
 				</c:forEach> </small> <br /> 
 				<img src="${obj.path }${obj.image}"
-					style="width: 230px; height: 230px;" onclick="openDialog('${i._id}')" />
+					style="width: 230px; height: 230px;" onclick="openDialog('${obj._id}')" />
 			</p>
 		</c:forEach>
 	</div>
+	
+	
