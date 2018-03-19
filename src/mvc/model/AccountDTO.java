@@ -1,7 +1,5 @@
 package mvc.model;
 
-import org.springframework.stereotype.Repository;
-
 public class AccountDTO {
 	// field
 	private String id;

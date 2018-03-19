@@ -10,7 +10,7 @@
 	<mvc:annotation-driven />
 	<!-- scan scope -->
 	<context:component-scan base-package="mvc.controller" />
-	<context:component-scan base-package="mvc.models" />
+	<context:component-scan base-package="mvc.model" />
 	<context:component-scan base-package="mvc.service" />
 	<!-- View Resolvers setting -->
 	<bean

@@ -12,6 +12,7 @@
 					style="display: none" />
 			</div>		
 		</div>
+
 		<div>
 			<div class="imgs">
 				<img id="img">
@@ -20,6 +21,7 @@
 		<div>
 			<textarea name="comment" style="resize: none; width: 294px; height: 70px; padding: 2px; font-family: 맑은고딕"></textarea>
 		</div>
+
 		<p>
 			<button type="submit">업로드</button>
 		</p>
