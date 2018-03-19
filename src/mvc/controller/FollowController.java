@@ -42,8 +42,8 @@ public class FollowController {
 				memberList = aDAO.selectAllAccountNotMe(id);
 				
 				// 팔로우 top5 리스트
-				List<AccountDTO> top5List = new ArrayList<>();
-				top5List = aDAO.selectTop5Account(id);
+				//List<AccountDTO> top5List = new ArrayList<>();
+				//top5List = aDAO.selectTop5Account(id);
 				
 				// 팔로잉 - 내가 구독한 사람들
 				List<AccountDTO> followingList = new ArrayList<>();
@@ -54,7 +54,7 @@ public class FollowController {
 				followerList = aDAO.selectAllAccountFollower(id);
 				
 				map.put("member", memberList);
-				map.put("top5", top5List);
+				//map.put("top5", top5List);
 				map.put("following", followingList);
 				map.put("follower", followerList);
 		
@@ -74,7 +74,7 @@ public class FollowController {
 	public String insertHandle(@RequestParam MultiValueMap<String,String> vmap) {
 		String owner = vmap.getFirst("owner");
 		String target = vmap.getFirst("target");
-		
+		System.out.println(owner+target);
 		if(!fDAO.selectOneFollow(owner, target)) { // 팔로우가 존재한다면 - 그냥 리턴
 			System.out.println("[SERVER]: follow exist");
 			return "redirect:/follow/index.do";
@@ -95,7 +95,7 @@ public class FollowController {
 	public String deleteHandle(@RequestParam MultiValueMap<String,String> vmap) {
 		String owner = vmap.getFirst("owner");
 		String target = vmap.getFirst("target");
-		
+		System.out.println(owner+target+"삭제삭제");
 		if(fDAO.selectOneFollow(owner, target)) {
 			System.out.println("[SERVER]: delete follow, me->"+owner+" | target->"+target);
 			int r= fDAO.deleteFollow(owner, target);
