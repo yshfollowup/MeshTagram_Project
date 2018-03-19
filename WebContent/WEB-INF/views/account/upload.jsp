@@ -26,7 +26,7 @@
 	</form>
 </div>
 <script>
-	var select_files = [];
+	var select_files = [];	//선택한 파일들을 모아놓은 배열
 	
 	$(document).ready(function() {
 		$("#photo").on("change", handleImgSelect);
@@ -34,23 +34,43 @@
 	
 	function handleImgSelect(e) {
 		select_files = [];
-		$("imgs").empty();
+		$("imgs").empty();	//디폴트로 이미지들을 비워놓기 위해
 		
-		console.log(this.files[0]);
-		if (!this.files[0].type.startsWith("image")) {
-			window.alert("이미지만 선택 가능 합니다.");
-			return;
-		}else if (this.files.length > 10) {
-			window.alert("이미지는 최대 10장까지 등록 가능합니다.");
-			return;
-		}
+		//console.log(this.files[0]);
+		var files = e.target.files;	//
+		var filesArr = Array.prototype.slice.call(files);	//files 배열에서 call한 부분을 복사한 배열
+		
+		var index = 0;	//배열의 인덱스와 연결할 변수
+		filesArr.forEach(function(f) {
+			if (!this.files[0].type.startsWith("image")) {
+				window.alert("이미지만 선택 가능 합니다.");
+				return;
+			}else if (this.files.length > 10) {
+				window.alert("이미지는 최대 10장까지 등록 가능합니다.");
+				return;
+			}	
+			
+			select_files.push(f);	//f를 select_files에 집어넣는다
+			
+			var reader = new FileReader();
+			console.log(reader);
+			reader.onload = function(e) {
+				var html = "<a href=\"javascript:void(0);\" onclick=\"deleteImgAction("+index+")\" id=\"img_id_"+index+"\"><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selProductFile' title='Click to remove'></a>";
+				//$("#preview").attr("src", this.result);
+				$("img").append(html);
+				index++;
+			}
+			reader.readAsDataURL(f);
+		});
+	}
 	
-		var reader = new FileReader();
-		reader.readAsDataURL(this.files[0]);
-		console.log(reader);
-		reader.onload = function() {
-			$("#preview").attr("src", this.result);
-		}
+	function deleteImgAction(index) {
+		select_files.splice(index, 1);
+		
+		var img_id = "#img_id_" + index;
+		$(img_id).remove();
+		
+		console.log(select_files);
 	}
 	
 </script>
