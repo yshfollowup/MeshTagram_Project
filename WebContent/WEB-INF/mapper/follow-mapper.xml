@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectOneFollow" resultType="mvc.model.FollowDTO">
-		select * from follow where owner = #{owner } and target = {#target }
+		select * from follow where owner = #{owner } and target = #{target }
 	</select>
 	
 

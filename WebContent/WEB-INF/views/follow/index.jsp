@@ -55,17 +55,17 @@
 		var src =$(this);
 		var a = $(this).attr("name");
 		
-		if($(this).html() == "팔로잉"){
+		if($(this).val() == "팔로잉"){
 			$.ajax("/follow/delete.do",{
 				"method" : "get",
 				"async" : true,
 				"data" :{
-					"me" : setid,
+					"owner" : setid,
 					"target" : a
 				}
 			}).done(function(obj2){
 				console.log("삭제 들어왔다.");
-				src.html("팔로우");
+				src.val("팔로우");
 				src.attr("name","${obj.ID}")
 			});
 		}else{
@@ -74,12 +74,12 @@
 			"method" : "get",
 			"async" : true,
 			"data" :{
-				"me" : "${cookie.setId.value}",
+				"owner" : "${cookie.setId.value}",
 				"target" : a
 			}
 		}).done(function(obj){
-			console.log("들어왔다.");
-			src.html("팔로잉");
+			console.log("들어왔다."+src);
+			src.val("팔로잉");
 		});
 		}
 	});
