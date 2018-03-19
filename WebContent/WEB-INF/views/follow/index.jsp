@@ -8,7 +8,7 @@
 	<p>
 		<h4 align="left"><b>사람 찾기</b></h4><a href="/follow/all.do"><small align="right">모두보기</small></a>
 	</p>
-		<c:forEach var="obj" items="${member }">
+		<c:forEach var="obj" items="${allmember }">
 		<p style="float: left; width: 25%;">
 			<c:choose>
 				<c:when test="${empty obj.PROFILE }">
@@ -21,11 +21,11 @@
 			</c:choose>
 			<a href="/account/myPage.do?id=${obj.ID}" name="id">${obj.ID }</a>
 			<c:choose>
-			<c:when test="${empty result}">
+			<c:when test="${empty obj.OWNER}">
 				<input  class="follower" type="button" name="${obj.ID }" value="팔로우" />
 			</c:when>	
 			<c:otherwise>
-				<input  class="following" type="button" name="${obj.ID }" value="팔로잉" />
+				<input  class="follower" type="button" name="${obj.ID }" value="팔로잉" />
 			</c:otherwise>	
 			</c:choose>
 		</p>
@@ -34,22 +34,7 @@
 <!-- =========================================================================================================== -->
 
 <script>
-	function refresh(){
-		$.ajac("/follow/info.do",{
-			"method" :"post",
-			"async" : true,
-			"data" : {
-				"me" : "${cookie.setId.value}",
-				
-			}
-		}).done(function(obj){
-			console.log("새로고침"+obj.status);
-			if(obj.status == "ok"){
-				src.html("팔로잉");
-			}
-		});
-	};
-	//refresh();
+
 	$(".follower").click(function() {
 		var setid="${cookie.setId.value}";
 		var src =$(this);
@@ -66,7 +51,7 @@
 			}).done(function(obj2){
 				console.log("삭제 들어왔다.");
 				src.val("팔로우");
-				src.attr("name","${obj.ID}")
+				src.attr("name", a);
 			});
 		}else{
 			
@@ -80,6 +65,7 @@
 		}).done(function(obj){
 			console.log("들어왔다."+src);
 			src.val("팔로잉");
+			src.attr("name", a);
 		});
 		}
 	});

@@ -29,6 +29,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select id, count(*) as cnt from account inner join follow on account.id = follow.target where follow.target != #{id }
 	</select>
 
+	<select id="selectAllmemberCheck" resultType="java.util.LinkedHashMap">
+		select * from account FULL OUTER JOIN follow on account.id=follow.target where account.id != #{id } 
+	</select>
 	<!-- 계정 삭제 -->
 	<delete id="deleteAccount">
 		delete * from account where id= #{id }

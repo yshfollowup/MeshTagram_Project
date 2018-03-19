@@ -45,8 +45,12 @@ public class FollowController {
 				//List<AccountDTO> top5List = new ArrayList<>();
 				//top5List = aDAO.selectTop5Account(id);
 				
+				//전체리스트 및 팔로우 리스트
+				List<Map> allFollowMember= new ArrayList();
+				allFollowMember = aDAO.selectAllmemberCheck(id);
+				
 				// 팔로잉 - 내가 구독한 사람들
-				List<AccountDTO> followingList = new ArrayList<>();
+				List<AccountDTO> followingList = new ArrayList();
 				followingList = aDAO.selectAllAccountFollowing(id);
 				
 				// 팔로워 - 나를 구독하는 사람들
@@ -57,6 +61,7 @@ public class FollowController {
 				//map.put("top5", top5List);
 				map.put("following", followingList);
 				map.put("follower", followerList);
+				map.put("allmember", allFollowMember);
 		
 		return "insta_follow";
 	}
@@ -96,19 +101,14 @@ public class FollowController {
 		String owner = vmap.getFirst("owner");
 		String target = vmap.getFirst("target");
 		System.out.println(owner+target+"삭제삭제");
-		if(fDAO.selectOneFollow(owner, target)) {
 			System.out.println("[SERVER]: delete follow, me->"+owner+" | target->"+target);
 			int r= fDAO.deleteFollow(owner, target);
 			if(r==0) {
 				System.out.println("[SERVER]: delete failed "+r);
+				System.out.println("[SERVER]: follow not exist");
 				return "insta_follow";
-			}
-			System.out.println("[SERVER]: delete success");
-			
-			return "redirect:/follow/index.do";
-			
-		} else {
-			System.out.println("[SERVER]: follow not exist");
+			}else {
+				System.out.println("[SERVER]: delete success");
 		}
 		
 		return "{\"result\": true,\"status\":\"ok\"}";

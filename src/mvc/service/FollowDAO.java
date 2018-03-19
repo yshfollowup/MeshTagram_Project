@@ -78,14 +78,14 @@ public class FollowDAO {
 	}
 	
 	public int deleteFollow(String owner, String target) {
-		FollowDTO fDTO = new FollowDTO();
-			fDTO.setOwner(owner);
-			fDTO.setTarget(target);
+		Map map = new HashMap();
+		map.put("owner", owner);
+		map.put("target", target);
 
 		SqlSession session = factory.openSession();
 		int r = 0;
 		try {
-			r = session.delete("follow.deleteFollow", fDTO);
+			r = session.delete("follow.deleteFollow", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

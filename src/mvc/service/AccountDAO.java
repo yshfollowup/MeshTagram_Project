@@ -140,7 +140,22 @@ public class AccountDAO {
 			return aList;
 		}
 	}
-	
+	//팔로워가 없어도 전체 리스트를 볼수 있게 모두 선택
+	public List<Map> selectAllmemberCheck(String target) {  // target 은 나
+		Map map = new HashMap<>();
+			map.put("id", target);
+		List<Map> aList = null;
+
+		SqlSession session = factory.openSession();
+		try {
+			aList = session.selectList("account.selectAllmemberCheck", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+			return aList;
+		}
+	}
 	// 삭제
 	public int deleteAccount(String id, String pass) {
 		Map map = new HashMap<>();

@@ -22,7 +22,7 @@ public class ReplyController {
 	@Autowired
 	Gson gson;
 	
-	@RequestMapping(path="/add.do", produces="application/json;charset=utf-8")
+/*	@RequestMapping(path="/add.do", produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String replyAddHandle(@RequestParam("") Map param) {
 		rDAO.insertReply(param);
@@ -43,5 +43,5 @@ public class ReplyController {
 	public String replyDeleteHandle(@RequestParam("") Map param) {
 		rDAO.deleteReply(param);
 		return "{result : true}";
-	}
+	}*/
 }
