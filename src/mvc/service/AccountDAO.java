@@ -90,14 +90,14 @@ public class AccountDAO {
 	}
 	
 	// 나를 제외한 모든 회원 중 follow 수 top5 출력
-	public List<AccountDTO> selectTop5Account(String id) {
+	public List<Map> selectTop5Account(String id) {
 		Map map = new HashMap<>();
 			map.put("id", id);
-		List<AccountDTO> aList=null;
+		List<Map> aList=null;
 		
 		SqlSession session = factory.openSession();
 		try {
-			aList = session.selectList("account.selectTop5Account", map);
+			aList = session.selectList("account.selectTop5AccountCh", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

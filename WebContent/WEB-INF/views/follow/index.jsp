@@ -8,7 +8,7 @@
 	<p>
 		<h4 align="left"><b>사람 찾기</b></h4><a href="/follow/all.do"><small align="right">모두보기</small></a>
 	</p>
-		<c:forEach var="obj" items="${allmember }">
+		<c:forEach var="obj" items="${top5 }">
 		<p style="float: left; width: 25%;">
 			<c:choose>
 				<c:when test="${empty obj.PROFILE }">
@@ -19,13 +19,13 @@
 						style="width: 30px; border-radius: 100%" id="profile" />
 				</c:otherwise>
 			</c:choose>
-			<a href="/account/myPage.do?id=${obj.ID}" name="id">${obj.ID }</a>
+			<a href="/account/myPage.do?id=${obj.TARGET}" name="id">${obj.TARGET }</a>
 			<c:choose>
-			<c:when test="${empty obj.OWNER}">
-				<input  class="follower" type="button" name="${obj.ID }" value="팔로우" />
+			<c:when test="${empty obj.TARGET}">
+				<input  class="follower" type="button" name="${obj.TARGET }" value="팔로우" />
 			</c:when>	
 			<c:otherwise>
-				<input  class="follower" type="button" name="${obj.ID }" value="팔로잉" />
+				<input  class="follower" type="button" name="${obj.TARGET }" value="팔로잉" />
 			</c:otherwise>	
 			</c:choose>
 		</p>

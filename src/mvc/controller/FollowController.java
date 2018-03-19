@@ -42,8 +42,8 @@ public class FollowController {
 				memberList = aDAO.selectAllAccountNotMe(id);
 				
 				// 팔로우 top5 리스트
-				//List<AccountDTO> top5List = new ArrayList<>();
-				//top5List = aDAO.selectTop5Account(id);
+				List<Map> top5List = new ArrayList<>();
+				top5List = aDAO.selectTop5Account(id);
 				
 				//전체리스트 및 팔로우 리스트
 				List<Map> allFollowMember= new ArrayList();
@@ -58,7 +58,7 @@ public class FollowController {
 				followerList = aDAO.selectAllAccountFollower(id);
 				
 				map.put("member", memberList);
-				//map.put("top5", top5List);
+				map.put("top5", top5List);
 				map.put("following", followingList);
 				map.put("follower", followerList);
 				map.put("allmember", allFollowMember);
