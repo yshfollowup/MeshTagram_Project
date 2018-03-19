@@ -2,46 +2,67 @@ package mvc.model;
 
 public class FollowDTO {
 	private int no;
-	private String me;
-	private String target;
-	private int scope;
+	private String user1;
+	private String user2;
+	private int following1;
+	private int following2;
 	
 	// constructor
 	public FollowDTO() {
-		super();
+		
 	}
-	
-	public FollowDTO(int no, String me, String target, int scope) {
-		super();
+
+	public FollowDTO(int no, String user1, String user2, int following1, int following2) {
 		this.no = no;
-		this.me = me;
-		this.target = target;
-		this.scope = scope;
+		this.user1 = user1;
+		this.user2 = user2;
+		this.following1 = following1;
+		this.following2 = following2;
 	}
+
 	// getters and setters
 	public int getNo() {
 		return no;
 	}
+
 	public void setNo(int no) {
 		this.no = no;
 	}
-	public String getMe() {
-		return me;
-	}
-	public void setMe(String me) {
-		this.me = me;
-	}
-	public String getTarget() {
-		return target;
-	}
-	public void setTarget(String target) {
-		this.target = target;
-	}
-	public int getScope() {
-		return scope;
-	}
-	public void setScope(int scope) {
-		this.scope = scope;
+
+	public String getUser1() {
+		return user1;
 	}
 
+	public void setUser1(String user1) {
+		this.user1 = user1;
+	}
+
+	public String getUser2() {
+		return user2;
+	}
+
+	public void setUser2(String user2) {
+		this.user2 = user2;
+	}
+
+	public int getFollowing1() {
+		return following1;
+	}
+
+	public void setFollowing1(int following1) {
+		this.following1 = following1;
+	}
+
+	public int getFollowing2() {
+		return following2;
+	}
+
+	public void setFollowing2(int following2) {
+		this.following2 = following2;
+	}
+	
+	
 }
+
+	
+	

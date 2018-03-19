@@ -22,7 +22,7 @@
 			</c:choose>
 			<a href="/account/myPage.do?id=${obj.ID}" name="id">${obj.ID }</a>
 			<c:choose>
-			<c:when test="${obj.ID eq fobj.TARGET }">
+			<c:when test="${obj.ID eq fobj.USER2 }">
 				<input  class="follower" type="button" name="${obj.ID }" value="팔로우" />
 			</c:when>	
 			<c:otherwise>
@@ -43,7 +43,7 @@ $(".follower").click(function(){
 	var a=$(this).attr("name");
 		console.log(a);
 		$(this).val("팔로잉");
-		location.href="/follow/insert.do?me=${cookie.setId.value}&target="+a;
+		location.href="/follow/insert.do?user1=${cookie.setId.value}&user2="+a;
 	}
 });
 $(".following").click(function(){
@@ -51,7 +51,7 @@ $(".following").click(function(){
 		var a=$(this).attr("name");
 		console.log(this);
 		$(this).val("팔로우");
-		location.href="/follow/delete.do?me=${cookie.setId.value}&target="+a;
+		location.href="/follow/delete.do?user1=${cookie.setId.value}&user2="+a;
 	}
 });
 </script>

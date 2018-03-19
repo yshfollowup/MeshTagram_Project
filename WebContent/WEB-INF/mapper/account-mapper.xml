@@ -24,14 +24,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 
-	<!-- follow와 조인 -->
-	<select id="selectAllAccountFollowing" resultType="java.util.LinkedHashMap">
-		select * from account inner join follow on account.id = follow.target where follow.me = #{id }
+	<!-- 내가 following 한 친구 찾기 -->
+	<select id="selectAllAccountFollowing1" resultType="java.util.LinkedHashMap">
+		select * from account inner join follow on account.id = follow.user2 where (follow.user1 = #{user1 } and follow.following1 = 1)
+	</select>
+	<select id="selectAllAccountFollowing2" resultType="java.util.LinkedHashMap">
+		select * from account inner join follow on account.id = follow.user1 where (follow.user1 = #{user2 } and follow.following2 = 1)
 	</select>
 	
-	<select id="selectAllAccountFollower" resultType="java.util.LinkedHashMap">
-		select * from account inner join follow on account.id = follow.me where follow.target = #{target }
+	<!-- 나를 follow 한 친구 찾기 -->
+	<select id="selectAllAccountFollower1" resultType="java.util.LinkedHashMap">
+		select * from account inner join follow on account.id = follow.user2 where follow.user1 = #{user1 }
 	</select>
+	<select id="selectAllAccountFollower2" resultType="java.util.LinkedHashMap">
+		select * from account inner join follow on account.id = follow.user1 where follow.user1 = #{user2 }
+	</select>
+	
 	
 	
 	<!-- 업데이트 -->

@@ -3,34 +3,55 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="follow">
-	<!-- insert follow -->
+	<!-- insert follow : 첫 follow 관계가 양쪽 중 하나라도 생성된다면, 먼저 follow 신청한 이용자를 user1 으로 하여 로우 생성 -->
 	<insert id="insertFollow">
-		insert into follow(no,me,target,scope) values(follow_seq.nextval, #{me }, #{target }, 0)
+		insert into follow(no,user1,user2,following1,following2) values(follow_seq.nextval, #{user1 }, #{user2 }, 1, 0)
 	</insert>
 	
 	
-	<!-- delete follow -->
+	<!-- delete follow : following1,2 모두 0이 되었을 때 로우 삭제 -->
 	<delete id="deleteFollow">
-		delete from follow where me = #{me } and target= #{target }
+		delete from follow where (user1 = #{user1 } and user2= #{user2 }) or (user1 = #{user2 } and user2 = #{user1 })
 	</delete>
 	
 	
 	<!-- update follow -->
-	<update id="updateFollow">
+	<update id="updateFollowUser1">
 		update follow
-		<set>
-			<if test="scope = 0">scope=1</if>
-		</set>
-		where id=#{id }
+		<choose>
+			<when test="following1 = 0">following = 1</when>
+			<otherwise>following = 0</otherwise>		
+		</choose>
+		where user1 = #{user1 }
+	</update>
+	
+	<update id="updateFollowUser2">
+		update follow
+		<choose>
+			<when test="following1 = 0">following = 1</when>
+			<otherwise>following = 0</otherwise>		
+		</choose>
+		where user1=#{user2 }
 	</update>
 	
 	
 	<!-- select follow -->
-	<select id="selectFollowing" resultType="java.util.LinkedHashMap"> <!-- [me] ====follow====> [friend] -->
-		select * from follow where me = #{id }
+	<select id="selectFollowing" resultType="java.util.LinkedHashMap">
+		<!-- [user1] ====follow====> [user2] --><!-- [user2] ====follow====> [user1] -->
+		select * from follow where (user1 = #{user1 } and following1 = 1) or (user1 = #{user2 } and following2 = 1)
 	</select>
 	
-	<select id="selectFollower" resultType="java.util.LinkedHashMap"> <!-- [friend] ====follow====> [me] -->
-		select * from follow where target = #{id }
+	<select id="selectFollower" resultType="java.util.LinkedHashMap">
+		<!-- [user1] <====follow==== [user2] --><!-- [user2] <====follow==== [user1] -->
+		select * from follow where (user1 = #{user1 } and following2 = 1) or (user1 = #{user2 } and following1 = 1)
 	</select>
+	
+	<select id="selectOneFollow" resultType="mvc.model.FollowDTO">
+		select * from follow where user1 = #{user1 } and user2 = {#user1 }
+	</select>
+	
+	<select id="selectOppositeFollow" resultType="mvc.model.FollowDTO">
+		select * from follow where user1 = #{user2 } and user2 = {#user1 }
+	</select>
+
 </mapper>

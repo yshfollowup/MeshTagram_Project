@@ -90,14 +90,17 @@ public class AccountDAO {
 	}
 	
 	// 팔로잉 (내가 팔로우한 친구) 모두 선택
-	public List<AccountDTO> selectAllAccountFollowing(String id) {  // id 는 사용자
+	public List<AccountDTO> selectAllAccountFollowing(String user1) {  // id 는 사용자
 		Map map = new HashMap<>();
-			map.put("id", id);
+			map.put("user1", user1);
 		List<AccountDTO> aList = null;
+		List<AccountDTO> aList2 = null;
 
 		SqlSession session = factory.openSession();
 		try {
-			aList = session.selectList("account.selectAllAccountFollowing", map);
+			aList = session.selectList("account.selectAllAccountFollowing1", map);
+			aList2 = session.selectList("account.selectAllAccountFollowing2", map);
+			aList.addAll(aList2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -108,14 +111,17 @@ public class AccountDAO {
 	}
 	
 	// 팔로워 (나를 팔로우한 친구들) 모두 선택
-	public List<AccountDTO> selectAllAccountFollower(String target) {  // target 은 사용자
+	public List<AccountDTO> selectAllAccountFollower(String user1) {  // target 은 사용자
 		Map map = new HashMap<>();
-			map.put("target", target);
+			map.put("user1", user1);
 		List<AccountDTO> aList = null;
+		List<AccountDTO> aList2 = null;
 
 		SqlSession session = factory.openSession();
 		try {
-			aList = session.selectList("account.selectAllAccountFollower", map);
+			aList = session.selectList("account.selectAllAccountFollower1", map);
+			aList2 = session.selectList("account.selectAllAccountFollower2", map);
+			aList.addAll(aList2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
