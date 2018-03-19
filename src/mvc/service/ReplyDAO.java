@@ -1,5 +1,6 @@
 package mvc.service;
 
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,7 +11,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
 /*
- * db의 이름 : reply
+ * db의 이름 : MeshTagramReply
  * 컬럼 : id, like, content, date
  * mongo로 테스트하다가 HBase로 넘길 것임
  */
@@ -24,10 +25,12 @@ public class ReplyDAO {
 	//Insert
 	public Map<String, Object> insertReply(Map param) {
 		Map<String, Object> map = new LinkedHashMap<>();
-			map.put("id", param.get(""));
-			map.put("like", param.get(""));
-			map.put("content", param.get(""));
-			map.put("date", param.get(""));
+			map.put("id", param.get("id"));
+			map.put("like", param.get("like"));
+			map.put("content", param.get("content"));
+			map.put("date", new Date());
+			template.insert(map, "MeshTagramReply");
+			System.out.println("성공");
 		return map;
 	}
 	
@@ -38,17 +41,11 @@ public class ReplyDAO {
 		return list;
 	}
 	
-	//Update
-	public Map<String, Object> updateReply(Map param) {
-		Map<String, Object> map = new LinkedHashMap<>();
-		//template.updateMulti(param.get(""), map.put("id", ), "post");
-		return map;
-	}
 	
 	//Delete
 	public Map<String, Object> deleteReply(Map param) {
 		Map<String, Object> map = new LinkedHashMap<>();
-		template.remove(param.get(""));
+		template.remove(param.get("id"));
 		return map;
 	}
 }

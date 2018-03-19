@@ -90,7 +90,6 @@ public class BoardController {
 				map.put("comment", comm);
 				map.put("tags", li);
 				System.out.println(map);
-				// template.insert(map, "instagram");
 				pDao.insertImage(map);
 			}
 

@@ -10,8 +10,10 @@
 		</div>
 		<input multiple="multiple" type="file" name="photo" id="photo" accept="image/*"
 			style="display: none" />
-		<textarea name="comment" style="resize: none; width: 294px; height: 70px; padding: 2px; font-family: 맑은고딕"></textarea>
-		<input type="hidden" name="id" value="ma"/>
+		<span id="f"></span>
+		<div>
+			<textarea name="comment" style="resize: none; width: 294px; height: 70px; padding: 2px; font-family: 맑은고딕"></textarea>
+		</div>
 		<p>
 			<button type="submit">등록</button>
 		</p>
@@ -21,7 +23,10 @@
 	$("#photo").on("change", function() {
 		console.log(this.files[0]);
 		if (!this.files[0].type.startsWith("image")) {
-			window.alert("이미지만 선택 가능 합니다.")
+			window.alert("이미지만 선택 가능 합니다.");
+			return;
+		}else if (this.files.length > 10) {
+			window.alert("이미지는 최대 10장까지 등록 가능합니다.");
 			return;
 		}
 		var reader = new FileReader();
@@ -31,7 +36,10 @@
 			$("#preview").attr("src", this.result);
 		}
 	});
+	
 	$("#preview").on("click", function() {
 		$("#photo").click();
 	})
+	
+	
 </script>

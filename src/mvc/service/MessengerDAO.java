@@ -1,5 +1,6 @@
 package mvc.service;
 
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,7 +11,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
 /*
- * db의 이름 : messenger
+ * db의 이름 : MeshTagramMessenger
  * 컬럼 : me, target, date
  */
 
@@ -21,10 +22,12 @@ public class MessengerDAO {
 	
 	public Map<String ,Object> insertMessage(Map param) {
 		Map<String, Object> map = new LinkedHashMap<>();
-			map.put("me", param.get(""));
-			map.put("target", param.get(""));
-			map.put("date", param.get(""));
-			template.insert(map, "messenger");
+			map.put("me", param.get("me"));
+			map.put("target", param.get("target"));
+			map.put("like", param.get("like"));
+			map.put("date", new Date());
+			template.insert(map, "MeshTagramMessenger");
+			System.out.println("성공");
 		return map;
 	}
 	
