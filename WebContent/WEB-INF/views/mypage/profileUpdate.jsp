@@ -15,24 +15,24 @@
 					style="width: 230px; height: 230px;"/>
 	</c:otherwise>
 	</c:choose>
+	${aDTO.name };
+	<div>
+	아이디	${aDTO.id }
 	</div>
-	<p>
-	이름	<input type="text" value="${aDTO.id }" name="id"/>
-	</p>
-	<p>
+	<div>
 	사용자 이름	<input type="text" value="${aDTO.name }" name="name"/>
-	</p>
-      <p>
+	</div>
+      <div>
 	소개	
 		<textarea style="resize: none; width: 294px; height: 70px; padding: 2px; font-family: 맑은고딕"></textarea>
-	</p>
+	</div>
 	<span align="center">개인 정보</span>
-	<p>
+	<div>
 	이메일 <input type="text" value="${aDTO.email }" name="email"/>
-	</p>
-	<p>
+	</div>
+	<div>
 	전화번호 <input type="text" value="${aDTO.phone }" name="phone"/>
-	</p>
+	</div>
 	<div>
 	성별 <select name="gender">
 		<option value="" selected>선택안함</option>
@@ -40,15 +40,19 @@
 		<option value="여">여</option>
 		</select>
 		</div>
-	<p>
+	<div>
 	비공개 계정 <input name="scope" type="checkbox" value="1">계정이 비공개인 경우 회원님이 승인한 사람만 <br/> MeshTagram에서 회원님의 사진과 동영상을 볼 수 있습니다.<br/>기존 팔로워는 영향을 받지 않습니다.
-	</p>
-	
+	</div>
+	<div>
 	<button type="submit">제출</button>
+	</div>
+   </div>
 	
-      
-      
-    </div>
+  </div>
+ </div>
+</div>
+
+
 
 <script> 
 		document.getElementById("photo").onchange=function(){

@@ -13,13 +13,45 @@
 				</c:otherwise>
 			</c:choose>
 			<a href="/account/myPage.do?id=${obj.ID}" name="id">${obj.ID }</a>
-			<input  type="button" name="${obj.ID }" value="팔로잉" onclick="location.href='/mypage/delete.do?me=${cookie.setId.value}&target=${obj.ID}'" id="following"/>
+			<botton  type="button" name="${obj.ID }"   id="follower">팔로잉</botton>
 		</p>
 	</c:forEach>
 </div>
 <script>
-$("#following").on("change",function(){
-	$("#following").html("<input  type= button name= \"${obj.ID }\"  value= \"팔로우\" onclick=\"location.href='/mypage/insert.do?me=${cookie.setId.value}&target=${obj.ID}'\"id=\"follower\"/>");
+
+	$(".follower").click(function() {
+		var setid="${cookie.setId.value}";
+		var src =$(this);
+		var a = $(this).attr("name");
+		
+		if($(this).val() == "팔로잉"){
+			$.ajax("/follow/delete.do",{
+				"method" : "get",
+				"async" : true,
+				"data" :{
+					"owner" : setid,
+					"target" : a
+				}
+			}).done(function(obj2){
+				console.log("삭제 들어왔다.");
+				src.val("팔로우");
+				src.attr("name", a);
+			});
+		}else{
+			
+		$.ajax("/follow/insert.do",{
+			"method" : "get",
+			"async" : true,
+			"data" :{
+				"owner" : "${cookie.setId.value}",
+				"target" : a
+			}
+		}).done(function(obj){
+			console.log("들어왔다."+src);
+			src.val("팔로잉");
+			src.attr("name", a);
+		});
+		}
+	});
 	
-});
 </script>
