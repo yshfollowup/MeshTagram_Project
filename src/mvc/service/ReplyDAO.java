@@ -37,7 +37,7 @@ public class ReplyDAO {
 	//Find(=Search)
 	public List<Map> findAllReply() {
 		List<Map> list = new LinkedList<>();
-		list = template.findAll(Map.class, "reply");
+		list = template.findAll(Map.class, "MeshTagramReply");
 		return list;
 	}
 	

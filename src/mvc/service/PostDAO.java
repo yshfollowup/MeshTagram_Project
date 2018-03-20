@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
 /*
- * db의 이름 : post
+ * db의 이름 : MeshTagramUpload
  * 컬럼 : id, image, date, comment, tags
  * mongo로 테스트하다가 HBase로 넘길 것임
  */
@@ -26,8 +26,9 @@ public class PostDAO {
 			map.put("image", param.get("image"));
 			//map.put("path", param.get("path"));
 			map.put("date", param.get("time"));
-			map.put("comment", (String)param.get("comment"));
+			map.put("comment", (List)param.get("comment"));
 			map.put("tags", (List)param.get("tags"));
+			map.put("annotation", (List)param.get("annotation"));
 			template.insert(map,"MeshTagramUpload");
 			System.out.println("성공");
 		return map;
@@ -41,15 +42,17 @@ public class PostDAO {
 		return list;
 	}
 	
+	public List<Map> findPostById(String id) {
+		List<Map> list = new LinkedList<>();
+		//template.findOne(, "MeshTagramUpload");
+		return list;
+	}
+	
 	public List<Map> findPostByName(String name) {
 		List<Map> list = new LinkedList<>();
 		return list;
 	}
 	
-	public List<Map> findPostByNick(String nick) {
-		List<Map> list = new LinkedList<>();
-		return list;
-	}
 	
 	//Update
 	public Map<String, Object> updateURL(Map param) {

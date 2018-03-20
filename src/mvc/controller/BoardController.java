@@ -41,11 +41,19 @@ public class BoardController {
 		System.out.println("들어옴");
 		boolean rst = true;
 		//======================================================
-		String[] comment = comm.split("\\s");
-		List<String> li = new ArrayList<>();
-		for (String tag : comment) {
-			if (tag.startsWith("#")) {
-				li.add(tag);
+		String[] comments = comm.split("\\s");
+		List<String> commList = new ArrayList<>();
+		List<String> tagList = new ArrayList<>();
+		List<String> annoList = new ArrayList<>();
+		for (String comment : comments) {
+			if(!(comment.startsWith("#") || comment.startsWith("@"))) {
+				commList.add(comment);
+			} else {
+				if (comment.startsWith("#")) {
+					tagList.add(comment);
+				}else if (comment.startsWith("@")) {
+					annoList.add(comment);
+				}
 			}
 		}
 		
@@ -87,8 +95,9 @@ public class BoardController {
 				}
 				//map.put("path", path);
 				map.put("time", new Date());
-				map.put("comment", comm);
-				map.put("tags", li);
+				map.put("comment", commList);
+				map.put("tags", tagList);
+				map.put("annotation", annoList);
 				System.out.println(map);
 				pDao.insertImage(map);
 			}
