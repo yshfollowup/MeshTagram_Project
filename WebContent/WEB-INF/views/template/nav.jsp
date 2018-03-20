@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
+  <div></div>
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
@@ -11,23 +12,31 @@
       </button>
       <a class="navbar-brand" href="/account/login.do">메쉬타그램</a>
     </div>
+      <div align="center">
+      <div>
+      <input type="text" id="search" placeholder="검색" align="right"/>
+      <div></div>
+      <div >
+      <div>
+      	<div></div>
+      		<div id="pp">
+      		
+      		</div>
+      	
+      		</div>
+      	  </div>
+         </div>
+      </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="#">팔로우</a></li>
+        <li class="active"><a href="/follow/index.do">팔로우</a></li>
         <li><a href="/account/upload.do">글쓰기</a></li>
         <li><a href="/mypage/index.do">마이페이지</a></li>
         <li><a href="#">하둡</a></li>
         <li><a href="/account/logout.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
       </ul>
-      <div align="center">
-      <form>
-      <input type="text" id="search" placeholder="검색" align="right"/>
-      </form>
-      <div id="pp">
-      </div>
-      </div>
     </div>
   </div>
 </nav>
@@ -56,7 +65,7 @@ $("#search").on("keyup",function(){
 	}).done(function(val){
 		console.log(val);
 		var str="";
-		var img= "<img src=\"/image/insta.jpg\" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
+		var img= "<img src=\"/images/insta.jpg\" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
 		for(var i=0; i<val.length; i++){
 			var img2="<img src=\"${applicationScope.path }"+val.PROFILE+" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
 			var com=null;
@@ -74,7 +83,7 @@ $("#search").on("keyup",function(){
 			}else{
 				name=val[i].NAME;
 			}
-  			str+="<a href=/search.do?id=\"+val[i].ID+\"> "+ii+val[i].ID+"<br/>"+name+"</a>"+"<br/>";
+  			str+="<a href=/search.do?id=\"+val[i].ID+\"><div>"+ii+"<div>"+val[i].ID+"</div><div>"+name+"</div></div></a>"+"<br/>";
 		}
 	}
 		$("#pp").html(str);

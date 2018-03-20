@@ -105,7 +105,27 @@ public class AccountDAO {
 			return aList;
 		}
 	}
-	
+	public List<Map> selectTop5Profile(String id, String user1, String user2, 
+			String user3, String user4, String user5) {
+		Map map = new HashMap<>();
+			map.put("id", id);
+			map.put("user1", user1);
+			map.put("user2", user2);
+			map.put("user3", user3);
+			map.put("user4", user4);
+			map.put("user5", user5);
+		List<Map> aList=null;
+		
+		SqlSession session = factory.openSession();
+		try {
+			aList = session.selectList("account.selectTop5Profile", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+			return aList;
+		}
+	}
 	// 팔로잉 (내가 팔로우한 친구) 모두 선택
 	public List<AccountDTO> selectAllAccountFollowing(String owner) {  // owner 는 나
 		Map map = new HashMap<>();

@@ -8,11 +8,11 @@
 	<p>
 		<h4 align="left"><b>사람 찾기</b></h4><a href="/follow/all.do"><small align="right">모두보기</small></a>
 	</p>
-		<c:forEach var="obj" items="${top5 }">
+		<c:forEach var="obj" items="${allmember }">
 		<p style="float: left; width: 25%;">
 			<c:choose>
 				<c:when test="${empty obj.PROFILE }">
-					<img src="/image/insta.jpg" style="width: 30px; height: 30px; border-radius: 30px" id="preview">
+					<img src="/images/insta.jpg" style="width: 30px; height: 30px; border-radius: 30px" id="preview">
 				</c:when>
 				<c:otherwise>
 					<img src="${applicationScope.path }${obj.PROFILE}"
@@ -21,7 +21,7 @@
 			</c:choose>
 			<a href="/account/myPage.do?id=${obj.TARGET}" name="id">${obj.TARGET }</a>
 			<c:choose>
-			<c:when test="${empty obj.TARGET}">
+			<c:when test="${aDTO.id != obj.ID}">
 				<input  class="follower" type="button" name="${obj.TARGET }" value="팔로우" />
 			</c:when>	
 			<c:otherwise>

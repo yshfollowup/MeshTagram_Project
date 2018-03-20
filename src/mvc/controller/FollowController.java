@@ -37,18 +37,23 @@ public class FollowController {
 	//팔로우 인덱스 페이지
 	@RequestMapping("/index.do")
 	public String indexHandle(@CookieValue(name="setId", required=false) String id, ModelMap map) {
-		// 전체 회원 리스트
-				List<AccountDTO> memberList = new ArrayList<>();
-				memberList = aDAO.selectAllAccountNotMe(id);
-				
-				// 팔로우 top5 리스트
-				List<Map> top5List = new ArrayList<>();
-				top5List = aDAO.selectTop5Account(id);
-				
+				//아이디 값으로 내정보 받기
+				AccountDTO MeList = aDAO.selectOneAccountre(id);
 				//전체리스트 및 팔로우 리스트
 				List<Map> allFollowMember= new ArrayList();
-				allFollowMember = aDAO.selectAllmemberCheck(id);
+				allFollowMember = aDAO.selectTop5Account(id);
+
+				String user1=(String) allFollowMember.get(0).get("TARGET");
+				String user2=(String) allFollowMember.get(1).get("TARGET");
+				String user3=(String) allFollowMember.get(2).get("TARGET");
+				String user4=(String) allFollowMember.get(3).get("TARGET");
+				String user5=(String) allFollowMember.get(4).get("TARGET");
 				
+				List<Map> FollowMember= new ArrayList();
+				FollowMember = aDAO.selectTop5Profile(id,user1,user2,user3,user4,user5);
+				System.out.println(user1+user2+user3+user4+user5);
+				System.out.println(FollowMember);
+
 				// 팔로잉 - 내가 구독한 사람들
 				List<AccountDTO> followingList = new ArrayList();
 				followingList = aDAO.selectAllAccountFollowing(id);
@@ -57,11 +62,10 @@ public class FollowController {
 				List<AccountDTO> followerList = new ArrayList<>();
 				followerList = aDAO.selectAllAccountFollower(id);
 				
-				map.put("member", memberList);
-				map.put("top5", top5List);
+				map.put("aDTO", MeList);
 				map.put("following", followingList);
 				map.put("follower", followerList);
-				map.put("allmember", allFollowMember);
+				map.put("allmember", FollowMember);
 		
 		return "insta_follow";
 	}

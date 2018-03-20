@@ -17,7 +17,7 @@
 		  	<div>
 		  	<c:choose>
 		  		<c:when test="${empty obj.profile}">
-		  			<img src="/image/insta.jpg" style="width: 30px; height: 30px; border-radius: 30px" id="writer">
+		  			<img src="/images/insta.jpg" style="width: 30px; height: 30px; border-radius: 30px" id="writer">
 		  		</c:when>
 		  		<c:otherwise>
 				  	<img src="${applicationScope.path }${obj.profile}" style="width: 30px; height: 30px; border-radius: 30px" id="writer">

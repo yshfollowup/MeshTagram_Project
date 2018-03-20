@@ -5,7 +5,7 @@
 
 <span id="all-screen" aria-hidden="true">
 <div>
-	<img src="/image/insta.jpg" style="width: 300px; height: 300px; border-radius: 30px" id="preview">${aDTO.id } 
+	<img src="/images/insta.jpg" style="width: 300px; height: 300px; border-radius: 30px" id="preview">${aDTO.id } 
 	<button type="button" onclick="location.href='/mypage/edit.do'">프로필 편집</button>
 	<!-- Trigger the modal with a button -->
 	<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">설정</button><br/>
