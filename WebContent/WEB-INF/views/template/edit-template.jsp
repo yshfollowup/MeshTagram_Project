@@ -4,7 +4,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title><tiles:getAsString name="title"/></title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -38,34 +38,29 @@
   </style>
 </head>
 <body>
-<div style="min-height: 500px">
 <tiles:insertAttribute name="nav"/>
-<div >
+<div style="min-height: 500px">
 <div class="container-fluid">
   <div class="row content">
     <div class="col-sm-3 sidenav">
-      <h4>John's Blog</h4>
+      <h4>프로필 설정</h4>
       <ul class="nav nav-pills nav-stacked">
-        <li class="active"><a href="/mypage/edit.do">프로필 편집</a></li>
+        <li class="active"><a href="/mypage/edit.do">정보변경</a></li>
         <li><a href="/mypage/pass.do">비밀번호 변경</a></li>
         <li><a href="/mypage/reply.do">댓글</a></li>
-        <li><a href="/mypage/phone.do">연락처 관리</a></li>
+        <li><a href="/mypage/phone.do">전화번호 부</a></li>
       </ul><br>
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search Blog..">
-        <span class="input-group-btn">
-          <button class="btn btn-default" type="button">
-            <span class="glyphicon glyphicon-search"></span>
-          </button>
-        </span>
       </div>
     </div>
+    
+    <tiles:insertAttribute name="body"/>
+    </div>
+  </div>
+</div>
 
     
 
-<footer class="container-fluid">
-  <p>Footer Text</p>
-</footer>
-
+<tiles:insertAttribute name="footer"/>
 </body>
 </html>

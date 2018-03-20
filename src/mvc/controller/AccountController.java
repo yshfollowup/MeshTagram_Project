@@ -23,6 +23,7 @@ import mvc.service.FollowDAO;
 import mvc.service.MessengerDAO;
 import mvc.service.PostDAO;
 import mvc.service.ReplyDAO;
+import mvc.service.SearchDAO;
 
 @Controller
 @RequestMapping("/account")
@@ -37,6 +38,8 @@ public class AccountController {
 	ReplyDAO rDAO;
 	@Autowired
 	MessengerDAO mDAO;
+	@Autowired
+	SearchDAO sDAO;
 		//회원가입 페이지
 	@RequestMapping("/join.do")
 	public String registerHandle() {
