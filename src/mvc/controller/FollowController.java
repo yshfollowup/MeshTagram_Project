@@ -34,7 +34,7 @@ public class FollowController {
 	@Autowired
 	Gson gson;
 	
-
+	//팔로우 인덱스 페이지
 	@RequestMapping("/index.do")
 	public String indexHandle(@CookieValue(name="setId", required=false) String id, ModelMap map) {
 		// 전체 회원 리스트
@@ -65,15 +65,18 @@ public class FollowController {
 		
 		return "insta_follow";
 	}
-	@RequestMapping(path = "/info.do", produces = "application/json;charset=utf-8", method=RequestMethod.POST)
-	@ResponseBody
-	public String indexAjaxHandle(@CookieValue(name="setId",required=false) String id) {
-		Gson gson=new Gson();
+	@RequestMapping("/all.do")
+	public String indexAjaxHandle(@CookieValue(name="setId",required=false) String id, ModelMap map) {
+		//전체리스트 및 팔로우 리스트
+		List<Map> allFollowMember= new ArrayList();
+		allFollowMember = aDAO.selectAllmemberCheck(id);
 		
+		map.put("member", allFollowMember);
 		
-		
-		return"{\"status\": \"ok\"}";
+		return"insta_allfollow";
 	}
+	
+	//팔로우 추가
 	@RequestMapping(path = "/insert.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public String insertHandle(@RequestParam MultiValueMap<String,String> vmap) {
@@ -94,7 +97,7 @@ public class FollowController {
 		}		
 		return "{\"result\": true,\"status\":\"ok\"}";
 }
-	
+	//팔로우 삭제
 	@RequestMapping(path= "/delete.do", produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String deleteHandle(@RequestParam MultiValueMap<String,String> vmap) {

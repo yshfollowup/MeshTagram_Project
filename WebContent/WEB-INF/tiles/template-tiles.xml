@@ -8,38 +8,50 @@
 		<put-attribute name="footer"  value="/WEB-INF/views/template/footer.jsp"></put-attribute>
 	</definition>
 	<!-- index 전체 게시글 표시 -->
-	<definition name="insta_main" extends="insta_abstract">
+		<definition name="insta_main" extends="insta_abstract">
+		<put-attribute name="title" value="MeshTagram"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/views/main.jsp"></put-attribute>
 	</definition>
 	<definition name="insta_login" template="/WEB-INF/views/template/register-template.jsp">
 		<put-attribute name="title" value="MeshTagram"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/views/account/login.jsp"></put-attribute>
 	</definition>
+	<!-- 회원가입 -->
 		<definition name="insta_join" template="/WEB-INF/views/template/register-template.jsp">
 		<put-attribute name="title" value="MeshTagram"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/views/account/join.jsp"></put-attribute>
 	</definition>
-		<definition name="insta_main" extends="insta_abstract">
-		<put-attribute name="title" value="MeshTagram"></put-attribute>
-		<put-attribute name="body" value="/WEB-INF/views/main.jsp"></put-attribute>
-	</definition>
-	
+	<!-- 업로드 페이지 -->
 	<definition name="insta_upload" extends="insta_abstract">
 		<put-attribute name="body" value="/WEB-INF/views/account/upload.jsp"></put-attribute>
 	</definition>
+	<!-- 검색 페이지  -->
+	<definition name="insta_search" extends="insta_abstract">
+		<put-attribute name="body" value="/WEB-INF/views/searchPage/page.jsp"></put-attribute>
+	</definition>
+	<!-- 팔로우 페이지 -->
 	<definition name="insta_follow" extends="insta_abstract">
 		<put-attribute name="body" value="/WEB-INF/views/follow/index.jsp"></put-attribute>
 	</definition>
-	
-	
-	<definition name="insta_myPage" extends="insta_abstract">
-		<put-attribute name="body" value="/WEB-INF/views/mypage/myPage.jsp"></put-attribute>
+		<definition name="insta_allfollow" extends="insta_abstract">
+		<put-attribute name="body" value="/WEB-INF/views/follow/allpeople.jsp"></put-attribute>
 	</definition>
-	<definition name="mypage_edit" extends="insta_abstract">
+	
+	<!-- 프로필 설정 타일즈 -->
+	<definition name="insta_edit_template" template="/WEB-INF/views/template/edit-template.jsp">
+		<put-attribute name="title" value="MeshTagram"></put-attribute>
+		<put-attribute name="nav" value="/WEB-INF/views/template/nav.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/views/template/footer.jsp"></put-attribute>
+	</definition>
+	<definition name="mypage_edit" extends="insta_edit_template">
 		<put-attribute name="body" value="/WEB-INF/views/mypage/profileUpdate.jsp"></put-attribute>
 	</definition>
-	<definition name="mypage_pass" extends="insta_abstract">
+	<definition name="mypage_pass" extends="insta_edit_template">
 		<put-attribute name="body" value="/WEB-INF/views/mypage/passUpdate.jsp"></put-attribute>
+	</definition>
+	<!-- 마이페이지 -->
+	<definition name="insta_myPage" extends="insta_abstract">
+		<put-attribute name="body" value="/WEB-INF/views/mypage/myPage.jsp"></put-attribute>
 	</definition>
 	<definition name="myPage_follower" extends="insta_abstract">
 		<put-attribute name="body" value="/WEB-INF/views/mypage/follower.jsp"></put-attribute>

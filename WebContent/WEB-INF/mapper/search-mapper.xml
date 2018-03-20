@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="search">
+	<!-- 아이디 이름 소개글 검색 -->
+	<select id="searchIdNameIntro" resultType="java.util.LinkedHashMap">
+		select * from account  where id like #{value} or name like #{value} or intro like #{value}
+	</select>
+	
+	<select id="searchName" resultType="java.util.LinkedHashMap">
+		select * from account  where  name like #{value}
+	</select>
+	
+</mapper>
