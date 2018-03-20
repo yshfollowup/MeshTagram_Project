@@ -22,8 +22,6 @@ import mvc.service.SearchDAO;
 @Controller
 public class SearchController {
 	@Autowired
-	PostDAO pDAO;
-	@Autowired
 	SearchDAO sDAO;
 	@Autowired
 	Gson gson;

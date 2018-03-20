@@ -28,7 +28,7 @@ public class SearchDAO {
 			
 		SqlSession session = factory.openSession();
 		try {
-			aList = session.selectList("search.selectAllAccountNotme", map);
+			aList = session.selectList("search.searchIdNameIntro", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -37,7 +37,7 @@ public class SearchDAO {
 		}
 	}
 	
-	//아이디 이름 소개글 검색
+	//이름만
 	public List<Map> searchName(String value) {
 		Map map = new HashMap<>();
 			map.put("value", "%"+value+"%");
@@ -45,7 +45,7 @@ public class SearchDAO {
 			
 		SqlSession session = factory.openSession();
 		try {
-			aList = session.selectList("search.selectAllAccountNotme", map);
+			aList = session.selectList("search.searchName", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
