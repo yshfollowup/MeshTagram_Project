@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -24,16 +25,33 @@ public class SearchController {
 	@Autowired
 	SearchDAO sDAO;
 	@Autowired
+	AccountDAO aDAO;
+	@Autowired
+	PostDAO pDAO;
+	
+	@Autowired
 	Gson gson;
 	
 	@RequestMapping("/search.do")
-	public String searchHandle(@CookieValue(name="setId", required=false) String id, ModelMap map) {
+	public String searchHandle(@RequestParam("id") String id, ModelMap map) {
+		AccountDTO aDTO=aDAO.selectOneAccountre(id);
+		map.put("aDTO", aDTO);
 		
-		
+		//이전에 쓴 모든 게시물 정보
+		List<Map> allPost = pDAO.findAllPost();
+		if(allPost != null) 
+		map.put("myPost", allPost);
+		// 팔로잉 - 내가 구독한 사람들
+		List<AccountDTO> followingList = new ArrayList<>();
+		followingList = aDAO.selectAllAccountFollowing(id);
+
+		// 팔로워 - 나를 구독하는 사람들
+		List<AccountDTO> followerList = new ArrayList<>();
+		followerList = aDAO.selectAllAccountFollower(id);
 		
 		return "insta_search";
 	}
-	@RequestMapping(path="/autocom.do", produces="application/json;charset=utf-8")
+	@RequestMapping(path="/autocom.do", method=RequestMethod.POST, produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String autoHandle(@RequestParam MultiValueMap<String, String> vmap) {
 		System.out.println(vmap);
@@ -41,13 +59,18 @@ public class SearchController {
 		String tag=vmap.getFirst("tag");
 		String idsh=vmap.getFirst("idsh");
 		String comm=vmap.getFirst("comm");
-		System.out.println(tag+"..."+idsh+"..."+comm);
+		System.out.println("["+tag+"]...["+idsh+"]..."+comm);
 		List<Map> SearchList = new ArrayList<>();
-		if(tag!=null) {
+		if(tag != "") {
+			System.out.println("검색성공1");
 			SearchList= sDAO.findLikeTag(tag);
-		}else if(idsh !=null) {
+		} 
+		if(idsh!= "") {
+			System.out.println("검색성공2");
 			SearchList = sDAO.searchName(idsh);
-		}else if(comm != null) {
+		}
+		if(comm!= "") {
+			System.out.println("검색성공3");
 			SearchList = sDAO.searchIdNameIntro(comm);
 		}
 		System.out.println(SearchList.toString());

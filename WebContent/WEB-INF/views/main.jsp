@@ -27,7 +27,7 @@
 		  	</div>
 			<div>
 			<img src="${obj.path }${obj.image}"
-					style="width: 641px; height: 641px;" onclick="openDialog('${obj._id}')" />
+					style="width: 641px; height: 641px;"  />
 			</div>
 			<div>
 			<div>
@@ -72,3 +72,4 @@
     </div>
   </div>
 </div>
+

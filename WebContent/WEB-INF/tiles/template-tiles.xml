@@ -25,6 +25,10 @@
 	<definition name="insta_upload" extends="insta_abstract">
 		<put-attribute name="body" value="/WEB-INF/views/account/upload.jsp"></put-attribute>
 	</definition>
+	<!-- 검색 페이지  -->
+	<definition name="insta_search" extends="insta_abstract">
+		<put-attribute name="body" value="/WEB-INF/views/searchPage/page.jsp"></put-attribute>
+	</definition>
 	<!-- 팔로우 페이지 -->
 	<definition name="insta_follow" extends="insta_abstract">
 		<put-attribute name="body" value="/WEB-INF/views/follow/index.jsp"></put-attribute>

@@ -12,7 +12,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from account  where  name like #{value}
 	</select>
 	
-	<select id="searchIdNameIntro" resultType="java.util.LinkedHashMap">
-		select * from account  where id like #{value} or name like #{value} or intro like #{value}
-	</select>
 </mapper>

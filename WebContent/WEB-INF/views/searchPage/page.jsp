@@ -5,11 +5,11 @@
 
 ${sDTO.id}<button type="button" id="follow">팔로우</button> 
 <button type="button"><div class="_6rswy"><div class="_quyb3 coreSpriteDropdownArrowGrey9"></div>::after</div></select>
-게시물 ${fn:length(sPost)} 팔로워 ${fn:length(sFollow)} 팔로우${fn:length(sfollowing)}
+게시물 ${fn:length(myPost)} 팔로워 ${fn:length(myFollow)} 팔로우${fn:length(myfollowing)}
 <div>${sDTO.intro }</div>
 
 <div align="center" style="min-height: 590px;">
-		<c:forEach var="obj" items="${sPost}">
+		<c:forEach var="obj" items="${myPost}">
 		<p style="float: left; width: 33%;">
 				<small><c:forEach items="${obj.tags }" var="tag">
 						<a href="/account/search.do?tag=${fn:replace(tag,'#','%23') }">${tag }</a>
