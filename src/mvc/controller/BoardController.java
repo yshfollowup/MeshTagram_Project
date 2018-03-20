@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,7 +35,7 @@ public class BoardController {
 	// 게시물 업로드
 	@RequestMapping("/uploadp.do")
 	public String uploadHandle(@RequestParam("photo") MultipartFile[] files, HttpServletRequest req,
-			@RequestParam("comment") String comm, @RequestParam("id") String id)
+			@RequestParam("comment") String comm, @CookieValue(name="setId") String id)
 			throws IOException, InterruptedException {
 		System.out.println("들어옴");
 		Map result = us.imageUpload(files);	//uploadservice에서 처리된 결과값(파일들 리스트로 저장된 것, 성공 유무(rst))
@@ -61,7 +62,7 @@ public class BoardController {
 			Map map = new LinkedHashMap<>();
 			map.put("writer", id);
 			//업로드한 파일의 갯수만큼 uploads에 저장
-			List<String> result2 = (List<String>) result.get("uploadResult");
+			List<String> result2 = (List) result.get("uploadResult");
 			for(String uploads : result2) {
 				map.put("image", uploads);
 				System.out.println(uploads);
