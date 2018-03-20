@@ -8,8 +8,9 @@
 		<div>
 			<h2><b>이미지 미리보기</b></h2>
 			<div class="imgs">
-				<input multiple="multiple" type="file" name="photo" id="photo" accept="image/*"
-					style="display: none" />
+				<button type="button" id="bt1">파일 찾기</button>
+				<input type="file" name="photo" id="photo" accept="image/*"
+					style="display: none" multiple="multiple" />
 			</div>		
 		</div>
 
@@ -23,7 +24,7 @@
 		</div>
 
 		<p>
-			<button type="submit">업로드</button>
+			<button type="submit" id="bt2">업로드</button>
 		</p>
 	</form>
 </div>
@@ -68,9 +69,11 @@
 	
 	function deleteImgAction(index) {
 		select_files.splice(index, 1);
-		
-		var img_id = "#img_id_" + index;
-		$(img_id).remove();
+		var rst = window.confirm("정말 삭제하시겠습니까?");
+		if(rst) {
+			var img_id = "#img_id_" + index;
+			$(img_id).remove();
+		}
 		
 		console.log(select_files);
 	}
