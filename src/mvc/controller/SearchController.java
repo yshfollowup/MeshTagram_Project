@@ -56,8 +56,8 @@ public class SearchController {
 	public String autoHandle(@RequestParam MultiValueMap<String, String> vmap) {
 		System.out.println(vmap);
 		Gson gson =new Gson();
-		String tag=vmap.getFirst("tag");
-		String idsh=vmap.getFirst("idsh");
+		String tag=vmap.getFirst("tag").replaceAll("#","");
+		String idsh=vmap.getFirst("idsh").replaceAll("@", "");
 		String comm=vmap.getFirst("comm");
 		System.out.println("["+tag+"]...["+idsh+"]..."+comm);
 		List<Map> SearchList = new ArrayList<>();

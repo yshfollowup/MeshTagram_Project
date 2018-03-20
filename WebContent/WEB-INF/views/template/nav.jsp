@@ -66,13 +66,13 @@ $("#search").on("keyup",function(){
 			}else{
 				ii=img2;
 			}
-			if(val[i].INTRO == null){
-				com="";
+			if(val[i].NAME == null){
+				name="";
 			}else{
-				com=val[i].INTRO
+				name=val[i].NAME;
 			}
 			
-  		str+="<a href=/search.do?id=\"+val[i].ID+\"> "+ii+val[i].ID+"<br/>"+com+"</a>"+"<br/>";
+  			str+="<a href=/search.do?id=\"+val[i].ID+\"> "+ii+val[i].ID+"<br/>"+name+"</a>"+"<br/>";
 		}
 		$("#pp").html(str);
 	})
