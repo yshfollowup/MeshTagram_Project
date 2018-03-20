@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.google.gson.Gson;
 
+import mvc.model.AccountDTO;
 import mvc.service.AccountDAO;
 import mvc.service.MessengerDAO;
 import mvc.service.PostDAO;
@@ -32,16 +33,20 @@ public class ShowPostController {
 	
 	@RequestMapping("/showPost.do")
 	public String showPostHandle(@CookieValue(name="setId", required=false) String setId, ModelMap modelMap) {
-		List<Map> userList = aDAO.selectAllmemberCheck(setId);
+		//List<AccountDTO> userList = aDAO.selectAllAccountNotMe(setId);
 		List<Map> postList =pDAO.findAllPost();
-		List<Map> replyList = rDAO.findAllReply();
-		List<Map> messageList = mDAO.findAllMessage();
+		//List<Map> replyList = rDAO.findAllReply();
+		//List<Map> messageList = mDAO.findAllMessage();
 		
+		List<String> objIdList = new LinkedList<>();
+		List<String> idList = new LinkedList<>();
 		List<String> tagList = new LinkedList<>();
 		for(Map post : postList) {
 			String objId = post.get("_id").toString();
+			objIdList.add(objId);
 			System.out.println(objId);
 			String id = post.get("id").toString();
+			idList.add(id);
 			System.out.println(id);
 			List tag = (List)post.get("tags");
 			System.out.println(tag);
@@ -51,16 +56,12 @@ public class ShowPostController {
 	            }
 			}
 		}
-		
-		List<String> idList = new LinkedList<>();
-		for(Map user : userList) {
-			String id = (String) user.get("id");
-			System.out.println(id);
-		}
-		
-		
+		System.out.println(objIdList.size());
+		System.out.println(idList.size());
 		System.out.println(tagList.size());
-		//modelMap.addAttribute("tags", tagList);
-		return "";
+		modelMap.addAttribute("objIds", objIdList);
+		modelMap.addAttribute("ids", idList);
+		modelMap.addAttribute("tags", tagList);
+		return "insta_main";
 	}
 }
