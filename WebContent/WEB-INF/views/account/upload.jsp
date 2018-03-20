@@ -6,16 +6,16 @@
 	<small>사진을 선택한 후, 멘트를 달아주세요.</small>
 	<form action="/account/uploadp.do" method="post" enctype="multipart/form-data">
 		<div>
-			<h2><b>이미지 미리보기</b></h2>
+			<h2><b style="font-size: 15px; ">이미지 미리보기</b></h2>
 			<div class="imgs">
-				<button type="button" id="bt1">파일 찾기</button>
+				<a href="javascript:" onclick="uploadAction();" id="upload">파일 선택</a>
 				<input type="file" name="photo" id="photo" accept="image/*"
-					style="display: none" multiple="multiple" />
+				 	 style="display: none;" multiple />
 			</div>		
 		</div>
 
 		<div>
-			<div class="imgs">
+			<div class="content">
 				<img id="img">
 			</div>
 		</div>
@@ -30,37 +30,48 @@
 </div>
 <script>
 	var select_files = [];	//선택한 파일들을 모아놓은 배열
+	var capacity = 10;		//업로드 가능한 파일의 최대 개수
 	
 	$(document).ready(function() {
 		$("#photo").on("change", handleImgSelect);
 	});
 	
+	function uploadAction() {
+		$("#photo").trigger("click");
+	}
+	
 	function handleImgSelect(e) {
 		select_files = [];
-		$("imgs").empty();	//디폴트로 이미지들을 비워놓기 위해
+		$(".content").empty();	//디폴트로 이미지들을 비워놓기 위해
 		
 		//console.log(this.files[0]);
 		var files = e.target.files;	//
 		var filesArr = Array.prototype.slice.call(files);	//files 배열에서 call한 부분을 복사한 배열
 		
-		var index = 0;	//배열의 인덱스와 연결할 변수
+		var index = 0;	//미리보기 배열의 인덱스와 연결할 변수
 		filesArr.forEach(function(f) {
-			if (!this.files[0].type.startsWith("image")) {
+			if (!f.type.match("image.*")) {
 				window.alert("이미지만 선택 가능 합니다.");
 				return;
-			}else if (this.files.length > 10) {
+			}
+			
+			var result = select_files.push(f);	//f를 select_files에 집어넣는다
+			console.log(result);
+			
+			if (select_files.length > capacity) {
 				window.alert("이미지는 최대 10장까지 등록 가능합니다.");
 				return;
 			}	
 			
-			select_files.push(f);	//f를 select_files에 집어넣는다
-			
 			var reader = new FileReader();
 			console.log(reader);
 			reader.onload = function(e) {
-				var html = "<a href=\"javascript:void(0);\" onclick=\"deleteImgAction("+index+")\" id=\"img_id_"+index+"\"><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selProductFile' title='Click to remove'></a>";
+				var html = "<a href=\"javascript:void(0);\" onclick=\"deleteImgAction("
+							+index+")\" id=\"img_id_"+index+"\"><img src=\"" 
+							+ e.target.result + "\" style=\"width:120px; height:120px; padding: 10px;\" data-file='"
+							+f.name+"' class='selProductFile' title='Click to remove'></a>";
 				//$("#preview").attr("src", this.result);
-				$("img").append(html);
+				$(".content").append(html);
 				index++;
 			}
 			reader.readAsDataURL(f);
