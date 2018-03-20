@@ -61,6 +61,9 @@ $("#search").on("keyup",function(){
 			var img2="<img src=\"${applicationScope.path }"+val.PROFILE+" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
 			var com=null;
 			var ii=null;
+			if(val[i]._id != null){
+				str+="<a href=/tag.do?id=\"+val[i].tags+\"> "+val[i].tags+"</a>"+"<br/>";
+			}else{
 			if(val.PROFILE==null){
 				ii=img;
 			}else{
@@ -71,10 +74,10 @@ $("#search").on("keyup",function(){
 			}else{
 				name=val[i].NAME;
 			}
-			
   			str+="<a href=/search.do?id=\"+val[i].ID+\"> "+ii+val[i].ID+"<br/>"+name+"</a>"+"<br/>";
 		}
+	}
 		$("#pp").html(str);
 	})
-	});
+});
 </script>
