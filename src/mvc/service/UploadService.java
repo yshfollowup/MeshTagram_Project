@@ -19,16 +19,15 @@ public class UploadService {
 	@Autowired
 	PostDAO pDAO;
 	
-	public boolean imageUpload(MultipartFile[] files) {
-		boolean rst = true;
-		if (files.length == 1) {
+	public List<String> imageUpload(MultipartFile[] files) {
+		Boolean rst = true;
+		List<String> result = new ArrayList<>();
+		if (files.length != 0) {
 			File target = null;
 			String path = ctx.getRealPath("/");
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyMMddHHmmss");
 			System.out.println(path);
 
-			
-			List<String> result = new ArrayList<>();
 			for (MultipartFile file : files) {
 				String str = sdf.format(System.currentTimeMillis());
 				Long size = file.getSize();
@@ -36,7 +35,6 @@ public class UploadService {
 				if (size < (1024 * 1024 * 10)) {
 					target = new File(path, str +"."+ FilenameUtils.getExtension(original));
 					String targetName = target.getName();
-					
 					result.add("/" + targetName);
 					//System.out.println(result);
 					try {
@@ -48,6 +46,6 @@ public class UploadService {
 				}
 			}
 		}
-		return rst;
+		return result;
 	}
 }
