@@ -51,12 +51,31 @@ public class SearchController {
 		
 		return "insta_search";
 	}
+	@RequestMapping("/tag.do")
+	public String tagHandle(@RequestParam("id") String id, ModelMap map) {
+		AccountDTO aDTO=aDAO.selectOneAccountre(id);
+		map.put("aDTO", aDTO);
+		
+		//이전에 쓴 모든 게시물 정보
+		List<Map> allPost = pDAO.findAllPost();
+		if(allPost != null) 
+		map.put("myPost", allPost);
+		// 팔로잉 - 내가 구독한 사람들
+		List<AccountDTO> followingList = new ArrayList<>();
+		followingList = aDAO.selectAllAccountFollowing(id);
+
+		// 팔로워 - 나를 구독하는 사람들
+		List<AccountDTO> followerList = new ArrayList<>();
+		followerList = aDAO.selectAllAccountFollower(id);
+		
+		return "insta_search";
+	}
 	@RequestMapping(path="/autocom.do", method=RequestMethod.POST, produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String autoHandle(@RequestParam MultiValueMap<String, String> vmap) {
 		System.out.println(vmap);
 		Gson gson =new Gson();
-		String tag=vmap.getFirst("tag").replaceAll("#","");
+		String tag=vmap.getFirst("tag");
 		String idsh=vmap.getFirst("idsh").replaceAll("@", "");
 		String comm=vmap.getFirst("comm");
 		System.out.println("["+tag+"]...["+idsh+"]..."+comm);

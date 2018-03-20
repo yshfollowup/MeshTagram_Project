@@ -56,10 +56,12 @@ public class SearchDAO {
 	//Find(=Search)
 		public List<Map> findLikeTag(String value) {
 			List<Map> list = new LinkedList<>();
-			System.out.println("게시물 받음");
-			String q="/"+value+"/";
-			Query query = Query.query(Criteria.where("name").is(q));
+			String q=value;
+			
+			System.out.println("게시물 받음"+q);
+			Query query = Query.query(Criteria.where("tags").regex(q));
 			list = template.find(query, Map.class, "MeshTagramUpload");
+			System.out.println("작업완료");
 			return list;
 		}
 }
