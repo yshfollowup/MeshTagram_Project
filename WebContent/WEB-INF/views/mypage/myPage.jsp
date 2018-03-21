@@ -9,12 +9,20 @@
 	<button type="button" onclick="location.href='/mypage/edit.do'">프로필 편집</button>
 	<!-- Trigger the modal with a button -->
 	<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">설정</button><br/>
-	게시물${fn:length(myPost) } <a href="follower.do" id="follower">팔로워${fn:length(follower) }</span>  <a href="following.do" id="following">팔로우${fn:length(following) }</span></br>
+	게시물${fn:length(myPost) } <a href="follower.do" id="follower">팔로워${fn:length(follower) }</a></span>  <a href="following.do" id="following">팔로우${fn:length(following) }</a></span></br>
 </div>
 
 <div>
 	<c:forEach var="obj" items="${myPost }">
-		<!-- <img src="${applicationScope.Path }${obj.image}" style="width: 300px; height: 300px; border-radius: 30px" id="preview">	 -->	
+	<div class="mouseIn">
+		<img src="${applicationScope.Path }${obj.image}" style="width: 300px; height: 300px; border-radius: 30px" id="preview">	
+			<span class="In"></span>
+	</div>
+	<p style="float: left; width: 33%;">
+	 <small><c:forEach items="${obj.tags }" var="tag">
+	 	<a href="/account/search.do?tag=${fn:replace(tag,'#','%23') }">${tag }</a>
+	</c:forEach> </small>
+	</p>
 	</c:forEach>
 </div>
 </span>

@@ -2031,7 +2031,13 @@ $("#search").on("keyup",function(){
 			var com=null;
 			var ii=null;
 			if(val[i]._id != null){
-				str+="<a href=/tag.do?id=\"+val[i].tags+\"> "+val[i].tags+"</a>"+"<br/>";
+				var s=null;
+				if(val[i].tags[0].startsWith("#")){
+					console.log(val[i].tags[i]);
+					var a=val[i].tags[i];
+					s=a.replace('#','%23');
+				}
+				str+="<a href=/searchtag.do?tags="+s+">"+val[i].tags+"<br/>게시물 "+val[i].count+"</a>"+"<br/>";
 			}else{
 			if(val.PROFILE==null){
 				ii=img;
@@ -2043,7 +2049,7 @@ $("#search").on("keyup",function(){
 			}else{
 				name=val[i].NAME;
 			}
-  			str+="<a href=/search.do?id=\"+val[i].ID+\"><div>"+ii+"<div>"+val[i].ID+"</div><div>"+name+"</div></div></a>"+"<br/>";
+  			str+="<a href=/search.do?id="+val[i].ID+"><div>"+ii+"<div>"+val[i].ID+"</div><div>"+name+"</div></div></a>"+"<br/>";
 		}
 	}
 		$("#pp").html(str);
