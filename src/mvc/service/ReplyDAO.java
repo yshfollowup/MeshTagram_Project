@@ -8,6 +8,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 /*
@@ -23,21 +25,20 @@ public class ReplyDAO {
 	MongoTemplate template;
 	
 	//Insert
-	public Map<String, Object> insertReply(Map param) {
-		Map<String, Object> map = new LinkedHashMap<>();
-			map.put("id", param.get("id"));
-			map.put("like", param.get("like"));
-			map.put("content", param.get("content"));
-			map.put("date", new Date());
-			template.insert(map, "MeshTagramReply");
+	public Boolean insertReply(Map param ) {
+			template.insert(param, "Reply");
 			System.out.println("성공");
-		return map;
+		return true;
 	}
 	
 	//Find(=Search)
-	public List<Map> findAllReply() {
+	public List<Map> findAllReply(Map param) {
 		List<Map> list = new LinkedList<>();
-		list = template.findAll(Map.class, "MeshTagramReply");
+		String q=(String)param.get("boardId");
+		String s[]=q.split(",");
+		System.out.println("댓글리스트");
+		Query query = Query.query(Criteria.where("boardId").is(s));
+		list = template.find(query,Map.class, "Reply");
 		return list;
 	}
 	

@@ -90,9 +90,9 @@ public class AccountController {
 			modelMap.put("allPost", allPost);
 		
 		//이전에 달았던 모든 댓글 정보
-		List<Map> allReply = rDAO.findAllReply();
-		if(allReply != null)
-			modelMap.put("allReply", allReply);
+		//List<Map> allReply = rDAO.findAllReply();
+		//if(allReply != null)
+		//	modelMap.put("allReply", allReply);
 		
 		//이전에 대화한 모든 메시지
 		List<Map> allMessage = mDAO.findAllMessage();
@@ -117,9 +117,9 @@ public class AccountController {
 			modelMap.put("allPost", allPost);
 		
 		//이전에 달았던 모든 댓글 정보
-		List<Map> allReply = rDAO.findAllReply();
-		if(allReply != null)
-			modelMap.put("allReply", allReply);
+		//List<Map> allReply = rDAO.findAllReply();
+		//if(allReply != null)
+		//	modelMap.put("allReply", allReply);
 		
 		//이전에 대화한 모든 메시지
 		List<Map> allMessage = mDAO.findAllMessage();
