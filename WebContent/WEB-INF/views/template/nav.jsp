@@ -167,10 +167,11 @@ supports (margin-bottom:env(safe-area-inset-bottom) ){ . _evlcw: not (._b696q
 	-ms-flex-pack: center;
 	justify-content: center;
 	max-width: 950px;
-	padding: 26px 40px;
+	padding: 40px 40px;
 	-webkit-transition: height .2s ease-in-out;
 	transition: height .2s ease-in-out;
 	width: 100%
+	
 }
 
 ._cyf06 {
@@ -1968,7 +1969,8 @@ px
 							</div>
 							<div class="_5ayw3 _ohiyl">
 								<input type="text" class="_avvq0 _o716c" id="search" placeholder="검색">
-								<div id="pp"></div>
+								<div id="pp" style="background-color:rgba(50, 50, 50, 0.9);  border: 1px solid gba(150, 150, 150);
+    								border-radius: 5px; border-top:0px;"></div>
 							</div>
 							<div class="_devkn">
 								<div class="_qlijk">
