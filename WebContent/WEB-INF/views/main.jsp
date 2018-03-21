@@ -31,22 +31,74 @@
 			</div>
 			<div>
 			<div>
-			<button type="button">좋아요</button><button type="button">댓글달기</button>
+			<button type="button">좋아요</button><button type="button" class="rebt" name="${obj._id }">댓글달기</button>
 			</div>
 			 <a href="/mypage/index.do?id=${obj.id }">${obj.id }</a>${obj.comment }
 				<c:forEach items="${obj.tags }" var="tag">
 				<a href="/account/search.do?tag=${fn:replace(tag,'#','%23') }">${tag }</a>
-				</c:forEach> 
-			<hr/>
+				</c:forEach>
 			<div>
-				<textarea class="_bilrf" aria-label="댓글쓰기" id="reply" style="resize: none; width: 100%; padding: 2px; font-family: 맑은고딕" placeholder="댓글쓰기"></textarea>
+			<span class="re"></span>
+			</div> 
+			<hr/>
+				<div>
+					<input type="text" value="" class="reply" aria-label="${obj._id }"  style="resize: none; width: 100%; padding: 2px; font-family: 맑은고딕" placeholder="댓글쓰기">
+				</div>
 			</div>
-		</div>
-		</section>
-	</div>
-	
+		  </section>
+	  </div>
 	</c:forEach>
   </div>
+  <script>
+	$(".reply").on("change",function(){
+		var id = $(this).attr("aria-label");
+		var reid="${cookie.setId.value}";
+		var ment=$(".reply").val();
+		console.log(id+ment);
+		$.ajax("/addreply.do", {
+			"method" : "post",
+			"async" : true,
+			"data" : {
+				"boardId" : id,
+				"reid": reid,
+				"ment" : ment
+			}
+		}).done(function(obj){
+			console.log($(this).val());
+			$(".re").html(obj.ment);
+			$(this).val("");
+		})
+	});
+	List();
+	
+	function List(){
+		var boardid="";
+		
+		$(".rebt").each(function(){
+			boardid+=$(this).attr("name")+",";
+		});
+		console.log(boardid);
+		var reid="${cookie.setId.value}";
+		$.ajax("/listReply.do", {
+			"method" : "get",
+			"async" : true,
+			"data" :{
+				"boardId" : boardid
+			}
+		}).done(function(val){
+			
+			for(var i=0; i <val.length; i++){
+				console.log(val.boardId);
+				if(boardid[i] == val[i].boardId){
+					var reply= val[i].ment+val[i].id+val[i].date;				
+					$(".re").html(reply);
+				}
+			}
+		})
+	}
+  
+  
+  </script>
     <div class="col-sm-2 sidenav">
       <div class="well">
       <a href="/mypage/index.do?id=${aDTO.id }">
