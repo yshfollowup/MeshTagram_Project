@@ -1966,10 +1966,19 @@ px
 													 href="/account/login.do">Meshtagram</a>
 								</div>
 							</div>
+							
+							
 							<div class="_5ayw3 _ohiyl">
 								<input type="text" class="_avvq0 _o716c" id="search" placeholder="검색">
-								
+								<div>
+      								<div>
+      									<div></div>
+								      		<div id="pp"></div>
+      					      		</div>
+      	  						</div>
 							</div>
+							
+							
 							<div class="_devkn">
 								<div class="_qlijk">
 									<div class="_b28md">
@@ -2001,5 +2010,55 @@ px
 				</div>
 			</nav>
 			
+			
+<script>
+$("#search").on("keyup",function(){
+	var value = $("#search").val();
+	var tag= null;
+	var idsh=null;
+	var comm=null
+	if(value.startsWith("#")){
+		tag=value;
+	}else if(value.startsWith("@")){
+		idsh=value;
+	}else{
+		comm=value;
+	}
+	$.ajax("/autocom.do",{
+		"method" : "post",
+		"async" : true,
+		"data" : {
+			"tag" : tag, 
+			"idsh" : idsh,
+			"comm" : comm
+		}
+	}).done(function(val){
+		console.log(val);
+		var str="";
+		var img= "<img src=\"/images/insta.jpg\" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
+		for(var i=0; i<val.length; i++){
+			var img2="<img src=\"${applicationScope.path }"+val.PROFILE+" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
+			var com=null;
+			var ii=null;
+			if(val[i]._id != null){
+				str+="<a href=/tag.do?id=\"+val[i].tags+\"> "+val[i].tags+"</a>"+"<br/>";
+			}else{
+			if(val.PROFILE==null){
+				ii=img;
+			}else{
+				ii=img2;
+			}
+			if(val[i].NAME == null){
+				name="";
+			}else{
+				name=val[i].NAME;
+			}
+  			str+="<a href=/search.do?id=\"+val[i].ID+\"><div>"+ii+"<div>"+val[i].ID+"</div><div>"+name+"</div></div></a>"+"<br/>";
+		}
+	}
+		$("#pp").html(str);
+	})
+});
+</script>
 </body>
 </html>
