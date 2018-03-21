@@ -1,11 +1,8 @@
 package mvc.controller;
 
-import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +10,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import mvc.model.AccountDTO;
+import mvc.model.FollowDTO;
 import mvc.service.AccountDAO;
+import mvc.service.FollowDAO;
 import mvc.service.MessengerDAO;
 import mvc.service.PostDAO;
 import mvc.service.ReplyDAO;
@@ -23,6 +23,8 @@ public class ShowPostController {
 	@Autowired
 	AccountDAO aDAO;
 	@Autowired
+	FollowDAO fDAO;
+	@Autowired
 	PostDAO pDAO;
 	@Autowired
 	ReplyDAO rDAO;
@@ -31,15 +33,16 @@ public class ShowPostController {
 	
 	
 	@RequestMapping("/showPost.do")
-	public String showPostHandle(@CookieValue(name="setId", required=false) String setId, ModelMap modelMap) {
+	public String showPostHandle
+		(@CookieValue(name="setId", required=false) String setId, ModelMap modelMap) {
 		List<Map> postList =pDAO.findAllPost();
+		List<FollowDTO> followerList = fDAO.selectFollwer(setId);	//나를 팔로우
+		List<FollowDTO> followingList = fDAO.selectFollwing(setId);	//내가 팔로잉
+		List<AccountDTO> allFollower =  aDAO.selectAllAccountFollower(setId);
 		
 		List<String> idList = new LinkedList<>();
-		List<Map> postCombinebyId = new LinkedList<>();
 		List<String> tagList = new LinkedList<>();
-		List<Map> postCombinebyTag = new LinkedList<>();
 		List<String> annoList = new LinkedList<>();
-		List<Map> postCombinebyAnno = new LinkedList<>();
 		
 		for(Map post : postList) {
 			String objId = post.get("_id").toString();
@@ -62,21 +65,29 @@ public class ShowPostController {
 					annoList.add((String)annotation.get(i));
 			}*/
 			
-			String tags = tagList.toString();
-			System.out.println(tags);
+			
+			for(FollowDTO follwers : followerList) {
+				String targetMe = follwers.getTarget();
+				for(FollowDTO followings : followingList) {
+					String myTarget = followings.getOwner();
+					if (targetMe.equals(myTarget)) 
+						modelMap.addAttribute("rank", 1);
+					else if (targetMe.equals(myTarget) && !(myTarget.equals(targetMe)))
+						modelMap.addAttribute("rank", 2);
+					else if (myTarget.equals(targetMe) && !(targetMe.equals(myTarget)))
+						modelMap.addAttribute("rank", 3);
+					else
+						modelMap.addAttribute("rank", 4);
+				}					
+			}
 		}
 		
 		
-		
 		System.out.println(idList.size());
-		System.out.println(postCombinebyId.size());
 		System.out.println(tagList.size());
 		modelMap.addAttribute("ids", idList);
-		modelMap.addAttribute("postbyId", postCombinebyId);
 		modelMap.addAttribute("tags", tagList);
-		modelMap.addAttribute("postbyTag", postCombinebyTag);
 		modelMap.addAttribute("annos", annoList);
-		modelMap.addAttribute("postbyAnno", postCombinebyAnno);
 		return "insta_main";
 	}
 }
