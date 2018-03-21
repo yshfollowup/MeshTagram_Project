@@ -45,6 +45,36 @@ public class ReplyController {
 		}
 	}
 	
+	@RequestMapping(path="/likeBoard.do", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String likeBoardHandle(@RequestParam Map map) {
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
+		String str=sdf.format(System.currentTimeMillis());
+		map.put("date", str);
+		System.out.println(map);
+		
+		boolean a= rDAO.UpdateLikeReply(map);
+		if(a) {
+			Gson gson=new Gson();
+			
+			System.out.println(a);
+			return gson.toJson(map);
+			
+		}else {
+			System.out.println(a);
+			return "{result : false}";
+
+		}
+	}
+	@RequestMapping(path="/likeList.do", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String likeListHandle(@RequestParam Map map) {
+		System.out.println(map+"좋아요 리스트");
+		List<Map> result = rDAO.findAllReply(map);
+		System.out.println(result);
+		return gson.toJson(result);
+	}
+	
 	@RequestMapping(path="/listReply.do", produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String replyListHandle(@RequestParam MultiValueMap<String, String> map) {
