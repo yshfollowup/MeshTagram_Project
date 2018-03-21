@@ -97,7 +97,7 @@ public class AccountDAO {
 		
 		SqlSession session = factory.openSession();
 		try {
-			aList = session.selectList("account.selectTop5AccountCh", map);
+			aList = session.selectList("account.selectTop5Account", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

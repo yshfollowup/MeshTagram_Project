@@ -37,35 +37,25 @@ public class FollowController {
 	//팔로우 인덱스 페이지
 	@RequestMapping("/index.do")
 	public String indexHandle(@CookieValue(name="setId", required=false) String id, ModelMap map) {
-				//아이디 값으로 내정보 받기
-				AccountDTO MeList = aDAO.selectOneAccountre(id);
-				//전체리스트 및 팔로우 리스트
-				List<Map> allFollowMember= new ArrayList();
-				allFollowMember = aDAO.selectTop5Account(id);
+		// 아이디 값으로 내정보 받기
+		AccountDTO meList = aDAO.selectOneAccountre(id);
+		// 전체리스트 및 팔로우 리스트
+		List<Map> top5List = new ArrayList();
+		top5List = aDAO.selectTop5Account(id);
+		// 나 제외, 내가 팔로우한 사람 제외하고 top5 (id, cnt, id, pass, email, name, phone, profile, birth, intro, score 로 구성된 map 의 list)
 
-				String user1=(String) allFollowMember.get(0).get("TARGET");
-				String user2=(String) allFollowMember.get(1).get("TARGET");
-				String user3=(String) allFollowMember.get(2).get("TARGET");
-				String user4=(String) allFollowMember.get(3).get("TARGET");
-				String user5=(String) allFollowMember.get(4).get("TARGET");
-				
-				List<Map> FollowMember= new ArrayList();
-				FollowMember = aDAO.selectTop5Profile(id,user1,user2,user3,user4,user5);
-				System.out.println(user1+user2+user3+user4+user5);
-				System.out.println(FollowMember);
+		// 팔로잉 - 내가 구독한 사람들
+		List<AccountDTO> followingList = new ArrayList();
+		followingList = aDAO.selectAllAccountFollowing(id);
 
-				// 팔로잉 - 내가 구독한 사람들
-				List<AccountDTO> followingList = new ArrayList();
-				followingList = aDAO.selectAllAccountFollowing(id);
-				
-				// 팔로워 - 나를 구독하는 사람들
-				List<AccountDTO> followerList = new ArrayList<>();
-				followerList = aDAO.selectAllAccountFollower(id);
-				
-				map.put("aDTO", MeList);
-				map.put("following", followingList);
-				map.put("follower", followerList);
-				map.put("allmember", FollowMember);
+		// 팔로워 - 나를 구독하는 사람들
+		List<AccountDTO> followerList = new ArrayList<>();
+		followerList = aDAO.selectAllAccountFollower(id);
+
+		map.put("aDTO", meList);
+		map.put("following", followingList);
+		map.put("follower", followerList);
+		map.put("top5", top5List);
 		
 		return "insta_follow";
 	}
