@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<div style="height:70px;"></div>
 <div>
 	<form action="/mypage/pass.do" method="post" form="multipart/form-data">
 		<c:choose>

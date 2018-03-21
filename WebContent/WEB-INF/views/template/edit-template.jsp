@@ -39,6 +39,7 @@
 </head>
 <body>
 <tiles:insertAttribute name="nav"/>
+<div style="height:70px;"></div>
 <div style="min-height: 500px">
 <div class="container-fluid">
   <div class="row content">

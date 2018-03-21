@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
+<div style="height:70px;"></div>
 <span id="all-screen" aria-hidden="true">
 <div>
 	<img src="/images/insta.jpg" style="width: 300px; height: 300px; border-radius: 30px" id="preview">${aDTO.id } 
