@@ -47,28 +47,23 @@ public class ShowPostController {
 			idList.add(id);
 			System.out.println(id);
 			
-			if(id.equals(setId)) {
-				Map map = new LinkedHashMap<>();
-				map.put(id, objId);
-				postCombinebyId.add(map);
-				System.out.println(map.keySet());
-			}
-			
 			List tag = (List)post.get("tags");
 			System.out.println(tag);
 			for(int i = 0; i < tag.size(); i++) {
 				if (!tagList.contains(tag.get(i))) {
 					tagList.add((String)tag.get(i));
-					String[] tags = (String[]) tag.toArray();
 				}
 			}
 			
-			List annotation = (List) post.get("annotations"); 
+			/*List annotation = (List) post.get("annotations"); 
 			System.out.println(annotation);
 			for(int i = 0; i < annotation.size(); i++) {
 				if(!annoList.contains(annotation.get(i)))
 					annoList.add((String)annotation.get(i));
-			}
+			}*/
+			
+			String tags = tagList.toString();
+			System.out.println(tags);
 		}
 		
 		
