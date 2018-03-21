@@ -28,7 +28,7 @@ public class PostDAO {
 			map.put("date", param.get("time"));
 			map.put("comment", (List)param.get("comment"));
 			map.put("tags", (List)param.get("tags"));
-			map.put("annotation", (List)param.get("annotation"));
+			map.put("annotations", (List)param.get("annotation"));
 			template.insert(map,"MeshTagramUpload");
 			System.out.println("성공");
 		return map;
@@ -39,6 +39,15 @@ public class PostDAO {
 		List<Map> list = new LinkedList<>();
 		System.out.println("게시물 받음");
 		list = template.findAll(Map.class, "MeshTagramUpload");
+		list.sort(new Comparator<Map>() {
+			@Override
+			public int compare(Map o1, Map o2) {
+				Date d1 = (Date) o1.get("date");
+				Date d2 = (Date) o2.get("date");
+				int result = d1.compareTo(d2);
+				return -result;
+			}
+		});
 		return list;
 	}
 	
