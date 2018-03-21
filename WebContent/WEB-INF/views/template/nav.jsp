@@ -1972,7 +1972,7 @@ px
 								<div id="pp" style="background-color:rgba(50, 50, 50, 0.9);  border: 1px solid gba(150, 150, 150);
     								border-radius: 5px; border-top:0px;"></div>
 							</div>
-							<div class="_devkn">
+							<div class="_devkn">s
 								<div class="_qlijk">
 									<div class="_b28md">
 										<a class="_8scx2 _gvoze coreSpriteDesktopNavExplore"
