@@ -2,10 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<div style="height:70px;"></div>
 
 
-
-	
+<div style="clear:both;"></div>	
 <div class="container-fluid text-center">    
   <div class="row content">
     <div class="col-sm-2 sidenav">

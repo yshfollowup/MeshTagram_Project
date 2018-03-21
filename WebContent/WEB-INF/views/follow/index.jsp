@@ -3,7 +3,7 @@
 	
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
+<div style="height:70px;"></div>
 
 <div align="center" style="min-height: 490px;">
 	<div align="left">

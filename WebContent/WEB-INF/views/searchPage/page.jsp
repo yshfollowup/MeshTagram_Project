@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
+<div style="height:70px;"></div>
 ${sDTO.id}<button type="button" id="follow">팔로우</button> 
 <button type="button"><div class="_6rswy"><div class="_quyb3 coreSpriteDropdownArrowGrey9"></div>::after</div></select>
 게시물 ${fn:length(myPost)} 팔로워 ${fn:length(myFollow)} 팔로우${fn:length(myfollowing)}
