@@ -41,36 +41,36 @@
 	<script>
 
 	$(".follower").click(function() {
-		var setid="${cookie.setId.value}";
+		var owner = "${cookie.setId.value}";
 		var src =$(this);
-		var a = $(this).attr("name");
+		var target = $(this).attr("name");
 		
 		if($(this).val() == "팔로잉"){
 			$.ajax("/follow/delete.do",{
-				"method" : "get",
+				"method" : "post",
 				"async" : true,
 				"data" :{
-					"owner" : setid,
-					"target" : a
+					"owner" : owner,
+					"target" : target
 				}
-			}).done(function(obj2){
+			}).done(function(btnFollowing){
 				console.log("삭제 들어왔다.");
 				src.val("팔로우");
-				src.attr("name", a);
+				src.attr("name", target);
 			});
-		}else{
 			
+		} else {
 		$.ajax("/follow/insert.do",{
-			"method" : "get",
+			"method" : "post",
 			"async" : true,
 			"data" :{
-				"owner" : "${cookie.setId.value}",
-				"target" : a
+				"owner" : owner,
+				"target" : target
 			}
-		}).done(function(obj){
+		}).done(function(btnFollow){
 			console.log("들어왔다."+src);
 			src.val("팔로잉");
-			src.attr("name", a);
+			src.attr("name", target);
 		});
 		}
 	});

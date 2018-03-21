@@ -19,38 +19,41 @@
 			<h4 align="left"><b>팔로우 가장 많은 top5</b></h4> 
 		</p>
 
-		<c:forEach var="obj" items="${top5 }">
+		<c:forEach var="objTop5" items="${top5 }">
 			<p style="float: left; width: 25%;">
 				<c:choose>
-					<c:when test="${empty obj.PROFILE }">
-						<img src="/images/insta.jpg"
-							style="width: 30px; height: 30px; border-radius: 30px" id="preview">
+					<c:when test="${empty objTop5.PROFILE }">
+						<img src="/images/insta.jpg" style="width: 30px; height: 30px; border-radius: 30px" id="preview">
 					</c:when>
 					<c:otherwise>
-						<img src="${applicationScope.path }${obj.PROFILE}" style="width: 30px; border-radius: 100%" id="profile" />
+						<img src="${applicationScope.path }${objTop5.PROFILE}" style="width: 30px; border-radius: 100%" id="profile" />
 					</c:otherwise>
 				</c:choose>
 
-				<a href="/account/myPage.do?id=${obj.ID}" name="id">${obj.ID }</a>
-				<c:set var="isFollowing" value="false" />
-				<c:set var="doneLoop" value="false" />
-				<c:forEach var="obj2" items="${following }">
+				<a href="/account/myPage.do?id=${objTop5.ID}" name="id">${objTop5.ID }</a>
+				<c:set var="isFollowing1" value="false" />
+				<c:set var="doneLoop1" value="false" />
+				<c:forEach var="objTop5_2" items="${following }">
 					<c:if test="${not doneLoop }">
-						<c:if test="${obj2.ID } eq ${obj.ID }">
-							<input class="follower" type="button" name="${obj.ID }" value="팔로잉" />
-							<c:set var="isFollowing" value="true" />
-							<c:set var="doneLoop" value="true" />
+						<c:if test="${objTop5_2.ID } eq ${objTop5.ID }">
+							<input class="follower" type="button" name="${objTop5.ID }" value="팔로잉" />
+							<c:set var="isFollowing1" value="true" />
+							<c:set var="doneLoop1" value="true" />
 						</c:if>
 					</c:if>
 				</c:forEach>
 				<c:if test="${not isFollowing }">
-					<input class="follower" type="button" name="${obj.ID }" value="팔로우" />
+					<input class="follower" type="button" name="${objTop5.ID }" value="팔로우" />
 				</c:if>
 			</p>
 		</c:forEach>
 
 	</div>
+	
+	
 	<hr style="margin: 0 0 0 0; border: 0; border-top: 0px"/>
+
+
 
 	<div align="left">
 		<p>
@@ -64,7 +67,34 @@
 	<div algin="left">
 		<p>
 			<h4 align="left"><b>내가 팔로우한 친구들</b></h4>
-		
+			<c:forEach var="objFollowing" items="${following }">
+				<p style="float: left; width: 25%;">
+					<c:choose>
+						<c:when test="${empty objFollowing.PROFILE }">
+							<img src="/images/insta.jpg" style="width: 30px; height: 30px; border-radius: 30px" id="preview">
+						</c:when>
+						<c:otherwise>
+							<img src="${applicationScope.path }${objFollowing.PROFILE}" style="width: 30px; border-radius: 100%" id="profile" />
+						</c:otherwise>
+					</c:choose>
+	
+					<a href="/account/myPage.do?id=${objFollowing.ID}" name="id">${objFollowing.ID }</a>
+					<c:set var="isFollowing2" value="false" />
+					<c:set var="doneLoop2" value="false" />
+					<c:forEach var="objFollowing_2" items="${following }">
+						<c:if test="${not doneLoop2 }">
+							<c:if test="${objFollowing_2.ID } eq ${objFollowing.ID }">
+								<input class="follower" type="button" name="${objFollowing.ID }" value="팔로잉" />
+								<c:set var="isFollowing2" value="true" />
+								<c:set var="doneLoop2" value="true" />
+							</c:if>
+						</c:if>
+					</c:forEach>
+					<c:if test="${not isFollowing2 }">
+						<input class="follower" type="button" name="${objFollowing.ID }" value="팔로우" />
+					</c:if>
+				</p>
+			</c:forEach>
 			<hr/>
 		</p>
 	
@@ -73,7 +103,34 @@
 	<div align="left">
 		<p>
 			<h4 align="left"><b>나를 팔로우한 친구들</b></h4>
-		
+			<c:forEach var="objFollower" items="${follower }">
+				<p style="float: left; width: 25%;">
+					<c:choose>
+						<c:when test="${empty objFollower.PROFILE }">
+							<img src="/images/insta.jpg" style="width: 30px; height: 30px; border-radius: 30px" id="preview">
+						</c:when>
+						<c:otherwise>
+							<img src="${applicationScope.path }${objFollower.PROFILE}" style="width: 30px; border-radius: 100%" id="profile" />
+						</c:otherwise>
+					</c:choose>
+	
+					<a href="/account/myPage.do?id=${objFollower.ID}" name="id">${objFollower.ID }</a>
+					<c:set var="isFollowing3" value="false" />
+					<c:set var="doneLoop3" value="false" />
+					<c:forEach var="objFollwer_2" items="${following }">
+						<c:if test="${not doneLoop3 }">
+							<c:if test="${objFollower_2.ID } eq ${objFollower.ID }">
+								<input class="follower" type="button" name="${objFollower.ID }" value="팔로잉" />
+								<c:set var="isFollowing3" value="true" />
+								<c:set var="doneLoop3" value="true" />
+							</c:if>
+						</c:if>
+					</c:forEach>
+					<c:if test="${not isFollowing3 }">
+						<input class="follower" type="button" name="${objFollower.ID }" value="팔로우" />
+					</c:if>
+				</p>
+			</c:forEach>
 			<hr/>
 		</p>
 
@@ -85,38 +142,37 @@
 
 <script>
 	$(".follower").click(function() {
-		var setid="${cookie.setId.value}";
-		var src =$(this);
-		var a = $(this).attr("name");
-		
-		if($(this).val() == "팔로잉"){
-			$.ajax("/follow/delete.do",{
-				"method" : "get",
+		var owner = "${cookie.setId.value}";
+		var src = $(this);
+		var target = $(this).attr("name");
+
+		if ($(this).val() == "팔로잉") {
+			$.ajax("/follow/delete.do", {
+				"method" : "post",
 				"async" : true,
-				"data" :{
-					"owner" : setid,
-					"target" : a
+				"data" : {
+					"owner" : owner,
+					"target" : target
 				}
-			}).done(function(obj2){
+			}).done(function(btnFollow) {
 				console.log("삭제 들어왔다.");
 				src.val("팔로우");
-				src.attr("name", a);
+				src.attr("name", target);
 			});
-		}else{
 			
-		$.ajax("/follow/insert.do",{
-			"method" : "get",
-			"async" : true,
-			"data" :{
-				"owner" : "${cookie.setId.value}",
-				"target" : a
-			}
-		}).done(function(obj){
-			console.log("들어왔다."+src);
-			src.val("팔로잉");
-			src.attr("name", a);
-		});
+		} else {
+			$.ajax("/follow/insert.do", {
+				"method" : "post",
+				"async" : true,
+				"data" : {
+					"owner" : owner,
+					"target" : target
+				}
+			}).done(function(btnFollowing) {
+				console.log("들어왔다." + src);
+				src.val("팔로잉");
+				src.attr("name", target);
+			});
 		}
 	});
-	
 </script>

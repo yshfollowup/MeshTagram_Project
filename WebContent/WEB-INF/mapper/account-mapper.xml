@@ -26,22 +26,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectTop5Account" resultType="java.util.LinkedHashMap">
-		select * from (select * from (select id, count(*) as cnt from account inner join follow on id = follow.target where follow.owner != #{id } group by id) rst1 inner join account acc on rst1.id=acc.id where rst1.id != #{id } order by cnt desc) where rownum <![CDATA[<=]]> 5
+		select * from (select * from account inner join (select target, count(*) as targetcnt from follow inner join (select * from account where (id not in (select target from follow where owner = #{id })) and id != #{id }) notMyFr on follow.target = notMyFr.id group by target order by targetcnt desc) followlist on account.id = followlist.target order by targetcnt desc) where rownum <![CDATA[<=]]> 5
    	</select>
-   
-   <select id="selectTop5AccountCh" resultType="java.util.LinkedHashMap">
-   select *  from(select target, count(target) as cnt from follow group by target order by cnt desc ) where target != #{id } 
-   and rownum <![CDATA[<=]]> 5
-   </select>
-
-	<select id="selectTop5Profile" resultType="java.util.LinkedHashMap">
-   	select * from account inner join follow on account.id=follow.target where account.id in( #{user1 }, #{user2 }, #{user3 }, #{user4 }, #{user5 } )
-	and follow.owner not in (#{id })
-   </select>
 
 	<select id="selectAllmemberCheck" resultType="java.util.LinkedHashMap">
 		select * from account FULL OUTER JOIN follow on account.id=follow.target where account.id != #{id } 
 	</select>
+	
+	
 	<!-- 계정 삭제 -->
 	<delete id="deleteAccount">
 		delete * from account where id= #{id }
@@ -56,12 +48,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 내가 follwing 한 사람 리스트 -->
 	<select id="selectAllAccountFollowing" resultType="java.util.LinkedHashMap">
-		select * from account inner join follow on account.id = follow.target where follow.owner = #{owner }
+		select * from account where id in (select target from follow where owner = #{owner })
+		
 	</select>
 	
 	<!-- 나를 follow 한 사람 리스트 -->
 	<select id="selectAllAccountFollower" resultType="java.util.LinkedHashMap">
-		select * from account inner join follow on account.id = follow.owner where follow.target = #{target }
+		select * from account where id in (select owner from follow where target = #{target })
 	</select>
 	
 </mapper>
