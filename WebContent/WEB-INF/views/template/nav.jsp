@@ -137,13 +137,13 @@ supports (margin-bottom:env(safe-area-inset-bottom) ){ . _evlcw: not (._b696q
 	background-color: #fff;
 	border-bottom: 1px solid rgba(0, 0, 0, .0975);
 	position: fixed;
-	
+	clear : both;
 	top: 0;
 	width: 100%;
 	z-index: 1;
 	-webkit-transition: height .2s ease-in-out;
 	transition: height .2s ease-in-out;
-	height: 80px;
+	height: 70px;
 }
 
 ._5rnaq, ._caluf {
@@ -1966,19 +1966,10 @@ px
 													 href="/account/login.do">Meshtagram</a>
 								</div>
 							</div>
-							
-							
 							<div class="_5ayw3 _ohiyl">
 								<input type="text" class="_avvq0 _o716c" id="search" placeholder="검색">
-								<div>
-      								<div>
-      									<div></div>
-								      		<div id="pp"></div>
-      					      		</div>
-      	  						</div>
+								<div id="pp"></div>
 							</div>
-							
-							
 							<div class="_devkn">
 								<div class="_qlijk">
 									<div class="_b28md">
@@ -1986,21 +1977,19 @@ px
 											href="/follow/index.do">팔로우</a>
 									</div>
 									<div class="_b28md">
-										<a href="/accounts/upload.do/"
-											class="_ohbcb _gvoze ">
+										<a href="/account/upload.do"
+											class="_ohbcb _gvoze" style="margin-left : 20px;">
 											<img src="/images/write.png"/>
-											<span
-											class="_8scx2">글쓰기</span></a>
+											</a>
 									</div>
 									<div class="_b28md">
 										<a class="_8scx2 _gvoze coreSpriteDesktopNavProfile"
-											href="/mypage/index.do">마이페이지</a>
+											href="/mypage/index.do" style="margin-left : 20px;">마이페이지</a>
 									</div>
 									<div class="_b28md">
 										<a href="/" style="margin-left : 20px;">
 											<img src="/images/statistics.png"/>
-											<span
-											class="_8scx2">통계</span>
+											
 										</a> 
 									</div>
 								</div>
@@ -2009,7 +1998,6 @@ px
 					</div>
 				</div>
 			</nav>
-			
 			
 <script>
 $("#search").on("keyup",function(){
@@ -2059,6 +2047,8 @@ $("#search").on("keyup",function(){
 		$("#pp").html(str);
 	})
 });
-</script>
+</script>			
+			
+			
 </body>
 </html>
