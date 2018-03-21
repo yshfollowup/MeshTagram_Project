@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 /*
@@ -24,24 +25,54 @@ public class ReplyDAO {
 	@Autowired
 	MongoTemplate template;
 	
-	//Insert
+	//Insert - 댓글
 	public Boolean insertReply(Map param ) {
 			template.insert(param, "Reply");
 			System.out.println("성공");
 		return true;
 	}
+	//Insert - 좋아요 
+	public Boolean UpdateLikeReply(Map param ) {
+		List<Map> list = new LinkedList<>();
+		String s=(String)param.get("boarId");
+		String id=(String)param.get("id");
+		Query query = Query.query(Criteria.where("boardId").is(s));
+		list=template.find(query, Map.class,"Reply");
+
+		for(int i=0; i<list.size(); i++) {
+			String check=list.get(i).get("id").toString();
+			System.out.println(check);
+			if(check.equals(id)) {
+				System.out.println("실패~!");
+				return false;
+			}
+			
+		}
+		
+		template.insert(param, "Like");
+		System.out.println("성공");
+	return true;
+}
 	
-	//Find(=Search)
+	//Find(=Search) -댓글 리스트
 	public List<Map> findAllReply(Map param) {
 		List<Map> list = new LinkedList<>();
-		String q=(String)param.get("boardId");
-		String s[]=q.split(",");
-		System.out.println("댓글리스트");
-		Query query = Query.query(Criteria.where("boardId").is(s));
+		System.out.println("댓글리스트"+param.get("boardId"));
+		String[] q=(String[])param.get("boardId").toString().split(",");
+		Query query = Query.query(Criteria.where("boardId").in(q));
 		list = template.find(query,Map.class, "Reply");
 		return list;
 	}
-	
+	//finf(=Search) - 좋아요 리스트
+	//Find(=Search)
+		public List<Map> LikeAllReply(Map param) {
+			List<Map> list = new LinkedList<>();
+			System.out.println("좋아요"+param.get("boardId"));
+			String[] q=(String[])param.get("boardId").toString().split(",");
+			Query query = Query.query(Criteria.where("boardId").in(q));
+			list = template.find(query,Map.class, "Like");
+			return list;
+		}
 	
 	//Delete
 	public Map<String, Object> deleteReply(Map param) {

@@ -31,9 +31,13 @@
 			</div>
 			<div>
 			<div>
-			<button type="button">좋아요</button><button type="button" class="rebt" name="${obj._id }">댓글달기</button>
+			<button class="like" type="button">좋아요</button><span class="count"></span>
+			<button type="button" class="rebt" name="${obj._id }">댓글달기</button>
+			<span class="likeId"></span>
 			</div>
-			 <a href="/mypage/index.do?id=${obj.id }">${obj.id }</a>${obj.comment }
+			 <a href="/mypage/index.do?id=${obj.id }">${obj.id }</a>
+			 <c:forEach items="${obj.comment }" var="comm">
+			 <span>${comm }</span></c:forEach>
 				<c:forEach items="${obj.tags }" var="tag">
 				<a href="/account/search.do?tag=${fn:replace(tag,'#','%23') }">${tag }</a>
 				</c:forEach>
@@ -41,7 +45,7 @@
 			<span class="re"></span>
 			</div> 
 			<hr/>
-				<div>
+				<div class="parent">
 					<input type="text" value="" class="reply" aria-label="${obj._id }"  style="resize: none; width: 100%; padding: 2px; font-family: 맑은고딕" placeholder="댓글쓰기">
 				</div>
 			</div>
@@ -50,6 +54,11 @@
 	</c:forEach>
   </div>
   <script>
+  	// 포커스
+  	$(".reply").on("click",function(){
+  			$('input').focus();
+  	});
+  	// 댓글 쓰기
 	$(".reply").on("change",function(){
 		var id = $(this).attr("aria-label");
 		var reid="${cookie.setId.value}";
@@ -66,18 +75,17 @@
 		}).done(function(obj){
 			console.log($(this).val());
 			$(".re").html(obj.ment);
-			$(this).val("");
+			$(this).empty();
 		})
 	});
 	List();
-	
+	//댓글 리스트 자동 생성
 	function List(){
-		var boardid="";
+		var boardid;
 		
 		$(".rebt").each(function(){
-			boardid+=$(this).attr("name")+",";
+			boardid+=","+($(this).attr("name"));
 		});
-		console.log(boardid);
 		var reid="${cookie.setId.value}";
 		$.ajax("/listReply.do", {
 			"method" : "get",
@@ -88,16 +96,51 @@
 		}).done(function(val){
 			
 			for(var i=0; i <val.length; i++){
-				console.log(val.boardId);
 				if(boardid[i] == val[i].boardId){
+				console.log(val[i].boardId);
 					var reply= val[i].ment+val[i].id+val[i].date;				
 					$(".re").html(reply);
 				}
 			}
 		})
 	}
-  
-  
+	//좋아요 ....
+  $(".like").on("click", function(){
+	  console.log("좋아요 들어왔다");
+	  var reid="${cookie.setId.value}";
+	  var boardid=$(".rebt").attr("name");
+	  var like="좋아요";
+	  $.ajax("/likeBoard.do",{
+		  "method" : "get",
+		  "async" : true,
+		  "data" :{
+			  "boardId" : boardid,
+			  "id" : reid,
+			  "like" : like,
+		  }
+	  }).done(function(val){
+		  $(".count").html(val.size);
+		  $(".likeId").html(val.id);
+	  })
+  });
+  	likeList();
+	function likeList(){
+		var reid="${cookie.setId.value}";
+		var boardid;
+		$(".rebt").each(function(){
+			boardid+=","+($(this).attr("name"));
+		});
+		$.ajax("/likeList.do",{
+			"method" : "get",
+			"async" : true,
+			"data" : {
+				"boardId": boardid,
+				"id" : reid
+			}
+	}).done(function(val){
+		console.log(val+"댓글 좋아요");
+	})
+};
   </script>
     <div class="col-sm-2 sidenav">
       <div class="well">
