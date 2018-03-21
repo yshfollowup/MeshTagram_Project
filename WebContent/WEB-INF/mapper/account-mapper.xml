@@ -26,8 +26,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectTop5Account" resultType="java.util.LinkedHashMap">
-      select * from (select id, count(*) as cnt from account group by id order by cnt asc) where id != #{id } and rownum <![CDATA[<=]]> 5
-   </select>
+		select * from (select * from (select id, count(*) as cnt from account inner join follow on id = follow.target where follow.owner != #{id } group by id) rst1 inner join account acc on rst1.id=acc.id where rst1.id != #{id } order by cnt desc) where rownum <![CDATA[<=]]> 5
+   	</select>
    
    <select id="selectTop5AccountCh" resultType="java.util.LinkedHashMap">
    select *  from(select target, count(target) as cnt from follow group by target order by cnt desc ) where target != #{id } 

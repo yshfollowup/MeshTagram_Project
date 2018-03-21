@@ -16,15 +16,23 @@
 						style="width: 30px; border-radius: 100%" id="profile" />
 				</c:otherwise>
 			</c:choose>
+
 			<a href="/account/myPage.do?id=${obj.ID}" name="id">${obj.ID }</a>
-			<c:choose>
-			<c:when test="${empty obj.OWNER}">
-				<input  class="follower" type="button" name="${obj.ID }" value="팔로우" />
-			</c:when>	
-			<c:otherwise>
-				<input  class="follower" type="button" name="${obj.ID }" value="팔로잉" />
-			</c:otherwise>	
-			</c:choose>
+			<c:set var="isFollowing" value="false" />
+			<c:set var="doneLoop" value="false" />
+			<c:forEach var="obj2" items="${following }">
+				<c:if test="${not doneLoop }">
+					<c:if test="${obj2.ID } eq ${obj.ID }">
+						<input class="follower" type="button" name="${obj.ID }" value="팔로잉" />
+						<c:set var="isFollowing" value="true" />
+						<c:set var="doneLoop" value="true" />
+					</c:if>
+				</c:if>
+			</c:forEach>
+			<c:if test="${not isFollowing }">
+				<input class="follower" type="button" name="${obj.ID }" value="팔로우" />
+			</c:if>
+
 		</p>
 	</c:forEach>
 </div>
