@@ -19,6 +19,7 @@ import mvc.service.FollowDAO;
 import mvc.service.MessengerDAO;
 import mvc.service.PostDAO;
 import mvc.service.ReplyDAO;
+import mvc.service.SearchDAO;
 
 @Controller
 @RequestMapping("/mypage")
@@ -33,6 +34,8 @@ public class MyPageController {
 	@Autowired
 	ReplyDAO rDAO;
 	@Autowired
+	SearchDAO sDAO;
+	@Autowired
 	MessengerDAO mDAO;
 
 	@RequestMapping("/index.do")
@@ -44,7 +47,7 @@ public class MyPageController {
 		modelMap.put("aDTO", aDTO);
 
 		// 이전에 쓴 모든 게시물 정보
-		List<Map> myPost = pDAO.findAllPost();
+		List<Map> myPost = sDAO.findSearchTag(id);
 		if (myPost != null)
 			modelMap.put("myPost", myPost);
 

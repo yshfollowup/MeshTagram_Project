@@ -79,7 +79,7 @@ public class FollowController {
 		System.out.println(owner+target);
 		if(!fDAO.selectOneFollow(owner, target)) { // 팔로우가 존재한다면 - 그냥 리턴
 			System.out.println("[SERVER]: follow exist");
-			return "redirect:/follow/index.do";
+			return "{\"result\": false,\"status\":\"no\"}";
 		} else {  // 팔로우 존재하지 않는다면 하나 생성
 			System.out.println("[SERVER]: insert follow, me->"+owner+" | target->"+target);
 			int r= fDAO.insertFollow(owner, target);

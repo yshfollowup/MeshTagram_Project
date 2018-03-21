@@ -20,7 +20,6 @@
 	</c:forEach>
 </div>
 <script>
-
 	$(".follower").click(function() {
 		var setid="${cookie.setId.value}";
 		var src =$(this);

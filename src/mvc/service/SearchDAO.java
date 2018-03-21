@@ -53,13 +53,24 @@ public class SearchDAO {
 		}
 	}
 	
-	//Find(=Search)
+	//Find 비슷한 태그 검색어
 		public List<Map> findLikeTag(String value) {
 			List<Map> list = new LinkedList<>();
 			String q=value;
 			
 			System.out.println("게시물 받음"+q);
 			Query query = Query.query(Criteria.where("tags").regex(q));
+			list = template.find(query, Map.class, "MeshTagramUpload");
+			System.out.println("작업완료");
+			return list;
+		}
+		//Find 검색한 대상이 작성한 게시물
+		public List<Map> findSearchTag(String value) {
+			List<Map> list = new LinkedList<>();
+			String q=value;
+			
+			System.out.println("게시물 받음"+q);
+			Query query = Query.query(Criteria.where("id").is(q));
 			list = template.find(query, Map.class, "MeshTagramUpload");
 			System.out.println("작업완료");
 			return list;
