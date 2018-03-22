@@ -40,7 +40,7 @@
 				<a href="/account/search.do?tag=${fn:replace(tag,'#','%23') }">${tag }</a>
 				</c:forEach> </small>
 				<div class="mouseIn">
-				<a href="#" data-toggle="tooltip" title="좋아요 ${fn:length(like)}개 댓글${fn:length(reply)}">
+				<a href="#" data-toggle="tooltip" id="top_${obj._id }" name="${obj._id }" class="tool" title="">
 				<img src="${obj.path }${obj.image}"
 					style="width: 230px; height: 230px;" class="image">
 				</a>
@@ -55,6 +55,65 @@
 	
 	
 	<script>
+	var setid = "${cookie.setId.value}";
+	likeList();
+	
+	function likeList() {
+		var boardid=[];
+		$(".tool").each(function() {
+			boardid.push($(this).attr("name"));
+		});
+		console.log(boardid);
+		$.ajax("/likecountList.do", {
+			"method" : "get",
+			"async" : true,
+			"data" : {
+				"boardId" : boardid,
+			}
+		}).done(function(val) {
+			console.log(val + "댓글 좋아요");
+			for (var i = 0; i < val.length; i++) {
+				// console.log(val.length);
+				//$("#top_" + val[i].boardId).attr("title","좋아요 " + val[i].count+"개");
+				$("#top_" + val[i].boardId).val("좋아요 " + val[i].count+"개");
+			}
+			List();
+		})
+		
+	};
+
+	function List() {
+		var boardid=[];
+
+		$(".tool").each(function() {
+			boardid.push($(this).attr("name"));
+		});
+		console.log(boardid);
+		$.ajax("/ReList.do", {
+			"method" : "get",
+			"async" : true,
+			"data" : {
+				"boardId" : boardid
+			}
+		}).done(
+				function(val) {
+					
+					var boardid = [];
+					var reply = [];
+					$(".rebt").each(function() {
+						boardid.push($(this).attr("name"));
+						reply.push($(this).attr("name"));
+					});
+					// console.log(val);
+						
+					for (var i = 0; i < val.length; i++) {
+						var reply=$("#top_" + val[i].boardId).val();
+						console.log(reply);
+						$("#top_" + val[i].boardId).attr("title","좋아요 " + $("#top_"+val[i].boardId).val()+"댓글 "+ val[i].count + "개");
+						//reply.appent("댓글 "+ val[i].count + "개");
+					}
+				})
+	};
 	$(document).ready(function(){
 	    $('[data-toggle="tooltip"]').tooltip();   
 	});
@@ -119,6 +178,7 @@
 		});
 		}
 	}
+
 	</script>
   <!-- Modal -->
 <div id="myModal1" class="modal fade" role="dialog">

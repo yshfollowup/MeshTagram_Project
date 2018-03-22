@@ -18,6 +18,7 @@ import mvc.model.AccountDTO;
 import mvc.service.AccountDAO;
 import mvc.service.FollowDAO;
 import mvc.service.PostDAO;
+import mvc.service.ReplyDAO;
 import mvc.service.SearchDAO;
 
 @Controller
@@ -30,6 +31,8 @@ public class SearchController {
 	PostDAO pDAO;
 	@Autowired
 	FollowDAO fDAO;
+	@Autowired
+	ReplyDAO rDAO;
 	
 	@Autowired
 	Gson gson;
@@ -58,19 +61,76 @@ public class SearchController {
 		//이전에 쓴 모든 게시물 정보
 		List<Map> searchPost = sDAO.findSearchTag(id);
 		map.put("myPost", searchPost);
+		System.out.println(searchPost+"게시물.");
+
 		// 팔로잉 - 자신이 구독한 사람들
 		List<AccountDTO> followingList = new ArrayList<>();
 		followingList = aDAO.selectAllAccountFollowing(id);
 		map.put("following", followingList);
 
-		// 팔로워 - 자신을 구독하는 사람들
-		List<AccountDTO> followerList = new ArrayList<>();
-		followerList = aDAO.selectAllAccountFollower(id);
-		map.put("follower", followerList);
-		
 		System.out.println(searchPost+"검색한 게시물을 받ㅇ");
 		return "insta_search";
 	}
+	//========
+	//검색하고 나서 댓글 리스트 받아오기
+	@RequestMapping(path="/ReList.do", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String ReplyListHandle(@RequestParam MultiValueMap<String, String> vmap) {
+				System.out.println(vmap+"댓글 리스트 받ㅇ");
+				List<Map> result = rDAO.findAllReply(vmap);
+				
+				int count=0;
+				List<Map> list2=new ArrayList();
+				//list2=rDAO.findAllLike();
+				for(int i=0; i<result.size(); i++) {
+					List<Map> list3=new ArrayList();
+					String boardId=(String)result.get(i).get("boardId");
+					String id=(String)result.get(i).get("id");
+					String date=(String)result.get(i).get("date");
+					String ment=(String)result.get(i).get("ment");
+					list3=rDAO.findReplyBoardId(boardId);
+					//System.out.println(list3.size()+"카운트 개수");
+					count=list3.size();
+					result.get(i).put("boardId", boardId);
+					result.get(i).put("id",id);
+					result.get(i).put("date", date);
+					result.get(i).put("ment", ment);
+					result.get(i).put("count", count);
+				}
+				System.out.println("댓글리스트이다"+result+result.size());
+				return gson.toJson(result);
+	}
+	
+	@RequestMapping(path="/likecountList.do", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String likeListHandle(@RequestParam MultiValueMap<String, String> map) {
+		System.out.println(map+"좋아요 리스트");
+		List<Map> list=new ArrayList();
+		list=rDAO.findAllLike();
+		//System.out.println("좋아요 모음!!!!"+list.size());
+		int count=0;
+		List<Map> list2=new ArrayList();
+		list2=rDAO.findAllLike();
+		for(int i=0; i<list2.size(); i++) {
+			List<Map> list3=new ArrayList();
+			String boardId=(String)list2.get(i).get("boardId");
+			String id=(String)list2.get(i).get("id");
+			String date=(String)list2.get(i).get("date");
+			list3=rDAO.findLikeBoardId(boardId);
+			//System.out.println(list3.size()+"카운트 개수");
+			count=list3.size();
+			list2.get(i).put("boardId", boardId);
+			list2.get(i).put("id",id);
+			list2.get(i).put("date", date);
+			list2.get(i).put("count", count);
+			
+		}
+		System.out.println(list2);
+		return gson.toJson(list2);
+	}
+	
+	
+	
 	@RequestMapping(path="/autocom.do", method=RequestMethod.POST, produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String autoHandle(@RequestParam MultiValueMap<String, String> vmap) {
