@@ -73,8 +73,8 @@ function likeList() {
 	var boardid;
 	var count;
 	$(".rebt").each(function() {
-		boardid += "," + ($(this).attr("name"));
-		count += "," + ($(this).attr("name"));
+		boardid.push($(this).attr("name"));
+		count.push($(this).attr("name"));
 	});
 	$.ajax("/likeList.do", {
 		"method" : "get",
@@ -96,8 +96,8 @@ function List(setId) {
 	var reply;
 
 	$(".rebt").each(function() {
-		boardid += "," + ($(this).attr("name"));
-		reply = "," + ($(this).attr("name"));
+		boardid.push($(this).attr("name"));
+		reply.push($(this).attr("name"));
 	});
 	$.ajax("/listReply.do", {
 		"method" : "get",

@@ -95,7 +95,7 @@ public class ReplyController {
 	}
 	@RequestMapping(path="/likeList.do", produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String likeListHandle(@RequestParam Map map) {
+	public String likeListHandle(@RequestParam MultiValueMap<String, String> map) {
 		System.out.println(map+"좋아요 리스트");
 		List<Map> list=new ArrayList();
 		list=rDAO.findAllLike();
@@ -110,6 +110,7 @@ public class ReplyController {
 			String date=(String)list2.get(i).get("date");
 			list3=rDAO.findLikeBoardId(boardId);
 			//System.out.println(list3.size()+"카운트 개수");
+			
 			count=list3.size();
 			list2.get(i).put("boardId", boardId);
 			list2.get(i).put("id",id);

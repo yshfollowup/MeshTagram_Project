@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.MultiValueMap;
 
 import mvc.model.AccountDTO;
 
@@ -63,12 +64,16 @@ public class ReplyDAO {
 		return list;
 	}
 	//Find(=Search) -댓글 리스트
-	public List<Map> findAllReply(Map param) {
+	public List<Map> findAllReply(MultiValueMap<String, String> param) {
 		List<Map> list = new LinkedList<>();
-		//System.out.println("댓글리스트"+param.get("boardId"));
-		String[] q=(String[])param.get("boardId").toString().split(",");
-		Query query = Query.query(Criteria.where("boardId").in(q));
+		String q=null;
+		for(int i=0; i<param.size(); i++) {
+			q+=param.get("boardId[]");
+		}
+		System.out.println("댓글리스트1111"+param.get("boardId[]")+param.size()+q);
+		Query query = Query.query(Criteria.where("boardId").in(param.get("boardId[]")));
 		list = template.find(query,Map.class, "Reply");
+		System.out.println("댓글리스트"+list);
 		return list;
 	}
 	//finf(=Search) - 좋아요 리스트
@@ -80,7 +85,7 @@ public class ReplyDAO {
 			list = template.find(query,Map.class, "Like");
 			return list;
 		}
-		
+		//==============================================================================================
 		//Find 좋아요 게시물 보기
 		public List<Map> findLikeBoardId(String value) {
 			List<Map> list = new LinkedList<>();
@@ -89,6 +94,18 @@ public class ReplyDAO {
 			//System.out.println("게시물 받음"+q);
 			Query query = Query.query(Criteria.where("boardId").is(q));
 			list = template.find(query, Map.class, "Like");
+			//System.out.println("작업완료");
+			return list;
+		}
+		
+		//Find 댓글 게시물 보기
+		public List<Map> findReplyBoardId(String value) {
+			List<Map> list = new LinkedList<>();
+			String q=value;
+			
+			//System.out.println("게시물 받음"+q);
+			Query query = Query.query(Criteria.where("boardId").is(q));
+			list = template.find(query, Map.class, "Reply");
 			//System.out.println("작업완료");
 			return list;
 		}
