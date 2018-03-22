@@ -3,13 +3,16 @@ package mvc.service;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import org.bson.BSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 
 /*
  * db의 이름 : MeshTagramUpload
@@ -73,13 +76,8 @@ public class PostDAO {
 		return list;
 	}
 	
-	public List<Map> findPostByName(String name) {
-		List<Map> list = new LinkedList<>();
-		return list;
-	}
-	
 	//tag에 해당하는 게시물
-	public List<Map> findPostByTag(List tag) {
+	public List<Map> findPostByTag(String tag) {
 		List<Map> list = new LinkedList<>();
 		Query query = 
 				new Query(Criteria.where("tags").is(tag));
@@ -96,39 +94,17 @@ public class PostDAO {
 		return list;
 	}
 	
-	
-	//Update
-	public Map<String, Object> updateURL(Map param) {
-		Map<String, Object> map = new LinkedHashMap<>();
-		//template.updateMulti(param.get(""), map.put("url", ), "post");
-		return map;
-		
-	}
-	
-	public Map<String, Object> updateContent(Map param) {
-		Map<String, Object> map = new LinkedHashMap<>();
-		//template.updateMulti(param.get(""), map.put("content", ), "post");
-		return map;
-		
-	}
-	
-	public Map<String, Object> updateTags(Map param) {
-		Map<String, Object> map = new LinkedHashMap<>();
-		//template.updateMulti(param.get(""), map.put("tags", ), "post");
-		return map;
-	}
-	
+
 	//Delete
-	public Map<String, Object> deletePost(Map param) {
+	public void deletePost(Map param) {
 		Map<String, Object> map = new LinkedHashMap<>();
-		template.remove(param.get(""));
-		return map;
+		Query query = new Query(Criteria.where("_id").is(param.get("_id")));
+		template.remove(query, "MeshTagramUpload");
 	}
 	
-	public Map<String, Object> deletePostByName(Map param) {
-		Map<String, Object> map = new LinkedHashMap<>();
-		template.remove(param.get(""));
-		return map;
+	public void deletePostById(String id) {
+		Query query = new Query(Criteria.where("id").is(id));
+		template.findAllAndRemove(query, "MeshTagramUpload");
 	}
 	
 }

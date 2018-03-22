@@ -11,15 +11,16 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import mvc.model.AccountDTO;
 import mvc.model.FollowDTO;
 import mvc.service.AccountDAO;
 import mvc.service.FollowDAO;
 import mvc.service.MessengerDAO;
 import mvc.service.PostDAO;
 import mvc.service.ReplyDAO;
+import mvc.service.SeperatorService;
 
 @Controller
-@RequestMapping("/post")
 public class ShowPostController {
 	@Autowired
 	AccountDAO aDAO;
@@ -32,52 +33,43 @@ public class ShowPostController {
 	@Autowired
 	MessengerDAO mDAO;
 	@Autowired
-	MongoTemplate template;
+	SeperatorService ss;
+
 	
 	
-	@RequestMapping("/byEachother.do")
+	@RequestMapping("/postByEachOther.do")
 	public String showPostByEachFollowHandle
 		(@CookieValue(name="setId", required=false) String setId, ModelMap modelMap) {
-		
+		List<AccountDTO> eachOtherList = aDAO.selectFOAF(setId);
+		//맞팔되어있는 친구 목록 뽑은 뒤 그에 대한 게시물 보냄(1순위)
+		for(AccountDTO eachfollow : eachOtherList) {
+			String id = eachfollow.getId();
+			if(id != null) {
+				List<Map> eachResult = pDAO.findPostById(id);
+				modelMap.addAttribute("eachResult", eachResult);
+				System.out.println(eachResult.size());				
+			}
+		}
 		return "insta_main";
 	}
 	
 	
-	@RequestMapping("/byTag.do")
+	@RequestMapping("/postByTag.do")
 	public String showPostByTagHandle
 		(@CookieValue(name="setId", required=false) String setId, ModelMap modelMap) {
-		List<Map> postList =pDAO.findAllPost();	//저장된 모든 게시물 정보
-		List<String> idList = new LinkedList<>();	//모든 아이디들
-		List<String> tagList = new LinkedList<>();	//모든 태그들(중복 값 제거)
-		List<String> annoList = new LinkedList<>();	//모든 어노테이션들
-		
-		for(Map post : postList) {
-			String objId = post.get("_id").toString();
-			String id = post.get("id").toString();
-			idList.add(id);
-			System.out.println(id);
-			
-			//tag리스트 뽑고 그에 대한 게시물 보냄(2순위)
-			List tag = (List)post.get("tags");
-			System.out.println(tag);
-			for(int i = 0; i < tag.size(); i++) {
-				List<Map> tagResult = pDAO.findPostByTag(tag); 	
-				if (!tagList.contains(tag.get(i))) 
-					tagList.add((String)tag.get(i));
-				if (tagList.get(i).equals(tagResult))
-					modelMap.addAttribute("tagResult", tagResult);
-			}
-			
-			List annotation = (List) post.get("annotations"); 
-			System.out.println(annotation);
-			for(int i = 0; i < annotation.size(); i++) {
-				if(!annoList.contains(annotation.get(i)))
-					annoList.add((String)annotation.get(i));
+		List<List<String>> list = ss.sendSeperInfo();
+		List<String> idList = list.get(0);
+		List<String> tagList = list.get(1);
+		List<String> annoList = list.get(2);
+		//관심사(hashtag)가 같은 사람을 뽑아 그에 대한 게시물 보냄(2순위)
+		for(String tag : tagList) {
+			if(tag != null) {
+				List<Map> tagResult = pDAO.findPostByTag(tag);
+				modelMap.addAttribute("tagResult", tagResult);
+				System.out.println(tagResult.size());
 			}
 		}
 		
-		System.out.println(idList.size());
-		System.out.println(tagList.size());
 		modelMap.addAttribute("ids", idList);
 		modelMap.addAttribute("tags", tagList);
 		modelMap.addAttribute("annos", annoList);
@@ -86,18 +78,21 @@ public class ShowPostController {
 	
 	
 	
-	@RequestMapping("/byTop5.do")
+	@RequestMapping("/postByTop5.do")
 	public String showPostByTop5Handle
 		(@CookieValue(name="setId", required=false) String setId, ModelMap modelMap) {
-		List<Map> topFollowerList = aDAO.selectTop5Account(setId);
+		List<AccountDTO> topFollowerList = aDAO.selectTop5Account(setId);
 		
 		//팔로워 수 많은 순대로 뽑고 그에 대한 게시물 보냄(3순위)
-		for(Map top : topFollowerList) {
-			System.out.println(top.get("id").toString());
-			String[] tops = top.get("id").toString().split(",");
-			for(String s : tops) {
-				List<Map> topResult = pDAO.findPostById(s);
-				modelMap.addAttribute("top5Result", topResult);
+		for(AccountDTO top : topFollowerList) {
+			System.out.println(top.getId());
+			String[] tops = top.getId().split(",");
+			if(tops.length != 0) {
+				for(String s : tops) {
+					List<Map> topResult = pDAO.findPostById(s);
+					modelMap.addAttribute("top5Result", topResult);
+					System.out.println(topResult.size());
+				}				
 			}
 		}
 		
@@ -105,9 +100,8 @@ public class ShowPostController {
 		
 	}
 	
-	
-	
-	@RequestMapping("/byFollow.do")
+
+	@RequestMapping("/postByFollow.do")
 	public String showPostByFollowHandle
 		(@CookieValue(name="setId", required=false) String setId, ModelMap modelMap) {
 		List<FollowDTO> followerList = fDAO.selectFollwer(setId);	//나를 팔로우
@@ -118,10 +112,13 @@ public class ShowPostController {
 			for(FollowDTO following : followingList) {
 				String myFollower = follower.getOwner();
 				String followingMe = following.getTarget();
-				List<Map> followerResult = pDAO.findPostById(setId);
-				List<Map> followingResult = pDAO.findPostById(setId);
-				modelMap.addAttribute("followerResult", followerResult);
-				modelMap.addAttribute("followingResult", followingResult);
+				if(myFollower != null || followingMe != null) {
+					List<Map> followerResult = pDAO.findPostById(myFollower);
+					List<Map> followingResult = pDAO.findPostById(followingMe);
+					modelMap.addAttribute("followerResult", followerResult);
+					modelMap.addAttribute("followingResult", followingResult);
+					System.out.println(followerResult.size()+" / "+followingResult.size());					
+				}
 			}
 		}
 		
