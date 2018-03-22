@@ -34,8 +34,7 @@ public class ReplyController {
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 		String str=sdf.format(System.currentTimeMillis());
 		map.put("date", str);
-		System.out.println(map);
-		
+		System.out.println(map+(String)map.get("ment")+"댓글을 입력한다.");
 		boolean a= rDAO.insertReply(map);
 		
 		if(a) {

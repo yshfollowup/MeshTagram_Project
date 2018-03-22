@@ -7,16 +7,14 @@
   <div class="row content">
     <div class="col-sm-2 sidenav">
     </div>
-    
-    
     <div class="col-sm-8 text-left"> 
     <div style="float: left; width:40%">
     <c:choose>
-	  <c:when test="${empty obj.profile}">
+	  <c:when test="${empty aDTO.profile}">
 		 <img src="/images/insta.jpg" style="width: 200px; height: 200px; border-radius: 200px" id="writer">
 	  </c:when>
 	  <c:otherwise>
-	  	<img src="${applicationScope.path }${obj.profile}" style="width: 200px; height: 200px; border-radius: 200px" id="writer">
+	  	<img src="${applicationScope.path }${aDTO.profile}" style="width: 200px; height: 200px; border-radius: 200px" id="writer">
 	  </c:otherwise>
 	</c:choose>
     </div>
@@ -25,7 +23,7 @@
     <div style="font-size: 50px;">${aDTO.id}</div>
     <input type="button" id="follow" value="팔로우" name="${aDTO.id }"/> 
     
-    	<div>${sDTO.intro }</div>
+    	<div>${aDTO.intro }</div>
     <div>
     		게시물 ${fn:length(myPost)} <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal1">팔로워 ${fn:length(follower )}</button>
   			<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal2">  팔로우${fn:length(following)}</button>
@@ -42,9 +40,9 @@
 				<a href="/account/search.do?tag=${fn:replace(tag,'#','%23') }">${tag }</a>
 				</c:forEach> </small>
 				<div class="mouseIn">
-				<a href="#" data-toggle="tooltip" title="실험 ${fn:length(following)}개">
+				<a href="#" data-toggle="tooltip" title="좋아요 ${fn:length(like)}개 댓글${fn:length(reply)}">
 				<img src="${obj.path }${obj.image}"
-					style="width: 230px; height: 230px;" onclick="openDialog('${obj._id}')" class="image">
+					style="width: 230px; height: 230px;" class="image">
 				</a>
 				</div>
 			  </div>
@@ -131,15 +129,15 @@
       <c:forEach var="obj" items="${follower }">
       <p style="float: left; width: 25%;">
 			<c:choose>
-				<c:when test="${empty obj.PROFILE }">
+				<c:when test="${empty obj.profile }">
 					<img src="/images/insta.jpg" style="width: 30px; height: 30px; border-radius: 30px" id="preview">
 				</c:when>
 				<c:otherwise>
-					<img src="${applicationScope.path }${obj.PROFILE}" style="width: 30px; border-radius: 100%" id="profile" />
+					<img src="${applicationScope.path }${obj.profile}" style="width: 30px; border-radius: 100%" id="profile" />
 				</c:otherwise>
 			</c:choose>
-			<a href="/search.do?id=${obj.ID}" name="id">${obj.ID }</a>
-			<input  type="button" name="${obj.ID }"   value="팔로우" class="follower"/>
+			<a href="/search.do?id=${obj.id}" name="id">${obj.id }</a>
+			<input  type="button" name="${obj.id }"   value="팔로우" class="follower"/>
 		</p>
   	</c:forEach>
   	</div>
@@ -156,15 +154,15 @@
       <c:forEach var="obj" items="${following }">
       <p style="float: left; width: 25%;">
 			<c:choose>
-				<c:when test="${empty obj.PROFILE }">
+				<c:when test="${empty obj.profile }">
 					<img src="/images/insta.jpg" style="width: 30px; height: 30px; border-radius: 30px" id="preview">
 				</c:when>
 				<c:otherwise>
-					<img src="${applicationScope.path }${obj.PROFILE}" style="width: 30px; border-radius: 100%" id="profile" />
+					<img src="${applicationScope.path }${obj.profile}" style="width: 30px; border-radius: 100%" id="profile" />
 				</c:otherwise>
 			</c:choose>
-			<a href="/search.do?id=${obj.ID}" name="id">${obj.ID }</a>
-			<input  type="button" name="${obj.ID }"  value="팔로잉" class="follower"/>
+			<a href="/search.do?id=${obj.id}" name="id">${obj.id }</a>
+			<input  type="button" name="${obj.id }"  value="팔로잉" class="follower"/>
 		</p>
   	</c:forEach>
   	</div>

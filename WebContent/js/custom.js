@@ -51,9 +51,9 @@ function followClick(setId,target,src,aa) {
 			console.log("삭제 들어왔다.");
 			src.val("팔로우");
 			src.attr("name", target);
-			check(setId);
 		});
 	} else {
+		console.log(target+"추가추가");
 		$.ajax("/follow/insert.do", {
 			"method" : "get",
 			"async" : true,
@@ -66,7 +66,6 @@ function followClick(setId,target,src,aa) {
 			src.val("팔로잉");
 			src.attr("name", target);
 		});
-		check(setId);
 	}
 }
 
@@ -92,7 +91,7 @@ function likeList() {
 	})
 };
 
-function List() {
+function List(setId) {
 	var boardid;
 	var reply;
 
@@ -100,7 +99,6 @@ function List() {
 		boardid += "," + ($(this).attr("name"));
 		reply = "," + ($(this).attr("name"));
 	});
-	var reid = "${cookie.setId.value}";
 	$.ajax("/listReply.do", {
 		"method" : "get",
 		"async" : true,
@@ -109,6 +107,7 @@ function List() {
 		}
 	}).done(
 			function(val) {
+				
 				var boardid = [];
 				var reply = [];
 				$(".rebt").each(function() {
@@ -116,10 +115,13 @@ function List() {
 					reply.push($(this).attr("name"));
 				});
 				// console.log(val);
-
+					
 				for (var i = 0; i < val.length; i++) {
-					$("#sp_" + val[i].boardId).html(
-							val[i].reid + "&emsp;" + val[i].ment + "<br/>");
+					for(var j=0; j<10; j++){
+						
+						$("#sp_" + val[i].boardId).append(
+								val[j].reid + "&emsp;" + val[j].ment + "<br/>");
+					}
 				}
 			})
 };
