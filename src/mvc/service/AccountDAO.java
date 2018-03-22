@@ -190,7 +190,7 @@ public class AccountDAO {
 		session.close();
 		return aList;
 	}
-	}
+}
 	// 삭제
 	public int deleteAccount(String id, String pass) {
 		Map map = new HashMap<>();

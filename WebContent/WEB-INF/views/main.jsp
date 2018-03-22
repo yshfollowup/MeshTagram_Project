@@ -43,11 +43,11 @@
 				<a href="/account/search.do?tag=${fn:replace(tag,'#','%23') }">${tag }</a>
 				</c:forEach>
 			<div>
-			<span id="sp_${obj._id }" class="re" name="${obj._id }"></span>
+			<span id="sp_${obj._id }" class="re_${obj._id }" name="${obj._id }"></span>
 			</div> 
 			<hr/>
 				<div class="parent">
-					<input type="text" id="reply_${obj._id }" class="reply" aria-label="${obj._id }"  style="resize: none; width: 100%; padding: 2px; font-family: 맑은고딕" placeholder="댓글쓰기">
+					<input type="text" value="" id="reply_${obj._id }" name="${obj.id }" class="reply" aria-label="${obj._id }"  style="resize: none; width: 100%; padding: 2px; font-family: 맑은고딕" placeholder="댓글쓰기">
 				</div>
 			</div>
 		  </section>
@@ -119,7 +119,6 @@
 						ii=img2
 					}
 					address.append(ii+val[i].id+"<br/>"+val[i].name+follower);
-				
 				}
 					check(setid);
 				$(".follow").on("click",function(){
@@ -133,20 +132,38 @@
 		})
   });
 			
-  	// 포커스
-  	/* $(".reply").on("click",function(){
-  			$('input').focus();
-  	}); */
+ 	$(".rebt").on("click",function(){
+ 		var boardid=[];
+ 		var input=$(this).attr("name");
+ 		$(".rebt").each(function() {
+ 			boardid.push($(this).attr("name"));
+ 		});
+ 		console.log(boardid[1]+input);
+ 		for(var i=0; i<boardid.length; i++){
+ 			if(boardid[i]==input){
+ 			console.log("포커스 들어왔다."+input);
+  			$("#re_"+input).focus();
+ 				
+ 			}
+ 		}
+  	});  
+ 	
   	// 댓글 쓰기
 	$(".reply").on("change",function(){
-		var ment= $(".reply").val();
+		var boardid=[];
+		var input=$(this).attr("aria-label");
+		$(".rebt").each(function() {
+ 			boardid.push($(this).attr("name"));
+ 		});
+		var ment= $(this).val();
+		var src=$(this);
 		if(ment.length==0) {
 			window.alert("댓글을 작성해주세요.");
 			return;
 		}
+		console.log("댓글을 쓴다."+ment+boardid);
 		var id = $(this).attr("aria-label");
 		var reid="${cookie.setId.value}";
-		var ment=$(".reply").val();
 		//console.log(id+ment);
 		$.ajax("/addreply.do", {
 			"method" : "post",
@@ -158,8 +175,15 @@
 			}
 		}).done(function(obj){
 			//console.log($(this).val());
-			$(".re").html(obj.ment);
-			$(this).empty();
+			$("#reply_"+input).empty();
+			$("#re_"+input).empty();
+			for(var i=0; i<boardid.length; i++){
+	 			if(boardid[i]==input){
+	 			console.log("댓글 들어왔다."+input+obj.ment);
+	  			$("#sp_"+input).append(obj.ment);
+	 				
+	 			}
+			}
 		})
 	});
   likeList();
