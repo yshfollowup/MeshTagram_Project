@@ -5,7 +5,7 @@
 
 <html>
 <head>
-<title>마이페이지 작업중</title>
+<title>Meshtagram</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="robots" content="noimageindex, noarchive">
