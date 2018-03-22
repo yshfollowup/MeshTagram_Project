@@ -21,7 +21,7 @@ public class UploadService {
 	@Autowired
 	PostDAO pDAO;
 	
-	public Map<String, Object> imageUpload(MultipartFile[] files) {
+	public Map<String, Object> uploadImages(MultipartFile[] files) {
 		Boolean rst = true;
 		final long sizeLimit = 1024 * 1024 * 10;
 		List<String> result = new ArrayList<>();
