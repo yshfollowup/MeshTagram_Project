@@ -174,6 +174,23 @@ public class AccountDAO {
 			return aList;
 		}
 	}
+	//============================================================================
+	//여러개 아이디를 리스트로 받을때 
+	public List<AccountDTO> selectSearchLikeListAccount(List param){
+		Map map = new HashMap<>();
+	List<AccountDTO> aList = null;
+	map.put("listId", param);
+	System.out.println("아아아아"+map+"아아아아아");
+	SqlSession session = factory.openSession();
+	try {
+		aList = session.selectList("account.selectSearchLikeListAccount", map);
+	} catch (Exception e) {
+		e.printStackTrace();
+	} finally {
+		session.close();
+		return aList;
+	}
+	}
 	// 삭제
 	public int deleteAccount(String id, String pass) {
 		Map map = new HashMap<>();

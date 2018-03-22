@@ -78,5 +78,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		account where id in (select owner from follow where target = #{target
 		})
 	</select>
+	
+	<!-- 여러명 Id 리스트를 받아올때  -->
+	<select id="selectSearchLikeListAccount" resultType="mvc.model.AccountDTO">
+		select * from account
+		<where>
+			<foreach collection="listId" item="idnum" separator="or" open="(" close=")">
+				id = #{idnum }
+			</foreach>
+		</where>
+	</select>
 
 </mapper>
