@@ -1969,7 +1969,7 @@ px
 							</div>
 							<div class="_5ayw3 _ohiyl">
 								<input type="text" class="_avvq0 _o716c" id="search" placeholder="검색">
-								<div id="pp" style="background-color:rgba(50, 50, 50, 0.9);  border: 1px solid gba(150, 150, 150);
+								<div id="pp" style="background-color:rgba(230, 230, 230, 0.95);  border: 1px solid gba(150, 150, 150);
     								border-radius: 5px; border-top:0px;"></div>
 							</div>
 							<div class="_devkn">
@@ -2049,7 +2049,7 @@ $("#search").on("keyup",function(){
 			}else{
 				name=val[i].NAME;
 			}
-  			str+="<a href=/search.do?id="+val[i].ID+"><div>"+ii+"<div>"+val[i].ID+"</div><div>"+name+"</div></div></a>"+"<br/>";
+  			str+="<a href=/search.do?id="+val[i].ID+"><div>"+ii+"<div>"+val[i].ID+"</div><div style=\"border-bottom: 1px solid grey;\">"+name+"</div></div></a>"+"<br/>";
 		}
 	}
 		$("#pp").html(str);
