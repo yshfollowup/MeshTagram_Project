@@ -38,7 +38,7 @@ public class BoardController {
 			@RequestParam("comment") String comm, @CookieValue(name="setId") String id)
 			throws IOException, InterruptedException {
 		System.out.println("들어옴");
-		Map result = us.imageUpload(files);	//uploadservice에서 처리된 결과값(파일들 리스트로 저장된 것, 성공 유무(rst))
+		Map result = us.uploadImages(files);	//uploadservice에서 처리된 결과값(파일들 리스트로 저장된 것, 성공 유무(rst))
 		boolean rst = (boolean) result.get("successResult");
 		//======================================================
 		String[] comments = comm.split("\\s");
@@ -63,10 +63,8 @@ public class BoardController {
 			map.put("writer", id);
 			//업로드한 파일의 갯수만큼 uploads에 저장
 			List<String> result2 = (List) result.get("uploadResult");
-			for(String uploads : result2) {
-				map.put("image", uploads);
-				System.out.println(uploads);
-			}
+				map.put("image", result2);
+				System.out.println(result2);
 			//map.put("path", path);
 			map.put("time", new Date());
 			map.put("comment", commList);
