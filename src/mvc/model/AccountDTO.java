@@ -89,5 +89,10 @@ public class AccountDTO {
 	public void setScope(int scope) {
 		this.scope = scope;
 	}
+	@Override
+	public String toString() {
+		return "\n AccountDTO [id=" + id + ", pass=" + pass + ", email=" + email + ", name=" + name + ", phone=" + phone
+				+ ", profile=" + profile + ", nick=" + nick + ", intro=" + intro + ", scope=" + scope + "]\n\n";
+	}
 	
 }
