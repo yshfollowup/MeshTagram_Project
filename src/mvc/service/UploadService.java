@@ -23,31 +23,33 @@ public class UploadService {
 	
 	public Map<String, Object> imageUpload(MultipartFile[] files) {
 		Boolean rst = true;
+		final long sizeLimit = 1024 * 1024 * 10;
 		List<String> result = new ArrayList<>();
 		Map<String, Object> map = new LinkedHashMap<>();
-		if (files.length != 0) {
-			File target = null;
-			String path = ctx.getRealPath("/");
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyMMddHHmmss");
-			System.out.println(path);
+		if (files == null || files.length == 0) {
+			return map;
+		}
+		File target = null;
+		String path = ctx.getRealPath("/");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyMMddHHmmss");
+		System.out.println(path);
 
-			for (MultipartFile file : files) {
-				String str = sdf.format(System.currentTimeMillis());
-				Long size = file.getSize();
-				String original = file.getOriginalFilename();
-				if (size < (1024 * 1024 * 10)) {
-					target = new File(path, str +"."+ FilenameUtils.getExtension(original));
-					String targetName = target.getName();
-					result.add("/" + targetName);
-					map.put("uploadResult", result);
-					//System.out.println(result);
-					try {
-						file.transferTo(target);
-						rst = true;
-						map.put("successResult", rst);
-					} catch (Exception e) {
-						rst = false;
-					}
+		for (MultipartFile file : files) {
+			String str = sdf.format(System.currentTimeMillis());
+			Long size = file.getSize();
+			String original = file.getOriginalFilename();
+			if (size < sizeLimit) {
+				target = new File(path, str +"."+ FilenameUtils.getExtension(original));
+				String targetName = target.getName();
+				result.add("/" + targetName);
+				map.put("uploadResult", result);
+				//System.out.println(result);
+				try {
+					file.transferTo(target);
+					rst = true;
+					map.put("successResult", rst);
+				} catch (Exception e) {
+					rst = false;
 				}
 			}
 		}

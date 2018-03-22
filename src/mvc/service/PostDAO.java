@@ -5,7 +5,11 @@ import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
+
+import com.mongodb.BasicDBObject;
 
 /*
  * db의 이름 : MeshTagramUpload
@@ -28,7 +32,7 @@ public class PostDAO {
 			map.put("date", param.get("time"));
 			map.put("comment", (List)param.get("comment"));
 			map.put("tags", (List)param.get("tags"));
-			map.put("annotations", (List)param.get("annotation"));
+			map.put("annotations", (List)param.get("annotations"));
 			template.insert(map,"MeshTagramUpload");
 			System.out.println("성공");
 		return map;
@@ -53,13 +57,23 @@ public class PostDAO {
 	
 	public List<Map> findPostById(String id) {
 		List<Map> list = new LinkedList<>();
-		//template.findOne(, "MeshTagramUpload");
+		Query query = new Query(Criteria.where("id").is(id));
+		template.find(query, Map.class, "MeshTagramUpload");
 		return list;
 	}
 	
 	public List<Map> findPostByName(String name) {
 		List<Map> list = new LinkedList<>();
 		return list;
+	}
+	
+	public List<Map> findPostByTag(List tag) {
+		List<Map> list = new LinkedList<>();
+		Query query = 
+				new Query(Criteria.where("tags").is(tag));
+		template.find(query, Map.class, "MeshTagramUpload");
+		return list;
+		
 	}
 	
 	

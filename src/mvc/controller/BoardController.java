@@ -71,7 +71,7 @@ public class BoardController {
 			map.put("time", new Date());
 			map.put("comment", commList);
 			map.put("tags", tagList);
-			map.put("annotation", annoList);
+			map.put("annotations", annoList);
 			System.out.println(map);
 			pDao.insertImage(map);
 		}
