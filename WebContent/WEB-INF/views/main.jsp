@@ -31,10 +31,11 @@
 			</div>
 			<div>
 			<div>
-			<button class="like" type="button">좋아요</button><span class="count"></span>
+			<button class="like" type="button" name="${obj._id }">좋아요</button>
 			<button type="button" class="rebt" name="${obj._id }">댓글달기</button>
-			<span class="likeId"></span>
+			<div><a href="#" id="List_like${obj._id }" class="List_like btn-info" data-toggle="modal"  data-target="#myModal1">좋아요 <span id="cnt_${obj._id }" class="count"></span>개</a></div>
 			</div>
+			
 			 <a href="/mypage/index.do?id=${obj.id }">${obj.id }</a>
 			 <c:forEach items="${obj.comment }" var="comm">
 			 <span>${comm }</span></c:forEach>
@@ -42,28 +43,90 @@
 				<a href="/account/search.do?tag=${fn:replace(tag,'#','%23') }">${tag }</a>
 				</c:forEach>
 			<div>
-			<span class="re"></span>
+			<span id="sp_${obj._id }" class="re" name="${obj._id }"></span>
 			</div> 
 			<hr/>
 				<div class="parent">
-					<input type="text" value="" class="reply" aria-label="${obj._id }"  style="resize: none; width: 100%; padding: 2px; font-family: 맑은고딕" placeholder="댓글쓰기">
+					<input type="text" id="reply_${obj._id }" class="reply" aria-label="${obj._id }"  style="resize: none; width: 100%; padding: 2px; font-family: 맑은고딕" placeholder="댓글쓰기">
 				</div>
 			</div>
 		  </section>
 	  </div>
 	</c:forEach>
   </div>
+  
+  <!-- Modal -->
+<div id="myModal1" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+       <div align="center">좋아요</div>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+      </div>
+    </div>
+
+  </div>
+</div>
   <script>
+  $(".List_like").on("change",function(){
+			var reid="${cookie.setId.value}";
+			var boardid;
+			var count;
+			$(".rebt").each(function(){
+				boardid+=","+($(this).attr("name"));
+				count+=","+($(this).attr("name"));
+			});
+			$.ajax("/likeList.do",{
+				"method" : "get",
+				"async" : true,
+				"data" : {
+					"boardId": boardid,
+					"id" : reid
+				}
+		}).done(function(val){
+			var listId;
+			console.log(val+"댓글 좋아요");
+			for(var i=0; i<val.length;i++){
+				console.log(val.length);
+				if(val[i].boardId==$(this).id){
+					listId+=","+val[i].id;
+					
+				}
+			}
+			$.ajax("/searchListLike.do",{
+				"method" : "post",
+				"async" : true,
+				"data" : {
+					"listId" : listId
+				}
+			}).done(function(val){
+				console.log("좋아하는 리스트를 받았다.")
+			})
+		})
+	 
+	  
+  });
   	// 포커스
-  	$(".reply").on("click",function(){
+  	/* $(".reply").on("click",function(){
   			$('input').focus();
-  	});
+  	}); */
   	// 댓글 쓰기
 	$(".reply").on("change",function(){
+		var ment= $(".reply").val();
+		if(ment.length==0) {
+			window.alert("댓글을 작성해주세요.");
+			return;
+		}
 		var id = $(this).attr("aria-label");
 		var reid="${cookie.setId.value}";
 		var ment=$(".reply").val();
-		console.log(id+ment);
+		//console.log(id+ment);
 		$.ajax("/addreply.do", {
 			"method" : "post",
 			"async" : true,
@@ -73,7 +136,7 @@
 				"ment" : ment
 			}
 		}).done(function(obj){
-			console.log($(this).val());
+			//console.log($(this).val());
 			$(".re").html(obj.ment);
 			$(this).empty();
 		})
@@ -82,9 +145,11 @@
 	//댓글 리스트 자동 생성
 	function List(){
 		var boardid;
+		var reply;
 		
 		$(".rebt").each(function(){
 			boardid+=","+($(this).attr("name"));
+			reply=","+($(this).attr("name"));
 		});
 		var reid="${cookie.setId.value}";
 		$.ajax("/listReply.do", {
@@ -94,21 +159,24 @@
 				"boardId" : boardid
 			}
 		}).done(function(val){
+			var boardid=[];
+			var reply=[];
+			$(".rebt").each(function(){
+				boardid.push($(this).attr("name"));
+				reply.push($(this).attr("name"));
+			});
+			//console.log(val);
 			
-			for(var i=0; i <val.length; i++){
-				if(boardid[i] == val[i].boardId){
-				console.log(val[i].boardId);
-					var reply= val[i].ment+val[i].id+val[i].date;				
-					$(".re").html(reply);
-				}
-			}
-		})
-	}
+		for(var i=0; i<val.length;i++){
+			$("#sp_"+val[i].boardId).html(val[i].reid+"&emsp;"+val[i].ment+"<br/>");
+		}
+	})
+};
 	//좋아요 ....
   $(".like").on("click", function(){
 	  console.log("좋아요 들어왔다");
 	  var reid="${cookie.setId.value}";
-	  var boardid=$(".rebt").attr("name");
+	  var boardid=$(this).attr("name");
 	  var like="좋아요";
 	  $.ajax("/likeBoard.do",{
 		  "method" : "get",
@@ -119,16 +187,17 @@
 			  "like" : like,
 		  }
 	  }).done(function(val){
-		  $(".count").html(val.size);
-		  $(".likeId").html(val.id);
+		  likeList();
 	  })
   });
-  	likeList();
+  likeList();
 	function likeList(){
 		var reid="${cookie.setId.value}";
 		var boardid;
+		var count;
 		$(".rebt").each(function(){
 			boardid+=","+($(this).attr("name"));
+			count+=","+($(this).attr("name"));
 		});
 		$.ajax("/likeList.do",{
 			"method" : "get",
@@ -139,6 +208,10 @@
 			}
 	}).done(function(val){
 		console.log(val+"댓글 좋아요");
+		for(var i=0; i<val.length;i++){
+			//console.log(val.length);
+			$("#cnt_"+val[i].boardId).html("&ensp;"+val[i].count);
+		}
 	})
 };
   </script>
@@ -147,7 +220,7 @@
       <a href="/mypage/index.do?id=${aDTO.id }">
       <c:choose>
       <c:when test="${empty aDTO.profile }">
-     	<img src="/image/insta.jpg" style="width: 30px; height: 30px; border-radius: 30px" id="profile">
+     	<img src="/images/insta.jpg" style="width: 30px; height: 30px; border-radius: 30px" id="profile">
       </c:when>
       <c:otherwise>
       <img src="${obj.path }${obj.image}"

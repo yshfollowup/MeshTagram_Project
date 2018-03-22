@@ -7,7 +7,7 @@
 		<p style="float: left; width: 25%;">
 			<c:choose>
 				<c:when test="${empty obj.PROFILE }">
-					<img src="/image/insta.jpg" style="width: 30px; height: 30px; border-radius: 30px" id="preview">
+					<img src="/images/insta.jpg" style="width: 30px; height: 30px; border-radius: 30px" id="preview">
 				</c:when>
 				<c:otherwise>
 					<img src="${applicationScope.path }${obj.PROFILE}" style="width: 30px; border-radius: 100%" id="profile" />
