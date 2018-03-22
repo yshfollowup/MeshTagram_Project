@@ -94,6 +94,13 @@ public class PostDAO {
 		return list;
 	}
 	
+	//Update
+	public void updateContent(String preContent, String postContent) {
+		Query query = new Query(Criteria.where("content").is(preContent));
+		Update update = new Update();
+		update.set("content", postContent);
+		template.updateFirst(query, update, "MeshTagramUpload");
+	}
 
 	//Delete
 	public void deletePost(Map param) {

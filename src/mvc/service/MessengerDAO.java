@@ -33,7 +33,10 @@ public class MessengerDAO {
 	
 	public List<Map> findAllMessage() {
 		List<Map> list = new LinkedList<>();
-		list = template.findAll(Map.class, "messenger");
+		System.out.println("게시물 받음");
+		list = template.findAll(Map.class, "MeshTagramMessenger");
 		return list;
 	}
+	
+	
 }
