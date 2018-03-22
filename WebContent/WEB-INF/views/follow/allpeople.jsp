@@ -10,29 +10,29 @@
 		<c:forEach var="obj" items="${member }">
 		<p style="float: left; width: 25%;">
 			<c:choose>
-				<c:when test="${empty obj.PROFILE }">
+				<c:when test="${empty obj.profile }">
 					<img src="/image/insta.jpg" style="width: 30px; height: 30px; border-radius: 30px" id="preview">
 				</c:when>
 				<c:otherwise>
-					<img src="${applicationScope.path }${obj.PROFILE}"
+					<img src="${applicationScope.path }${obj.profile}"
 						style="width: 30px; border-radius: 100%" id="profile" />
 				</c:otherwise>
 			</c:choose>
 
-			<a href="/account/myPage.do?id=${obj.ID}" name="id">${obj.ID }</a>
+			<a href="/account/myPage.do?id=${obj.id}" name="id">${obj.id }</a>
 			<c:set var="isFollowing" value="false" />
 			<c:set var="doneLoop" value="false" />
 			<c:forEach var="obj2" items="${following }">
 				<c:if test="${not doneLoop }">
-					<c:if test="${obj2.ID } eq ${obj.ID }">
-						<input class="follower" type="button" name="${obj.ID }" value="팔로잉" />
+					<c:if test="${obj2.id } eq ${obj.id }">
+						<input class="follower" type="button" name="${obj.id }" value="팔로잉" />
 						<c:set var="isFollowing" value="true" />
 						<c:set var="doneLoop" value="true" />
 					</c:if>
 				</c:if>
 			</c:forEach>
 			<c:if test="${not isFollowing }">
-				<input class="follower" type="button" name="${obj.ID }" value="팔로우" />
+				<input class="follower" type="button" name="${obj.id }" value="팔로우" />
 			</c:if>
 
 		</p>

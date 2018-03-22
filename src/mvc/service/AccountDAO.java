@@ -107,14 +107,14 @@ public class AccountDAO {
 	}
 
 	// 유저의 맞팔 리스트
-	public List<AccountDTO> selectFOAF(String owner) {
+	public List<AccountDTO> selectFollowEachOther(String owner) {
 		Map map = new HashMap<>();
 			map.put("owner", owner);
 		List<AccountDTO> aList = null;
 		
 		SqlSession session = factory.openSession();
 		try {
-			aList = session.selectList("account.selectFOAF", map);
+			aList = session.selectList("account.selectFollowEachOther", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -159,10 +159,10 @@ public class AccountDAO {
 		}
 	}
 	//팔로워가 없어도 전체 리스트를 볼수 있게 모두 선택
-	public List<Map> selectAllmemberCheck(String target) {  // target 은 나
+	public List<AccountDTO> selectAllmemberCheck(String target) {  // target 은 나
 		Map map = new HashMap<>();
 			map.put("id", target);
-		List<Map> aList = null;
+		List<AccountDTO> aList = null;
 
 		SqlSession session = factory.openSession();
 		try {

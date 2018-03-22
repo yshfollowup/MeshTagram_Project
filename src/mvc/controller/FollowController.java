@@ -38,29 +38,45 @@ public class FollowController {
 	//팔로우 인덱스 페이지
 	@RequestMapping("/index.do")
 	public String indexHandle(@CookieValue(name="setId", required=false) String id, ModelMap map) {
-		// 팔로우 top5 리스트
-		List<AccountDTO> top5List = aDAO.selectTop5Account(id);
-		System.out.println(top5List);
-		// 나 제외, 내가 팔로우한 사람 제외하고 top5 (id, cnt, id, pass, email, name, phone, profile, birth, intro, score 로 구성된 map 의 list)
-		
-		// 알수도 있는 사람 리스트 - 맞팔한 친구의 다른 맞팔 유저들
-		List<AccountDTO> recomList = new ArrayList<>();
-		List<AccountDTO> myFOAFList = aDAO.selectFOAF(id);
-		Iterator<AccountDTO> itr = myFOAFList.iterator();
-		while(itr.hasNext()) { // 맞팔한 친구들의 맞팔 리스트 순환하면서 '나' 지우고, 최종 추천 리스트에 저장
-			List<AccountDTO> oneFOAFList = aDAO.selectFOAF(itr.next().getId());
-			oneFOAFList.remove(aDAO.selectOneAccountre(id));
-			recomList.addAll(oneFOAFList);
-		}
-		recomList.addAll(top5List);
-		Collections.shuffle(recomList);
-		System.out.println(recomList);
-		
 		// 팔로잉 - 내가 구독한 사람들
 		List<AccountDTO> followingList = aDAO.selectAllAccountFollowing(id);
 
 		// 팔로워 - 나를 구독하는 사람들
 		List<AccountDTO> followerList = aDAO.selectAllAccountFollower(id);
+		
+		// 팔로우 top5 리스트 (나와 내가 팔로우한 사람 제외)
+		List<AccountDTO> top5List = aDAO.selectTop5Account(id);
+		
+		// 알수도 있는 사람 리스트 - 맞팔한 친구의 다른 맞팔 유저들
+		List<AccountDTO> recomList = new ArrayList<>();
+		recomList.addAll(top5List);
+		
+		List<AccountDTO> eachOtherList = aDAO.selectFollowEachOther(id);
+		Iterator<AccountDTO> itr = eachOtherList.iterator();
+		while(itr.hasNext()) { // 맞팔한 친구 리스트 순환
+			List<AccountDTO> oneFOAFList = aDAO.selectFollowEachOther(itr.next().getId());
+			
+			Iterator<AccountDTO> itr2 = oneFOAFList.iterator(); // 맞팔 친구의 맞팔 리스트를 순환
+			logic:
+			while(itr2.hasNext()) {
+				AccountDTO oneUnit = itr2.next();
+				if (oneUnit.getId().equals(id)) {  // 맞팔의 맞팔이 '나' 라면 추가하지 않고 continue
+					continue;
+				}
+				
+				Iterator<AccountDTO> itr3 = followingList.iterator();
+				while(itr3.hasNext()) {
+					AccountDTO oneFollowing = itr3.next();
+					if (!oneUnit.getId().equals(oneFollowing.getId())) {
+						recomList.add(oneUnit);  // 내 팔로우 목록에 없다면 추천리스트에 추가한다.
+					} else {
+						// 내가 이미 팔로우한 친구라면 추가하지 않는다.
+					}
+				}
+			}
+		}
+		Collections.shuffle(recomList);
+		
 		
 		//
 		map.put("recommend", recomList);
@@ -72,8 +88,7 @@ public class FollowController {
 	@RequestMapping("/all.do")
 	public String indexAjaxHandle(@CookieValue(name="setId",required=false) String id, ModelMap map) {
 		//전체리스트 및 팔로우 리스트
-		List<Map> allFollowMember= new ArrayList();
-		allFollowMember = aDAO.selectAllmemberCheck(id);
+		List<AccountDTO> allFollowMember = aDAO.selectAllmemberCheck(id);
 		
 		map.put("member", allFollowMember);
 		
@@ -100,7 +115,7 @@ public class FollowController {
 			System.out.println("[SERVER]: follow success");
 		}		
 		return "{\"result\": true,\"status\":\"ok\"}";
-}
+	}
 	//팔로우 삭제
 	@RequestMapping(path= "/delete.do", produces="application/json;charset=utf-8")
 	@ResponseBody
