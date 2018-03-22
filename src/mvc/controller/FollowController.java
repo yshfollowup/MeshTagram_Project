@@ -52,31 +52,28 @@ public class FollowController {
 		recomList.addAll(top5List);
 		
 		List<AccountDTO> eachOtherList = aDAO.selectFollowEachOther(id);
-		Iterator<AccountDTO> itr = eachOtherList.iterator();
-		while(itr.hasNext()) { // 맞팔한 친구 리스트 순환
-			List<AccountDTO> oneFOAFList = aDAO.selectFollowEachOther(itr.next().getId());
-			
-			Iterator<AccountDTO> itr2 = oneFOAFList.iterator(); // 맞팔 친구의 맞팔 리스트를 순환
+		List<AccountDTO> oneFOAFList = null;
+		for (AccountDTO oneFriend : eachOtherList) {
+			oneFOAFList = aDAO.selectFollowEachOther(oneFriend.getId());
 			logic:
-			while(itr2.hasNext()) {
-				AccountDTO oneUnit = itr2.next();
-				if (oneUnit.getId().equals(id)) {  // 맞팔의 맞팔이 '나' 라면 추가하지 않고 continue
+			for (AccountDTO oneFOAF : oneFOAFList) {
+				if (oneFOAF.getId().equals(id)) {
 					continue;
 				}
-				
-				Iterator<AccountDTO> itr3 = followingList.iterator();
-				while(itr3.hasNext()) {
-					AccountDTO oneFollowing = itr3.next();
-					if (!oneUnit.getId().equals(oneFollowing.getId())) {
-						recomList.add(oneUnit);  // 내 팔로우 목록에 없다면 추천리스트에 추가한다.
-					} else {
-						// 내가 이미 팔로우한 친구라면 추가하지 않는다.
+				for (AccountDTO oneFollowing : followingList) {
+					if (oneFOAF.getId().equals(oneFollowing)) {
+						continue logic;
 					}
 				}
+//				for (AccountDTO oneRecom : recomList) {
+//					if (oneFOAF.getId().equals(oneRecom)) {
+//						continue logic;
+//					}
+//				}
+				recomList.add(oneFOAF);
 			}
 		}
 		Collections.shuffle(recomList);
-		
 		
 		//
 		map.put("recommend", recomList);

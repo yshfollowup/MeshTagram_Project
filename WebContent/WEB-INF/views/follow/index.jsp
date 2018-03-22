@@ -5,11 +5,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <div style="height:70px;"></div>
 
-<div align="center" style="min-height: 490px;">
+<div align="center" style="min-height: 300px; height: 300px">
 	<div align="left">
 		<p>
 			<h4 align="left"><b>사람 찾기</b></h4>
-			<a href="/follow/all.do"><small align="right">가입된 회원 모두보기</small></a>
+			<a href="/follow/all.do"><small align="right">모든 회원</small></a>
 			<hr/>
 		</p>
 	</div>
@@ -50,14 +50,24 @@
 
 	</div>
 	
-	
 </div>
 
 <hr/>
 
-<div align="center" style="min-height: 1000px;">
-
-
+<div align="center" style="min-height: 700px; height: 700px">
+	<div align="left">
+		<p>
+			<h4 align="left"><b>최근 게시글</b></h4>
+			<hr/>
+		</p>
+	</div>
+	<div align="left">
+	
+	
+	
+	
+	
+	</div>
 
 </div>
 

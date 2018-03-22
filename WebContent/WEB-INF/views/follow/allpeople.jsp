@@ -5,7 +5,7 @@
 
 <div align="center" style="min-height: 490px;">
 	<p>
-		<h4 align="left"><b>사람 찾기</b></h4><a href="/follow/all.do"><small align="right">모두보기</small></a>
+		<h4 align="left"><b>사람 찾기</b></h4><a href="/follow/index.do"><small align="right">추천 친구</small></a>
 	</p>
 		<c:forEach var="obj" items="${member }">
 		<p style="float: left; width: 25%;">
