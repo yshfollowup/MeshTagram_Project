@@ -24,6 +24,8 @@ public class MessengerDAO {
 		Map<String, Object> map = new LinkedHashMap<>();
 			map.put("me", param.get("me"));
 			map.put("target", param.get("target"));
+			map.put("content", param.get("content"));
+			map.put("image", param.get("image"));
 			map.put("like", param.get("like"));
 			map.put("date", new Date());
 			template.insert(map, "MeshTagramMessenger");
