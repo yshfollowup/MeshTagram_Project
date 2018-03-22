@@ -2846,7 +2846,7 @@ transform
 			</div>
 			<section class="_o6mpc">
 				<div class="_ienqf">
-					<h1 class="_rf3jb notranslate" title="llunarian">llunarian</h1>
+					<h1 class="_rf3jb notranslate" title="ID">ID표시부분</h1>
 					<div class="_l9ml9">
 						<span class="_ov9ai"><button
 								class="_qv64e _t78yp _r9b8f _njrw0"
