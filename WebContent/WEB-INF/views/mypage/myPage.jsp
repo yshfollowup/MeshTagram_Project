@@ -1948,7 +1948,8 @@ a._sb9lc, a._sb9lc:visited {
 		-webkit-flex-direction: row;
 		-ms-flex-direction: row;
 		flex-direction: row;
-		height: 44px
+		height: 44px;
+		
 	}
 }
 </style>
@@ -2821,6 +2822,166 @@ transform
 	}
 }
 </style>
+<style type="text/css" data-isostyle-id="is6bdb5498">
+._pfyik {
+	background-color: rgba(0, 0, 0, .5);
+	bottom: 0;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+	left: 0;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 1
+}
+
+._dcj9f {
+	background: 0 0;
+	border: 0;
+	cursor: pointer;
+	height: 36px;
+	outline: 0;
+	overflow: hidden;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 2
+}
+
+._dcj9f::before {
+	color: #fff;
+	content: '\00D7';
+	display: block;
+	font-size: 36px;
+	font-weight: 600;
+	line-height: 36px;
+	padding: 0;
+	margin: 0
+}
+
+._784q7 {
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+	margin: auto;
+	max-width: 935px;
+	pointer-events: auto;
+	width: 100%
+}
+
+._23gmb {
+	bottom: 0;
+	left: 0;
+	pointer-events: none;
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 0
+}
+
+._23gmb * {
+	pointer-events: auto
+}
+
+._o0j5z {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	min-height: 100%;
+	overflow: auto;
+	width: auto;
+	z-index: 1
+}
+
+@media ( min-width :481px) {
+	._o0j5z {
+		padding: 0 40px;
+		pointer-events: none;
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0)
+	}
+	._o0j5z::after, ._o0j5z::before {
+		content: '';
+		display: block;
+		-webkit-flex-basis: 40px;
+		-ms-flex-preferred-size: 40px;
+		flex-basis: 40px;
+		-webkit-flex-shrink: 0;
+		-ms-flex-negative: 0;
+		flex-shrink: 0
+	}
+}
+
+@media ( max-width :480px) {
+	._23gmb, ._dcj9f {
+		display: none
+	}
+}
+</style>
+<style type="text/css" data-isostyle-id="is40d15782">
+._hql7s, ._o2wxh {
+	background-color: #fff;
+	border-bottom: 1px solid #dbdbdb
+}
+
+._o2wxh:last-child {
+	border-bottom-width: 0
+}
+
+._hql7s {
+	color: #999;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 50px;
+	text-align: center
+}
+
+@media ( min-width :736px) {
+	._hql7s, ._o2wxh {
+		min-width: 510px
+	}
+}
+
+@media ( min-width :414px) and (max-width:735px) {
+	._cepxb, ._hql7s, ._o2wxh {
+		width: 100%
+	}
+}
+
+@media ( min-width :414px) {
+	._cepxb {
+		margin: 0 auto
+	}
+}
+</style>
+<style type="text/css" data-isostyle-id="is577659fb">
+._h74gn {
+	background: #fff;
+	border: 0;
+	color: #262626;
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 50px;
+	margin: 0;
+	overflow: hidden;
+	padding: 0 16px;
+	text-align: center;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 100%
+}
+
+._h74gn:hover {
+	background-color: #efefef
+}
+</style>
 
 
 </head>
@@ -2872,9 +3033,9 @@ transform
 		</header>
 
 		<div class="_2e96w">
-			<a class="_t7nuu _sb9lc" href="/llunarian/"
-				style="margin-right: 30px;"><div class="">게시물</div></a><a
-				class="_t7nuu" href="/llunarian/saved/"><div class="">저장됨</div></a>
+			<a class="_t7nuu _sb9lc" href=""
+				style="margin-right: 30px;"><div class="">게시물</div></a>
+			<a class="_t7nuu" href=""><div class="">저장됨</div></a>
 		</div>
 		<div>
 			<div class="_havey" style="padding-top: 0px; padding-bottom: 0px;">
@@ -2908,30 +3069,21 @@ transform
 
 
 	<!-- Modal -->
-	<div id="myModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<button class="_h74gn">
-						<h5 class="modal-title">프로필 변경</h5>
-					</button>
-				</div>
-				<div class="modal-body">
-					<button class="_h74gn">
-						<p>비밀번호 변경</p>
-					</button>
-				</div>
-				<div class="modal-body">
-					<button class="_h74gn">댓글관리</button>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+		<div id="myModal" class="modal fade" role="dialog">
+		<div class="_pfyik" role="dialog">
+			<div class="_23gmb"></div>
+			<div class="_o0j5z">
+				<div class="_784q7">
+					<ul class="_cepxb" role="menu">
+						<li class="_o2wxh"><button class="_h74gn">비밀번호 변경</button></li>
+						<li class="_o2wxh"><button class="_h74gn">알림</button></li>
+						<li class="_o2wxh"><button class="_h74gn">개발자정보</button></li>
+						<li class="_o2wxh"><button class="_h74gn">로그아웃</button></li>
+						<li class="_o2wxh"><button class="_h74gn" data-dismiss="modal">취소</button></li>
+					</ul>
 				</div>
 			</div>
-
+			<button class="_dcj9f" data-dismiss="modal">&times;</button>
 		</div>
 	</div>
 	<script>
