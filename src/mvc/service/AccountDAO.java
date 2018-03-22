@@ -90,10 +90,10 @@ public class AccountDAO {
 	}
 	
 	// 나를 제외한 모든 회원 중 follow 수 top5 출력
-	public List<Map> selectTop5Account(String id) {
+	public List<AccountDTO> selectTop5Account(String id) {
 		Map map = new HashMap<>();
 			map.put("id", id);
-		List<Map> aList=null;
+		List<AccountDTO> aList=null;
 		
 		SqlSession session = factory.openSession();
 		try {
@@ -105,20 +105,16 @@ public class AccountDAO {
 			return aList;
 		}
 	}
-	public List<Map> selectTop5Profile(String id, String user1, String user2, 
-			String user3, String user4, String user5) {
+
+	// 유저의 맞팔 리스트
+	public List<AccountDTO> selectFOAF(String owner) {
 		Map map = new HashMap<>();
-			map.put("id", id);
-			map.put("user1", user1);
-			map.put("user2", user2);
-			map.put("user3", user3);
-			map.put("user4", user4);
-			map.put("user5", user5);
-		List<Map> aList=null;
+			map.put("owner", owner);
+		List<AccountDTO> aList = null;
 		
 		SqlSession session = factory.openSession();
 		try {
-			aList = session.selectList("account.selectTop5Profile", map);
+			aList = session.selectList("account.selectFOAF", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -126,6 +122,8 @@ public class AccountDAO {
 			return aList;
 		}
 	}
+	
+	
 	// 팔로잉 (내가 팔로우한 친구) 모두 선택
 	public List<AccountDTO> selectAllAccountFollowing(String owner) {  // owner 는 나
 		Map map = new HashMap<>();
