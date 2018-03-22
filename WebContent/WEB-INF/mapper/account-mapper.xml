@@ -39,17 +39,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		5
 	</select>
 
-	<select id="selectAllmemberCheck" resultType="java.util.LinkedHashMap">
-		select * from
-		account FULL OUTER JOIN follow on account.id=follow.target where
-		account.id != #{id }
+	<select id="selectAllmemberCheck" resultType="mvc.model.AccountDTO">
+		select * from account FULL OUTER JOIN follow on account.id=follow.target where account.id != #{id }
 	</select>
 
-	<select id="selectFOAF" resultType="mvc.model.AccountDTO">
-		select account.* from account
-		inner join (select target from (select target from follow where owner
+	<select id="selectFollowEachOther" resultType="mvc.model.AccountDTO">
+		select account.* from account inner join (select target from (select target from follow where owner
 		= #{owner }) where target in (select owner from follow where target =
-		#{owner })) FOAF on account.id = FOAF.target
+		#{owner })) each on account.id = each.target
 	</select>
 
 
@@ -68,7 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	<!-- 내가 follwing 한 사람 리스트 -->
-	<select id="selectAllAccountFollowing" resultType="java.util.LinkedHashMap">
+	<select id="selectAllAccountFollowing" resultType="mvc.model.AccountDTO">
 		select * from
 		account where id in (select target from follow where owner = #{owner
 		})
@@ -76,7 +73,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<!-- 나를 follow 한 사람 리스트 -->
-	<select id="selectAllAccountFollower" resultType="java.util.LinkedHashMap">
+	<select id="selectAllAccountFollower" resultType="mvc.model.AccountDTO">
 		select * from
 		account where id in (select owner from follow where target = #{target
 		})
