@@ -86,6 +86,10 @@
 	};
 	check();
 	$("#follow").click(function() {
+		followClick();
+	});
+	
+	function followClick(){
 		var setid="${cookie.setId.value}";
 		var src= $("#follow");
 		var a = $("#follow").attr("name");
@@ -116,7 +120,7 @@
 			src.attr("name", a);
 		});
 		}
-	});
+	}
 	</script>
   <!-- Modal -->
 <div id="myModal1" class="modal fade" role="dialog">

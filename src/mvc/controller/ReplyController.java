@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
+import mvc.model.AccountDTO;
 import mvc.service.AccountDAO;
 import mvc.service.ReplyDAO;
 
@@ -121,6 +122,18 @@ public class ReplyController {
 		return gson.toJson(list2);
 	}
 	
+	
+	@RequestMapping(path="/SearchLikeList.do", produces="application/json;charset=utf-8", method=RequestMethod.POST)
+	@ResponseBody
+	public String SearchListLikeHandle(@RequestParam MultiValueMap<String, String> map) {
+		List<String> list = map.get("listId[]");
+		System.out.println(map+"모달 리스트를 받았다.");
+		List<AccountDTO> result = aDAO.selectSearchLikeListAccount(list);
+		System.out.println("아이디리스트이다"+result);
+		return gson.toJson(result);
+	}
+	//============================
+	//댓글 리스트 받기
 	@RequestMapping(path="/listReply.do", produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String replyListHandle(@RequestParam MultiValueMap<String, String> map) {
@@ -129,17 +142,6 @@ public class ReplyController {
 		System.out.println("댓글리스트이다"+result);
 		return gson.toJson(result);
 	}
-	
-/*	@RequestMapping(path="/listReply.do", produces="application/json;charset=utf-8", method=RequestMethod.POST)
-	@ResponseBody
-	public String SearchListLikeHandle(@RequestParam Map map) {
-		System.out.println(map+"모달 리스트를 받았다.");
-		String s=null;
-		List<Map> result = aDAO.selectOneAccountre(s);
-		System.out.println("댓글리스트이다"+result);
-		return gson.toJson(result);
-	}*/
-	
 	@RequestMapping(path="/deleteReply.do", produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String replyDeleteHandle(@RequestParam("") Map param) {

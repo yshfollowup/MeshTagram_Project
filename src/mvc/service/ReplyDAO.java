@@ -13,6 +13,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import mvc.model.AccountDTO;
+
 /*
  * db의 이름 : MeshTagramReply
  * 컬럼 : id, like, content, date
@@ -84,13 +86,12 @@ public class ReplyDAO {
 			List<Map> list = new LinkedList<>();
 			String q=value;
 			
-			System.out.println("게시물 받음"+q);
+			//System.out.println("게시물 받음"+q);
 			Query query = Query.query(Criteria.where("boardId").is(q));
 			list = template.find(query, Map.class, "Like");
-			System.out.println("작업완료");
+			//System.out.println("작업완료");
 			return list;
 		}
-		
 		
 	
 	//Delete

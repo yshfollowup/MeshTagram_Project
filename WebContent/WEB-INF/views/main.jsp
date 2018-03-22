@@ -33,7 +33,7 @@
 			<div>
 			<button class="like" type="button" name="${obj._id }">좋아요</button>
 			<button type="button" class="rebt" name="${obj._id }">댓글달기</button>
-			<div><a href="#" id="List_like${obj._id }" class="List_like btn-info" data-toggle="modal"  data-target="#myModal1">좋아요 <span id="cnt_${obj._id }" class="count"></span>개</a></div>
+			<div><a href="#" id="List_like${obj._id }" name="${obj._id }" class="List_like btn-info" data-toggle="modal"  data-target="#myModal1">좋아요 <span id="cnt_${obj._id }" class="count"></span></a></div>
 			</div>
 			
 			 <a href="/mypage/index.do?id=${obj.id }">${obj.id }</a>
@@ -64,7 +64,7 @@
       <div class="modal-header">
        <div align="center">좋아요</div>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" id="myList">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
@@ -73,14 +73,18 @@
 
   </div>
 </div>
-  <script>
-  $(".List_like").on("change",function(){
+	<script type="text/javascript" src="/js/custom.js"></script>
+	<script>
+	var setid = "${cookie.setId.value}";
+  $(".List_like").on("click",function(){
 			var reid="${cookie.setId.value}";
 			var boardid;
-			var count;
+			var listId=[];
+			var value=$(this).attr("name");
+			var address=$("#myList");
 			$(".rebt").each(function(){
 				boardid+=","+($(this).attr("name"));
-				count+=","+($(this).attr("name"));
+				//console.log("하나하나씩"+boardid);
 			});
 			$.ajax("/likeList.do",{
 				"method" : "get",
@@ -90,28 +94,45 @@
 					"id" : reid
 				}
 		}).done(function(val){
-			var listId;
-			console.log(val+"댓글 좋아요");
 			for(var i=0; i<val.length;i++){
-				console.log(val.length);
-				if(val[i].boardId==$(this).id){
-					listId+=","+val[i].id;
-					
+				if(val[i].boardId==value){
+					listId.push(val[i].id);
 				}
 			}
-			$.ajax("/searchListLike.do",{
+			$.ajax("/SearchLikeList.do",{
 				"method" : "post",
 				"async" : true,
 				"data" : {
-					"listId" : listId
+					 "listId" :listId
 				}
 			}).done(function(val){
-				console.log("좋아하는 리스트를 받았다.")
+				address.html("");
+				var img= "<img src=\"/images/insta.jpg\" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
+				var img2="<img src=\"${applicationScope.path }"+val.PROFILE+" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
+				var ii=null;
+				var sl=null;
+				for(var i=0; i<val.length;i++){
+				var follower="<input class=\"follow\" type=\"button\" name="+val[i].id+" value=\"팔로우\" />"
+					if(val[i].profile==null){
+						ii=img;
+					}else{
+						ii=img2
+					}
+					address.append(ii+val[i].id+"<br/>"+val[i].name+follower);
+				
+				}
+					check(setid);
+				$(".follow").on("click",function(){
+					var target=$(this).attr("name");
+					var src=$(this);
+					var aa=$(this).val();
+					console.log("클릭하였다.");
+					followClick(setid,target,src,aa);
+				});
 			})
 		})
-	 
-	  
   });
+			
   	// 포커스
   	/* $(".reply").on("click",function(){
   			$('input').focus();
@@ -141,37 +162,10 @@
 			$(this).empty();
 		})
 	});
+  likeList();
 	List();
 	//댓글 리스트 자동 생성
-	function List(){
-		var boardid;
-		var reply;
-		
-		$(".rebt").each(function(){
-			boardid+=","+($(this).attr("name"));
-			reply=","+($(this).attr("name"));
-		});
-		var reid="${cookie.setId.value}";
-		$.ajax("/listReply.do", {
-			"method" : "get",
-			"async" : true,
-			"data" :{
-				"boardId" : boardid
-			}
-		}).done(function(val){
-			var boardid=[];
-			var reply=[];
-			$(".rebt").each(function(){
-				boardid.push($(this).attr("name"));
-				reply.push($(this).attr("name"));
-			});
-			//console.log(val);
-			
-		for(var i=0; i<val.length;i++){
-			$("#sp_"+val[i].boardId).html(val[i].reid+"&emsp;"+val[i].ment+"<br/>");
-		}
-	})
-};
+
 	//좋아요 ....
   $(".like").on("click", function(){
 	  console.log("좋아요 들어왔다");
@@ -190,30 +184,7 @@
 		  likeList();
 	  })
   });
-  likeList();
-	function likeList(){
-		var reid="${cookie.setId.value}";
-		var boardid;
-		var count;
-		$(".rebt").each(function(){
-			boardid+=","+($(this).attr("name"));
-			count+=","+($(this).attr("name"));
-		});
-		$.ajax("/likeList.do",{
-			"method" : "get",
-			"async" : true,
-			"data" : {
-				"boardId": boardid,
-				"id" : reid
-			}
-	}).done(function(val){
-		console.log(val+"댓글 좋아요");
-		for(var i=0; i<val.length;i++){
-			//console.log(val.length);
-			$("#cnt_"+val[i].boardId).html("&ensp;"+val[i].count);
-		}
-	})
-};
+	
   </script>
     <div class="col-sm-2 sidenav">
       <div class="well">
