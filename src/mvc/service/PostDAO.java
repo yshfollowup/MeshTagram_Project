@@ -55,10 +55,21 @@ public class PostDAO {
 		return list;
 	}
 	
+	//id에 해당하는 게시물
 	public List<Map> findPostById(String id) {
 		List<Map> list = new LinkedList<>();
-		Query query = new Query(Criteria.where("id").is(id));
-		template.find(query, Map.class, "MeshTagramUpload");
+		Query query = 
+				new Query(Criteria.where("id").is(id));
+		list = template.find(query, Map.class, "MeshTagramUpload");
+		list.sort(new Comparator<Map>() {
+			@Override
+			public int compare(Map o1, Map o2) {
+				Date d1 = (Date) o1.get("date");
+				Date d2 = (Date) o2.get("date");
+				int result = d1.compareTo(d2);
+				return -result;
+			}
+		});
 		return list;
 	}
 	
@@ -67,13 +78,22 @@ public class PostDAO {
 		return list;
 	}
 	
+	//tag에 해당하는 게시물
 	public List<Map> findPostByTag(List tag) {
 		List<Map> list = new LinkedList<>();
 		Query query = 
 				new Query(Criteria.where("tags").is(tag));
-		template.find(query, Map.class, "MeshTagramUpload");
+		list = template.find(query, Map.class, "MeshTagramUpload");
+		list.sort(new Comparator<Map>() {
+			@Override
+			public int compare(Map o1, Map o2) {
+				Date d1 = (Date) o1.get("date");
+				Date d2 = (Date) o2.get("date");
+				int result = d1.compareTo(d2);
+				return -result;
+			}
+		});
 		return list;
-		
 	}
 	
 	
