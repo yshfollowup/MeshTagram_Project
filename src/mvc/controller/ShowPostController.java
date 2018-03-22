@@ -40,7 +40,7 @@ public class ShowPostController {
 	@RequestMapping("/postByEachOther.do")
 	public String showPostByEachFollowHandle
 		(@CookieValue(name="setId", required=false) String setId, ModelMap modelMap) {
-		List<AccountDTO> eachOtherList = aDAO.selectFOAF(setId);
+		List<AccountDTO> eachOtherList = aDAO.selectFollowEachOther(setId);
 		//맞팔되어있는 친구 목록 뽑은 뒤 그에 대한 게시물 보냄(1순위)
 		for(AccountDTO eachfollow : eachOtherList) {
 			String id = eachfollow.getId();
