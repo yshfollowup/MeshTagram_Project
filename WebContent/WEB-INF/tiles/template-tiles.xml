@@ -67,4 +67,9 @@
 	<definition name="detail_insta" extends="insta_abstract">
 		<put-attribute name="body" value="/WEB-INF/views/detail.jsp"></put-attribute>
 	</definition>
+	
+	<!-- 메신저 페이지 -->
+	<definition name="dm_page" extends="insta_edit_template">
+		<put-attribute name="body" value="/WEB-INF/views/dm/dmpage.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>

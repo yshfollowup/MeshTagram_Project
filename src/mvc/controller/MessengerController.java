@@ -27,16 +27,21 @@ public class MessengerController {
 	@Autowired
 	Gson gson;
 	
+	@RequestMapping("/index.do")
+	public String mainHandle() {
+		return "dm_page";
+	}
+	
 	@RequestMapping(path="/insertMessage.do", produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String insertMessageHandle(@RequestParam Map param) {
+	public String insertMessageHandle(@RequestParam(name="dmtxt") Map param) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String str = sdf.format(System.currentTimeMillis());
 		param.put("date", str);
 		boolean rst = true;
 		if (rst) {
-			mDAO.insertMessage(param);
-			return "{result : true}";			
+			Map result = mDAO.insertMessage(param);
+			return gson.toJson(result);			
 		}else {
 			return "{result : false}";
 		}

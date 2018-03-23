@@ -8,6 +8,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 /*
@@ -40,5 +42,22 @@ public class MessengerDAO {
 		return list;
 	}
 	
+	public Map<String, Object> insertMessageLike(Map param) {
+		Map<String, Object> map = new LinkedHashMap<>();
+			map.put("", param.get(""));
+		return map;
+		
+	}
 	
+	public List<Map> findAllMessageLike() {
+		List<Map> list = new LinkedList<>();
+		System.out.println("좋아요 목록 받음");
+		list = template.findAll(Map.class, "LikeMessage");
+		return list;
+	}
+	
+	public void deleteMessageLike(Map param) {
+		Query query = new Query(Criteria.where("_id").is(param.get("_id")));
+		template.remove(query, "LikeMessage");
+	}
 }
