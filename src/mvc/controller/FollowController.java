@@ -2,7 +2,7 @@ package mvc.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +28,7 @@ public class FollowController {
 	@Autowired
 	AccountDAO aDAO;
 	@Autowired
-	PostDAO mDAO;
+	PostDAO pDAO;
 	@Autowired
 	FollowDAO fDAO; 
 	
@@ -75,11 +75,24 @@ public class FollowController {
 		}
 		Collections.shuffle(recomList);
 		
+		// 추천 리스트의 게시글 불러오기(최신글만)
+		List<Map> latestList = new LinkedList<>();
+		for (AccountDTO boardRecom : recomList) {
+			List<Map> bList = pDAO.findPostById(boardRecom.getId());
+			if (bList.size()==0) {
+				
+			} else {
+				Map bMap = bList.get(0);
+				latestList.add(bMap);
+			}
+		}
+
 		//
 		map.put("recommend", recomList);
 		map.put("following", followingList);
 		map.put("follower", followerList);
-
+		map.put("latest", latestList);
+		
 		return "insta_follow";
 	}
 	@RequestMapping("/all.do")

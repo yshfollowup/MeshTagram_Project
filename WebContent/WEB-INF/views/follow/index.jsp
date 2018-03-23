@@ -18,8 +18,20 @@
 		<p>
 			<h4 align="left"><b>팔로우 가장 많은 top5 + 알수도 있는 친구</b></h4> 
 		</p>
+		
+		<c:set var="listNum" value="${fn:length(recommend) / 8 + 1}" />
+		<c:set var="listCnt" value="1"/>
+		<c:set var="listCntLast" value="${fn:length(recommend) % 8 }" />
+		<c:choose>
+			<c:when test="listCnt eq listNum">
+				<c:set var="listCntElement" value="${listCnt * 8}" />
+			</c:when>
+			<c:otherwise>
+				<c:set var="listCntElement" value="${(listCnt-1) * 8 + listCntLast}" />
+			</c:otherwise>
+		</c:choose>
 
-		<c:forEach var="objRecom" items="${recommend }">
+		<c:forEach begin="0" end="${listCntElement }" var="objRecom" items="${recommend }">
 			<p style="float: left; width: 25%;">
 				<c:choose>
 					<c:when test="${empty objRecom.profile }">
@@ -57,16 +69,69 @@
 <div align="center" style="min-height: 700px; height: 700px">
 	<div align="left">
 		<p>
-			<h4 align="left"><b>최근 게시글</b></h4>
+			<h4 align="left"><b>최근 소식들</b></h4>
 			<hr/>
 		</p>
 	</div>
 	<div align="left">
-	
-	
-	
-	
-	
+
+		<div class="col-sm-8 text-left">
+			<c:forEach var="objLatest" items="${latest}">
+				<div align="center" style="min-height: 590px;">
+					<section style="float: center; width: 70%;">
+						<div>
+							<c:choose>
+								<c:when test="${empty objLatest.profile}">
+									<img src="/images/insta.jpg" style="width: 30px; height: 30px; border-radius: 30px" id="writer">
+								</c:when>
+								<c:otherwise>
+									<img src="${applicationScope.path }${objLatest.profile}" style="width: 30px; height: 30px; border-radius: 30px" id="writer">
+								</c:otherwise>
+							</c:choose>
+							<a href="/mypage/index.do?id=${objLatest.id }">${objLatest.id }</a>
+						</div>
+						<div>
+							<img src="${objLatest.path }${objLatest.image}"
+								style="width: 641px; height: 641px;" />
+						</div>
+						<div>
+							<div>
+								<button class="like" type="button" name="${objLatest._id }">좋아요</button>
+								<button type="button" class="rebt" name="${objLatest._id }">댓글달기</button>
+								<div>
+									<a href="#" id="List_like${objLatest._id }" name="${objLatest._id }"
+										class="List_like btn-info" data-toggle="modal"
+										data-target="#myModal1">좋아요 <span id="cnt_${objLatest._id }"
+										class="count"></span></a>
+								</div>
+							</div>
+
+							<a href="/mypage/index.do?id=${objLatest.id }">${objLatest.id }</a>
+							<c:forEach items="${objLatest.comment }" var="comm">
+								<span>${comm }</span>
+							</c:forEach>
+							<c:forEach items="${objLatest.tags }" var="tag">
+								<a href="/account/search.do?tag=${fn:replace(tag,'#','%23') }">${tag }</a>
+							</c:forEach>
+							<div>
+								<span id="sp_${objLatest._id }" class="re_${objLatest._id }"
+									name="${objLatest._id }"></span>
+							</div>
+							<hr />
+							<div class="parent">
+								<input type="text" value="" id="reply_${objLatest._id }"
+									name="${objLatest.id }" class="reply" aria-label="${objLatest._id }"
+									style="resize: none; width: 100%; padding: 2px; font-family: 맑은고딕"
+									placeholder="댓글쓰기">
+							</div>
+						</div>
+					</section>
+				</div>
+			</c:forEach>
+		</div>
+
+
+
 	</div>
 
 </div>
