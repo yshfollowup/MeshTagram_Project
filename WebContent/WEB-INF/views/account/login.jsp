@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -144,7 +144,7 @@ html {
 }
 
 ._s5vm9 {
-	background-color: #fafafa;
+	background-color: rgba(100,100,100,0);
 	-webkit-box-ordinal-group: 6;
 	-webkit-order: 5;
 	-ms-flex-order: 5;
@@ -244,15 +244,17 @@ supports (margin-bottom:env(safe-area-inset-bottom) ){ .
 	-ms-flex-item-align: center;
 	align-self: center;
 	background-image:
-		url(/images/phones.png);
+		url(/images/stars.png);
 	background-position: 0 0;
 	background-size: 454px 618px;
 	-webkit-flex-basis: 454px;
 	-ms-flex-preferred-size: 454px;
 	flex-basis: 454px;
 	height: 618px;
-	margin-left: -35px;
-	margin-right: -15px
+	margin-left: -45px;
+	margin-right: -15px;
+	border : none;
+	border-radius : 0px;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:1.5) , screen and
@@ -352,9 +354,9 @@ table {
 }
 
 ._f9sjj {
-	background-color: #fff;
-	border: 1px solid #e6e6e6;
-	border-radius: 1px;
+	background-color: rgba(255,255,255,0.4);
+	border: 0px solid #e6e6e6;
+	border-radius: 15px;
 	margin: 0 0 10px;
 	padding: 10px 0
 }
@@ -1859,7 +1861,7 @@ table {
 }
 
 ._pbd5h, ._pbd5h:active, ._pbd5h:hover, ._pbd5h:visited {
-	font-size: 12px;
+	font-size: 13px;
 	line-height: 14px;
 	margin-top: 12px;
 	text-align: center;
@@ -1923,7 +1925,7 @@ table {
 }
 
 ._i6l6r, ._mb54c {
-	color: #999;
+	color: rgb(0,0,0);
 	text-align: center
 }
 
@@ -1977,7 +1979,7 @@ table {
 }
 
 ._fd2m9, ._ieqkf {
-	color: #ed4956;
+	color: rgb(255,255,220);
 	font-size: 14px;
 	line-height: 18px;
 	margin: 10px 40px;
@@ -2002,9 +2004,9 @@ table {
 
 ._qv64e {
 	-webkit-appearance: none;
-	border-radius: 3px;
+	border-radius: 10px;
 	border-style: solid;
-	border-width: 1px;
+	border-width: 0px;
 	font-size: 14px;
 	font-weight: 600;
 	line-height: 26px;
@@ -2070,7 +2072,7 @@ table {
 }
 
 ._gexxb, ._i63ih._gexxb {
-	background: #3897f0;
+	background: rgb(0,28,40);
 	border-color: #3897f0;
 	color: #fff
 }
@@ -2165,7 +2167,7 @@ table {
 </style>
 <style type="text/css" data-isostyle-id="is683f5b37">
 ._ph6vk, ._sjplo {
-	background: #fafafa
+	background: rgb(230,230,230);
 }
 
 ._sjplo {
@@ -2351,7 +2353,7 @@ table {
 	-webkit-justify-content: center;
 	-ms-flex-pack: center;
 	justify-content: center;
-	margin: 10px 0
+	margin: 0;
 }
 
 @media ( max-width :400px) {
@@ -2372,7 +2374,7 @@ table {
 }
 
 ._8a10v {
-	height: 40px
+	height: 60px
 }
 </style>
 <style type="text/css" data-isostyle-id="is-2db8a945">
@@ -2481,28 +2483,28 @@ table {
 	font-size: 11px;
 	font-weight: 400;
 	line-height: 13px;
-	text-transform: capitalize
+	text-transform: capitalize;
+	
 }
 
 ._8oc6p ._1gmap {
 	text-transform: uppercase
 }
 </style>
+<style type="text/css">
+._mjfont{
+color : #999;
 
+}
+</style>
 </head>
-<body class="">
+<body class="" style="background-image : url(/images/background/night_mesh.jpg)">
 
-	<span id="react-root"><section class="_sq4bv _29u45">
-			<main class="_8fi2q _2v79o" role="main">
+	<span id="react-root"><section class="_sq4bv _29u45" >
+			<main class="_8fi2q _2v79o" role="main" style="background-color:rgba(255,255,255,0);">
 			<article class="_qmq8y">
 				<div class="_ngtox _sf3lp">
-					<div class="_a8pmp">
-						<img class="_824m9 _4je3h"
-							src="/images/homepage/screenshot/2d9d7248af43.jpg"><img
-							class="_824m9" src="/images/homepage/screenshot/629d23a3c7b2.jpg"><img
-							class="_824m9" src="/images/homepage/screenshot/001bc33056c1.jpg"><img
-							class="_824m9" src="/images/homepage/screenshot/f5ae123ab1e2.jpg">
-					</div>
+					
 				</div>
 				<div class="_kbq82">
 					<div class="_f9sjj">
@@ -2530,60 +2532,62 @@ table {
 									</div>
 								</div>
 								<span class="_t38eb _ov9ai"><button type="submit"
-										class="_qv64e _gexxb _4tgw8 _njrw0">로그인</button></span> <a
+										class="_qv64e _gexxb _4tgw8 _njrw0 btn btn-default">로그인</button></span> <a
 									class="_pbd5h" href="/accounts/password/reset/"> 비밀번호를
 									잊으셨나요?</a>
 							</form>
 						</div>
 					</div>
 					<div class="_f9sjj" id="change">
-						<p class="_g9ean">
-							계정이 없으신가요?
-							<button id="ch">가입하기</button>
+						<p class="_g9ean" style="color:rgb(0,0,0); font-weight:bold;">
+							계정이 없으신가요?&nbsp;&nbsp;&nbsp;
+							<button id="ch" class="_qv64e _gexxb _4tgw8 _njrw0 btn btn-default" style="width:80px;">가입하기</button>
 						</p>
 					</div>
 
 					<div class="_40dde">
-						<p class="_d2vov">앱을 다운로드하세요.</p>
+						
 						<div class="_fzj6p">
 							<a class="_o7vmf"
-								href="https://itunes.apple.com/app/instagram/id389801252?pt=428156&amp;ct=igweb.signupPage.badge&amp;mt=8"><img
-								class="_8a10v" alt="App Store에서 이용 가능"
-								src="/images/homepage/buttons/a5b7c639e096.png"></a><a
+								href="https://www.instagram.com/?hl=ko"><img
+								class="_8a10v" alt="인스타그램"
+								src="/images/homepage/buttons/insta_logo.png"></a><a
 								class="_o7vmf"
-								href="https://play.google.com/store/apps/details?id=com.instagram.android&amp;referrer=utm_source%3Dinstagramweb%26utm_campaign%3DsignupPage%26utm_medium%3Dbadge"><img
-								class="_8a10v" alt="Google Play에서 이용 가능"
-								src="/images/homepage/buttons/f02d7718fb2e.png"></a>
+								href="http://www.kgitbank.co.kr/"><img
+								class="_8a10v" alt="kg아이티뱅크"
+								src="/images/homepage/buttons/kg_logo.png"></a>
 						</div>
 					</div>
 				</div>
+
+
 			</article>
 			</main>
-			<footer class="_s5vm9" role="contentinfo">
+			<footer class="_s5vm9" role="contentinfo" >
 				<div class="_g7lf5 _9z659" style="max-width: 935px;">
-					<nav class="_luodr" role="navigation">
+					<nav class="_luodr" role="navigation" >
 						<ul class="_g8wl6">
-							<li class="_538w0"><a class="_hqmnd" href="/about/us/">Meshtagram
+							<li class="_538w0"><a class="_hqmnd _mjfont" href="/about/us/">Meshtagram
 									정보</a></li>
-							<li class="_538w0"><a class="_hqmnd"
+							<li class="_538w0"><a class="_hqmnd _mjfont"
 								href="https://help.instagram.com/">지원</a></li>
-							<li class="_538w0"><a class="_hqmnd"
+							<li class="_538w0"><a class="_hqmnd _mjfont"
 								href="http://blog.instagram.com/">블로그</a></li>
-							<li class="_538w0"><a class="_hqmnd"
+							<li class="_538w0"><a class="_hqmnd _mjfont"
 								href="https://instagram-press.com/">홍보 센터</a></li>
-							<li class="_538w0"><a class="_hqmnd" href="/developer/">API</a></li>
-							<li class="_538w0"><a class="_hqmnd" href="/about/jobs/">채용
+							<li class="_538w0"><a class="_hqmnd _mjfont" href="/developer/">API</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont" href="/about/jobs/">채용
 									정보</a></li>
-							<li class="_538w0"><a class="_hqmnd" href="/legal/privacy/">개인정보처리방침</a></li>
-							<li class="_538w0"><a class="_hqmnd _ts6wg"
+							<li class="_538w0"><a class="_hqmnd _mjfont" href="/legal/privacy/">개인정보처리방침</a></li>
+							<li class="_538w0"><a class="_hqmnd _ts6wg _mjfont"
 								href="/legal/terms/">약관</a></li>
-							<li class="_538w0"><a class="_hqmnd"
+							<li class="_538w0"><a class="_hqmnd _mjfont"
 								href="/explore/locations/">디렉터리</a></li>
-							<li class="_538w0"><a class="_hqmnd"
+							<li class="_538w0"><a class="_hqmnd _mjfont"
 								href="/directory/profiles/">프로필</a></li>
-							<li class="_538w0"><a class="_hqmnd"
+							<li class="_538w0"><a class="_hqmnd _mjfont"
 								href="/directory/hashtags/">해시태그</a></li>
-
+							
 						</ul>
 					</nav>
 					<span class="_1gmap">© 2018 Meshtagram</span>
@@ -2596,5 +2600,5 @@ table {
 	});
 
 </script>
-</body>
+		</body>
 </html>
