@@ -7,15 +7,15 @@
 	<c:forEach var="obj" items="${follower }">
 		<p style="float: left; width: 25%;">
 			<c:choose>
-				<c:when test="${empty obj.PROFILE }">
+				<c:when test="${empty obj.profile }">
 					<img src="/images/insta.jpg" style="width: 30px; height: 30px; border-radius: 30px" id="preview">
 				</c:when>
 				<c:otherwise>
-					<img src="${applicationScope.path }${obj.PROFILE}" style="width: 30px; border-radius: 100%" id="profile" />
+					<img src="${applicationScope.path }${obj.profile}" style="width: 30px; border-radius: 100%" id="profile" />
 				</c:otherwise>
 			</c:choose>
-			<a href="/account/myPage.do?id=${obj.ID}" name="id">${obj.ID }</a>
-			<button  type="button" name="${obj.ID }"   id="follower">팔로우</button>
+			<a href="/account/myPage.do?id=${obj.id}" name="id">${obj.id }</a>
+			<button  type="button" name="${obj.id }"   id="follower">팔로우</button>
 		</p>
 	</c:forEach>
 </div>
