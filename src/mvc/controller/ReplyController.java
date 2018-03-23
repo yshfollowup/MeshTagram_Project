@@ -68,12 +68,16 @@ public class ReplyController {
 		list2=rDAO.findAllLike();
 		for(int i=0; i<list2.size(); i++) {
 			List<Map> list3=new ArrayList();
+			Object objectid=(Object)list2.get(i).get("_id");
 			String boardId=(String)list2.get(i).get("boardId");
 			String id=(String)list2.get(i).get("id");
 			String date=(String)list2.get(i).get("date");
 			list3=rDAO.findLikeBoardId(boardId);
-			//System.out.println(list3.size()+"카운트 개수");
+			String s=objectid.toString();
+			
+			//System.out.println(s+"카운트 개수");
 			count=list3.size();
+			list2.get(i).put("objectId", s);
 			list2.get(i).put("boardId", boardId);
 			list2.get(i).put("id",id);
 			list2.get(i).put("date", date);
@@ -105,13 +109,16 @@ public class ReplyController {
 		list2=rDAO.findAllLike();
 		for(int i=0; i<list2.size(); i++) {
 			List<Map> list3=new ArrayList();
+			Object objectid=(Object)list2.get(i).get("_id");
 			String boardId=(String)list2.get(i).get("boardId");
 			String id=(String)list2.get(i).get("id");
 			String date=(String)list2.get(i).get("date");
 			list3=rDAO.findLikeBoardId(boardId);
 			//System.out.println(list3.size()+"카운트 개수");
+			String s=objectid.toString();
 			
 			count=list3.size();
+			list2.get(i).put("objectId", s);
 			list2.get(i).put("boardId", boardId);
 			list2.get(i).put("id",id);
 			list2.get(i).put("date", date);
@@ -144,7 +151,7 @@ public class ReplyController {
 	}
 	@RequestMapping(path="/deleteLike.do", produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String replyDeleteHandle(@RequestParam Map param) {
+	public String replyDeleteHandle(@RequestParam MultiValueMap<String, String> param) {
 		System.out.println(param+"좋아요 지우기");
 		rDAO.deleteLike(param);
 		return "{result : true}";

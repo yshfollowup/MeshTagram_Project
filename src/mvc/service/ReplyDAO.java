@@ -43,7 +43,7 @@ public class ReplyDAO {
 		Query query = Query.query(Criteria.where("boardId").is(s));
 		list=template.find(query, Map.class,"Like");
 		System.out.println("좋아요 추가"+list);
-		for(int i=0; i<list.size(); i++) {
+	/*	for(int i=0; i<list.size(); i++) {
 			String check=list.get(i).get("id").toString();
 			System.out.println(check);
 			if(check.equals(id)) {
@@ -51,7 +51,7 @@ public class ReplyDAO {
 				return false;
 			}
 			
-		}
+		}*/
 		
 		template.insert(param, "Like");
 		System.out.println("성공");
@@ -112,11 +112,15 @@ public class ReplyDAO {
 		
 	
 	//좋아요 취소 버튼
-	public Map<String, Object> deleteLike(Map param) {
+	public Map<String, Object> deleteLike(MultiValueMap<String, String> param) {
 		Map<String, Object> map = new LinkedHashMap<>();
-		System.out.println("좋아요 취소"+(String)param.get("boardId"));
-		Query query = new Query(Criteria.where("_id").is(param.get("boardId")));
-		template.findAllAndRemove(query, "Like");
+		String s= (String)param.getFirst("boardid");
+		String d=(String)param.getFirst("id");
+		System.out.println("좋아요 취소"+param.getFirst("boardid")+param.getFirst("id"));
+		Query query = new Query(Criteria.where("boardId").in(param.get("boardid")).where("id").in(param.get("id")));
+		template.remove(query, Map.class, "Like");
+		System.out.println("성공했을까?");
+
 		return map;
 	}
 }

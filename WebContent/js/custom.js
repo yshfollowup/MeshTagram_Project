@@ -82,10 +82,12 @@ function likeList() {
 			"boardId" : boardid
 		}
 	}).done(function(val) {
-		console.log(val + "댓글 좋아요");
+		console.log(val + "댓글 좋아요ㅋㅋㅋ");
+		console.log(val.length+"크키");
 		for (var i = 0; i < val.length; i++) {
-			// console.log(val.length);
 			$("#cnt_" + val[i].boardId).html("&ensp;" + val[i].count+"개");
+			$("#like_"+val[i].boardId).val(val[i].objectId);
+			console.log($("#like_"+val[i].boardId).val()+"좋아요리스트 번호");
 		}
 	})
 };

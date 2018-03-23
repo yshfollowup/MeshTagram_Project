@@ -282,10 +282,11 @@
 							"like" : like,
 						}
 					}).done(function(val) {
+						var a;
 						likeList();
 						for(var i=0; i<val.length; i++){
-						console.log(bt + "아이디아디이디" + val[i]._id);
-						$("#like_"+boardid).val(val[i]._id);
+						//console.log(bt + "아이디아디이디" + val[i].objectId+val[i].id+a);
+						$("#like_"+boardid).val(val[i].objectId);
 							
 						}
 					})
@@ -294,13 +295,14 @@
 						"method" : "get",
 						"async" : true,
 						"data" : {
-							"boardId" : bt
+							"boardid" : boardid,
+							"id" : reid
 						}
 					}).done(function(val2){
 						console.log(bt + "아이디아디이디");
 						$("#like_"+boardid).val("");
-						likeList();
 				})
+						likeList();
 			}
 	});
 		</script>
