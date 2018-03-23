@@ -2,6 +2,7 @@ package mvc.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -73,6 +74,25 @@ public class FollowController {
 				recomList.add(oneFOAF);
 			}
 		}
+
+		// 추천 리스트() 중복제거 and 셔플
+        List<AccountDTO> distinctList = new ArrayList<>();
+        for (int i=0; i<recomList.size(); i++) {
+        	if(distinctList.size()==0) {
+        		distinctList.add(recomList.get(i));
+        		continue;
+        	}
+        	boolean isDistinct = false;
+            for(int j=0; j<distinctList.size(); j++) {
+            	if (distinctList.get(j).getId().equals((recomList.get(i).getId()))) {
+            		isDistinct = true;
+            	}
+            }
+            if(!isDistinct) {
+        		distinctList.add(recomList.get(i));
+            }
+        }
+        recomList = distinctList;
 		Collections.shuffle(recomList);
 		
 		// 추천 리스트의 게시글 불러오기(최신글만)
@@ -86,7 +106,7 @@ public class FollowController {
 				latestList.add(bMap);
 			}
 		}
-
+		
 		//
 		map.put("recommend", recomList);
 		map.put("following", followingList);
