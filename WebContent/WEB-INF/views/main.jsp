@@ -142,7 +142,7 @@
  		for(var i=0; i<boardid.length; i++){
  			if(boardid[i]==input){
  			console.log("포커스 들어왔다."+input);
-  			$("#re_"+input).focus();
+  			$("#reply_"+input).focus();
  				
  			}
  		}
@@ -175,8 +175,8 @@
 			}
 		}).done(function(obj){
 			//console.log($(this).val());
-			$("#reply_"+input).empty();
-			$("#re_"+input).empty();
+			$("#reply_"+input).val("");
+			$("#re_"+input).val("");
 			for(var i=0; i<boardid.length; i++){
 	 			if(boardid[i]==input){
 	 			console.log("댓글 들어왔다."+input+obj.ment);

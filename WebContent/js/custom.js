@@ -70,11 +70,9 @@ function followClick(setId,target,src,aa) {
 }
 
 function likeList() {
-	var boardid;
-	var count;
+	var boardid=[];
 	$(".rebt").each(function() {
 		boardid.push($(this).attr("name"));
-		count.push($(this).attr("name"));
 	});
 	$.ajax("/likeList.do", {
 		"method" : "get",
@@ -92,12 +90,10 @@ function likeList() {
 };
 
 function List(setId) {
-	var boardid;
-	var reply;
+	var boardid=[];
 
 	$(".rebt").each(function() {
 		boardid.push($(this).attr("name"));
-		reply.push($(this).attr("name"));
 	});
 	$.ajax("/listReply.do", {
 		"method" : "get",
@@ -117,11 +113,8 @@ function List(setId) {
 				// console.log(val);
 					
 				for (var i = 0; i < val.length; i++) {
-					for(var j=0; j<10; j++){
-						
-						$("#sp_" + val[i].boardId).append(
-								val[j].reid + "&emsp;" + val[j].ment + "<br/>");
-					}
+					$("#sp_" + val[i].boardId).val("");
+						$("#sp_" + val[i].boardId).append(val[i].reid + "&emsp;" + val[i].ment + "<br/>");
 				}
 			})
 };
