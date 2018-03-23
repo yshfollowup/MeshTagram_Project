@@ -45,10 +45,11 @@ a, b {
 			</c:forEach>
 		</div>
 		<div>
+		<form action="/direct/insertMessage.do"></form>
 			<input type="text" id="dmtxt" name="${obj.id }"
 				style="font-family: 맑은고딕" placeholder="메시지를 입력하세요">
 			<button type="button" class="sendbt">전송</button>
-			<a href="javascript:" class="bt"><img src="사진 첨부" /></a>
+			<a href="/direct/" class="bt"><img src="사진 첨부" /></a>
 		</div>
 	</div>
   </div>
@@ -65,6 +66,7 @@ a, b {
 		}
 		return zero + num;
 	}
+	
 	function display() {
 		var now = new Date();
 		var currentHour = setDigit(now.getHours(), 2);
@@ -83,9 +85,9 @@ a, b {
 	$(".sendbt").on("click", function() {
 		var sender = "${cookie.setId.value}";
 		var receiver = $(this).attr("");
-		$.ajax("/insert.do", {
+		$.ajax("/direct/insertMessage.do", {
 			"method" : "get",
-			"async" : true,
+			"async" : false,
 			"data" : {
 				"sender" : sender,
 				"receiver" : receiver,
@@ -94,8 +96,31 @@ a, b {
 		}).done(function(val) {
 			console.log(val);
 			$("#showdm").html(val.result);
+			findAllMessage();
 		})
 		$("#content").val("");
 	});
+	
+	function findAllMessage(){
+		var id = $(this).attr("");
+		var content;
+		var like;
+		var curtime;
+		
+		$.ajax("/direct/showMessage.do", {
+			"method" : "post",
+			"async" : true,
+			"data" : {
+				"id" : id,
+				"content" : content,
+				"like" : like,
+				"curtime" : curtime
+			}
+		}).done(function(val) {
+			console.log(val);
+			
+		});
+		
+	};
 </script>
 </html>

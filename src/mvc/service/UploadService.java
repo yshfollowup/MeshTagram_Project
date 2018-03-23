@@ -30,16 +30,19 @@ public class UploadService {
 			return map;
 		}
 		File target = null;
+		int i=0;
 		String path = ctx.getRealPath("/");
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyMMddHHmmss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		System.out.println(path);
 
 		for (MultipartFile file : files) {
 			String str = sdf.format(System.currentTimeMillis());
 			Long size = file.getSize();
 			String original = file.getOriginalFilename();
+			System.out.println(str);
 			if (size < sizeLimit) {
-				target = new File(path, str +"."+ FilenameUtils.getExtension(original));
+				target = new File(path, str + "_" + i++ 
+						+ "." + FilenameUtils.getExtension(original));
 				String targetName = target.getName();
 				result.add("/" + targetName);
 				map.put("uploadResult", result);

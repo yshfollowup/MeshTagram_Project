@@ -27,7 +27,7 @@ public class MessengerController {
 	@Autowired
 	Gson gson;
 	
-	@RequestMapping(path="/messageInsert.do", produces="application/json;charset=utf-8")
+	@RequestMapping(path="/insertMessage.do", produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String insertMessageHandle(@RequestParam Map param) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -42,14 +42,14 @@ public class MessengerController {
 		}
 	}
 	
-	@RequestMapping(path="/messageList.do", produces="application/json;charset=utf-8")
+	@RequestMapping(path="/showMessage.do", produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String showMessageHandle() {
 		List<Map> result = mDAO.findAllMessage();
 		return gson.toJson(result);
 	}
 	
-	@RequestMapping(path="/followingList.do", produces="application/json;charset=utf-8")
+	@RequestMapping(path="/showFollowing.do", produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String showFollowingHandle(@CookieValue(name="setId", required=false) String setId) {
 		List<FollowDTO> result = fDAO.selectFollwing(setId);
