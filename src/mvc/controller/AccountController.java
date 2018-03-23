@@ -89,7 +89,7 @@ public class AccountController {
 		if(allPost != null) 
 		modelMap.put("allPost", allPost);
 		
-		System.out.println(allPost+"모든 게시물");
+		System.out.println("모든 게시물"+allPost);
 		
 		//이전에 달았던 모든 댓글 정보
 		//List<Map> allReply = rDAO.findAllReply();
@@ -118,6 +118,7 @@ public class AccountController {
 		if(allPost != null) 
 			modelMap.put("allPost", allPost);
 		
+		System.out.println("모든 게시물"+allPost);
 		//이전에 달았던 모든 댓글 정보
 		//List<Map> allReply = rDAO.findAllReply();
 		//if(allReply != null)

@@ -142,10 +142,11 @@ public class ReplyController {
 		System.out.println("댓글리스트이다"+result);
 		return gson.toJson(result);
 	}
-	@RequestMapping(path="/deleteReply.do", produces="application/json;charset=utf-8")
+	@RequestMapping(path="/deleteLike.do", produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String replyDeleteHandle(@RequestParam("") Map param) {
-		rDAO.deleteReply(param);
+	public String replyDeleteHandle(@RequestParam Map param) {
+		System.out.println(param+"좋아요 지우기");
+		rDAO.deleteLike(param);
 		return "{result : true}";
 	}
 }

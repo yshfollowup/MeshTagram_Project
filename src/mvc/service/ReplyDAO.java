@@ -111,10 +111,12 @@ public class ReplyDAO {
 		}
 		
 	
-	//Delete
-	public Map<String, Object> deleteReply(Map param) {
+	//좋아요 취소 버튼
+	public Map<String, Object> deleteLike(Map param) {
 		Map<String, Object> map = new LinkedHashMap<>();
-		template.remove(param.get("id"));
+		System.out.println("좋아요 취소"+(String)param.get("boardId"));
+		Query query = new Query(Criteria.where("_id").is(param.get("boardId")));
+		template.findAllAndRemove(query, "Like");
 		return map;
 	}
 }

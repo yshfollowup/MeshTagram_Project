@@ -173,10 +173,10 @@ public class DetailPageController {
 		System.out.println("댓글리스트이다"+result);
 		return gson.toJson(result);
 	}
-	@RequestMapping(path="/deleteReply.do", produces="application/json;charset=utf-8")
+/*	@RequestMapping(path="/deleteReply.do", produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String replyDeleteHandle(@RequestParam("") Map param) {
 		rDAO.deleteReply(param);
 		return "{result : true}";
-	}
+	}*/
 }
