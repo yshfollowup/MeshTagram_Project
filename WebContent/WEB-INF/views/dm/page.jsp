@@ -20,7 +20,15 @@ a, b {
   		<b>팔로우 목록</b>
   	</div>
   	<div>
-  		
+  		<table class="table">
+  			<thead><tr><th>recent</th></tr></thead>
+  			<tbody><tr><td>
+  				<c:forEach items="${followerList }" var="obj">
+  					<a href="/direct/followList.do">${obj.profile }</a>
+  					<a href="/direct/followList.do">${obj.id }</a>
+  				</c:forEach>
+  			</td></tr></tbody>
+  		</table>
   	</div>
   </div>
   <div class="col-sm-8">메시지 보내기
