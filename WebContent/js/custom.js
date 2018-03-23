@@ -74,11 +74,12 @@ function likeList() {
 	$(".rebt").each(function() {
 		boardid.push($(this).attr("name"));
 	});
+	console.log(boardid);
 	$.ajax("/likeList.do", {
 		"method" : "get",
 		"async" : true,
 		"data" : {
-			"boardId" : boardid,
+			"boardId" : boardid
 		}
 	}).done(function(val) {
 		console.log(val + "댓글 좋아요");
@@ -95,6 +96,7 @@ function List(setId) {
 	$(".rebt").each(function() {
 		boardid.push($(this).attr("name"));
 	});
+	console.log(boardid);
 	$.ajax("/listReply.do", {
 		"method" : "get",
 		"async" : true,

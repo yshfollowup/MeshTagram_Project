@@ -87,7 +87,9 @@ public class AccountController {
 		//이전에 쓴 모든 게시물 정보
 		List<Map> allPost = pDAO.findAllPost();
 		if(allPost != null) 
-			modelMap.put("allPost", allPost);
+		modelMap.put("allPost", allPost);
+		
+		System.out.println(allPost+"모든 게시물");
 		
 		//이전에 달았던 모든 댓글 정보
 		//List<Map> allReply = rDAO.findAllReply();

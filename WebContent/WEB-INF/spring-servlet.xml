@@ -47,7 +47,7 @@
 
 
 	<!-- 몽고 작업 -->
-	<mongo:mongo-client host="13.125.195.100" port="27017" /><!--아이피 작업 -->
+	<mongo:mongo-client host="13.125.195.100" port="18092" /><!--아이피 작업 -->
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg name="mongo" ref="mongo" />
 		<constructor-arg name="databaseName" value="root" /> <!-- 아이디 작업 -->
