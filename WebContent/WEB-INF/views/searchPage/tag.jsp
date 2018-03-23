@@ -18,7 +18,7 @@
 				<small><c:forEach items="${obj.tags }" var="tag">
 						<a href="/account/search.do?tag=${fn:replace(tag,'#','%23') }">${tag }</a>
 				</c:forEach> </small> <br />
-				<a href="#" data-toggle="tooltip" title="실험 ${fn:length(following)}개"> 
+				<a href=""${applictionScope.path}/detail/detail.do?boardid=${obj._id }"" data-toggle="tooltip" title="실험 ${fn:length(following)}개"> 
 				<img src="${obj.path }${obj.image}"
 					style="width: 230px; height: 230px;" class="image"/>
 				</a>

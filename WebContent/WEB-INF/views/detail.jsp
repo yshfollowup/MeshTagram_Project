@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <div style="height:70px;"></div>
 
 
@@ -11,7 +12,7 @@
     <div class="col-sm-2 sidenav">
     </div>
     <div class="col-sm-8 text-left"> 
-	  <c:forEach var="obj" items="${allPost}">
+	  <c:forEach var="obj" items="${myPost}">
 		<div align="center" style="min-height: 590px;">
 		  <section style="float: center; width: 70%;">
 		  	<div>
@@ -57,7 +58,7 @@
 	</c:forEach>
   </div>
   
-  <!-- Modal -->
+    <!-- Modal -->
 <div id="myModal1" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
@@ -75,8 +76,12 @@
 
   </div>
 </div>
-	<script type="text/javascript" src="/js/custom.js"></script>
-	<script>
+
+<script type="text/javascript" src="/js/custom.js"></script>
+<script>
+	  likeList();
+		List(setid);
+	
 	var setid = "${cookie.setId.value}";
   $(".List_like").on("click",function(){
 			var reid="${cookie.setId.value}";
@@ -188,8 +193,7 @@
 			}
 		})
 	});
- likeList();
-List();
+
 	//댓글 리스트 자동 생성
 
 	//좋아요 ....
@@ -212,29 +216,3 @@ List();
   });
 	
   </script>
-    <div class="col-sm-2 sidenav">
-      <div class="well">
-      <a href="/mypage/index.do?id=${aDTO.id }">
-      <c:choose>
-      <c:when test="${empty aDTO.profile }">
-     	<img src="/images/insta.jpg" style="width: 30px; height: 30px; border-radius: 30px" id="profile">
-      </c:when>
-      <c:otherwise>
-      <img src="${obj.path }${obj.image}"
-					style="width: 30px; height: 30px;" id="profile"/>
-      </c:otherwise>
-      </c:choose>
-        ${aDTO.id }</a>
-      </div>
-      <div class="well">
-        <p>스토리</p>
-        <p>회원님이 팔로우하는 사람들의 스토리가 여기에 표시됩니다.
-        </p>
-      </div>
-      <div class="well">
-        <div>@copyright</div>
-        </div>
-    </div>
-  </div>
-</div>
-
