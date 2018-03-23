@@ -6,13 +6,15 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
+import mvc.model.FollowDTO;
+import mvc.service.FollowDAO;
 import mvc.service.MessengerDAO;
 
 @Controller
@@ -21,9 +23,11 @@ public class MessengerController {
 	@Autowired
 	MessengerDAO mDAO;
 	@Autowired
+	FollowDAO fDAO;
+	@Autowired
 	Gson gson;
 	
-	@RequestMapping(path="/insert.do", produces="application/json;charset=utf-8")
+	@RequestMapping(path="/insertMessage.do", produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String insertMessageHandle(@RequestParam Map param) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -38,10 +42,17 @@ public class MessengerController {
 		}
 	}
 	
-	@RequestMapping(path="/list.do", produces="application/json;charset=utf-8")
+	@RequestMapping(path="/showMessage.do", produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String showMessageHandle() {
 		List<Map> result = mDAO.findAllMessage();
+		return gson.toJson(result);
+	}
+	
+	@RequestMapping(path="/showFollowing.do", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String showFollowingHandle(@CookieValue(name="setId", required=false) String setId) {
+		List<FollowDTO> result = fDAO.selectFollwing(setId);
 		return gson.toJson(result);
 	}
 }
