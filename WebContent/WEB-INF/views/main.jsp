@@ -261,7 +261,7 @@
 				})
 			});
 			likeList();
-			List();
+			List(setid);
 			//댓글 리스트 자동 생성
 
 			//좋아요 ....
@@ -305,6 +305,12 @@
 						likeList();
 			}
 	});
+			
+	$(".delbt").on("click", function(){
+		console.log("댓글 삭제할거다");
+		delReply(setid);
+	});
+	
 		</script>
 		<div class="col-sm-2 sidenav">
 			<div class="well">
