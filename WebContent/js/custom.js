@@ -90,7 +90,7 @@ function likeList() {
 	})
 };
 
-function List(setId) {
+function List(setid) {
 	var boardid=[];
 
 	$(".rebt").each(function() {

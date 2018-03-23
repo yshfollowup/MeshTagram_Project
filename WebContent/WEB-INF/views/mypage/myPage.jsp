@@ -3007,7 +3007,7 @@ transform
 			</div>
 			<section class="_o6mpc">
 				<div class="_ienqf">
-					<h1 class="_rf3jb notranslate" title="ID">ID표시부분</h1>
+					<h1 class="_rf3jb notranslate" title="ID">${aDTO.id }</h1>
 					<div class="_l9ml9">
 						<span class="_ov9ai"><button
 								class="_qv64e _t78yp _r9b8f _njrw0"
@@ -3027,7 +3027,7 @@ transform
 						id="following">팔로우${fn:length(following) }</a></li>
 				</ul>
 				<div class="_tb97a">
-					<h1 class="_kc4z2">이름표시부분</h1>
+					<h1 class="_kc4z2">${aDTO.name }</h1>
 				</div>
 			</section>
 		</header>

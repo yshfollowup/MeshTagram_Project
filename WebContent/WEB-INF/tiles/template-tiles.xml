@@ -62,4 +62,9 @@
 	<definition name="myPage_following" extends="insta_abstract">
 		<put-attribute name="body" value="/WEB-INF/views/mypage/following.jsp"></put-attribute>
 	</definition>
+	
+	<!-- 디테일 페이지 -->
+	<definition name="detail_insta" extends="insta_abstract">
+		<put-attribute name="body" value="/WEB-INF/views/detail.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>
