@@ -4,8 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <div style="height:70px;"></div>
-
-
 <div style="clear:both;"></div>	
 <div class="container-fluid text-center">    
   <div class="row content">

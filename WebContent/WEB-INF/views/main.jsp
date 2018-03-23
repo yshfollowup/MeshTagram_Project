@@ -25,12 +25,48 @@
 		  	</c:choose>
 		  	<a href="/mypage/index.do?id=${obj.id }">${obj.id }</a>
 		  	</div>
+		  	<c:set var="im" value="a" />
 			<c:forEach items="${obj.image }" var="image">
-			<div>
-			<img src="${obj.path }${image }"
-					style="width: 641px; height: 641px;"  />
-			</div>
-			</c:forEach>
+			<!-- 작업중 -->
+						<div id="${obj._id }" class="carousel slide" data-ride="carousel">
+							<!-- Indicators -->
+							<ol class="carousel-indicators">
+								<li data-target="#${obj._id }" data-slide-to="0" class="active"></li>
+								<li data-target="#${obj._id }" data-slide-to="1"></li>
+								<li data-target="#${obj._id }" data-slide-to="2"></li>
+							</ol>
+
+							<!-- Wrapper for slides -->
+							<div class="carousel-inner">
+								<div class="item active">
+									<img src="${obj.path }${image }"
+										style="width: 641px; height: 641px; width:100%;" />
+								</div>
+
+								<div class="item">
+									<img src="${obj.path }${image }"
+										style="width: 641px; height: 641px; width:100%;"  />
+								</div>
+
+								<div class="item">
+									<img src="${obj.path }${image }"
+										style="width: 641px; height: 641px; width:100%;"  />
+								</div>
+							</div>
+
+							<!-- Left and right controls -->
+							<a class="left carousel-control" href="#${obj._id }"
+								data-slide="prev"> <span
+								class="glyphicon glyphicon-chevron-left"></span> <span
+								class="sr-only">Previous</span>
+							</a> <a class="right carousel-control" href="#${obj._id }"
+								data-slide="next"> <span
+								class="glyphicon glyphicon-chevron-right"></span> <span
+								class="sr-only">Next</span>
+							</a>
+						</div>
+				</c:forEach>
+						<!-- 작업중 마지막 -->
 			<div>
 			<div>
 			<button class="like" type="button" name="${obj._id }">좋아요</button>
