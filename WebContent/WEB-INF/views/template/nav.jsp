@@ -1954,7 +1954,7 @@ px
 
 </head>
 <body>
-			<nav class="_68u16 _gft4l" role="navigation">
+			<nav class="_68u16 _gft4l" role="navigation" style="background-color:rgba(255,255,255,1);">
 				<div class="_axuw9"></div>
 				<div class="_s4gw0 _1arg4">
 					<div class="_tpnch">
