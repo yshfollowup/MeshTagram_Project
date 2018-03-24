@@ -26,7 +26,7 @@
 										id="writer">
 								</c:otherwise>
 							</c:choose>
-							<a href="/mypage/index.do?id=${obj.id }">${obj.id }</a>
+							<a href="/search.do?id=${obj.id }">${obj.id }</a>
 						</div>
 						<!-- 작업중 -->
 						<c:choose>
@@ -106,6 +106,7 @@
 				</div>
 			</c:forEach>
 		</div>
+		<div style="min-height: 150px;" ></div>
 
 		<!-- Modal -->
 		<div id="myModal1" class="modal fade" role="dialog">
@@ -260,7 +261,7 @@
 					}
 				})
 			});
-			likeList();
+			likeList(setid);
 			List(setid);
 			//댓글 리스트 자동 생성
 
@@ -299,16 +300,26 @@
 							"id" : reid
 						}
 					}).done(function(val2){
+						for(var i=0; i<val2.length; i++){
+							if(val2[i].boardId==boardid){
 						console.log(bt + "아이디아디이디");
-						$("#like_"+boardid).val("");
+						console.log("실시간 좋아요 처리"+bt);
+								$("#like_"+boardid).val("");
+								
+							}							
+						}
 				})
 						likeList();
 			}
 	});
 			
-	$(".delbt").on("click", function(){
+	$(".del").on("click", function(){
+		var boardid= [];
+		var ment=[];
+			boardid.push($(this).attr("name"));
+			ment.push($(this).attr("id"));
 		console.log("댓글 삭제할거다");
-		delReply(setid);
+		delReply(setid, boardid, ment);
 	});
 	
 		</script>

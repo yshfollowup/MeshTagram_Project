@@ -154,6 +154,28 @@ public class ReplyController {
 	public String replyDeleteHandle(@RequestParam MultiValueMap<String, String> param) {
 		System.out.println(param+"좋아요 지우기");
 		rDAO.deleteLike(param);
-		return "{result : true}";
+		int count=0;
+		List<Map> list2=new ArrayList();
+		list2=rDAO.findAllLike();
+		for(int i=0; i<list2.size(); i++) {
+			List<Map> list3=new ArrayList();
+			Object objectid=(Object)list2.get(i).get("_id");
+			String boardId=(String)list2.get(i).get("boardId");
+			String id=(String)list2.get(i).get("id");
+			String date=(String)list2.get(i).get("date");
+			list3=rDAO.findLikeBoardId(boardId);
+			//System.out.println(list3.size()+"카운트 개수");
+			String s=objectid.toString();
+			
+			count=list3.size();
+			list2.get(i).put("objectId", s);
+			list2.get(i).put("boardId", boardId);
+			list2.get(i).put("id",id);
+			list2.get(i).put("date", date);
+			list2.get(i).put("count", count);
+			
+		}
+		System.out.println(list2);
+		return gson.toJson(list2);
 	}
 }

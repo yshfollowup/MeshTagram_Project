@@ -1,8 +1,8 @@
 /**
  * 메인 페이지에 들어갈 함수
  */
-function delReply(setid){
-	var boardId= [];
+function delReply(id){
+	var boardid= [];
 	var ment=[];
 		boardid.push($(this).attr("name"));
 		ment.push($(this).attr("id"));
@@ -10,8 +10,8 @@ function delReply(setid){
 		"method" : "get",
 		"async" :true,
 		"data" : {
-			"boardId" : boardId,
-			"id" : setid,
+			"boardId" : boardid,
+			"id" : id,
 			"ment" : ment
 			
 		}
@@ -88,7 +88,7 @@ function followClick(setId,target,src,aa) {
 	}
 }
 
-function likeList() {
+function likeList(setid) {
 	var boardid=[];
 	$(".rebt").each(function() {
 		boardid.push($(this).attr("name"));
@@ -105,7 +105,11 @@ function likeList() {
 		//console.log(val.length+"크키");
 		for (var i = 0; i < val.length; i++) {
 			$("#cnt_" + val[i].boardId).html("&ensp;" + val[i].count+"개");
-			$("#like_"+val[i].boardId).val(val[i].objectId);
+			if(val[i].id==setid){
+				console.log(val[i].id+setid);
+				$("#like_"+val[i].boardId).val(val[i].objectId);
+				
+			}
 			//console.log($("#like_"+val[i].boardId).val()+"좋아요리스트 번호");
 		}
 	})
@@ -113,7 +117,7 @@ function likeList() {
 
 function List(setid) {
 	var boardid=[];
-
+	console.log("댓글 리스트 보여주기");
 	$(".rebt").each(function() {
 		boardid.push($(this).attr("name"));
 	});
@@ -140,11 +144,18 @@ function List(setid) {
 					if(val[i].reid == setid){
 						var s=val[i].ment;
 						//console.log("댓글버튼"+setid+s);
-						dd="<button type=\"button\" class=\"delbt\" name="+val[i].boardId+" id=\""+s+"onclick="+delReply(setid)+" >삭제룽</button>";
+						dd="<button type=\"button\" class=\"del\" name="+val[i].boardId+" id=\""+val[i].ment+"\" >삭제룽</button>";
 					}
 						$("#sp_" + val[i].boardId).append("<a href=/search.do?id="+val[i].reid+">"+val[i].reid+"</a>" + "&emsp; <span id=\"ment_" + val[i].ment+" class=\"ment\" name="+val[i].ment+" >"+val[i].ment+"</span>" +"\t\t"+dd+"<br/>");
 						
 						
 				}
+				var id=setid;
+				$(".del").on("click", function(){
+			
+					console.log("댓글 삭제할거다"+id);
+					delReply(id);
+				});
+				
 			})
 };
