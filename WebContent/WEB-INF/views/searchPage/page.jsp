@@ -41,10 +41,8 @@
 				</c:forEach> </small>
 				<div class="mouseIn">
 				<a href="${applictionScope.path}/detail/detail.do?boardid=${obj._id }" data-toggle="tooltip" id="top_${obj._id }" name="${obj._id }" class="tool" title="">
-				<c:forEach items="${obj.image }" var="image">
-				<img src="${obj.path }${image }"
+				<img src="${obj.path }${obj.image }"
 					style="width: 230px; height: 230px;" class="image">
-				</c:forEach>
 				</a>
 				</div>
 			  </div>

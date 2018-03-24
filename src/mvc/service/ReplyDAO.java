@@ -123,16 +123,16 @@ public class ReplyDAO {
 
 		return map;
 	}
-	//좋아요 취소 버튼
-	public Map<String, Object> ReplyLike(MultiValueMap<String, String> param) {
-		Map<String, Object> map = new LinkedHashMap<>();
+	//댓글 삭제 버튼
+	public Boolean Replydelete(MultiValueMap<String, String> param) {
+		Map<String, String> map = new LinkedHashMap<>();
 		String s= (String)param.getFirst("boardid");
 		String d=(String)param.getFirst("id");
-		System.out.println("좋아요 취소"+param.getFirst("boardid")+","+param.getFirst("id")+","+param.getFirst("ment"));
+		System.out.println("댓글 삭제"+param.getFirst("boardid")+","+param.getFirst("id")+","+param.getFirst("ment"));
 		Query query = new Query(Criteria.where("boardId").in(param.get("boardid")).where("id").in(param.get("id")).where("ment").in(param.get("ment")));
 		template.remove(query, Map.class, "Reply");
 		System.out.println("성공했을까?");
 
-		return map;
+		return true;
 	}
 }
