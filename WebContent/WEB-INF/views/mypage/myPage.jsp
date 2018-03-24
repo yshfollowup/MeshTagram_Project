@@ -2993,13 +2993,13 @@ transform
 			<div class="_b0acm">
 				<div class="_qdmzb">
 					<div class="_62ai2">
-						<button class="_3xjwv" title="프로필 사진 바꾸기">
+						<button class="_3xjwv" onclick="uploadAction();" title="프로필 사진 바꾸기">
 							<img alt="프로필 사진 바꾸기" class="_cuacn" src="/images/insta.jpg"
 								id="preview">${aDTO.id }
 						</button>
 						<div>
-							<form enctype="multipart/form-data">
-								<input type="file" accept="image/jpeg" class="_l8al6">
+							<form method="post" enctype="multipart/form-data">
+								<input type="file" accept="image/jpeg" id="photo" class="_l8al6">
 							</form>
 						</div>
 					</div>
@@ -3094,6 +3094,28 @@ transform
 		$("#following").on("change", function() {
 			$("all-screen").attr("aria-hidden", false)
 		});
+		
+		//프로필 사진 업로드
+		$(document).ready(function() {
+			$("#photo").on("change", handleImgSelect);
+		});
+		
+		function uploadAction() {
+			$("#photo").trigger("click");		
+		}
+		
+		function handleImgSelect(e) {
+			var files = e.target.files[0];
+			if (!files.type.match("image.*")) {
+				window.alert("이미지만 선택 가능 합니다.");
+				return;
+			}
+			
+			var reader = new FileReader();
+			console.log(reader);
+			$("#preview").attr("src", files.result);
+			reader.readAsDataURL(files);
+		}
 	</script>
 
 
