@@ -95,107 +95,121 @@ public class AccountController {
 		System.out.println("모든 게시물"+allPost);*/
 		
 		//==================================================================
-		List<AccountDTO> eachOtherList = aDAO.selectFollowEachOther(setId);
-		//맞팔되어있는 친구 목록 뽑은 뒤 그에 대한 게시물 보냄(1순위)
-		for(AccountDTO eachfollow : eachOtherList) {
-			String eachFollowid = eachfollow.getId();
-			if(id != null) {
-				List<Map> eachResult = pDAO.findPostById(eachFollowid);
-				modelMap.addAttribute("eachResult", eachResult);
-				System.out.println(eachResult.size()+"...eachResult"+eachResult);
-				for(int i=0; i<eachResult.size(); i++) {
-					Object object=eachResult.get(i).get("_id");
-					String obj=object.toString();
-					modelMap.addAttribute("boardid", obj);
-					System.out.println(obj+"1순위 오프젝트");
-
-				}
-			}
-		}
-		//=========================================================================
-			List<List<String>> list = ss.sendSeperInfo();
-			List<String> idList = list.get(0);
-			List<String> tagList = list.get(1);
-			List<String> annoList = list.get(2);
-			//관심사(hashtag)가 같은 사람을 뽑아 그에 대한 게시물 보냄(2순위)
-			for(String tag : tagList) {
-				if(tag != null) {
-					List<Map> tagResult = pDAO.findPostByTag(tag);
-					modelMap.addAttribute("tagResult", tagResult);
-					System.out.println(tagResult.size()+"...tagResult"+tagResult);
-					for(int i=0; i<tagResult.size(); i++) {
-						Object object=tagResult.get(i).get("_id");
-						String obj=object.toString();
-						modelMap.addAttribute("boardid", obj);
-						System.out.println(obj+"2순위 오프젝트");
-
-					}
-					
-				}
-			}
-			
-			modelMap.addAttribute("ids", idList);
-			System.out.println("ids"+idList);
-			modelMap.addAttribute("tags", tagList);
-			System.out.println("tags"+tagList);
-			modelMap.addAttribute("annos", annoList);
-			System.out.println("annos"+annoList);
-			//==================================================================
-			List<AccountDTO> topFollowerList = aDAO.selectTop5Account(setId);
-			
-			//팔로워 수 많은 순대로 뽑고 그에 대한 게시물 보냄(3순위)
-			for(AccountDTO top : topFollowerList) {
-				System.out.println(top.getId());
-				String[] tops = top.getId().split(",");
-				if(tops.length != 0) {
-					for(String s : tops) {
-						List<Map> topResult = pDAO.findPostById(s);
-						modelMap.addAttribute("top5Result", topResult);
-						System.out.println(topResult.size()+"...top5"+topResult);
-						for(int i=0; i<topResult.size(); i++) {
-							Object object=topResult.get(i).get("_id");
-							String obj=object.toString();
-							modelMap.addAttribute("boardid", obj);
-							System.out.println(obj+"3순위 오프젝트");
-
+				List<Map> eachResult=null;
+						List<AccountDTO> eachOtherList = aDAO.selectFollowEachOther(setId);
+						//맞팔되어있는 친구 목록 뽑은 뒤 그에 대한 게시물 보냄(1순위)
+						for(AccountDTO eachfollow : eachOtherList) {
+							String eachFollowid = eachfollow.getId();
+							if(id != null) {
+								eachResult = pDAO.findPostById(eachFollowid);
+								modelMap.addAttribute("eachResult", eachResult);
+								System.out.println(eachResult.size()+"...eachResult"+eachResult);
+							}
 						}
-					}				
-				}
-			}
-			//============================================================
-			List<FollowDTO> followerList = fDAO.selectFollwer(setId);	//나를 팔로우
-			List<FollowDTO> followingList = fDAO.selectFollwing(setId);	//내가 팔로잉
-			
-			//나를 팔로우하거나 내가 팔로우한 목록 뽑고 그에 대한 게시물 보냄(4순위)
-			for(FollowDTO follower : followerList) {
-				for(FollowDTO following : followingList) {
-					String myFollower = follower.getOwner();
-					String followingMe = following.getTarget();
-					if(myFollower != null || followingMe != null) {
-						List<Map> followerResult = pDAO.findPostById(myFollower);
-						List<Map> followingResult = pDAO.findPostById(followingMe);
-						modelMap.addAttribute("followerResult", followerResult);
-						modelMap.addAttribute("followingResult", followingResult);
-						System.out.println(followerResult.size()+" / "+followingResult.size());		
-						for(int i=0; i<followerResult.size(); i++) {
-							Object object=followerResult.get(i).get("_id");
-							String obj=object.toString();
-							modelMap.addAttribute("boardid", obj);
-							System.out.println(obj+"4순위 오프젝트");
-
-						}
-						for(int i=0; i<followingResult.size(); i++) {
-							Object object=followingResult.get(i).get("_id");
-							String obj=object.toString();
-							modelMap.addAttribute("boardid", obj);
-							System.out.println(obj+"5순위 오프젝트");
-
-						}
-					}
-				}
-			}
-		
-		//==================================================================
+						//=========================================================================
+							List<List<String>> list = ss.sendSeperInfo();
+							List<String> idList = list.get(0);
+							List<String> tagList = list.get(1);
+							List<String> annoList = list.get(2);
+							//관심사(hashtag)가 같은 사람을 뽑아 그에 대한 게시물 보냄(2순위)
+							List<Map> tagResult=null;
+							for(String tag : tagList) {
+								if(tag != null) {
+									tagResult = pDAO.findPostByTag(tag);
+									
+									
+								}
+							}
+							for(int i=0; i<tagResult.size(); i++) {
+								if(!eachResult.get(i).get("_id").equals(tagResult.get(i).get("_id"))){
+										
+										System.out.println("비교값이 들어갔다. 사이즈="+eachResult.size()+tagResult.get(i));
+										eachResult.add(tagResult.get(i));
+										modelMap.addAttribute("eachResult", tagResult.get(i));
+								}
+								
+								
+							}
+							
+							modelMap.addAttribute("ids", idList);
+							System.out.println("ids"+idList);
+							modelMap.addAttribute("tags", tagList);
+							System.out.println("tags"+tagList);
+							modelMap.addAttribute("annos", annoList);
+							System.out.println("annos"+annoList);
+							//==================================================================
+							List<AccountDTO> topFollowerList = aDAO.selectTop5Account(setId);
+							
+							//팔로워 수 많은 순대로 뽑고 그에 대한 게시물 보냄(3순위)
+							List<Map> topResult=null;
+							for(AccountDTO top : topFollowerList) {
+								System.out.println(top.getId());
+								String[] tops = top.getId().split(",");
+								if(tops.length != 0) {
+									for(String s : tops) {
+										topResult = pDAO.findPostById(s);
+										modelMap.addAttribute("top5Result", topResult);
+										System.out.println(topResult.size()+"...top5"+topResult);
+									}				
+								}
+							}
+							for(int i=0; i<topResult.size(); i++) {
+								if(!eachResult.get(i).get("_id").equals(topResult.get(i).get("_id"))){
+									if(!tagResult.get(i).get("_id").equals(topResult.get(i).get("_id"))) {
+										System.out.println("비교값이 들어갔다. 사이즈="+topResult.size()+topResult.get(i));
+										eachResult.add(topResult.get(i));
+										modelMap.addAttribute("eachResult", topResult.get(i));
+										
+									}
+								}
+								
+								
+							}
+							
+							
+							//============================================================
+							List<FollowDTO> followerList = fDAO.selectFollwer(setId);	//나를 팔로우
+							List<FollowDTO> followingList = fDAO.selectFollwing(setId);	//내가 팔로잉
+							
+							//나를 팔로우하거나 내가 팔로우한 목록 뽑고 그에 대한 게시물 보냄(4순위)
+							List<Map> followerResult =null;
+							List<Map> followingResult=null;
+							for(FollowDTO follower : followerList) {
+								for(FollowDTO following : followingList) {
+									String myFollower = follower.getOwner();
+									String followingMe = following.getTarget();
+									if(myFollower != null || followingMe != null) {
+										followerResult= pDAO.findPostById(myFollower);
+										followingResult = pDAO.findPostById(followingMe);
+										modelMap.addAttribute("followerResult", followerResult);
+										modelMap.addAttribute("followingResult", followingResult);
+										System.out.println(followerResult.size()+" / "+followingResult.size());		
+									}
+								}
+							}
+							
+							for(int i=0; i<followerResult.size(); i++) {
+								if(!eachResult.get(i).get("_id").equals(followerResult.get(i).get("_id"))){
+									if(!topResult.get(i).get("_id").equals(followerResult.get(i).get("_id"))) {
+										
+										System.out.println("비교값이 들어갔다. 사이즈="+followerResult.size()+followerResult.get(i));
+										eachResult.add(followerResult.get(i));
+										modelMap.addAttribute("eachResult", followerResult.get(i));
+									}
+								}
+							}
+								for(int i=0; i<followingResult.size(); i++) {
+									if(!eachResult.get(i).get("_id").equals(followingResult.get(i).get("_id"))){
+										if(!followerResult.get(i).get("_id").equals(followingResult.get(i).get("_id"))) {
+											
+											System.out.println("비교값이 들어갔다. 사이즈="+followingResult.size()+followingResult.get(i));
+											eachResult.add(followingResult.get(i));
+											modelMap.addAttribute("eachResult", followingResult.get(i));
+										}
+									}
+								}
+								
+						//==================================================================
 		//이전에 대화한 모든 메시지
 		List<Map> allMessage = mDAO.findAllMessage();
 		if(allMessage != null)
@@ -219,21 +233,15 @@ public class AccountController {
 			modelMap.put("allPost", allPost);
 		System.out.println("모든 게시물"+allPost);*/
 		//==================================================================
+		List<Map> eachResult=null;
 				List<AccountDTO> eachOtherList = aDAO.selectFollowEachOther(setId);
 				//맞팔되어있는 친구 목록 뽑은 뒤 그에 대한 게시물 보냄(1순위)
 				for(AccountDTO eachfollow : eachOtherList) {
 					String eachFollowid = eachfollow.getId();
 					if(id != null) {
-						List<Map> eachResult = pDAO.findPostById(eachFollowid);
+						eachResult = pDAO.findPostById(eachFollowid);
 						modelMap.addAttribute("eachResult", eachResult);
 						System.out.println(eachResult.size()+"...eachResult"+eachResult);
-						for(int i=0; i<eachResult.size(); i++) {
-							Object object=eachResult.get(i).get("_id");
-							String obj=object.toString();
-							modelMap.addAttribute("boardida", obj);
-							System.out.println(obj+"1순위 오프젝트");
-
-						}
 					}
 				}
 				//=========================================================================
@@ -242,20 +250,23 @@ public class AccountController {
 					List<String> tagList = list.get(1);
 					List<String> annoList = list.get(2);
 					//관심사(hashtag)가 같은 사람을 뽑아 그에 대한 게시물 보냄(2순위)
+					List<Map> tagResult=null;
 					for(String tag : tagList) {
 						if(tag != null) {
-							List<Map> tagResult = pDAO.findPostByTag(tag);
-							modelMap.addAttribute("tagResult", tagResult);
-							System.out.println(tagResult.size()+"...tagResult"+tagResult);
-							for(int i=0; i<tagResult.size(); i++) {
-								Object object=tagResult.get(i).get("_id");
-								String obj=object.toString();
-								modelMap.addAttribute("boardidb", obj);
-								System.out.println(obj+"2순위 오프젝트");
-
-							}
+							tagResult = pDAO.findPostByTag(tag);
+							
 							
 						}
+					}
+					for(int i=0; i<tagResult.size(); i++) {
+						if(!eachResult.get(i).get("_id").equals(tagResult.get(i).get("_id"))){
+								
+								System.out.println("비교값이 들어갔다. 사이즈="+eachResult.size()+tagResult.get(i));
+								eachResult.add(tagResult.get(i));
+								modelMap.addAttribute("eachResult", tagResult.get(i));
+						}
+						
+						
 					}
 					
 					modelMap.addAttribute("ids", idList);
@@ -268,57 +279,75 @@ public class AccountController {
 					List<AccountDTO> topFollowerList = aDAO.selectTop5Account(setId);
 					
 					//팔로워 수 많은 순대로 뽑고 그에 대한 게시물 보냄(3순위)
+					List<Map> topResult=null;
 					for(AccountDTO top : topFollowerList) {
 						System.out.println(top.getId());
 						String[] tops = top.getId().split(",");
 						if(tops.length != 0) {
 							for(String s : tops) {
-								List<Map> topResult = pDAO.findPostById(s);
+								topResult = pDAO.findPostById(s);
 								modelMap.addAttribute("top5Result", topResult);
 								System.out.println(topResult.size()+"...top5"+topResult);
-								for(int i=0; i<topResult.size(); i++) {
-									Object object=topResult.get(i).get("_id");
-									String obj=object.toString();
-									modelMap.addAttribute("boardidc", obj);
-									System.out.println(obj+"3순위 오프젝트");
-
-								}
 							}				
 						}
 					}
+					for(int i=0; i<topResult.size(); i++) {
+						if(!eachResult.get(i).get("_id").equals(topResult.get(i).get("_id"))){
+							if(!tagResult.get(i).get("_id").equals(topResult.get(i).get("_id"))) {
+								System.out.println("비교값이 들어갔다. 사이즈="+topResult.size()+topResult.get(i));
+								eachResult.add(topResult.get(i));
+								modelMap.addAttribute("eachResult", topResult.get(i));
+								
+							}
+						}
+						
+						
+					}
+					
+					
 					//============================================================
 					List<FollowDTO> followerList = fDAO.selectFollwer(setId);	//나를 팔로우
 					List<FollowDTO> followingList = fDAO.selectFollwing(setId);	//내가 팔로잉
 					
 					//나를 팔로우하거나 내가 팔로우한 목록 뽑고 그에 대한 게시물 보냄(4순위)
+					List<Map> followerResult =null;
+					List<Map> followingResult=null;
 					for(FollowDTO follower : followerList) {
 						for(FollowDTO following : followingList) {
 							String myFollower = follower.getOwner();
 							String followingMe = following.getTarget();
 							if(myFollower != null || followingMe != null) {
-								List<Map> followerResult = pDAO.findPostById(myFollower);
-								List<Map> followingResult = pDAO.findPostById(followingMe);
+								followerResult= pDAO.findPostById(myFollower);
+								followingResult = pDAO.findPostById(followingMe);
 								modelMap.addAttribute("followerResult", followerResult);
 								modelMap.addAttribute("followingResult", followingResult);
 								System.out.println(followerResult.size()+" / "+followingResult.size());		
-								for(int i=0; i<followerResult.size(); i++) {
-									Object object=followerResult.get(i).get("_id");
-									String obj=object.toString();
-									modelMap.addAttribute("boardidd", obj);
-									System.out.println(obj+"4순위 오프젝트");
-
-								}
-								for(int i=0; i<followingResult.size(); i++) {
-									Object object=followingResult.get(i).get("_id");
-									String obj=object.toString();
-									modelMap.addAttribute("boardide", obj);
-									System.out.println(obj+"5순위 오프젝트");
-
-								}
 							}
 						}
 					}
-				
+					
+					for(int i=0; i<2; i++) {
+						if(!eachResult.get(i).get("_id").equals(followerResult.get(i).get("_id"))){
+								
+								System.out.println("비교값이 들어갔다. 사이즈="+followerResult.size()+followerResult.get(i));
+								eachResult.add(followerResult.get(i));
+								modelMap.addAttribute("eachResult", followerResult.get(i));
+						}
+					}
+						for(int i=0; i<2; i++) {
+							if(!eachResult.get(i).get("_id").equals(followingResult.get(i).get("_id"))){
+								if(!followerResult.get(i).get("_id").equals(followingResult.get(i).get("_id"))) {
+									
+									System.out.println("비교값이 들어갔다. 사이즈="+followingResult.size()+followingResult.get(i));
+									eachResult.add(followingResult.get(i));
+									modelMap.addAttribute("eachResult", followingResult.get(i));
+								}
+							}
+						}
+						for(int i=0;i<eachResult.size(); i++) {
+							System.out.println("마지막 값들"+eachResult.get(i));
+						}
+						
 				//==================================================================
 		//이전에 대화한 모든 메시지
 		List<Map> allMessage = mDAO.findAllMessage();
