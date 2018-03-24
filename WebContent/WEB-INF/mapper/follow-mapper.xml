@@ -16,12 +16,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<!-- select follow -->
-	<select id="selectFollowing" resultType="java.util.LinkedHashMap">
+	<select id="selectFollowing" resultType="mvc.model.FollowDTO">
 		<!-- 내가 following한 사람을 찾는다 -->
 		select * from follow where owner = #{owner }
 	</select>
 	
-	<select id="selectFollower" resultType="java.util.LinkedHashMap">
+	<select id="selectFollower" resultType="mvc.model.FollowDTO">
 		<!-- 나를 follow 한 사람을 찾는다  -->
 		select * from follow where target = #{target }
 	</select>
