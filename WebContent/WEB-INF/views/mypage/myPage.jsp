@@ -2993,13 +2993,13 @@ transform
 			<div class="_b0acm">
 				<div class="_qdmzb">
 					<div class="_62ai2">
-						<button class="_3xjwv" title="프로필 사진 바꾸기">
+						<button class="_3xjwv" onclick="uploadAction();" title="프로필 사진 바꾸기">
 							<img alt="프로필 사진 바꾸기" class="_cuacn" src="/images/insta.jpg"
 								id="preview">${aDTO.id }
 						</button>
 						<div>
-							<form enctype="multipart/form-data">
-								<input type="file" accept="image/jpeg" class="_l8al6">
+							<form action="/mypage/uploadProfile.do" method="post" enctype="multipart/form-data">
+								<input type="file" accept="image/jpeg" id="photo" name="profile" class="_l8al6">
 							</form>
 						</div>
 					</div>
@@ -3094,6 +3094,34 @@ transform
 		$("#following").on("change", function() {
 			$("all-screen").attr("aria-hidden", false)
 		});
+		
+		//프로필 사진 업로드
+		$(document).ready(function() {
+			$("#photo").on("change", handleImgSelect);
+		}).done(function() {
+			
+		});
+		
+		function uploadAction() {
+			$("#photo").trigger("click");
+		}
+		
+		function handleImgSelect(e) {
+			var file = e.target.files[0];
+			if (!file.type.match("image.*")) {
+				window.alert("이미지파일만 선택할 수 있습니다!");
+			}else if (file.length > 1) {
+				window.alert("프로필이미지는 한장만 등록할 수 있습니다!");
+			}
+			
+			var reader = new FileReader();
+			console.log(reader);
+			reader.onload = function(e) {
+				$("#preview").attr("src", e.target.result);
+			}
+			reader.readAsDataURL(file);
+			
+		}
 	</script>
 
 
