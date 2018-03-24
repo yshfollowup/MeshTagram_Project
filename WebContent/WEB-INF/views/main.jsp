@@ -85,8 +85,8 @@
 							</c:forEach>
 							<div>
 
-								<button type="button" class="btn btn-info"
-									data-toggle="collapse" data-target="#demo">댓글보기</button>
+								<button type="button" class="btn btn-info show"
+									data-toggle="collapse" data-target=".collapse">댓글보기</button>
 								<div id="demo" class="collapse">
 									<span id="sp_${obj._id }" class="re_${obj._id }"
 										name="${obj._id }"></span>
@@ -127,6 +127,14 @@
 		</div>
 		<script type="text/javascript" src="/js/custom.js"></script>
 		<script>
+		  $(".show").on("click",function(){
+			  	if($(this).attr("aria-expanded")==false){
+			    	$(this).attr("aria-expanded",true);
+			    }else{
+			    $(this).attr("aria-expanded",false);
+			    }
+			  	
+			  });
 			var setid = "${cookie.setId.value}";
 			$(".List_like")
 					.on(
