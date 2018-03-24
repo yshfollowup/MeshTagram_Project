@@ -53,7 +53,6 @@
 										class="sr-only">Next</span>
 									</a>
 								</div>
-								<!-- 작업중 마지막 -->
 							</c:when>
 							<c:otherwise>
 								<c:forEach items="${obj.image }" var="image">
@@ -64,6 +63,7 @@
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
+								<!-- 작업중 마지막 -->
 						<div>
 							<div>
 								<button class="like" type="button" name="${obj._id }" id="like_${obj._id }">좋아요</button>
