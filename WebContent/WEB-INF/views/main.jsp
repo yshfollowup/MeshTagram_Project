@@ -107,7 +107,6 @@
 				</div>
 			</c:forEach>
 		</div>
-
 		<!-- 여기까지 메인 페이지 -->
 		<div style="min-height: 150px;" ></div>
 
