@@ -64,7 +64,6 @@
 							</c:otherwise>
 						</c:choose>
 								<!-- 작업중 마지막 -->
-						<div>
 							<div>
 								<button class="like" type="button" name="${obj._id }" id="like_${obj._id }">좋아요</button>
 								<button type="button" class="rebt" name="${obj._id }">댓글달기</button>
@@ -76,6 +75,7 @@
 								</div>
 							</div>
 
+						<div>
 							<a href="/mypage/index.do?id=${obj.id }">${obj.id }</a>
 							<c:forEach items="${obj.comment }" var="comm">
 								<span>${comm }</span>
@@ -313,15 +313,6 @@
 			}
 	});
 			
-	$(".del").on("click", function(){
-		var boardid= [];
-		var ment=[];
-			boardid.push($(this).attr("name"));
-			ment.push($(this).attr("id"));
-		console.log("댓글 삭제할거다");
-		delReply(setid, boardid, ment);
-	});
-	
 		</script>
 		<div class="col-sm-2 sidenav">
 			<div class="well">

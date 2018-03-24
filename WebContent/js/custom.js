@@ -1,16 +1,13 @@
 /**
  * 메인 페이지에 들어갈 함수
  */
-function delReply(id){
-	var boardid= [];
-	var ment=[];
-		boardid.push($(this).attr("name"));
-		ment.push($(this).attr("id"));
+function delReply(id, boardid, ment){
+	console.log("delReply 받음"+id+boardid+ment);
 	$.ajax("/delReply.do",{
 		"method" : "get",
 		"async" :true,
 		"data" : {
-			"boardId" : boardid,
+			"boardid" : boardid,
 			"id" : id,
 			"ment" : ment
 			
@@ -150,12 +147,15 @@ function List(setid) {
 						
 						
 				}
-				var id=setid;
-				$(".del").on("click", function(){
-			
-					console.log("댓글 삭제할거다"+id);
-					delReply(id);
-				});
 				
 			})
+			var id=setid;
+	$(".del").on("click", function(){
+		var boardid;
+		var ment;
+		boardid=$(this).attr("name");
+		ment=$(this).attr("id");
+		console.log("댓글 삭제할거다"+id+boardid+ment);
+		delReply(id,boardid,ment);
+	});
 };
