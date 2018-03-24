@@ -2998,8 +2998,8 @@ transform
 								id="preview">${aDTO.id }
 						</button>
 						<div>
-							<form method="post" enctype="multipart/form-data">
-								<input type="file" accept="image/jpeg" id="photo" class="_l8al6">
+							<form action="/mypage/uploadProfile.do" method="post" enctype="multipart/form-data">
+								<input type="file" accept="image/jpeg" id="photo" name="profile" class="_l8al6">
 							</form>
 						</div>
 					</div>
@@ -3098,23 +3098,29 @@ transform
 		//프로필 사진 업로드
 		$(document).ready(function() {
 			$("#photo").on("change", handleImgSelect);
+		}).done(function() {
+			
 		});
 		
 		function uploadAction() {
-			$("#photo").trigger("click");		
+			$("#photo").trigger("click");
 		}
 		
 		function handleImgSelect(e) {
-			var files = e.target.files[0];
-			if (!files.type.match("image.*")) {
-				window.alert("이미지만 선택 가능 합니다.");
-				return;
+			var file = e.target.files[0];
+			if (!file.type.match("image.*")) {
+				window.alert("이미지파일만 선택할 수 있습니다!");
+			}else if (file.length > 1) {
+				window.alert("프로필이미지는 한장만 등록할 수 있습니다!");
 			}
 			
 			var reader = new FileReader();
 			console.log(reader);
-			$("#preview").attr("src", files.result);
-			reader.readAsDataURL(files);
+			reader.onload = function(e) {
+				$("#preview").attr("src", e.target.result);
+			}
+			reader.readAsDataURL(file);
+			
 		}
 	</script>
 

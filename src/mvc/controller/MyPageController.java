@@ -1,9 +1,12 @@
 package mvc.controller;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import mvc.model.AccountDTO;
 import mvc.service.AccountDAO;
@@ -43,9 +47,11 @@ public class MyPageController {
 	MessengerDAO mDAO;
 	@Autowired
 	UploadService us;
+	
 
 	@RequestMapping("/index.do")
-	public String MyPageHandle(@CookieValue(name = "setId", required = false) String setId, ModelMap modelMap) {
+	public String MyPageHandle(@CookieValue(name = "setId", required = false) 
+			String setId, ModelMap modelMap) {
 		System.out.println("[SERVER]: MyPage success" + setId);
 		String id = setId;
 		// 계정 정보
@@ -183,15 +189,19 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(path="/uploadProfile.do", method=RequestMethod.POST)
-	public String uploadProfileHandle(@RequestParam(name="photo") MultipartFile[] files, 
-				HttpServletRequest req,@CookieValue(name="setId", required=false) String setId, ModelMap modelMap) {
+	public String uploadProfileHandle(@RequestParam("profile") MultipartFile[] files, HttpServletRequest req, 
+			@CookieValue(name="setId", required=false) String setId, ModelMap modelMap) throws Exception {
 		System.out.println("[SERVER]: login success"+setId);
+		System.out.println(files);
 		String id = setId;
-		Map result = us.uploadImages(files);
-		List result2 = (List)result.get("uploadResult");
-		String[] results = (String[]) result2.toArray();
-		AccountDTO aDTO = aDAO.selectOneAccountre(id);
-		modelMap.put("aDTO", aDTO);
-		return "insta_myPage";
+		List result = (List) us.uploadImages(files).get("uploadResult");
+		File file = (File) result.get(0);
+		System.out.println(file);
+		int r = aDAO.updateAccount(id);
+		if (r == 1) {
+			AccountDTO aDTO = aDAO.selectOneAccountre(id);
+			modelMap.put("aDTO", aDTO);			
+		}
+		return "redirect:/mypage/index.do";
 	}
 }
