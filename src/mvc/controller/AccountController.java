@@ -102,7 +102,14 @@ public class AccountController {
 			if(id != null) {
 				List<Map> eachResult = pDAO.findPostById(eachFollowid);
 				modelMap.addAttribute("eachResult", eachResult);
-				System.out.println(eachResult.size()+"...eachResult"+eachResult);				
+				System.out.println(eachResult.size()+"...eachResult"+eachResult);
+				for(int i=0; i<eachResult.size(); i++) {
+					Object object=eachResult.get(i).get("_id");
+					String obj=object.toString();
+					modelMap.addAttribute("boardid", obj);
+					System.out.println(obj+"1순위 오프젝트");
+
+				}
 			}
 		}
 		//=========================================================================
@@ -116,6 +123,14 @@ public class AccountController {
 					List<Map> tagResult = pDAO.findPostByTag(tag);
 					modelMap.addAttribute("tagResult", tagResult);
 					System.out.println(tagResult.size()+"...tagResult"+tagResult);
+					for(int i=0; i<tagResult.size(); i++) {
+						Object object=tagResult.get(i).get("_id");
+						String obj=object.toString();
+						modelMap.addAttribute("boardid", obj);
+						System.out.println(obj+"2순위 오프젝트");
+
+					}
+					
 				}
 			}
 			
@@ -137,6 +152,13 @@ public class AccountController {
 						List<Map> topResult = pDAO.findPostById(s);
 						modelMap.addAttribute("top5Result", topResult);
 						System.out.println(topResult.size()+"...top5"+topResult);
+						for(int i=0; i<topResult.size(); i++) {
+							Object object=topResult.get(i).get("_id");
+							String obj=object.toString();
+							modelMap.addAttribute("boardid", obj);
+							System.out.println(obj+"3순위 오프젝트");
+
+						}
 					}				
 				}
 			}
@@ -154,7 +176,21 @@ public class AccountController {
 						List<Map> followingResult = pDAO.findPostById(followingMe);
 						modelMap.addAttribute("followerResult", followerResult);
 						modelMap.addAttribute("followingResult", followingResult);
-						System.out.println(followerResult.size()+"..."+followerResult+" / "+followingResult.size()+"..."+followingResult);					
+						System.out.println(followerResult.size()+" / "+followingResult.size());		
+						for(int i=0; i<followerResult.size(); i++) {
+							Object object=followerResult.get(i).get("_id");
+							String obj=object.toString();
+							modelMap.addAttribute("boardid", obj);
+							System.out.println(obj+"4순위 오프젝트");
+
+						}
+						for(int i=0; i<followingResult.size(); i++) {
+							Object object=followingResult.get(i).get("_id");
+							String obj=object.toString();
+							modelMap.addAttribute("boardid", obj);
+							System.out.println(obj+"5순위 오프젝트");
+
+						}
 					}
 				}
 			}
@@ -190,7 +226,14 @@ public class AccountController {
 					if(id != null) {
 						List<Map> eachResult = pDAO.findPostById(eachFollowid);
 						modelMap.addAttribute("eachResult", eachResult);
-						System.out.println(eachResult.size()+"...eachResult"+eachResult);				
+						System.out.println(eachResult.size()+"...eachResult"+eachResult);
+						for(int i=0; i<eachResult.size(); i++) {
+							Object object=eachResult.get(i).get("_id");
+							String obj=object.toString();
+							modelMap.addAttribute("boardida", obj);
+							System.out.println(obj+"1순위 오프젝트");
+
+						}
 					}
 				}
 				//=========================================================================
@@ -204,6 +247,14 @@ public class AccountController {
 							List<Map> tagResult = pDAO.findPostByTag(tag);
 							modelMap.addAttribute("tagResult", tagResult);
 							System.out.println(tagResult.size()+"...tagResult"+tagResult);
+							for(int i=0; i<tagResult.size(); i++) {
+								Object object=tagResult.get(i).get("_id");
+								String obj=object.toString();
+								modelMap.addAttribute("boardidb", obj);
+								System.out.println(obj+"2순위 오프젝트");
+
+							}
+							
 						}
 					}
 					
@@ -225,6 +276,13 @@ public class AccountController {
 								List<Map> topResult = pDAO.findPostById(s);
 								modelMap.addAttribute("top5Result", topResult);
 								System.out.println(topResult.size()+"...top5"+topResult);
+								for(int i=0; i<topResult.size(); i++) {
+									Object object=topResult.get(i).get("_id");
+									String obj=object.toString();
+									modelMap.addAttribute("boardidc", obj);
+									System.out.println(obj+"3순위 오프젝트");
+
+								}
 							}				
 						}
 					}
@@ -242,7 +300,21 @@ public class AccountController {
 								List<Map> followingResult = pDAO.findPostById(followingMe);
 								modelMap.addAttribute("followerResult", followerResult);
 								modelMap.addAttribute("followingResult", followingResult);
-								System.out.println(followerResult.size()+" / "+followingResult.size());					
+								System.out.println(followerResult.size()+" / "+followingResult.size());		
+								for(int i=0; i<followerResult.size(); i++) {
+									Object object=followerResult.get(i).get("_id");
+									String obj=object.toString();
+									modelMap.addAttribute("boardidd", obj);
+									System.out.println(obj+"4순위 오프젝트");
+
+								}
+								for(int i=0; i<followingResult.size(); i++) {
+									Object object=followingResult.get(i).get("_id");
+									String obj=object.toString();
+									modelMap.addAttribute("boardide", obj);
+									System.out.println(obj+"5순위 오프젝트");
+
+								}
 							}
 						}
 					}
