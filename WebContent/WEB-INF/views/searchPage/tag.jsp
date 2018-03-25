@@ -20,8 +20,10 @@
 				</c:forEach> </small> <br />
 			
 				<a href="${applictionScope.path}/detail/detail.do?boardid=${obj._id }" data-toggle="tooltip" id="top_${obj._id }" name="${obj._id }" class="tool" title="">
-				<img src="${obj.path }${obj.image }"
-					style="width: 230px; height: 230px;" class="image">
+				<c:forEach items="${obj.image }" var="image" varStatus="st">
+						<img src="${obj.path }${image }"
+								style="width: 230px; height: 230px; " />
+					</c:forEach>
 				</a>
 				
 			</p>

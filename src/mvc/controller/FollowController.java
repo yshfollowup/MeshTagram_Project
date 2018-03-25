@@ -13,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -165,5 +166,16 @@ public class FollowController {
 		
 		return "{\"result\": true,\"status\":\"ok\"}";
 		
+	}
+	
+	@RequestMapping(path="/followListSomeone.do", produces="application/json;charset=utf-8", method=RequestMethod.GET)
+	@ResponseBody
+	public String SearchListLikeHandle(@RequestParam MultiValueMap<String, String> map) {
+		String owner = map.getFirst("setId");
+		System.out.println(map+"모달 리스트를 받았다.");
+		List<Map> result = fDAO.selectFollwerProfileId(owner);
+		List<Map> result2 = fDAO.selectFollwingListId(result);
+		System.out.println("팔로우 리스트를 받았다."+result2);
+		return gson.toJson(result2);
 	}
 }

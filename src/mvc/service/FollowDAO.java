@@ -1,9 +1,6 @@
 package mvc.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -137,6 +134,31 @@ public class FollowDAO {
 		SqlSession session = factory.openSession();
 		try {
 			fList = session.selectList("follow.selectFollowingProfileId", map);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+			return fList;
+		}
+	}
+	
+	// 나를 팔로우하고 있는 사람들을 찾고 프로필 다 얻어온다.
+	public List<Map> selectFollwingListId(List<Map> vmap) {  // target 은 나
+		Map map=new HashMap<>();
+		List dd=new LinkedList<>();
+		for(int i=0; i<vmap.size(); i++) {
+			String s=(String) vmap.get(i).get("ID");
+			dd.add(s);
+		}
+		map.put("followList", dd);
+		
+		System.out.println(dd+"팔로우 리스트 받음"+map);
+		
+		List<Map> fList = null;
+		
+		SqlSession session = factory.openSession();
+		try {
+			fList = session.selectList("follow.selectSearchKnowEachFollow", map);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {

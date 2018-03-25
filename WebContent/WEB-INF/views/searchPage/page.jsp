@@ -21,7 +21,7 @@
     <div>
     <section>
     <div style="font-size: 50px;">${aDTO.id}</div>
-    <input type="button" id="follow" class="follow" value="팔로우" name="${aDTO.id }"/>  <button type="button" id="bt"  value="${applicationScope.path }" name="${aDTO.id }" class="btn btn-info" data-toggle="collapse" data-target="#demo">추천계정</button>
+    <input type="button" id="follow" class="follow" value="팔로우" name="${aDTO.id }"/>  <button type="button" id="bt"  value="${applicationScope.path }" name="${aDTO.id }" class="btn btn-info" data-toggle="collapse" data-target=".collapse">추천계정</button>
 
     
     	<div>${aDTO.intro }</div>
@@ -31,6 +31,7 @@
 	  </div>
 	  </section>
 	  </div>
+	  <div style="min-height: 80px;"></div>
 	    <div id="demo" class="collapse">
 	    추천계정
 
@@ -43,8 +44,10 @@
 				<a href="/account/search.do?tag=${fn:replace(tag,'#','%23') }">${tag }</a>
 				</c:forEach> </small> <br/>
 				<a href="${applictionScope.path}/detail/detail.do?boardid=${obj._id }" data-toggle="tooltip" id="top_${obj._id }" name="${obj._id }" class="tool" title="">
-				<img src="${obj.path }${obj.image }"
-					style="width: 230px; height: 230px;" class="image">
+				<c:forEach items="${obj.image }" var="image" varStatus="st">
+						<img src="${obj.path }${image }"
+								style="width: 230px; height: 230px; " />
+					</c:forEach>
 				</a>
 			  </p>
 		</c:forEach>
@@ -103,8 +106,8 @@
 						}
 					}
 						if(cnt2!=1){
-							fbt= "<input  type=\"button\" name="+val[j].ID+"\ class=\"follower\" value=\"팔로우\"/>";
-							$("#demo").append("<a href=\"/search.do?id="+val[i].TARGET+"\">"+val[i].TARGET+"<br/>"+"</a>"+profile+"<br/>"+fbt);
+							fbt= "<input  type=\"button\" name="+val[i].TARGET+"\ class=\"follower\" value=\"팔로우\"/>";
+							$("#demo").append("<a href=\"/search.do?id="+val[i].TARGET+"\">"+val[i].TARGET+"</a>"+profile+fbt);
 						}
 				}
 				
