@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
@@ -100,11 +100,32 @@
 }
 
 @
-supports (margin-bottom:env(safe-area-inset-bottom) ){ . _evlcw: not (._b696q
-	){
-	margin-bottom: env(safe-area-inset-bottom)
-}
+supports
+ 
+(
+margin-bottom
+:env(safe-area-inset-bottom)
+ 
+){
+.
+_evlcw
+:
+ 
+not
+ 
+(
+._b696q
 
+	
+){
+margin-bottom
+:
+ 
+env
+(safe-area-inset-bottom)
+
+
+}
 }
 ._b696q {
 	-webkit-box-ordinal-group: 1;
@@ -125,19 +146,19 @@ supports (margin-bottom:env(safe-area-inset-bottom) ){ . _evlcw: not (._b696q
 </style>
 <style type="text/css" data-isostyle-id="is572659ec">
 ._5rnaq, ._caluf, ._tpnch {
-	-webkit-box-align : center;
+	-webkit-box-align: center;
 	-webkit-align-items: center;
 	-ms-flex-align: center;
 	align-items: center;
 	text-align: center;
-	margin:0 auto;
+	margin: 0 auto;
 }
 
 ._tpnch {
 	background-color: #fff;
 	border-bottom: 1px solid rgba(0, 0, 0, .0975);
 	position: fixed;
-	clear : both;
+	clear: both;
 	top: 0;
 	width: 100%;
 	z-index: 1;
@@ -155,13 +176,11 @@ supports (margin-bottom:env(safe-area-inset-bottom) ){ . _evlcw: not (._b696q
 	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
-	
 	-webkit-box-orient: horizontal;
 	-webkit-box-direction: normal;
 	-webkit-flex-direction: row;
 	-ms-flex-direction: row;
 	flex-direction: row;
-	
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
 	-ms-flex-pack: center;
@@ -171,7 +190,6 @@ supports (margin-bottom:env(safe-area-inset-bottom) ){ . _evlcw: not (._b696q
 	-webkit-transition: height .2s ease-in-out;
 	transition: height .2s ease-in-out;
 	width: 100%
-	
 }
 
 ._cyf06 {
@@ -289,17 +307,29 @@ a._l8p4s, a._l8p4s:visited {
 }
 
 ._b28md
+
+
 :not
+
  
+
 (
 :first-child
+
  
+
 ){
 margin-left
+
+
 :
+
  
+
 30
 px
+
+
 
 
 }
@@ -393,8 +423,7 @@ px
 <style type="text/css" data-isostyle-id="is-2ab6876a">
 .coreSpriteActivityHeart, .coreSpriteAddPhoto, .coreSpriteAddText,
 	.coreSpriteAppIcon, .coreSpriteApproveLarge {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -414px -129px;
 	height: 62px;
@@ -428,8 +457,7 @@ px
 
 .coreSpriteAppStoreButton, .coreSpriteBoomerang,
 	.coreSpriteCameraInactive, .coreSpriteCheck, .coreSpriteChevronDark {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -414px -43px;
 	height: 41px;
@@ -463,8 +491,7 @@ px
 
 .coreSpriteChevronDownGrey, .coreSpriteChevronRight, .coreSpriteClose,
 	.coreSpriteCloseLight, .coreSpriteComment {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -546px -490px;
 	height: 12px;
@@ -497,8 +524,7 @@ px
 .coreSpriteDesktopNavActivity, .coreSpriteDesktopNavExplore,
 	.coreSpriteDesktopNavLogoAndWordmark, .coreSpriteDesktopNavProfile,
 	.coreSpriteDismissLarge {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -257px -399px;
 	height: 24px;
@@ -531,8 +557,7 @@ px
 
 .coreSpriteDismissSmall, .coreSpriteDownload,
 	.coreSpriteDropdownArrowBlue5, .coreSpriteDropdownArrowBlue6 {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -559px -385px;
 	height: 8px;
@@ -559,8 +584,7 @@ px
 .coreSpriteDropdownArrowGrey9, .coreSpriteDropdownArrowWhite,
 	.coreSpriteFacebookIcon, .coreSpriteFacebookIconInverted,
 	.coreSpriteFbGlyph {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -560px -445px;
 	height: 6px;
@@ -592,8 +616,7 @@ px
 
 .coreSpriteFeedCreation, .coreSpriteGlyphBlack, .coreSpriteGlyphGradient,
 	.coreSpriteGlyphWhite, .coreSpriteGooglePlayButton {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -338px -479px;
 	height: 24px;
@@ -628,8 +651,7 @@ px
 
 .coreSpriteHashtag, .coreSpriteHeartFull, .coreSpriteHeartOpen,
 	.coreSpriteHeartSmall, .coreSpriteHyperlapse {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -546px -395px;
 	height: 17px;
@@ -662,8 +684,7 @@ px
 .coreSpriteInputAccepted, .coreSpriteInputError, .coreSpriteInputRefresh,
 	.coreSpriteKeyhole, .coreSpriteLeftChevron,
 	.coreSpriteLeftPaginationArrow {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -389px -264px;
 	height: 22px;
@@ -702,8 +723,7 @@ px
 
 .coreSpriteLikeAnimationHeart, .coreSpriteLocation,
 	.coreSpriteLocationActive, .coreSpriteLock, .coreSpriteLockLarge {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -300px -114px;
 	height: 81px;
@@ -737,8 +757,7 @@ px
 .coreSpriteLoggedOutGenericUpsell, .coreSpriteLoggedOutWordmark,
 	.coreSpriteMobileNavActivityActive,
 	.coreSpriteMobileNavActivityInactive {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -478px -321px;
 	height: 58px;
@@ -766,8 +785,7 @@ px
 .coreSpriteMobileNavAddPeopleActive,
 	.coreSpriteMobileNavAddPeopleInactive, .coreSpriteMobileNavDirect,
 	.coreSpriteMobileNavDiscoverPeople {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -199px -399px;
 	height: 24px;
@@ -791,8 +809,7 @@ px
 
 .coreSpriteMobileNavExploreActive, .coreSpriteMobileNavExploreInactive,
 	.coreSpriteMobileNavHomeActive, .coreSpriteMobileNavHomeInactive {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -439px -399px;
 	height: 24px;
@@ -814,8 +831,7 @@ px
 
 .coreSpriteMobileNavLogo, .coreSpriteMobileNavMenuActive,
 	.coreSpriteMobileNavMenuInactive, .coreSpriteMobileNavProfileActive {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -459px -430px;
 	height: 25px;
@@ -840,8 +856,7 @@ px
 .coreSpriteMobileNavProfileInactive, .coreSpriteMobileNavSearchActive,
 	.coreSpriteMobileNavSearchInactive, .coreSpriteMobileNavSettings,
 	.coreSpriteMobileNavTypeLogo {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -52px -479px;
 	height: 24px;
@@ -870,8 +885,7 @@ px
 
 .coreSpriteNotificationLeftChevron, .coreSpriteNotificationRightChevron,
 	.coreSpriteNullProfile, .coreSpriteOptionsEllipsis {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -546px -372px;
 	height: 21px;
@@ -899,8 +913,7 @@ px
 
 .coreSpriteOptionsEllipsisLight, .coreSpritePagingChevron,
 	.coreSpritePlayIconSmall, .coreSpritePrivateLock {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -286px -479px;
 	height: 24px;
@@ -926,8 +939,7 @@ px
 
 .coreSpriteProfileCamera, .coreSpriteProfileGrid,
 	.coreSpriteProfileGridActive, .coreSpriteProfilePicUpsell {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -478px -129px;
 	height: 62px;
@@ -953,8 +965,7 @@ px
 
 .coreSpriteProfileSave, .coreSpriteProfileSaveActive, .coreSpriteReload,
 	.coreSpriteRightChevron, .coreSpriteRightPaginationArrow {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -468px -479px;
 	height: 24px;
@@ -987,8 +998,7 @@ px
 
 .coreSpriteSaveFull, .coreSpriteSaveLightFull, .coreSpriteSaveLightOpen,
 	.coreSpriteSaveNull, .coreSpriteSaveOpen, .coreSpriteSaveStory {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -260px -479px;
 	height: 24px;
@@ -1023,8 +1033,7 @@ px
 
 .coreSpriteSearchClear, .coreSpriteSearchIcon,
 	.coreSpriteSensitivityIcon, .coreSpriteSensitivityIconSmall {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -546px -94px;
 	height: 20px;
@@ -1053,8 +1062,7 @@ px
 .coreSpriteSidecarIconLarge, .coreSpriteSidecarIconSmall,
 	.coreSpriteSpeechBubbleSmall, .coreSpriteSpinsta, .coreSpriteSpinstaNux
 	{
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: 0 -430px;
 	height: 47px;
@@ -1090,8 +1098,7 @@ px
 .coreSpriteSpinstaStory, .coreSpriteStoriesPost,
 	.coreSpriteStoryCreation, .coreSpriteStoryCreationAlt,
 	.coreSpriteStoryViewCount {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -546px -504px;
 	height: 11px;
@@ -1124,8 +1131,7 @@ px
 
 .coreSpriteUnreadComments, .coreSpriteUnreadLikes,
 	.coreSpriteUnreadRelationships, .coreSpriteUpsellCommentLarge {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -546px -414px;
 	height: 14px;
@@ -1151,8 +1157,7 @@ px
 
 .coreSpriteUpsellCommentSmall, .coreSpriteUpsellLikeLarge,
 	.coreSpriteUpsellLikeSmall, .coreSpriteUpsellSaveLarge {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -228px -150px;
 	height: 56px;
@@ -1180,8 +1185,7 @@ px
 
 .coreSpriteUpsellSaveSmall, .coreSpriteUserTagIndicator,
 	.coreSpriteVerifiedBadge, .coreSpriteVerifiedBadgeSmall {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -320px -317px;
 	height: 56px;
@@ -1210,8 +1214,7 @@ px
 .coreSpriteVideoIconLarge, .coreSpriteVideoIconSmall,
 	.coreSpriteVideoNux, .coreSpriteViewCount,
 	.coreSpriteWindowsStoreButton {
-	background-image:
-		url(/images/0314ae1bba65.png);
+	background-image: url(/images/0314ae1bba65.png);
 	background-repeat: no-repeat;
 	background-position: -228px -208px;
 	height: 48px;
@@ -1954,109 +1957,141 @@ px
 
 </head>
 <body>
-			<nav class="_68u16 _gft4l" role="navigation" style="background-color:rgba(255,255,255,1);">
-				<div class="_axuw9"></div>
-				<div class="_s4gw0 _1arg4">
-					<div class="_tpnch">
-						<div class="_5rnaq">
-							<div class="_iraxg">
-								<div class="_catib">
-									<a class="_giku3 _8scx2 coreSpriteDesktopNavLogoAndWordmark _rujh3"
-										href="/account/login.do">Meshtagram</a>
-										<a class="_giku3 _8scx2 _e8tsh coreSpriteGlyphBlack"
-													 href="/account/login.do">Meshtagram</a>
-								</div>
+	<nav class="_68u16 _gft4l" role="navigation"
+		style="background-color: rgba(255, 255, 255, 1);">
+		<div class="_axuw9"></div>
+		<div class="_s4gw0 _1arg4">
+			<div class="_tpnch">
+				<div class="_5rnaq">
+					<div class="_iraxg">
+						<div class="_catib">
+							<a
+								class="_giku3 _8scx2 coreSpriteDesktopNavLogoAndWordmark _rujh3"
+								href="/account/login.do">Meshtagram</a> <a
+								class="_giku3 _8scx2 _e8tsh coreSpriteGlyphBlack"
+								href="/account/login.do">Meshtagram</a>
+						</div>
+					</div>
+					<div class="_5ayw3 _ohiyl">
+						<input type="text" class="_avvq0 _o716c" id="search"
+							placeholder="검색">
+						<div id="pp"
+							style="background-color: rgba(230, 230, 230, 0.95); border: 1px solid gba(150, 150, 150); border-radius: 5px; border-top: 0px;"></div>
+					</div>
+					<div class="_devkn">
+						<div class="_qlijk">
+							<div class="_b28md">
+								<a class="_8scx2 _gvoze coreSpriteDesktopNavExplore"
+									href="/follow/index.do">팔로우</a>
 							</div>
-							<div class="_5ayw3 _ohiyl">
-								<input type="text" class="_avvq0 _o716c" id="search" placeholder="검색">
-								<div id="pp" style="background-color:rgba(230, 230, 230, 0.95);  border: 1px solid gba(150, 150, 150);
-    								border-radius: 5px; border-top:0px;"></div>
+							<div class="_b28md">
+								<a href="/account/activity.do"
+									class="_ohbcb _gvoze" style="margin-left: 20px;">
+									<img src="/images/heart.png" style="padding-top:2px;"/></a>
 							</div>
-							<div class="_devkn">
-								<div class="_qlijk">
-									<div class="_b28md">
-										<a class="_8scx2 _gvoze coreSpriteDesktopNavExplore"
-											href="/follow/index.do">팔로우</a>
-									</div>
-									<div class="_b28md">
-										<a href="/account/upload.do"
-											class="_ohbcb _gvoze" style="margin-left : 20px;">
-											<img src="/images/write.png"/>
-											</a>
-									</div>
-									<div class="_b28md">
-										<a class="_8scx2 _gvoze coreSpriteDesktopNavProfile"
-											href="/mypage/index.do" style="margin-left : 20px;">마이페이지</a>
-									</div>
-									<div class="_b28md">
-										<a href="/" style="margin-left : 20px;">
-											<img src="/images/statistics.png"/>
-											
-										</a> 
-									</div>
-								</div>
+							<div class="_b28md">
+								<a href="/account/upload.do" class="_ohbcb _gvoze"
+									style="margin-left: 20px;"> <img src="/images/write.png" />
+								</a>
+							</div>
+							<div class="_b28md">
+								<a class="_8scx2 _gvoze coreSpriteDesktopNavProfile"
+									href="/mypage/index.do" style="margin-left: 20px;">마이페이지</a>
+							</div>
+							<div class="_b28md">
+								<a href="/" style="margin-left: 20px;"> <img
+									src="/images/statistics.png" />
+
+								</a>
 							</div>
 						</div>
 					</div>
 				</div>
-			</nav>
-			
-<script>
-$("#search").on("keyup",function(){
-	var value = $("#search").val();
-	var tag= null;
-	var idsh=null;
-	var comm=null
-	if(value.startsWith("#")){
-		tag=value;
-	}else if(value.startsWith("@")){
-		idsh=value;
-	}else{
-		comm=value;
-	}
-	$.ajax("/autocom.do",{
-		"method" : "post",
-		"async" : true,
-		"data" : {
-			"tag" : tag, 
-			"idsh" : idsh,
-			"comm" : comm
-		}
-	}).done(function(val){
-		console.log(val);
-		var str="";
-		var img= "<img src=\"/images/insta.jpg\" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
-		for(var i=0; i<val.length; i++){
-			var img2="<img src=\"${applicationScope.path }"+val.PROFILE+" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
-			var com=null;
-			var ii=null;
-			if(val[i]._id != null){
-				var s=null;
-				if(val[i].tags[0].startsWith("#")){
-					console.log(val[i].tags[i]);
-					var a=val[i].tags[i];
-					s=a.replace('#','%23');
-				}
-				str+="<a href=/searchtag.do?tags="+s+">"+val[i].tags+"<br/>게시물 "+val[i].count+"</a>"+"<br/>";
-			}else{
-			if(val.PROFILE==null){
-				ii=img;
-			}else{
-				ii=img2;
-			}
-			if(val[i].NAME == null){
-				name="";
-			}else{
-				name=val[i].NAME;
-			}
-  			str+="<a href=/search.do?id="+val[i].ID+"><div>"+ii+"<div>"+val[i].ID+"</div><div style=\"border-bottom: 1px solid grey;\">"+name+"</div></div></a>"+"<br/>";
-		}
-	}
-		$("#pp").html(str);
-	})
-});
-</script>			
-			
-			
+			</div>
+		</div>
+	</nav>
+
+	<script>
+		$("#search")
+				.on(
+						"keyup",
+						function() {
+							var value = $("#search").val();
+							var tag = null;
+							var idsh = null;
+							var comm = null
+							if (value.startsWith("#")) {
+								tag = value;
+							} else if (value.startsWith("@")) {
+								idsh = value;
+							} else {
+								comm = value;
+							}
+							$
+									.ajax("/autocom.do", {
+										"method" : "post",
+										"async" : true,
+										"data" : {
+											"tag" : tag,
+											"idsh" : idsh,
+											"comm" : comm
+										}
+									})
+									.done(
+											function(val) {
+												console.log(val);
+												var str = "";
+												var img = "<img src=\"/images/insta.jpg\" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
+												for (var i = 0; i < val.length; i++) {
+													var img2 = "<img src=\"${applicationScope.path }"+val.PROFILE+" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
+													var com = null;
+													var ii = null;
+													if (val[i]._id != null) {
+														var s = null;
+														if (val[i].tags[0]
+																.startsWith("#")) {
+															console
+																	.log(val[i].tags[i]);
+															var a = val[i].tags[i];
+															s = a.replace('#',
+																	'%23');
+														}
+														str += "<a href=/searchtag.do?tags="
+																+ s
+																+ ">"
+																+ val[i].tags
+																+ "<br/>게시물 "
+																+ val[i].count
+																+ "</a>"
+																+ "<br/>";
+													} else {
+														if (val.PROFILE == null) {
+															ii = img;
+														} else {
+															ii = img2;
+														}
+														if (val[i].NAME == null) {
+															name = "";
+														} else {
+															name = val[i].NAME;
+														}
+														str += "<a href=/search.do?id="
+																+ val[i].ID
+																+ "><div>"
+																+ ii
+																+ "<div>"
+																+ val[i].ID
+																+ "</div><div style=\"border-bottom: 1px solid grey;\">"
+																+ name
+																+ "</div></div></a>"
+																+ "<br/>";
+													}
+												}
+												$("#pp").html(str);
+											})
+						});
+	</script>
+
+
 </body>
 </html>

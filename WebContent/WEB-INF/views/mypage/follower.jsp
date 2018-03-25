@@ -4,23 +4,24 @@
 <div style="height:70px;"></div>
 
 <div align="center" style="min-hight: 490px" aria-hidden="true" id="screen1">
-	<c:forEach var="obj" items="${follower }">
+	<c:forEach var="obj" items="${followerJoin }">
 		<p style="float: left; width: 25%;">
 			<c:choose>
-				<c:when test="${empty obj.profile }">
+				<c:when test="${empty obj.PROFILE }">
 					<img src="/images/insta.jpg" style="width: 30px; height: 30px; border-radius: 30px" id="preview">
 				</c:when>
 				<c:otherwise>
-					<img src="${applicationScope.path }${obj.profile}" style="width: 30px; border-radius: 100%" id="profile" />
+					<img src="${applicationScope.path }${obj.PROFILE}" style="width: 30px; border-radius: 100%" id="profile" />
 				</c:otherwise>
 			</c:choose>
-			<a href="/account/myPage.do?id=${obj.id}" name="id">${obj.id }</a>
-			<button  type="button" name="${obj.id }"   id="follower">팔로우</button>
+			<a href="/account/myPage.do?id=${obj.ID}" name="id">${obj.ID }</a>
+			<input  type="button" name="${obj.ID }"   class="follower" value="팔로우"/>
 		</p>
 	</c:forEach>
 </div>
 <script>
 	$(".follower").click(function() {
+		console.log("팔로우 들어왔다.")
 		var setid="${cookie.setId.value}";
 		var src =$(this);
 		var a = $(this).attr("name");

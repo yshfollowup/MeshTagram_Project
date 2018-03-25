@@ -3,18 +3,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div style="height:70px;"></div>
 <div align="center" style="min-hight: 490px" aria-hidden="true" id="screen2">
-	<c:forEach var="obj" items="${following }">
+	<c:forEach var="obj" items="${followingJoin }">
 		<p style="float: left; width: 25%;">
 			<c:choose>
-				<c:when test="${empty obj.profile }">
+				<c:when test="${empty obj.PROFILE }">
 					<img src="/images/insta.jpg" style="width: 30px; height: 30px; border-radius: 30px" id="preview">
 				</c:when>
 				<c:otherwise>
-					<img src="${applicationScope.path }${obj.profile}" style="width: 30px; border-radius: 100%" id="profile" />
+					<img src="${applicationScope.path }${obj.PROFILE}" style="width: 30px; border-radius: 100%" id="profile" />
 				</c:otherwise>
 			</c:choose>
-			<a href="/account/myPage.do?id=${obj.id}" name="id">${obj.id }</a>
-			<button  type="button" name="${obj.id }"   id="follower">팔로잉</button>
+			<a href="/account/myPage.do?id=${obj.ID}" name="id">${obj.ID }</a>
+			<input  type="button" name="${obj.ID }"   class="follower" value="팔로잉"/>
 		</p>
 	</c:forEach>
 </div>

@@ -93,8 +93,13 @@ public class MyPageController {
 		List<AccountDTO> followerList = new ArrayList<>();
 		followerList = aDAO.selectAllAccountFollower(id);
 		
+		// 팔로워 - 나를 구독하는 사람들조인 문
+		List<Map> followerListJoin = new ArrayList<>();
+		followerListJoin = fDAO.selectFollwerProfileId(id);
+		
 		modelMap.put("following", followingList);
 		modelMap.put("follower", followerList);
+		modelMap.put("followerJoin", followerListJoin);
 
 		return "myPage_follower";
 	}
@@ -109,6 +114,11 @@ public class MyPageController {
 		// 팔로잉 - 내가 구독한 사람들
 		List<AccountDTO> followingList = new ArrayList<>();
 		followingList = aDAO.selectAllAccountFollowing(id);
+		
+		// 팔로잉 - 내가 구독한 사람들
+		List<Map> followingJoin = new ArrayList<>();
+		followingJoin = fDAO.selectFollwingProfileId(id);
+				
 
 		// 팔로워 - 나를 구독하는 사람들
 		List<AccountDTO> followerList = new ArrayList<>();
@@ -116,6 +126,7 @@ public class MyPageController {
 		
 		modelMap.put("following", followingList);
 		modelMap.put("follower", followerList);
+		modelMap.put("followingJoin", followingJoin);
 
 		return "myPage_following";
 	}

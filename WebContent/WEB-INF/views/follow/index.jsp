@@ -19,7 +19,6 @@
 	<div align="left">
 		<p>
 			<h4 align="left"><b>사람 찾기</b></h4>
-			<a href="/follow/all.do"><small align="right">모든 회원</small></a>
 			<hr/>
 		</p>
 	</div>
@@ -51,7 +50,7 @@
 						</c:otherwise>
 					</c:choose>
 	
-					<a href="/account/myPage.do?id=${objRecom.id}" name="id">${objRecom.id }</a>
+					<a href="/search.do?id=${objRecom.id}" name="id">${objRecom.id }</a>
 					<c:set var="isFollowing" value="false" />
 					<c:set var="doneLoop" value="false" />
 					<c:forEach var="objFollowing" items="${following }">
@@ -71,13 +70,12 @@
 				</c:if>
 		</c:forEach>
 		
-		<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">더 찾아보기</button>
-		<div id="demo" class="collapse">
-     		더 찾아보기의 내용이 들어갈 부분^^<br/>
-     		<!-- 참고링크 -->
-     		<!-- https://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_collapsible&stacked=h -->
+		<button type="button" id="listbt" class="btn btn-info show" data-toggle="collapse" data-target=".collapse" aria-expanded="false">더 찾아보기</button>
+		<div id="demo" class="collapse" aria-expanded="false">
+		
   		</div>
 	</div>
+			<div style="height:300px"></div>
 	
 </div>
 
@@ -94,56 +92,14 @@
 
 		<div class="col-sm-8 text-left">
 			<c:forEach var="objLatest" items="${latest}">
-				<div align="center" style="min-height: 590px;">
-					<section style="float: center; width: 70%;">
-						<div>
-							<c:choose>
-								<c:when test="${empty objLatest.profile}">
-									<img src="/images/insta.jpg" style="width: 30px; height: 30px; border-radius: 30px" id="writer">
-								</c:when>
-								<c:otherwise>
-									<img src="${applicationScope.path }${objLatest.profile}" style="width: 30px; height: 30px; border-radius: 30px" id="writer">
-								</c:otherwise>
-							</c:choose>
-							<a href="/mypage/index.do?id=${objLatest.id }">${objLatest.id }</a>
-						</div>
-						<div>
-							<img src="${objLatest.path }${objLatest.image}"
-								style="width: 641px; height: 641px;" />
-						</div>
-						<div>
-							<div>
-								<button class="like" type="button" name="${objLatest._id }">좋아요</button>
-								<button type="button" class="rebt" name="${objLatest._id }">댓글달기</button>
-								<div>
-									<a href="#" id="List_like${objLatest._id }" name="${objLatest._id }"
-										class="List_like btn-info" data-toggle="modal"
-										data-target="#myModal1">좋아요 <span id="cnt_${objLatest._id }"
-										class="count"></span></a>
-								</div>
-							</div>
-
-							<a href="/mypage/index.do?id=${objLatest.id }">${objLatest.id }</a>
-							<c:forEach items="${objLatest.comment }" var="comm">
-								<span>${comm }</span>
+				<p style="float: left; width: 50%;">
+					<a href="${applictionScope.path}/detail/detail.do?boardid=${objLatest._id }" data-toggle="tooltip" id="top_${objLatest._id }" name="${objLatest._id }" class="tool" title="">
+							<c:forEach items="${objLatest.image }" var="image" varStatus="st">
+								<img src="${objLatest.path }${image }"
+										style="width: 230px; height: 230px; " />
 							</c:forEach>
-							<c:forEach items="${objLatest.tags }" var="tag">
-								<a href="/account/search.do?tag=${fn:replace(tag,'#','%23') }">${tag }</a>
-							</c:forEach>
-							<div>
-								<span id="sp_${objLatest._id }" class="re_${objLatest._id }"
-									name="${objLatest._id }"></span>
-							</div>
-							<hr />
-							<div class="parent">
-								<input type="text" value="" id="reply_${objLatest._id }"
-									name="${objLatest.id }" class="reply" aria-label="${objLatest._id }"
-									style="resize: none; width: 100%; padding: 2px; font-family: 맑은고딕"
-									placeholder="댓글쓰기">
-							</div>
-						</div>
-					</section>
-				</div>
+					</a>
+				</p>
 			</c:forEach>
 		</div>
 
@@ -159,6 +115,91 @@
 <!-- =========================================================================================================== -->
 
 <script>
+	var setid = "${cookie.setId.value}";
+	$(".show").on("click", function(){
+		$("#demo").html("");
+		$.ajax("/follow/followListSomeone.do",{
+			"method" : "get",
+			"async" : true,
+			"data" : {
+				"setId" : setid
+			}
+		}).done(function(val){
+			console.log(val);
+			$.ajax("/checkFollow.do",{
+				"method" : "get",
+				"async" : true,
+				"data" : {
+					"setId" : setid
+				}
+			}).done(function(val2){
+				
+				for(var i=0; i<val.length; i++){
+					var fbt;
+					var image=val[i].PROFILE;
+					var profile;
+					if(val[i].PROFILE !=null){
+						profile="<img src="+path+image+" style=\"width: 30px; height: 30px; border-radius: 30px\" class=\"recomId\">"
+					}else{
+						profile="<img src=\"/images/insta.jpg\" style=\"width: 30px; height: 30px; border-radius: 30px\" class=\"recomId\">"
+					}
+					
+					var cnt1=0;
+					var cnt2=0;
+					for(var j=0; j<val2.length; j++){
+					var follow = val2[j].ID;
+						if(val[i].TARGET != val2[j].TARGET){
+							
+							cnt1++;
+						}else{
+							//fbt= "<input  type=\"button\" name="+val[j].ID+"class=\"follow\" value=\"팔로잉\"/>";
+							cnt2++;
+						}
+					}
+						if(cnt2!=1){
+							fbt= "<input  type=\"button\" name="+val[i].TARGET+"\ class=\"follower\" value=\"팔로우\"/>";
+							$("#demo").append("<a href=\"/search.do?id="+val[i].TARGET+"\">"+val[i].TARGET+"</a>"+profile+fbt);
+						}
+				}
+				
+		$(".follower").on("click", function() {
+			console.log("팔로우 들어왔다.");
+			var src= $(this);
+			var a = $(this).attr("name");
+			if(src.val() == "팔로잉"){
+				$.ajax("/follow/delete.do",{
+					"method" : "get",
+					"async" : true,
+					"data" :{
+						"owner" : setid,
+						"target" : a
+					}
+				}).done(function(obj2){
+					console.log("삭제 들어왔다.");
+					src.val("팔로우");
+					src.attr("name", a);
+				});
+			}else{
+			$.ajax("/follow/insert.do",{
+				"method" : "get",
+				"async" : true,
+				"data" :{
+					"owner" : setid,
+					"target" : a
+				}
+			}).done(function(obj){
+				console.log("들어왔다."+src);
+				src.val("팔로잉");
+				src.attr("name", a);
+			});
+			}
+		});
+			})
+			
+		})
+		
+		console.log("팔로우 리스트 들어왔다.");
+	});
 	$(".follower").click(function() {
 		var owner = "${cookie.setId.value}";
 		var src = $(this);
@@ -193,4 +234,61 @@
 			});
 		}
 	});
+	likeList();
+	function likeList() {
+		var boardid=[];
+		$(".tool").each(function() {
+			boardid.push($(this).attr("name"));
+		});
+		console.log(boardid);
+		$.ajax("/likecountList.do", {
+			"method" : "get",
+			"async" : true,
+			"data" : {
+				"boardId" : boardid,
+			}
+		}).done(function(val) {
+			console.log(val + "댓글 좋아요");
+			for (var i = 0; i < val.length; i++) {
+				// console.log(val.length);
+				//$("#top_" + val[i].boardId).attr("title","좋아요 " + val[i].count+"개");
+				$("#top_" + val[i].boardId).val( val[i].count+"개");
+			}
+			List();
+		})
+		
+	};
+	
+	function List() {
+		var boardid=[];
+
+		$(".tool").each(function() {
+			boardid.push($(this).attr("name"));
+		});
+		console.log(boardid);
+		$.ajax("/ReList.do", {
+			"method" : "get",
+			"async" : true,
+			"data" : {
+				"boardId" : boardid
+			}
+		}).done(
+				function(val) {
+					
+					var boardid = [];
+					var reply = [];
+					$(".rebt").each(function() {
+						boardid.push($(this).attr("name"));
+						reply.push($(this).attr("name"));
+					});
+					// console.log(val);
+						
+					for (var i = 0; i < val.length; i++) {
+						var reply=$("#top_" + val[i].boardId).val();
+						console.log(reply);
+						$("#top_" + val[i].boardId).attr("title","좋아요 " + $("#top_"+val[i].boardId).val()+"댓글 "+ val[i].count + "개");
+						//reply.appent("댓글 "+ val[i].count + "개");
+					}
+				})
+	};
 </script>

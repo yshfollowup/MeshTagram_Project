@@ -162,7 +162,7 @@ public class AccountController {
 										}else {
 											
 											if(!tagResult.get(i).get("_id").equals(topResult.get(i).get("_id"))) {
-												System.out.println("비교값이 들어갔다. 사이즈="+topResult.size()+topResult.get(i));
+												//System.out.println("비교값이 들어갔다. 사이즈="+topResult.size()+topResult.get(i));
 												eachResult.add(topResult.get(i));
 												//	modelMap.addAttribute("eachResult", topResult.get(i));
 												
@@ -196,7 +196,7 @@ public class AccountController {
 									if(followerResult.size()>0 ) {
 										for(int i=0; i<followerResult.size(); i++) {
 											if(!eachResult.get(i).get("_id").equals(followerResult.get(i).get("_id"))){
-												System.out.println("비교값이 들어갔다. 사이즈="+followerResult.size()+followerResult.get(i));
+											//	System.out.println("비교값이 들어갔다. 사이즈="+followerResult.size()+followerResult.get(i));
 												eachResult.add(followerResult.get(i));
 												//	modelMap.addAttribute("eachResult", followerResult.get(i));
 												
@@ -206,7 +206,7 @@ public class AccountController {
 									if(followingResult.size()>0 ) {
 										for(int i=0; i<followingResult.size(); i++) {
 											if(!eachResult.get(i).get("_id").equals(followingResult.get(i).get("_id"))){
-												System.out.println("비교값이 들어갔다. 사이즈="+followingResult.size()+followingResult.get(i));
+												//System.out.println("비교값이 들어갔다. 사이즈="+followingResult.size()+followingResult.get(i));
 												eachResult.add(followingResult.get(i));
 												//	modelMap.addAttribute("eachResult", followingResult.get(i));
 												
@@ -295,7 +295,7 @@ public class AccountController {
 					//팔로워 수 많은 순대로 뽑고 그에 대한 게시물 보냄(3순위)
 					List<Map> topResult=null;
 					for(AccountDTO top : topFollowerList) {
-						System.out.println(top.getId());
+						//System.out.println(top.getId());
 						String[] tops = top.getId().split(",");
 						if(tops.length != 0) {
 							for(String s : tops) {
@@ -314,7 +314,7 @@ public class AccountController {
 								}else {
 									
 									if(!tagResult.get(i).get("_id").equals(topResult.get(i).get("_id"))) {
-										System.out.println("비교값이 들어갔다. 사이즈="+topResult.size()+topResult.get(i));
+										//System.out.println("비교값이 들어갔다. 사이즈="+topResult.size()+topResult.get(i));
 										eachResult.add(topResult.get(i));
 										//	modelMap.addAttribute("eachResult", topResult.get(i));
 										
@@ -343,12 +343,12 @@ public class AccountController {
 								followingResult = pDAO.findPostById(followingMe);
 							//	modelMap.addAttribute("followerResult", followerResult);
 							//	modelMap.addAttribute("followingResult", followingResult);
-								System.out.println(followerResult.size()+" / "+followingResult.size());		
+								//System.out.println(followerResult.size()+" / "+followingResult.size());		
 							}
 							if(followerResult.size()>0 ) {
 								for(int i=0; i<followerResult.size(); i++) {
 									if(!eachResult.get(i).get("_id").equals(followerResult.get(i).get("_id"))){
-										System.out.println("비교값이 들어갔다. 사이즈="+followerResult.size()+followerResult.get(i));
+									//	System.out.println("비교값이 들어갔다. 사이즈="+followerResult.size()+followerResult.get(i));
 										eachResult.add(followerResult.get(i));
 										//	modelMap.addAttribute("eachResult", followerResult.get(i));
 										
@@ -358,7 +358,7 @@ public class AccountController {
 							if(followingResult.size()>0 ) {
 								for(int i=0; i<followingResult.size(); i++) {
 									if(!eachResult.get(i).get("_id").equals(followingResult.get(i).get("_id"))){
-										System.out.println("비교값이 들어갔다. 사이즈="+followingResult.size()+followingResult.get(i));
+									//	System.out.println("비교값이 들어갔다. 사이즈="+followingResult.size()+followingResult.get(i));
 										eachResult.add(followingResult.get(i));
 										//	modelMap.addAttribute("eachResult", followingResult.get(i));
 										
