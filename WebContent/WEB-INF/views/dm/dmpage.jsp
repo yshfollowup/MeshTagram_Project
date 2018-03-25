@@ -103,8 +103,8 @@ a, b {
 	
 	function findAllMessage(){
 		var id = $(this).attr("");
-		var content;
-		var curtime;
+		var content = $(this).response.json;
+		var curtime = $(this).response.json;
 		
 		$.ajax("/direct/showMessage.do", {
 			"method" : "post",

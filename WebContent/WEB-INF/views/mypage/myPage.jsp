@@ -3110,8 +3110,7 @@ transform
 			var file = e.target.files[0];
 			if (!file.type.match("image.*")) {
 				window.alert("이미지파일만 선택할 수 있습니다!");
-			}else if (file.length > 1) {
-				window.alert("프로필이미지는 한장만 등록할 수 있습니다!");
+				return;
 			}
 			
 			var reader = new FileReader();
@@ -3123,9 +3122,5 @@ transform
 			
 		}
 	</script>
-
-
-
-
 </body>
 </html>

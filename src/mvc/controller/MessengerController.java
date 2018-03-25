@@ -35,7 +35,7 @@ public class MessengerController {
 	@RequestMapping(path="/insertMessage.do", produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String insertMessageHandle(@RequestParam(name="dmtxt") Map param) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String str = sdf.format(System.currentTimeMillis());
 		param.put("date", str);
 		boolean rst = true;
@@ -59,5 +59,19 @@ public class MessengerController {
 	public String showFollowingHandle(@CookieValue(name="setId", required=false) String setId) {
 		List<FollowDTO> result = fDAO.selectFollwing(setId);
 		return gson.toJson(result);
+	}
+	
+	@RequestMapping(path="/showLike.do", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String showLikeHandle() {
+		List<Map> result = mDAO.findAllMessageLike();
+		return gson.toJson(result);
+	}
+	
+	@RequestMapping(path="/deleteLike.do", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String deleteLikeHandle(Map param) {
+		mDAO.deleteMessageLike(param);
+		return gson.toJson(param);
 	}
 }
