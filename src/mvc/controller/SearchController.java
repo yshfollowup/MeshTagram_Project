@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 
 import mvc.model.AccountDTO;
+import mvc.model.FollowDTO;
 import mvc.service.AccountDAO;
 import mvc.service.FollowDAO;
 import mvc.service.PostDAO;
@@ -176,4 +177,29 @@ public class SearchController {
 				return "{\"result\": true,\"status\":\"ok\"}";
 			}		
 	}
+		//추천계정 받기
+		@RequestMapping(path = "/reomid.do", produces = "application/json;charset=utf-8")
+		@ResponseBody
+		public String recomidHandle(@RequestParam MultiValueMap<String,String> vmap) {
+			Gson gson=new Gson();
+			String targetId = vmap.getFirst("targetId");
+			List<Map> target=fDAO.selectFollwingProfileId(targetId);
+			System.out.println(target);
+			
+			return gson.toJson(target);
+	}
+		
+		//추천계정 받기
+		@RequestMapping(path = "/checkFollow.do", produces = "application/json;charset=utf-8")
+		@ResponseBody
+		public String followSearchidHandle(@RequestParam MultiValueMap<String,String> vmap) {
+			Gson gson=new Gson();
+			String setId = vmap.getFirst("setId");
+			List<Map> target=fDAO.selectFollwingProfileId(setId);
+			System.out.println(target);
+			
+			return gson.toJson(target);
+	}
+		
+		
 }

@@ -21,7 +21,8 @@
     <div>
     <section>
     <div style="font-size: 50px;">${aDTO.id}</div>
-    <input type="button" id="follow" value="팔로우" name="${aDTO.id }"/> 
+    <input type="button" id="follow" class="follow" value="팔로우" name="${aDTO.id }"/>  <button type="button" id="bt"  value="${applicationScope.path }" name="${aDTO.id }" class="btn btn-info" data-toggle="collapse" data-target="#demo">추천계정</button>
+
     
     	<div>${aDTO.intro }</div>
     <div>
@@ -30,24 +31,22 @@
 	  </div>
 	  </section>
 	  </div>
+	    <div id="demo" class="collapse">
+	    추천계정
+
+  </div>
 	  <div align="center" style="min-height: 100px;"></div>
 	  <div>
 	  <c:forEach var="obj" items="${myPost }">
-		<div align="left" style="min-height: 590px;">
-		  <section style="float: center; width: 70%;">
-		  	<div style="float: left; width: 33%;">
+		  	<p style="float: left; width: 33%;">
 		  	<small><c:forEach items="${obj.tags }" var="tag">
 				<a href="/account/search.do?tag=${fn:replace(tag,'#','%23') }">${tag }</a>
-				</c:forEach> </small>
-				<div class="mouseIn">
+				</c:forEach> </small> <br/>
 				<a href="${applictionScope.path}/detail/detail.do?boardid=${obj._id }" data-toggle="tooltip" id="top_${obj._id }" name="${obj._id }" class="tool" title="">
 				<img src="${obj.path }${obj.image }"
 					style="width: 230px; height: 230px;" class="image">
 				</a>
-				</div>
-			  </div>
-			 </section>
-			</div>
+			  </p>
 		</c:forEach>
 		</div>
 	  	</div>
@@ -59,6 +58,93 @@
 	<script>
 	var setid = "${cookie.setId.value}";
 	likeList();
+	$("#bt").on("click",function(){
+		$("#demo").html("");
+		var id=$("#bt").attr("name");
+		var path=$("#bt").val();
+		$.ajax("/reomid.do", {
+			"method" : "get",
+			"async" : true,
+			"data" :{
+				
+				"targetId" : id,
+			}
+		}).done(function(val){
+			//console.log(val);
+			
+			$.ajax("/checkFollow.do",{
+				"method" : "get",
+				"async" : true,
+				"data" : {
+					"setId" : setid
+				}
+			}).done(function(val2){
+				
+				for(var i=0; i<val.length; i++){
+					var fbt;
+					var image=val[i].PROFILE;
+					var profile;
+					if(val[i].PROFILE !=null){
+						profile="<img src="+path+image+" style=\"width: 30px; height: 30px; border-radius: 30px\" class=\"recomId\">"
+					}else{
+						profile="<img src=\"/images/insta.jpg\" style=\"width: 30px; height: 30px; border-radius: 30px\" class=\"recomId\">"
+					}
+					
+					var cnt1=0;
+					var cnt2=0;
+					for(var j=0; j<val2.length; j++){
+					var follow = val2[j].ID;
+						if(val[i].TARGET != val2[j].TARGET){
+							
+							cnt1++;
+						}else{
+							//fbt= "<input  type=\"button\" name="+val[j].ID+"class=\"follow\" value=\"팔로잉\"/>";
+							cnt2++;
+						}
+					}
+						if(cnt2!=1){
+							fbt= "<input  type=\"button\" name="+val[j].ID+"\ class=\"follower\" value=\"팔로우\"/>";
+							$("#demo").append("<a href=\"/search.do?id="+val[i].TARGET+"\">"+val[i].TARGET+"<br/>"+"</a>"+profile+"<br/>"+fbt);
+						}
+				}
+				
+		$(".follower").on("click", function() {
+			console.log("팔로우 들어왔다.");
+			var src= $(this);
+			var a = $(this).attr("name");
+			if(src.val() == "팔로잉"){
+				$.ajax("/follow/delete.do",{
+					"method" : "get",
+					"async" : true,
+					"data" :{
+						"owner" : setid,
+						"target" : a
+					}
+				}).done(function(obj2){
+					console.log("삭제 들어왔다.");
+					src.val("팔로우");
+					src.attr("name", a);
+				});
+			}else{
+			$.ajax("/follow/insert.do",{
+				"method" : "get",
+				"async" : true,
+				"data" :{
+					"owner" : setid,
+					"target" : a
+				}
+			}).done(function(obj){
+				console.log("들어왔다."+src);
+				src.val("팔로잉");
+				src.attr("name", a);
+			});
+			}
+		});
+			})
+			
+		})
+	});
+	
 	
 	function likeList() {
 		var boardid=[];
@@ -77,7 +163,7 @@
 			for (var i = 0; i < val.length; i++) {
 				// console.log(val.length);
 				//$("#top_" + val[i].boardId).attr("title","좋아요 " + val[i].count+"개");
-				$("#top_" + val[i].boardId).val("좋아요 " + val[i].count+"개");
+				$("#top_" + val[i].boardId).val( val[i].count+"개");
 			}
 			List();
 		})
@@ -121,6 +207,7 @@
 	});
 	//팔로우를 했는지 체크 하는 함수
 	function check(){
+		
 		var setid="${cookie.setId.value}";
 		var src= $("#follow");
 		var a = $("#follow").attr("name");
@@ -132,7 +219,8 @@
 				"target" : a
 			}
 		}).done(function(obj2){
-			console.log("들어왔다."+obj2.result);
+			console.log("들어왔다.팔로우 체크"+obj2.result);
+				
 			if(obj2.result == false){
 				console.log("들어왔다."+obj2.result);
 				src.val("팔로잉");
@@ -141,18 +229,19 @@
 			src.val("팔로우");
 			src.attr("name", a);
 			}
+				
 		});
 	};
 	check();
-	$("#follow").click(function() {
-		followClick();
+	$(".follow").click(function() {
+		var src= $(".follow");
+		var a = $(".follow").attr("name");
+		followClick(src,a);
 	});
 	
-	function followClick(){
+	function followClick(src,a){
 		var setid="${cookie.setId.value}";
-		var src= $("#follow");
-		var a = $("#follow").attr("name");
-		if($(this).val() == "팔로잉"){
+		if(src.val() == "팔로잉"){
 			$.ajax("/follow/delete.do",{
 				"method" : "get",
 				"async" : true,

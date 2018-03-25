@@ -30,5 +30,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from follow where owner = #{owner } and target = #{target }
 	</select>
 	
+	<!-- select following profile id -->
+	<select id="selectFollowingProfileId" resultType="java.util.LinkedHashMap">
+		select * from follow inner join account on account.id=follow.target where owner = #{owner }
+	</select>
+		
+	<!-- select follower profile id -->
+	<select id="selectFollowerProfileId" resultType="java.util.LinkedHashMap">
+		select * from follow inner join account on account.id=follow.owner where target = #{target }
+	</select>
 
 </mapper>

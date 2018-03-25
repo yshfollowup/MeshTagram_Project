@@ -128,5 +128,39 @@ public class FollowDAO {
 		}
 	}
 	
+	// 나를 팔로우하고 있는 사람들을 찾고 프로필 다 얻어온다.
+	public List<Map> selectFollwingProfileId(String owner) {  // target 은 나
+		Map map = new HashMap<>();
+			map.put("owner", owner);
+		List<Map> fList = null;
+		
+		SqlSession session = factory.openSession();
+		try {
+			fList = session.selectList("follow.selectFollowingProfileId", map);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+			return fList;
+		}
+	}
+	
+	// 나를 팔로우하고 있는 사람들을 찾고 프로필 다 얻어온다..
+	public List<Map> selectFollwerProfileId(String target) {  // target 은 나
+		Map map = new HashMap<>();
+			map.put("target", target);
+		List<Map> fList = null;
+		
+		SqlSession session = factory.openSession();
+		try {
+			fList = session.selectList("follow.selectFollowerProfileId", map);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+			return fList;
+		}
+	}
+	
 	
 }
