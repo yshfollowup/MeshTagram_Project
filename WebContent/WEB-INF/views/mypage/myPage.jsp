@@ -3099,7 +3099,10 @@ transform
 		$(document).ready(function() {
 			$("#photo").on("change", handleImgSelect);
 		}).done(function() {
-			
+			var confirm = window.confirm("프로필 사진을 변경하시겠습니까?");
+			if (confirm) {
+				window.alert("성공적으로 변경되었습니다!");
+			}
 		});
 		
 		function uploadAction() {

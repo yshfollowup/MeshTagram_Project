@@ -40,6 +40,7 @@
 			<button type="button" onclick="selectImage();" id="imagebt">
 				<img alt="이미지 파일 업로드" src="" />
 			</button>
+			<input type="file" id="upload" />
 		</div>
 		<div>
 			<button type="button" id="sendbt">쪽지 보내기</button>
@@ -62,9 +63,12 @@
 	}
 	
 	function selectImage() {
-		$("#imagebt").on("click", function() {
-			
-		})
+		$("#upload").trigger("click", function(e) {
+			var file = e.target.files[0];
+			var reader = new FileReader();
+			console.log(reader);
+			reader.readAsDataURL(file);
+		});
 	}
 </script>
 </html>

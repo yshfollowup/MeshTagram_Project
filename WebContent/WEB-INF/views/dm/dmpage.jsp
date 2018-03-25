@@ -38,9 +38,16 @@ a, b {
 	<div align="center">
 		<div>
 			<c:forEach items="${allMessage }" var="dm">
-				<div align="center">
-					<span id="showdm"></span>
-				</div>
+				<c:when test="${allMessage.id }" eq ${cookies.setId.values }>
+					<div align="right">
+						<span id="Mydm"></span>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div align="left">
+						<span id="targetDm"></span>
+					</div>
+				</c:otherwise>
 			</c:forEach>
 		</div>
 		<div>
@@ -101,8 +108,10 @@ a, b {
 		$("#content").val("");
 	});
 	
+	$(form).
+	
 	function findAllMessage(){
-		var id = $(this).attr("");
+		var id = "${cookies.setId.value}";
 		var content = $(this).response.json;
 		var curtime = $(this).response.json;
 		

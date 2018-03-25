@@ -7,16 +7,16 @@
 	<h2>게시물 등록</h2>
 	<small>사진을 선택한 후, 멘트를 달아주세요.</small>
 	<form action="/account/uploadp.do" method="post" enctype="multipart/form-data">
-		<div>
-			<h2><b style="font-size: 15px; ">이미지 미리보기</b></h2>
-			<div class="imgs">
-				<a href="javascript:" onclick="uploadAction();" id="upload">파일 선택</a>
-				<input type="file" name="photo" id="photo" accept="image/*"
-				 	 style="display: none;" multiple />
-			</div>		
+		<div class="imgs">
+			<a href="javascript:" onclick="uploadAction();" id="upload">파일 선택</a>
+			<input type="file" name="photo" id="photo" accept="image/*"
+				style="display: none;" multiple /> |
+			 <a href="javascript:" onclick="refreshImage();" id="refresh">새로고침</a>
 		</div>
-
 		<div>
+			<div>
+				<h2><b style="font-size: 15px; ">이미지 미리보기</b></h2>
+			</div>
 			<div class="content">
 				<img id="img">
 			</div>
@@ -44,7 +44,7 @@
 	
 	function handleImgSelect(e) {
 		select_files = [];
-		$(".content").empty();	//디폴트로 이미지들을 비워놓기 위해
+		//$(".content").empty();	//디폴트로 이미지들을 비워놓기 위해
 		
 		//console.log(this.files[0]);
 		var files = e.target.files;	//
@@ -89,6 +89,10 @@
 		}
 		
 		console.log(select_files);
+	}
+	
+	function refreshImage() {
+		window.location.reload();
 	}
 	
 </script>
