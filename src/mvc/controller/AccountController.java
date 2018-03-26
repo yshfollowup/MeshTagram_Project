@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -63,7 +62,7 @@ public class AccountController {
 	//접속
 	@RequestMapping(path="/login.do", method=RequestMethod.POST)
 	public String loginHandle(@RequestParam MultiValueMap<String, String> vmap, ModelMap modelMap,
-		HttpServletResponse resp, HttpSession session, User user ) {
+		HttpServletResponse resp, HttpSession session ) {
 		
 		String id = vmap.getFirst("id");
 		String pass = vmap.getFirst("pass");
@@ -291,10 +290,12 @@ public class AccountController {
 					}
 			
 					List<Map> myresult=pDAO.findPostById(setId);
+					if(!myresult.isEmpty()) {
 					for(int i=0; i<myresult.size(); i++) {
 						//System.out.println("첫 게시판");
 						eachResult.add(myresult.get(i));
 						
+					}
 					}
 					modelMap.addAttribute("ids", idList);
 					System.out.println("ids"+idList);
