@@ -57,12 +57,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	<!-- 프로필 편집 -->
-	<update id="updateAccount">
+	<update id="updateAccount" parameterType="map" >
 		update account 
 		<set>
-			<if test="email != null or email != ''">
-				email = #{email},
-			</if>
 			<if test="phone != null or phone != ''">
 				phone = #{phone},
 			</if>
@@ -86,6 +83,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 		</set>
 		where id= #{id }
+	</update>
+	
+	<!-- 프로필 사진 변경 -->
+	<update id="updateProfile" parameterType="map">
+		update account set profile= #{profile } where id= #{id }
 	</update>
 	
 	<!-- 비밀번호 변경 -->

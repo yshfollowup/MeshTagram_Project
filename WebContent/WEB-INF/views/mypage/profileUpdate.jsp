@@ -906,14 +906,16 @@ a:active {
 						<div class="_62ai2 _5g4e2">
 							<c:choose>
 								<c:when test="${empty  aDTO.profile}">
-									<button  class="_3xjwv" onclick="uploadAction();" title="프로필 사진 바꾸기">
+									<form action="/mypage/uploadProfile.do" method="post" enctype="multipart/form-data">
+									<button class="_3xjwv" onclick="uploadAction();" title="프로필 사진 바꾸기">
 										<img alt="프로필 사진 바꾸기" class="_cuacn" src="/images/insta.jpg"
-											id="preview">${aDTO.id }</button>
-									<div>
-										<input type="file" accept="image/jpeg" id="photo" name="profile" class="_l8al6">
-									</div>
+											id="preview">${aDTO.id }
+									</button>
+										<div>
+											<input type="file" accept="image/jpeg" id="photo" name="profile" class="_l8al6">
+										</div>
+									</form>
 								</c:when>
-										
 								<c:otherwise>
 									<span class="_3xjwv"> <img
 										src="${applicationScope.path }${aDTO.image}" class="_cuacn" />
@@ -1040,7 +1042,7 @@ a:active {
 	<script>
 	//프로필 사진 업로드
 	$(document).ready(function() {
-		$("#photo").on("change", handleImgSelect);
+		$("#photo").on("submit", handleImgSelect);
 	});
 	
 	function uploadAction() {
@@ -1052,28 +1054,31 @@ a:active {
 		if (!file.type.match("image.*")) {
 			window.alert("이미지파일만 선택할 수 있습니다!");
 			return;
+		}else if (e.target.files.length > 1) {
+			window.alert("이미지 한 장만 선택해주세요!");
+			return;
 		}
 		
 		var reader = new FileReader();
 		console.log(reader);
 		reader.onload = function(e) {
 			$("#preview").attr("src", e.target.result);
-			window.alert("!!");
-			var formData = new FormData();
-			formData.append("file", $("#photo")[0]);
-			$.ajax({
-				"url" : "/mypage/uploadProfile.do",
-				"method" : "post",
-				"data" : formData,
-				"contentType" : false,
-				"processData" : false,
-				success : function(result) {
-					window.alert("프로필 사진이 변경되었습니다!");
-				},
-				error : function(result) {
-					window.alert("프로필 사진 변경이 실패하였습니다..");
-				}
-			});
+			window.alert("변경 완료");
+			//var formData = new FormData();
+			//formData.append("file", file);
+			//$.ajax({
+			//	"url" : "/mypage/uploadProfile.do",
+			//	"method" : "post",
+			//	"data" : formData,
+			//	"contentType" : false,
+			//	"processData" : false,
+			//	success : function(result) {
+			//		window.alert("프로필 사진이 변경되었습니다!");
+			//	},
+			//	error : function(result) {
+			//		window.alert("프로필 사진 변경이 실패하였습니다..");
+			//	}
+			//});
 		}
 		reader.readAsDataURL(file);
 	}

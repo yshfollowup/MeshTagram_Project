@@ -15,19 +15,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class UploadService {
+public class UploadService2 {
 	@Autowired
 	ServletContext ctx;
 	@Autowired
 	PostDAO pDAO;
 	
-	public Map<String, Object> uploadImages(MultipartFile[] files) {
+	public List<String> uploadImage(MultipartFile file) {
 		Boolean rst = true;
 		final long sizeLimit = 1024 * 1024 * 10;
 		List<String> result = new ArrayList<>();
 		Map<String, Object> map = new LinkedHashMap<>();
-		if (files == null || files.length == 0) {
-			return map;
+		if (file == null) {
+			return result;
 		}
 		File target = null;
 		int i=0;
@@ -35,28 +35,25 @@ public class UploadService {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		System.out.println(path);
 
-		for (MultipartFile file : files) {
-			String str = sdf.format(System.currentTimeMillis());
-			Long size = file.getSize();
-			String original = file.getOriginalFilename();
-			System.out.println(str);
-			if (size < sizeLimit) {
-				target = new File(path, str + "_" + i++ 
-						+ "." + FilenameUtils.getExtension(original));
-				String targetName = target.getName();
-				result.add("/" + targetName);
-				map.put("uploadResult", result);
-				map.put("uploadPath", target.getPath());
-				//System.out.println(result);
-				try {
-					file.transferTo(target);
-					rst = true;
-					map.put("successResult", rst);
-				} catch (Exception e) {
-					rst = false;
-				}
+		
+		String str = sdf.format(System.currentTimeMillis());
+		Long size = file.getSize();
+		String original = file.getOriginalFilename();
+		System.out.println(str);
+		if (size < sizeLimit) {
+			target = new File(path, str + "_" + i++ 
+					+ "." + FilenameUtils.getExtension(original));
+			String targetName = target.getName();
+			result.add("/" + targetName);
+			//System.out.println(result);
+			try {
+				file.transferTo(target);
+				rst = true;
+			} catch (Exception e) {
+				rst = false;
 			}
 		}
-		return map;
+		
+		return result;
 	}
 }
