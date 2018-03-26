@@ -208,13 +208,14 @@ public class AccountDAO {
 			return r;
 		}
 	}
-	//업데이트
-	public int updateAccount(String id) {
+	
+	//업데이트(여러개 or 하나만)
+	public int updateAccount(Map param) {
 		
 		SqlSession session = factory.openSession();
 		int r=0;
 		try {
-			r = session.update("account.updateAccount", id);
+			r = session.update("account.updateAccount", param);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -222,5 +223,37 @@ public class AccountDAO {
 			return r;
 		}
 	}
-
+	
+	//비밀번호 변경
+	public int updatePassword(String id, String pass) {
+		Map map = new HashMap();
+			map.put("id", id);
+			map.put("pass", pass);
+		SqlSession session = factory.openSession();
+		int r = 0;
+		try {
+			r = session.update("account.updatePassword", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+			return r;
+		}
+	}
+	
+	//프로필 사진 가져오기
+	public List<AccountDTO> selectProfile(String id) {
+		Map map = new HashMap<>();
+			map.put("id", id);
+		List<AccountDTO> aList = null;
+		SqlSession session = factory.openSession();
+		try {
+			aList = session.selectList("account.selectProfile", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+			return aList;
+		}
+	}
 }

@@ -2,6 +2,7 @@ package mvc.controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -174,11 +175,16 @@ public class MyPageController {
 		return "mypage_edit";
 	}
 	@RequestMapping(path="/edit.do", method=RequestMethod.POST)
-	public String editUpdateHandle(ModelMap modelMap, @CookieValue(name="setId", required=false) String setId) {
+	public String editUpdateHandle(@RequestParam Map param, @CookieValue(name="setId", required=false) String setId, ModelMap modelMap) {
 		System.out.println("[SERVER]: login success"+setId);
+		System.out.println(param.get("name") + "/" + param.get("website") + "/"
+							+ param.get("bio") + "/" + param.get("email") + "/"
+							+ param.get("phone") + "/" + param.get("gender") + "/"
+							+ param.get("privateAccount"));
 		String id = setId;
 		//계정 정보
-		int r = aDAO.updateAccount(id);
+		param.put("id", id);
+		int r = aDAO.updateAccount(param);
 		
 		AccountDTO aDTO = aDAO.selectOneAccountre(id);
 		modelMap.put("aDTO", aDTO);
@@ -200,16 +206,17 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(path="/uploadProfile.do", method=RequestMethod.POST)
-	public String uploadProfileHandle(@RequestParam("profile") MultipartFile[] files, HttpServletRequest req, 
+	public String uploadProfileHandle(@RequestParam MultipartFile file, HttpServletRequest req, 
 			@CookieValue(name="setId", required=false) String setId, ModelMap modelMap) throws Exception {
-		System.out.println("[SERVER]: login success"+setId);
-		System.out.println(files);
+		System.out.println("[SERVER]:프로필 사진 넘겼다"+setId);
+		System.out.println("얘가 받아야한다."+file);
 		String id = setId;
-		List result = (List) us.uploadImages(files).get("uploadResult");
-		File file = (File) result.get(0);
+		Map param = new HashMap<>();	//가짜 코드
 		System.out.println(file);
-		int r = aDAO.updateAccount(id);
-		if (r == 1) {
+		param.put("id", id);
+		param.put("profile", file);
+		int r = aDAO.updateAccount(param);
+		if (r > 0) {
 			AccountDTO aDTO = aDAO.selectOneAccountre(id);
 			modelMap.put("aDTO", aDTO);			
 		}
