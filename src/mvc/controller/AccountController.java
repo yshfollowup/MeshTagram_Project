@@ -99,9 +99,10 @@ public class AccountController {
 				
 				
 
-
+				
 						List<AccountDTO> eachOtherList = aDAO.selectFollowEachOther(setId);
 						//맞팔되어있는 친구 목록 뽑은 뒤 그에 대한 게시물 보냄(1순위)
+						if(eachOtherList.size()>0) {
 						for(AccountDTO eachfollow : eachOtherList) {
 							String eachFollowid = eachfollow.getId();
 							if(id != null) {
@@ -110,6 +111,7 @@ public class AccountController {
 							//	System.out.println(eachResult.size()+"...eachResult"+eachResult);
 							}
 						}
+						}
 						//=========================================================================
 							List<List<String>> list = ss.sendSeperInfo();
 							List<String> idList = list.get(0);
@@ -117,6 +119,7 @@ public class AccountController {
 							List<String> annoList = list.get(2);
 							//관심사(hashtag)가 같은 사람을 뽑아 그에 대한 게시물 보냄(2순위)
 							List<Map> tagResult=null;
+							if(tagList.size()>0) {
 							for(String tag : tagList) {
 								if(tag != null) {
 									tagResult = pDAO.findPostByTag(tag);
@@ -124,8 +127,9 @@ public class AccountController {
 									
 								}
 							}
-					
+							}
 							List<Map> myresult=pDAO.findPostById(setId);
+							
 							for(int i=0; i<myresult.size(); i++) {
 								//System.out.println("첫 게시판");
 								eachResult.add(myresult.get(i));
@@ -142,6 +146,7 @@ public class AccountController {
 							
 							//팔로워 수 많은 순대로 뽑고 그에 대한 게시물 보냄(3순위)
 							List<Map> topResult=null;
+							if(topFollowerList.size()>0) {
 							for(AccountDTO top : topFollowerList) {
 								System.out.println(top.getId());
 								String[] tops = top.getId().split(",");
@@ -152,6 +157,7 @@ public class AccountController {
 									//	System.out.println(topResult.size()+"...top5"+topResult);
 									}				
 								}
+							}
 							}
 							if(topResult.size()>0 &&eachResult.size()>0) {
 								
