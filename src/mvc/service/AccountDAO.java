@@ -224,6 +224,19 @@ public class AccountDAO {
 		}
 	}
 	
+	public int updateProfile(Map param) {
+		SqlSession session = factory.openSession();
+		int r=0;
+		try {
+			r = session.update("account.updateProfile", param);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+			return r;
+		}
+	}
+	
 	//비밀번호 변경
 	public int updatePassword(String id, String pass) {
 		Map map = new HashMap();

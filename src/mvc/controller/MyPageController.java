@@ -1,6 +1,7 @@
 package mvc.controller;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -10,6 +11,7 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,6 +31,7 @@ import mvc.service.PostDAO;
 import mvc.service.ReplyDAO;
 import mvc.service.SearchDAO;
 import mvc.service.UploadService;
+import mvc.service.UploadService2;
 
 @Controller
 @RequestMapping("/mypage")
@@ -47,7 +50,9 @@ public class MyPageController {
 	@Autowired
 	MessengerDAO mDAO;
 	@Autowired
-	UploadService us;
+	UploadService2 us2;
+	@Autowired
+	ServletContext ctx;
 	
 
 	@RequestMapping("/index.do")
@@ -206,19 +211,26 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(path="/uploadProfile.do", method=RequestMethod.POST)
-	public String uploadProfileHandle(@RequestParam MultipartFile file, HttpServletRequest req, 
+	public String uploadProfileHandle(@RequestParam(name="profile") MultipartFile file, HttpServletRequest req, 
 			@CookieValue(name="setId", required=false) String setId, ModelMap modelMap) throws Exception {
 		System.out.println("[SERVER]:프로필 사진 넘겼다"+setId);
 		System.out.println("얘가 받아야한다."+file);
 		String id = setId;
-		Map param = new HashMap<>();	//가짜 코드
-		System.out.println(file);
+		List result = us2.uploadImage(file);
+		String fileName = (String) result.get(0);
+		//SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		//String str = sdf.format(System.currentTimeMillis());
+		Map param = new HashMap<>();	
+		//String fileName = 
+		//		str+"."+ FilenameUtils.getExtension(file.getOriginalFilename());
 		param.put("id", id);
-		param.put("profile", file);
-		int r = aDAO.updateAccount(param);
+		param.put("profile", fileName);
+		System.out.println(fileName);
+		int r = aDAO.updateProfile(param);
 		if (r > 0) {
 			AccountDTO aDTO = aDAO.selectOneAccountre(id);
-			modelMap.put("aDTO", aDTO);			
+			modelMap.put("aDTO", aDTO);	
+			modelMap.put("path", ctx.getRealPath(fileName));
 		}
 		return "redirect:/mypage/index.do";
 	}
