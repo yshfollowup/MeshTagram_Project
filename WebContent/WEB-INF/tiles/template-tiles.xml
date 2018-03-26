@@ -69,7 +69,9 @@
 	</definition>
 	
 	<!-- 메신저 페이지 -->
-	<definition name="dm_page" extends="insta_edit_template">
+	<definition name="dm_page"  template="/WEB-INF/views/template/messenger-template.jsp">
+		<put-attribute name="title" value="MeshTagram"></put-attribute>
+		<put-attribute name="nav" value="/WEB-INF/views/template/nav.jsp"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/views/dm/dmpage.jsp"></put-attribute>
 	</definition>
 </tiles-definitions>

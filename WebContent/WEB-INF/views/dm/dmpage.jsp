@@ -13,56 +13,57 @@ a, b {
 <title>MeshTagram</title>
 </head>
 <body>
-<div class="row">
-  <div class="col-sm-4">팔로우 목록
-  	<div>
-  		<b>팔로우 목록</b>
-  	</div>
-  	<div>
-  		<table class="table">
-  			<thead><tr><th>recent</th></tr></thead>
-  			<tbody><tr><td>
-  				<c:forEach items="${followerList }" var="obj">
-  					<a href="/direct/followList.do">${obj.profile }</a>
-  					<a href="/direct/followList.do">${obj.id }</a>
-  				</c:forEach>
-  			</td></tr></tbody>
-  		</table>
-  	</div>
-  </div>
-  <div class="col-sm-8">메시지 보내기
-	<div>
-		<b>Direct Message</b>
-	</div>
-  	<div align="center" id="time"></div>
-	<div align="center">
-		<div>
-			<c:forEach items="${allMessage }" var="dm">
-				<c:when test="${allMessage.id }" eq ${cookies.setId.values }>
-					<div align="right">
-						<span id="Mydm"></span>
-					</div>
-				</c:when>
-				<c:otherwise>
-					<div align="left">
-						<span id="targetDm"></span>
-					</div>
-				</c:otherwise>
-			</c:forEach>
-		</div>
-		<div>
-		<form action="/direct/insertMessage.do">
-			<input type="text" id="dmtxt" name="${obj.id }"
-				style="font-family: 맑은고딕" placeholder="메시지를 입력하세요">
-			<button type="button" class="sendbt">전송</button>
-			<a href="/direct/" class="bt"><img src="사진 첨부" /></a>
-		</form>
-		</div>
-	</div>
-  </div>
+  
+  
+ <div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav">
+  		<c:forEach items="${followList }" var="obj">
+      <ul class="nav nav-pills nav-stacked">
+        	<li><a href="#section2"><span id="${obj.ID}" class="mesen">${obj.PROFILE }${obj.ID }</span></a></li>
+      </ul><br>
+  		</c:forEach>
 </div>
+    <div align="center">
+		<a href="javascript:" id="title"><b>받은 쪽지함</b></a>
+	</div>
+		<div align="center">
+			<c:forEach items="${followingList }" var="obj">
+				<a href="javascript:" id="follower">${obj }</a>
+				<br />
+			</c:forEach>
+			<br /> <input type="text" id="sender">
+		</div>
+		<div align="center">
+			<input type="text" id="content"
+				style="width: 300px; height: 600px; padding: 10px;"
+				placeholder="내용을 입력하세요">
+		</div>
+		<div align="right">
+			<button type="button" onclick="selectLike();" id="likebt">
+				<img alt="좋아요" src="" />
+			</button>
+			<button type="button" onclick="selectImage();" id="imagebt">
+				<img alt="이미지 파일 업로드" src="" />
+			</button>
+			<input type="file" id="upload" />
+		</div>
+		<div>
+			<button type="button" id="sendbt">쪽지 보내기</button>
+		</div>
+    	</div>
+    </div>
+    
 </body>
 <script>
+var setid = "${cookie.setId.value}";
+	$(".mesen").on("click", function(){
+		console.log("들어왔다.");
+		findAllMessage();
+		
+		
+		
+	});
 	function setDigit(num, digit) {
 		var zero = "";
 		num = num.toString();
@@ -96,9 +97,12 @@ a, b {
 			"method" : "get",
 			"async" : false,
 			"data" : {
-				"sender" : sender,
-				"receiver" : receiver,
-				"content" : $("#dmtxt").val()
+				"me" : id,
+				"target" : reid,
+				"content" : content,
+				"like" : like,
+				"curtime" : curtime,
+				"scope" : scope
 			}
 		}).done(function(val) {
 			console.log(val);
@@ -108,7 +112,6 @@ a, b {
 		$("#content").val("");
 	});
 	
-	$(form).
 	
 	function findAllMessage(){
 		var id = "${cookies.setId.value}";
@@ -120,9 +123,11 @@ a, b {
 			"async" : true,
 			"data" : {
 				"id" : id,
+				"reid" : reid,
 				"content" : content,
 				"like" : like,
-				"curtime" : curtime
+				"curtime" : curtime,
+				"scope" : scope
 			}
 		}).done(function(val) {
 			console.log(val);

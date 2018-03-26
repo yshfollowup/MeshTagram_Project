@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,7 +30,9 @@ public class MessengerController {
 	Gson gson;
 	
 	@RequestMapping("/index.do")
-	public String mainHandle() {
+	public String mainHandle(@CookieValue(name="setId", required=false) String setId, ModelMap map) {
+		List<Map> list=fDAO.selectFollwingProfileId(setId);
+		map.put("followList", list);
 		return "dm_page";
 	}
 	
@@ -49,11 +53,17 @@ public class MessengerController {
 	
 	@RequestMapping(path="/showMessage.do", produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String showMessageHandle() {
-		List<Map> result = mDAO.findAllMessage();
+	public String showMessageHandle(@RequestParam MultiValueMap<String, String> vmap) {
+		List<Map> result = mDAO.findAllMessage(vmap);
 		return gson.toJson(result);
 	}
-	
+/*	@RequestMapping(path="/likebutton.do", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String showLikeHandle(@RequestParam MultiValueMap<String, String> vmap) {
+	//	List<Map> result = mDAO.updateMessageLike(vmap);
+		return gson.toJson(result);
+	}
+	*/
 	@RequestMapping(path="/showFollowing.do", produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String showFollowingHandle(@CookieValue(name="setId", required=false) String setId) {
@@ -61,12 +71,6 @@ public class MessengerController {
 		return gson.toJson(result);
 	}
 	
-	@RequestMapping(path="/showLike.do", produces="application/json;charset=utf-8")
-	@ResponseBody
-	public String showLikeHandle() {
-		List<Map> result = mDAO.findAllMessageLike();
-		return gson.toJson(result);
-	}
 	
 	@RequestMapping(path="/deleteLike.do", produces="application/json;charset=utf-8")
 	@ResponseBody

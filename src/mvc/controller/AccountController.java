@@ -237,9 +237,9 @@ public class AccountController {
 								modelMap.put("eachResult", eachResult);
 						//==================================================================
 		//이전에 대화한 모든 메시지
-		List<Map> allMessage = mDAO.findAllMessage();
+/*		List<Map> allMessage = mDAO.findAllMessage();
 		if(allMessage != null)
-			modelMap.put("allMessage", allMessage);
+			modelMap.put("allMessage", allMessage);*/
 		
 		System.out.println("[SERVER]: login success");
 		return "insta_main";
@@ -390,10 +390,10 @@ public class AccountController {
 						}*/
 						modelMap.put("eachResult", eachResult);
 				//==================================================================
-		//이전에 대화한 모든 메시지
+/*		//이전에 대화한 모든 메시지
 		List<Map> allMessage = mDAO.findAllMessage();
 		if(allMessage != null)
-			modelMap.put("allMessage", allMessage);
+			modelMap.put("allMessage", allMessage);*/
 		
 		System.out.println("[SERVER]: login success");
 		return "insta_main";
