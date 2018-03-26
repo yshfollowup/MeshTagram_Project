@@ -895,9 +895,8 @@ a:active {
 			<main class="_8fi2q _2v79o" role="main">
 			<div class="_28rsa">
 				<ul class="_mleeu">
-					<li><a class="_fvhml _t0stc" href="/accounts/edit/">프로필 편집</a></li>
-					<li><a class="_fvhml _etlo6" href="/accounts/password/change/">비밀번호
-							변경</a></li>
+					<li><a class="_fvhml _t0stc" href="/mypage/edit.do">프로필 편집</a></li>
+					<li><a class="_fvhml _etlo6" href="/mypage/pass.do">비밀번호 변경</a></li>
 					<li><a class="_fvhml _etlo6" href="/accounts/comment_filter/">댓글</a></li>
 					<li><a class="_fvhml _etlo6" href="/accounts/contact_history/">연락처
 							관리</a></li>

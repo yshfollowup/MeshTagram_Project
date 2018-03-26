@@ -45,8 +45,12 @@
 		<property name="mapperLocations" value="/WEB-INF/mapper/*-mapper.xml" />
 	</bean>
 
+     
+    <context:component-scan base-package="org.zerock.web" />
+    <context:component-scan base-package="org.zerock.controller" />
 
-	<!-- 몽고 작업 -->
+
+		<!-- 몽고 작업 -->
 	<mongo:mongo-client host="13.125.195.100" port="18092" /><!--아이피 작업 -->
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg name="mongo" ref="mongo" />

@@ -25,7 +25,7 @@ function check(setid) {
 	for(var i=0; i<src.length;i++){
 		var k=0;
 		a=src[i].name;
-		//console.log("아이디"+a);
+		// console.log("아이디"+a);
 	$.ajax("/check.do", {
 		"method" : "get",
 		"async" : true,
@@ -90,7 +90,7 @@ function likeList(setid) {
 	$(".rebt").each(function() {
 		boardid.push($(this).attr("name"));
 	});
-	//console.log(boardid);
+	// console.log(boardid);
 	$.ajax("/likeList.do", {
 		"method" : "get",
 		"async" : true,
@@ -98,8 +98,8 @@ function likeList(setid) {
 			"boardId" : boardid
 		}
 	}).done(function(val) {
-		//console.log(val + "댓글 좋아요ㅋㅋㅋ");
-		//console.log(val.length+"크키");
+		// console.log(val + "댓글 좋아요ㅋㅋㅋ");
+		// console.log(val.length+"크키");
 		for (var i = 0; i < val.length; i++) {
 			$("#cnt_" + val[i].boardId).html("&ensp;" + val[i].count+"개");
 			if(val[i].id==setid){
@@ -107,7 +107,7 @@ function likeList(setid) {
 				$("#like_"+val[i].boardId).val(val[i].objectId);
 				
 			}
-			//console.log($("#like_"+val[i].boardId).val()+"좋아요리스트 번호");
+			// console.log($("#like_"+val[i].boardId).val()+"좋아요리스트 번호");
 		}
 	})
 };
@@ -118,44 +118,44 @@ function List(setid) {
 	$(".rebt").each(function() {
 		boardid.push($(this).attr("name"));
 	});
-	//console.log(boardid);
+	 console.log(boardid.length);
+	 if(boardid.length>0){
+		 
+	
 	$.ajax("/listReply.do", {
 		"method" : "get",
 		"async" : true,
 		"data" : {
 			"boardId" : boardid
 		}
-	}).done(
-			function(val) {
-				
-				var boardid = [];
-				var reply = [];
-				$(".rebt").each(function() {
-					boardid.push($(this).attr("name"));
-					reply.push($(this).attr("name"));
-				});
-				// console.log(val);
-					var dd="";
-				for (var i = 0; i < val.length; i++) {
-					$("#sp_" + val[i].boardId).val("");
-					if(val[i].reid == setid){
-						var s=val[i].ment;
-						//console.log("댓글버튼"+setid+s);
-						dd="<button type=\"button\" class=\"del\" name="+val[i].boardId+" id=\""+val[i].ment+"\" >삭제룽</button>";
-					}
-						$("#sp_" + val[i].boardId).append("<a href=/search.do?id="+val[i].reid+">"+val[i].reid+"</a>" + "&emsp; <span id=\"ment_" + val[i].ment+" class=\"ment\" name="+val[i].ment+" >"+val[i].ment+"</span>" +"\t\t"+dd+"<br/>");
-						
-						
-				}
-				
-			})
-			var id=setid;
-	$(".del").on("click", function(){
-		var boardid;
-		var ment;
-		boardid=$(this).attr("name");
-		ment=$(this).attr("id");
-		console.log("댓글 삭제할거다"+id+boardid+ment);
-		delReply(id,boardid,ment);
+	}).done(function(val){
+		var boardid = [];
+		var reply = [];
+		$(".rebt").each(function() {
+			boardid.push($(this).attr("name"));
+			reply.push($(this).attr("name"));
+		});
+		// console.log(val);
+		for (var i = 0; i < val.length; i++) {
+			$("#sp_" + val[i].boardId).val("");
+			var dd="";
+			if(val[i].reid == setid){
+				var s=val[i].ment;
+				// console.log("댓글버튼"+setid+s);
+				dd="<button type=\"button\" class=\"del\" name="+val[i].boardId+" id=\""+val[i].ment+"\" >삭제룽</button>";
+			}
+			$("#sp_" + val[i].boardId).append("<a href=/search.do?id="+val[i].reid+">"+val[i].reid+"</a>" + "&emsp; <span id=\"ment_" + val[i].ment+" class=\"ment\" name="+val[i].ment+" >"+val[i].ment+"</span>" +"\t\t"+dd+"<br/>");
+		}
+		var id=setid;
+		
+		$(".del").on("click", function(){
+			var boardids;
+			var ments;
+			boardids=$(this).attr("name");
+			ments=$(this).attr("id");
+			console.log("댓글 삭제할거다"+id+boardids+ments);
+			delReply(id,boardids,ments);
+		});
 	});
+	 }
 };

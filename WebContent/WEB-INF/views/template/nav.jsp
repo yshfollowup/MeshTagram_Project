@@ -1985,7 +1985,7 @@ px
 									href="/follow/index.do">팔로우</a>
 							</div>
 							<div class="_b28md">
-								<a href="/account/activity.do"
+								<a href="/board/activity.do"
 									class="_ohbcb _gvoze" style="margin-left: 20px;">
 									<img src="/images/heart.png" style="padding-top:2px;"/></a>
 							</div>

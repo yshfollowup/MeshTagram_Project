@@ -1,9 +1,11 @@
 package mvc.service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +65,7 @@ public class ReplyDAO {
 		list=template.findAll(Map.class, "Like");
 		return list;
 	}
-	//Find(=Search) -댓글 리스트
+	//Find(=Search) -댓글 리스트 :이부분에서 에러가 뜬다.
 	public List<Map> findAllReply(MultiValueMap<String, String> param) {
 		List<Map> list = new LinkedList<>();
 		String q=null;
@@ -109,8 +111,42 @@ public class ReplyDAO {
 			//System.out.println("작업완료");
 			return list;
 		}
-		
-	
+		//Find 댓글 게시물 보기
+		public List<Map> findReplyListBoardId(List<Map> value) {
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMDD",Locale.KOREA);
+			Date date=new Date();
+			String time= sdf.format(date);
+			List<Map> list = new LinkedList<>();
+			List<String> val=new LinkedList<>();
+			for(int i=0; i<value.size(); i++) {
+				String s=(String)value.get(i).get("id");
+				val.add(s);
+				
+			}
+			//System.out.println("게시물 받음"+q);
+			Query query = Query.query(Criteria.where("boardId").in(val).gt(sdf));
+			list = template.find(query, Map.class, "Reply");
+			//System.out.println("작업완료");
+			return list;
+		}
+		//Find 좋아요 게시물 보기
+		public List<Map> findLikeListBoardId(List<Map> value) {
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMDD",Locale.KOREA);
+			Date date=new Date();
+			String time= sdf.format(date);
+			List<Map> list = new LinkedList<>();
+			List<String> val=new LinkedList<>();
+			for(int i=0; i<value.size(); i++) {
+				String s=(String)value.get(i).get("id");
+				val.add(s);
+				
+			}
+			//System.out.println("게시물 받음"+q);
+			Query query = Query.query(Criteria.where("boardId").in(val).gt(time));
+			list = template.find(query, Map.class, "Like");
+			//System.out.println("작업완료");
+			return list;
+		}
 	//좋아요 취소 버튼
 	public Map<String, Object> deleteLike(MultiValueMap<String, String> param) {
 		Map<String, Object> map = new LinkedHashMap<>();

@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div style="height:70px;"></div>
-
 <div style="margin-top: 20px" align="center">
 	<h2>게시물 등록</h2>
 	<small>사진을 선택한 후, 멘트를 달아주세요.</small>

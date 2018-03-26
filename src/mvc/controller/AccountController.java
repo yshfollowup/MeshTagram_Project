@@ -6,7 +6,9 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import mvc.model.AccountDTO;
 import mvc.model.FollowDTO;
@@ -51,22 +54,24 @@ public class AccountController {
 		return "insta_join";
 	}
 		//로그인 페이지
-	@RequestMapping("/loginPage.do")
+	@RequestMapping({"/loginPage.do","/index.do"})
 	public String loginPageHandle() {
+		
 		
 		return "insta_login";
 	}
 	//접속
 	@RequestMapping(path="/login.do", method=RequestMethod.POST)
 	public String loginHandle(@RequestParam MultiValueMap<String, String> vmap, ModelMap modelMap,
-		HttpServletResponse resp, @CookieValue(name="setId", required=false) String setId) {
+		HttpServletResponse resp, HttpSession session, User user ) {
+		
 		String id = vmap.getFirst("id");
 		String pass = vmap.getFirst("pass");
 		System.out.println("[SERVER]: received id & pass: "+id+", "+pass);
 		AccountDTO aDTO = aDAO.selectOneAccount(id, pass);
 		if (aDTO == null) {
 			System.out.println("[SERVER]: login failed");
-			return "insta_login";
+			return "redirect:/account/loginPage.do";
 		}
 		System.out.println("[SERVER]: login success");
 		
@@ -76,14 +81,14 @@ public class AccountController {
 		//현재 사용자 id 쿠키 등록, 이전 사용자의 쿠키는 지워야함.
 		Cookie cookie= null;
 		
-		if (setId != null) {
+		/*if (setId != null) {
 			System.out.println("[SERVER]: cookie exist");
-			cookie = new Cookie("setId", id);
 		} else {
 			System.out.println("[SERVER]: cookie create");
 			cookie = new Cookie("setId", id);
 		}
-
+*/
+		cookie = new Cookie("setId", id);
 		cookie.setPath("/");
 		cookie.setMaxAge(60*60*24);
 		resp.addCookie(cookie);
@@ -95,14 +100,16 @@ public class AccountController {
 		System.out.println("모든 게시물"+allPost);*/
 		
 		//==================================================================
+		String setId=id;
 				List<Map> eachResult=null;
 				
-				
+				session.setAttribute("setId", setId);
+				modelMap.addAttribute("className", this.getClass());
 
-				
 						List<AccountDTO> eachOtherList = aDAO.selectFollowEachOther(setId);
 						//맞팔되어있는 친구 목록 뽑은 뒤 그에 대한 게시물 보냄(1순위)
-						if(eachOtherList.size()>0) {
+						int a=eachOtherList.size();
+						if(a>0) {
 						for(AccountDTO eachfollow : eachOtherList) {
 							String eachFollowid = eachfollow.getId();
 							if(id != null) {
@@ -391,14 +398,36 @@ public class AccountController {
 		return "insta_main";
 	}
 	
+	//업로드 페이지
+	@RequestMapping("/upload.do")
+	public String uploadHandle() {
+		
+		return"insta_upload";
+	}
 
 	
 	
 	
-	//게시물 업로드 페이지
-	@RequestMapping("/upload.do")
-	public String uploadHandle() {
-		
-		return "insta_upload";
+	//로그아웃
+	@RequestMapping("/logout.do")
+	public String lougoutHandle(HttpServletResponse resp,HttpServletRequest req) {
+		Cookie[] cookies = req.getCookies();
+
+		if(cookies != null){
+
+		for(int i=0; i< cookies.length; i++){
+			if(cookies[i].getName().equals("setId")) {
+				System.out.println(cookies[i].getName());
+				cookies[i].setPath("/"); // 유효시간을 0으로 설정
+				cookies[i].setMaxAge(0);
+				resp.addCookie(cookies[i]); // 응답 헤더에 추가
+			}
+			
+
+		}
+
+		}
+		System.out.println("쿠키값 삭제");
+		return "insta_login";
 	}
 }

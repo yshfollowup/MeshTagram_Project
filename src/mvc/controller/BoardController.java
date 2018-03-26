@@ -12,16 +12,24 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
+
+import mvc.service.AccountDAO;
+import mvc.service.FollowDAO;
 import mvc.service.PostDAO;
+import mvc.service.ReplyDAO;
 import mvc.service.UploadService;
 
 @Controller
 @RequestMapping("/account")
+@SessionAttributes("id")
 public class BoardController {
 
 	@Autowired
@@ -30,6 +38,14 @@ public class BoardController {
 	PostDAO pDao;
 	@Autowired
 	UploadService us;
+	@Autowired
+	FollowDAO fDAO;
+	@Autowired
+	AccountDAO aDAO;
+	@Autowired
+	ReplyDAO rDAO;
+	@Autowired
+	Gson gson;
 
 	// =======================================
 	// 게시물 업로드
@@ -81,4 +97,22 @@ public class BoardController {
 	public String FindAll() {
 		return "insta_register";
 	}
+	@RequestMapping("/activity.do")
+	public String activityHandle(@CookieValue (name="setId") String owner) {
+			List<Map> followList=fDAO.selectFollwingProfileId(owner);
+			List<Map> boardList=pDao.findFollowPostById(followList);
+			List<Map> ReplyList=rDAO.findLikeListBoardId(followList);
+			List<Map> LikeList=rDAO.findLikeListBoardId(followList);
+			
+			Gson gson=new Gson();
+			Map map=new LinkedHashMap<>();
+			
+			map.put("boardList", boardList);
+			map.put("replyList", ReplyList);
+			map.put("likeList", LikeList);
+			
+		return gson.toJson(map);
+	}
+
+
 }

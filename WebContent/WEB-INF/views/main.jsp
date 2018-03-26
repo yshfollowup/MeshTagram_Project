@@ -312,14 +312,14 @@
 					}).done(function(val2){
 						for(var i=0; i<val2.length; i++){
 							if(val2[i].boardId==boardid){
-						console.log(bt + "아이디아디이디");
-						console.log("실시간 좋아요 처리"+bt);
-								$("#like_"+boardid).val("");
+							console.log(bt + "아이디아디이디");
+							console.log("실시간 좋아요 처리"+bt);
 								
 							}							
 						}
+						$("#like_"+boardid).val("");
+						likeList(setid);
 				})
-						likeList();
 			}
 	});
 			

@@ -76,6 +76,33 @@ public class PostDAO {
 		return list;
 	}
 	
+	//id에 해당하는 게시물
+	public List<Map> findFollowPostById(List<Map> map) {
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-DD",Locale.KOREA);
+		Date date=new Date();
+		String time= sdf.format(date);
+		List<String> list = new LinkedList<>();
+		for(int i=0; i<map.size(); i++) {
+			String s=(String)map.get(i).get("ID");
+			list.add(s);
+			
+		}
+		List<Map> fList=new LinkedList<>();
+		Query query = 
+				new Query(Criteria.where("id").in(list).and("date").gt(time));
+		fList = template.find(query, Map.class, "MeshTagramUpload");
+		fList.sort(new Comparator<Map>() {
+			@Override
+			public int compare(Map o1, Map o2) {
+				Date d1 = (Date) o1.get("date");
+				Date d2 = (Date) o2.get("date");
+				int result = d1.compareTo(d2);
+				return -result;
+			}
+		});
+		return fList;
+	}
+	
 	//tag에 해당하는 게시물
 	public List<Map> findPostByTag(String tag) {
 		List<Map> list = new LinkedList<>();

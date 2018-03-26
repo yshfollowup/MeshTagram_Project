@@ -3075,10 +3075,10 @@ transform
 			<div class="_o0j5z">
 				<div class="_784q7">
 					<ul class="_cepxb" role="menu">
-						<li class="_o2wxh"><button class="_h74gn">비밀번호 변경</button></li>
+						<li class="_o2wxh"><a href="/mypage/pass.do"><button class="_h74gn">비밀번호 변경</button></a></li>
 						<li class="_o2wxh"><button class="_h74gn">알림</button></li>
 						<li class="_o2wxh"><button class="_h74gn">개발자정보</button></li>
-						<li class="_o2wxh"><button class="_h74gn">로그아웃</button></li>
+						<li class="_o2wxh"><a href="/account/logout.do"><button class="_h74gn">로그아웃</button></a></li>
 						<li class="_o2wxh"><button class="_h74gn" data-dismiss="modal">취소</button></li>
 					</ul>
 				</div>
