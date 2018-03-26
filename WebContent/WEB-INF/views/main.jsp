@@ -3002,7 +3002,7 @@ safe-area-inset-bottom
 								<section class="_hmd6j _8oo9w">
 									<a class="_eszkz _l9yih like" name="${obj._id }" role="button"
 										id="like_${obj._id }"> <span
-										class="_8scx2 coreSpriteHeartOpen">좋아요</span>
+										class="_8scx2 coreSpriteHeartOpen" id="likespan_${obj._id }" >좋아요</span>
 									</a> <a class="_eszkz _l9yih dislike" name="${obj._id }"
 										role="button" id="dislike_${obj._id }" style="display: none;">
 										<span class="_8scx2 coreSpriteHeartFull">좋아요취소</span>
@@ -3017,7 +3017,7 @@ safe-area-inset-bottom
 									<div class="">
 										<a class="_nzn1h" data-toggle="modal" data-target="#myModal1"
 											style="color: black; font-weight: bold; text-decoration: none;">좋아요
-											<span data-toggle="modal" data-target="#myModal1"></span>개
+											<span data-toggle="modal" data-target="#myModal1" id="cnt_${obj._id }"></span>개
 										</a>
 									</div>
 								</section>
@@ -3052,7 +3052,7 @@ safe-area-inset-bottom
 
 								<section class="_km7ip _ti7l3 parent writereply">
 									<form class="_b6i0l">
-										<textarea aria-label="댓글 달기..." placeholder="댓글 달기..."
+										<textarea  placeholder="댓글 달기..."
 											id="reply_${obj._id }" name="${obj.id }" class="reply _bilrf"
 											aria-label="${obj._id }" autocomplete="off" autocorrect="off"></textarea>
 									</form>
@@ -3310,15 +3310,13 @@ safe-area-inset-bottom
 
 		//좋아요 ....
 		$(".like").on("click", function() {
-			$(".like").hide();
-			$(".dislike").show();
-			var bt = $(this).val();
+			
 			console.log("좋아요 들어왔다");
 			var reid = "${cookie.setId.value}";
 			var boardid = $(this).attr("name");
+			var bt = $("#likespan_"+boardid).attr("name");
 			var like = "좋아요";
 			console.log(bt);
-			if (bt == "") {
 				$.ajax("/likeBoard.do", {
 					"method" : "get",
 					"async" : true,
@@ -3329,17 +3327,24 @@ safe-area-inset-bottom
 						"like" : like,
 					}
 				}).done(function(val) {
+					$(".like").hide();
+					$(".dislike").show();
 					var a;
 					likeList();
 					console.log(val);
 					for (var i = 0; i < val.length; i++) {
 						//console.log(bt + "아이디아디이디" + val[i].objectId+val[i].id+a);
-						$("#like_" + boardid).val(val[i].objectId);
+						$("#likespan_" + boardid).attr("name",val[i].objectId);
 
 					}
+					likeList();
 				})
-			} else {
-
+				
+		});	
+			$(".dislike").on("click",function(){
+				var reid = "${cookie.setId.value}";
+				var boardid = $(this).attr("name");
+				
 				$.ajax("/deleteLike.do", {
 					"method" : "get",
 					"async" : true,
@@ -3350,9 +3355,7 @@ safe-area-inset-bottom
 				}).done(function(val2) {
 					for (var i = 0; i < val2.length; i++) {
 						if (val2[i].boardId == boardid) {
-							console.log(bt + "아이디아디이디");
-							console.log("실시간 좋아요 처리" + bt);
-							$("#like_" + boardid).val("");
+							$("#likespan_" + boardid).attr("name","");
 
 						}
 					}
@@ -3360,8 +3363,9 @@ safe-area-inset-bottom
 				likeList();
 				$(".like").show();
 				$(".dislike").hide();
-			}
 		});
+
+		
 	</script> </main>
 </body>
 </html>

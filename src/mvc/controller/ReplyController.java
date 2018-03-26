@@ -184,8 +184,7 @@ public class ReplyController {
 	public String ReplydeleteHandle(@RequestParam MultiValueMap<String, String> map) {
 		System.out.println("삭제 리스트 받음"+ map);
 		rDAO.Replydelete(map);
-		List<Map> result = rDAO.findAllReply(map);
-		System.out.println("댓글리스트이다"+result);
-		return "{result : true}";
+		Gson gson=new Gson();
+		return gson.toJson(map);
 	}
 }

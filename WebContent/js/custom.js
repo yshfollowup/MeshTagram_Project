@@ -13,8 +13,8 @@ function delReply(id, boardid, ment){
 			
 		}
 	}).done(function(val){
-		List();
-		
+		console.log("댓글리스트 받는다");
+		List(id);
 	})
 }
 function check(setid) {
@@ -101,9 +101,11 @@ function likeList(setid) {
 		// console.log(val + "댓글 좋아요ㅋㅋㅋ");
 		// console.log(val.length+"크키");
 		for (var i = 0; i < val.length; i++) {
-			$("#cnt_" + val[i].boardId).html("&ensp;" + val[i].count+"개");
+			$("#cnt_" + val[i].boardId).html( val[i].count);
 			if(val[i].id==setid){
-				console.log(val[i].id+setid);
+				$("#like_"+val[i].boardId).hide();
+				$("#dislike_"+val[i].boardId).show();
+				console.log(val[i].id+setid+"좋아요 리스트다");
 				$("#like_"+val[i].boardId).val(val[i].objectId);
 				
 			}
