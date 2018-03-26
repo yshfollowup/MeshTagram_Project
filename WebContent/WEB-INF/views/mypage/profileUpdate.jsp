@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<html lang="ko" class="js logged-in client-root">
+<html  class="js logged-in client-root">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -904,29 +904,29 @@ a:active {
 				<article class="_75z9k">
 					<div class="_1eg8c">
 						<div class="_62ai2 _5g4e2">
-
 							<c:choose>
 								<c:when test="${empty  aDTO.profile}">
-									<span class="_3xjwv"> <img src="/images/insta.jpg"
-										class="_cuacn" id="preview">
-									</span>
+									<button  class="_3xjwv" onclick="uploadAction();" title="프로필 사진 바꾸기">
+										<img alt="프로필 사진 바꾸기" class="_cuacn" src="/images/insta.jpg"
+											id="preview">${aDTO.id }</button>
+									<div>
+										<input type="file" accept="image/jpeg" id="photo" name="profile" class="_l8al6">
+									</div>
 								</c:when>
+										
 								<c:otherwise>
 									<span class="_3xjwv"> <img
 										src="${applicationScope.path }${aDTO.image}" class="_cuacn" />
 									</span>
 								</c:otherwise>
 							</c:choose>
-
-
 						</div>
 						<div class="_ax54t">
 							<h1 class="_gvhl0" title="id">${aDTO.id }</h1>
-							<a class="_5aav8" href="#">프로필 사진 수정</a>
+							<a class="_5aav8" href="javascript:" id="confirm">프로필 사진 수정</a>
 						</div>
-
 					</div>
-					<form class="_gzffa">
+					<form class="_gzffa" action="/mypage/edit.do" method="get">
 						<div class="_e1xik">
 							<aside class="_kx10g">
 								<label for="pepName">이름</label>
@@ -943,7 +943,7 @@ a:active {
 							</aside>
 							<div class="_cd2n1">
 								<input type="text" class="_4abhr _o716c" aria-required="false"
-									id="pepWebsite" value="">
+									id="pepWebsite" name="website" value="">
 							</div>
 						</div>
 						<div class="_e1xik">
@@ -951,7 +951,7 @@ a:active {
 								<label for="pepBio">소개</label>
 							</aside>
 							<div class="_cd2n1">
-								<textarea class="_jlcqs" id="pepBio"></textarea>
+								<textarea class="_jlcqs" id="pepBio" name="bio"></textarea>
 							</div>
 						</div>
 						<div class="_e1xik">
@@ -979,7 +979,7 @@ a:active {
 							</aside>
 							<div class="_cd2n1">
 								<input type="text" class="_4abhr _o716c" aria-required="false"
-									id="pepPhone Number" value="${aDTO.phone }" name="phone">
+									id="pepPhone" value="${aDTO.phone }" name="phone">
 							</div>
 						</div>
 						<div class="_e1xik">
@@ -989,10 +989,10 @@ a:active {
 							<div class="_cd2n1">
 								<div class="_sx05v">
 									<span class="_4v6lq _8scx2 coreSpriteChevronDownGrey"></span> <select
-										id="pepGender" class="_nxkvc _fx9to">
+										id="pepGender" class="_nxkvc _fx9to" name="gender" >
 										<option value="1">남성</option>
 										<option value="2">여성</option>
-										<option value="3">선택 안 함</option>
+										<option value="3" selected="selected">선택 안 함</option>
 									</select>
 								</div>
 							</div>
@@ -1005,7 +1005,7 @@ a:active {
 								<div class="_6dodw">
 									<label class="_l67zd" for="pepPrivateAccount"><input
 										type="checkbox" class="_snyzf" id="pepPrivateAccount"
-										value="on">
+										value="on" name="privateAccount">
 										<div class="_1u1jc"></div></label>
 								</div>
 								<label class="_aqsz9" for="pepPrivateAccount">계정이 비공개
@@ -1038,26 +1038,45 @@ a:active {
 
 
 	<script>
-		document.getElementById("photo").onchange = function() {
-			console.log(this.files[0]);
-			if (!this.files[0].type.startsWith("image")) {
-				window.alert("이미지 파일만 선택 가능합니다.")
-				return;
-			}
-			// 미리보기를 구현할려면, XMLHttpRequest 객체같이
-			var reader = new FileReader();
-			reader.readAsDataURL(this.files[0]);
-			console.log(reader);
-			reader.onload = function() {// readAsDataURL이 끝나면 발생하는 이벤트
-
-				document.getElementById("preview").src = this.result;
-
-			}
-
+	//프로필 사진 업로드
+	$(document).ready(function() {
+		$("#photo").on("change", handleImgSelect);
+	});
+	
+	function uploadAction() {
+		$("#photo").trigger("click");
+	}
+	
+	function handleImgSelect(e) {
+		var file = e.target.files[0];
+		if (!file.type.match("image.*")) {
+			window.alert("이미지파일만 선택할 수 있습니다!");
+			return;
 		}
-		document.getElementById("preview").onclick = function() {
-			document.getElementById("photo").click();
+		
+		var reader = new FileReader();
+		console.log(reader);
+		reader.onload = function(e) {
+			$("#preview").attr("src", e.target.result);
+			window.alert("!!");
+			var formData = new FormData();
+			formData.append("file", $("#photo")[0]);
+			$.ajax({
+				"url" : "/mypage/uploadProfile.do",
+				"method" : "post",
+				"data" : formData,
+				"contentType" : false,
+				"processData" : false,
+				success : function(result) {
+					window.alert("프로필 사진이 변경되었습니다!");
+				},
+				error : function(result) {
+					window.alert("프로필 사진 변경이 실패하였습니다..");
+				}
+			});
 		}
+		reader.readAsDataURL(file);
+	}
 	</script>
 </body>
 </html>
