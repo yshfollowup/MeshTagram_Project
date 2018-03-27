@@ -1,17 +1,16 @@
 package mvc.controller;
 
 import java.io.File;
+import java.sql.Date;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import mvc.model.AccountDTO;
 import mvc.service.AccountDAO;
@@ -31,7 +29,6 @@ import mvc.service.MessengerDAO;
 import mvc.service.PostDAO;
 import mvc.service.ReplyDAO;
 import mvc.service.SearchDAO;
-import mvc.service.UploadService;
 import mvc.service.UploadService2;
 
 @Controller
@@ -198,16 +195,14 @@ public class MyPageController {
 		if (param != null) {
 			String id = setId;
 			
-			//넘어온 생일 처리하기
-			String birth = (String) param.get("birth");
-			int year = es.extractYear(birth);
-			int month = es.extractMonth(birth);
-			int day = es.extractDay(birth);
+			//넘어온 생일 date 타입으로 처리하기
+			String result = (String) param.get("birth");		//yyyy-mm-dd로 넘어올 것임
+			System.out.println(result);
+			Date birth = Date.valueOf(result);
+			//System.out.println(birth);
+			param.put("birth", birth);
 			
-			System.out.println(year);
-			param.put("birth", year);
-			
-			//공개범위(scope) 처리
+			//공개범위(scope) 처리하기
 			String flag = (String) param.get("privateAccount");
 			if (flag == "on") {
 				param.put("privateAccount", 1);

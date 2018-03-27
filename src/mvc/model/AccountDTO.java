@@ -1,5 +1,7 @@
 package mvc.model;
 
+import java.sql.Date;
+
 public class AccountDTO {
 	// field
 	private String id;
@@ -8,7 +10,7 @@ public class AccountDTO {
 	private String name;
 	private String phone;
 	private String profile;
-	private int birth;
+	private Date birth;
 	private String gender;
 	private String intro;
 	private int scope;
@@ -23,7 +25,7 @@ public class AccountDTO {
 		this.email = email;
 		this.name = name;
 	}
-	public AccountDTO(String id, String pass, String email, String name, String phone, String profile, int birth, String gender, String intro, int scope) {
+	public AccountDTO(String id, String pass, String email, String name, String phone, String profile, Date birth, String gender, String intro, int scope) {
 		this.id = id;
 		this.pass = pass;
 		this.email = email;
@@ -73,10 +75,10 @@ public class AccountDTO {
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
-	public int getBirth() {
+	public Date getBirth() {
 		return birth;
 	}
-	public void setBirth(int birth) {
+	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
 	public String getGender() {
