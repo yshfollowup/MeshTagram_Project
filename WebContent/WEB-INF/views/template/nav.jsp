@@ -1980,8 +1980,11 @@ px
 					</div>
 					<div class="_devkn">
 						<div class="_qlijk">
+							<div class="_b28md" style="padding-top : 1px; width:99%;">
+								<a class=" _gvoze" href="채팅채팅"><img src="/images/plane.png"/></a>
+							</div>
 							<div class="_b28md">
-								<a class="_8scx2 _gvoze coreSpriteDesktopNavExplore"
+								<a class="_8scx2 _gvoze coreSpriteDesktopNavExplore" style="margin-left: 20px;"
 									href="/follow/index.do">팔로우</a>
 							</div>
 							<div class="_b28md">
