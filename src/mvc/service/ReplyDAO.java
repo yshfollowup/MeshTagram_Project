@@ -36,11 +36,21 @@ public class ReplyDAO {
 			System.out.println("성공");
 		return true;
 	}
+	// 북마크 추가
 	public Boolean markBoard(Map param) {
 			template.insert(param,"markBoard");
 			System.out.println("마크 저장 완료");
 
 		return true;
+	}
+	
+	//Find(=Search) -댓글 리스트 :이부분에서 에러가 뜬다.
+	public List<Map> markBoardFind(String id) {
+		System.out.println("북마크");
+		Query query = Query.query(Criteria.where("boardId").in(id));
+		List<Map> list = template.find(query,Map.class, "MeshTagramUpload");
+		System.out.println("댓글리스트"+list);
+		return list;
 	}
 	//Insert - 좋아요 
 	public Boolean UpdateLikeReply(Map param ) {

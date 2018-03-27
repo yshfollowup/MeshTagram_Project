@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 <html>
 <head>
 <title>Meshtagram</title>
@@ -1987,11 +1989,21 @@ px
 								<a class="_8scx2 _gvoze coreSpriteDesktopNavExplore" style="margin-left: 20px;"
 									href="/follow/index.do">팔로우</a>
 							</div>
+							<!--  -->
 							<div class="_b28md">
-								<a href="/board/activity.do"
-									class="_ohbcb _gvoze" style="margin-left: 20px;">
-									<img src="/images/heart.png" style="padding-top:2px;"/></a>
+								<a href="#"
+									 role="button" class="btn btn-primary dropdown-toggle _ohbcb _gvoze" style="margin-left: 20px;" data-toggle="dropdown">
+									<img src="/images/heart.png" style="padding-top:2px;"/>
+									<span class="caret">
+									
+									</span></a> 
+								<ul class="dropdown-menu">
+									<li><a href="#">공지사항</a></li>
+								</ul>
+
 							</div>
+							
+							<!--  -->
 							<div class="_b28md">
 								<a href="/account/upload.do" class="_ohbcb _gvoze"
 									style="margin-left: 20px;"> <img src="/images/write.png" />

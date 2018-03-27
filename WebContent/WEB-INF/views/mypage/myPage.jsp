@@ -3045,9 +3045,9 @@ transform
 		</header>
 
 		<div class="_2e96w">
-			<a class="_t7nuu _sb9lc" href=""
-				style="margin-right: 30px;"><div class="">게시물</div></a>
-			<a class="_t7nuu" href=""><div class="">저장됨</div></a>
+			<a class="_t7nuu _sb9lc" href="/mypage/index.do"
+				style="margin-right: 30px;"><div class="board">게시물</div></a>
+			<a class="_t7nuu" href="#" id="markboard"><div class="mark">저장됨</div></a>
 		</div>
 		<div>
 			<div class="_havey" style="padding-top: 0px; padding-bottom: 0px;">
@@ -3096,6 +3096,20 @@ transform
 		</div>
 	</div>
 	<script>
+	var setid = "${cookie.setId.value}";
+
+	$("#markboard").onclick(function(){
+		console.log("들어왔다.");
+		$.ajax("/mypage/markBoard.do",{
+			"method" : "get",
+			"async" : true,
+			"data" : {
+				"id" : setid
+			}
+		}).done(function(val){
+			
+		});
+	});
 		$("#follower").on("change", function() {
 			$("all-screen").attr("aria-hidden", false)
 		});

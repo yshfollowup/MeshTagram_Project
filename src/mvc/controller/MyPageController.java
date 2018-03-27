@@ -20,8 +20,11 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.google.gson.Gson;
 
 import mvc.model.AccountDTO;
 import mvc.service.AccountDAO;
@@ -56,7 +59,8 @@ public class MyPageController {
 	ExtractService es;
 	@Autowired
 	ServletContext ctx;
-	
+	@Autowired
+	Gson gson;
 
 	@RequestMapping("/index.do")
 	public String MyPageHandle(@CookieValue(name = "setId", required = false) 
@@ -84,6 +88,18 @@ public class MyPageController {
 		modelMap.put("follower", followerList);
 
 		return "insta_myPage";
+	}
+	
+
+	@RequestMapping("/markBoard.do")
+	@ResponseBody
+	public String markBoardHandle(@CookieValue(name = "setId", required = false) 
+			String setId) {
+		System.out.println("[SERVER]: MyPage success" + setId);
+		String id = setId;
+		List<Map> result=rDAO.markBoardFind(id);
+		Gson gson=new Gson();
+		return gson.toJson(result);
 	}
 	
 	@RequestMapping("/follower.do")
