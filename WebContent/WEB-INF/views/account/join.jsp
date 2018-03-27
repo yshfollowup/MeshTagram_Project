@@ -2504,6 +2504,7 @@ color : #999;
 			<main class="_8fi2q _2v79o" role="main" style="background-color:rgba(255,255,255,0);">
 			<article class="_qmq8y">
 				<div class="_ngtox _sf3lp">
+					<img src="/images/stars.png">
 					
 				</div>
 				<div class="_kbq82">

@@ -2586,7 +2586,8 @@ safe-area-inset-bottom
 	-webkit-flex-grow: 1;
 	-ms-flex-positive: 1;
 	flex-grow: 1;
-	margin-bottom: 3px
+	margin-bottom: 3px;
+	padding-left : 30px;
 }
 
 @media ( min-width :876px) {
@@ -2605,8 +2606,11 @@ safe-area-inset-bottom
 		justify-content: space-between;
 		padding: 38px 0
 	}
-	._8oc6p ._luodr, ._9z659 ._luodr {
+	 ._luodr, ._9z659 ._luodr {
 		max-width: 100%
+	}
+	._8oc6p{
+		max-width: 300px;
 	}
 	._8oc6p ._g8wl6, ._9z659 ._g8wl6 {
 		margin-right: 16px
@@ -2687,7 +2691,7 @@ safe-area-inset-bottom
 	height: 100vh;
 	margin-bottom: 30px;
 	padding: 0;
-	top: 60px
+	top: 60px;
 }
 
 ._i4wsm {
@@ -2708,7 +2712,8 @@ safe-area-inset-bottom
 	-webkit-box-pack: justify;
 	-webkit-justify-content: space-between;
 	-ms-flex-pack: justify;
-	justify-content: space-between
+	justify-content: space-between;
+	
 }
 
 ._qwuqp {
@@ -2735,7 +2740,7 @@ safe-area-inset-bottom
 	line-height: 18px;
 	margin-bottom: 16px;
 	margin-top: 4px;
-	width: 100%
+	width: 250px;
 }
 </style>
 <style type="text/css" data-isostyle-id="is-10a0a23b">
@@ -2910,7 +2915,7 @@ safe-area-inset-bottom
 		<div class="_d4oao">
 			<div>
 				<div class="_havey"
-					style="padding-top: 0px; padding-bottom: 5472.75px;">
+					>
 					<!-- 왼쪽다단 -->
 					<!--article : 게시글 단위 -->
 					<!--↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓아이디 & 헤더 부분↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
@@ -3049,11 +3054,10 @@ safe-area-inset-bottom
 								</div>
 
 
-
 								<section class="_km7ip _ti7l3 parent writereply">
 									<form class="_b6i0l">
 										<textarea  placeholder="댓글 달기..."
-											id="reply_${obj._id }" name="${obj.id }" class="reply _bilrf"
+											id="reply_${obj._id }" name="${obj._id }" class="reply _bilrf"
 											aria-label="${obj._id }" autocomplete="off" autocorrect="off"></textarea>
 									</form>
 								</section>
@@ -3064,6 +3068,7 @@ safe-area-inset-bottom
 				</div>
 			</div>
 		</div>
+
 
 		<div style="min-height: 150px;"></div>
 
@@ -3087,6 +3092,7 @@ safe-area-inset-bottom
 
 		<!--↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓우측 프로필 파트↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
 		<div class="_11dqz" style="margin-top:70px;">
+			<div style="position:fixed;">
 			<div class="_i4wsm">
 				<div class="_ikq0n">
 					<div class="_82odm _pbvu8">
@@ -3146,6 +3152,7 @@ safe-area-inset-bottom
 					</ul>
 				</nav>
 				<span class="_1gmap">© 2018 Meshtagram</span>
+			</div>
 			</div>
 		</div>
 	</section>
