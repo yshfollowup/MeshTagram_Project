@@ -2915,7 +2915,7 @@ safe-area-inset-bottom
 		<div class="_d4oao">
 			<div>
 				<div class="_havey"
-					style="padding-top: 0px; padding-bottom: 5472.75px;">
+					>
 					<!-- 왼쪽다단 -->
 					<!--article : 게시글 단위 -->
 					<!--↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓아이디 & 헤더 부분↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->

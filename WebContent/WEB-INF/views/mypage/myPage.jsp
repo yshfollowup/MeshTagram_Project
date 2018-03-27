@@ -282,13 +282,14 @@
 ._4rbun {
 	display: block;
 	overflow: hidden;
-	padding-bottom: 100%;
+	padding-bottom: 2%;
 }
 
 ._2di5p, ._si7dy {
 	left: 0;
 	position: absolute;
-	top: 0
+	top: 0;
+	display : block;
 }
 
 ._si7dy {
@@ -2780,7 +2781,8 @@ transform
 	-webkit-box-direction: normal;
 	-webkit-flex-direction: row;
 	-ms-flex-direction: row;
-	flex-direction: row
+	flex-direction: row;
+	
 }
 
 ._6d3hm>* {
@@ -2797,7 +2799,8 @@ transform
 }
 
 ._mnav9:last-child {
-	margin-bottom: 0
+	margin-bottom: 0;
+	display : block;
 }
 
 ._tn0ps:last-child {
@@ -3039,14 +3042,13 @@ transform
 		</div>
 		<div>
 			<div class="_havey" style="padding-top: 0px; padding-bottom: 0px;">
-				<div class="_6d3hm _mnav9">
+				<div class="_6d3hm _mnav9" >
 					<c:forEach var="obj" items="${myPost }">
-						<div class="_mck9w _gvoze _tn0ps">
+						<div class="_mck9w _gvoze _tn0ps" style="width:30%; height:50%; display: inline-block;">
 							<div class="_4rbun">
-
 								<div class="mouseIn" class="_2di5p">
 									<img src="${applicationScope.Path }${obj.image}"
-										style="width: 300px; height: 300px; border-radius: 30px"
+										style="width: 270px; height: 270px; border-radius: 30px"
 										id="preview"> <span class="In"></span>
 								</div>
 								<p style="float: left; width: 33%;">
@@ -3057,7 +3059,6 @@ transform
 								</p>
 
 							</div>
-							<div class="_si7dy"></div>
 						</div>
 					</c:forEach>
 
