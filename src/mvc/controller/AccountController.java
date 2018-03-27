@@ -205,7 +205,7 @@ public class AccountController {
 									//	modelMap.addAttribute("followingResult", followingResult);
 										//System.out.println(followerResult.size()+" / "+followingResult.size());		
 									}
-									if(followerResult.size()>0 ) {
+									if(followerResult.size()>0 && a>0 ) {
 										for(int i=0; i<followerResult.size(); i++) {
 											if(!eachResult.get(i).get("_id").equals(followerResult.get(i).get("_id"))){
 											//	System.out.println("비교값이 들어갔다. 사이즈="+followerResult.size()+followerResult.get(i));
@@ -215,7 +215,7 @@ public class AccountController {
 											}
 										}
 									}
-									if(followingResult.size()>0 ) {
+									if(followingResult.size()>0 && a>0) {
 										for(int i=0; i<followingResult.size(); i++) {
 											if(!eachResult.get(i).get("_id").equals(followingResult.get(i).get("_id"))){
 												//System.out.println("비교값이 들어갔다. 사이즈="+followingResult.size()+followingResult.get(i));

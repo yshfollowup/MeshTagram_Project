@@ -10,7 +10,6 @@ function delReply(id, boardid, ment){
 			"boardid" : boardid,
 			"id" : id,
 			"ment" : ment
-			
 		}
 	}).done(function(val){
 		console.log("댓글리스트 받는다");
@@ -139,7 +138,7 @@ function List(setid) {
 		});
 		// console.log(val);
 		for (var i = 0; i < val.length; i++) {
-			$("#sp_" + val[i].boardId).val("");
+			$("#sp_" + val[i].boardId).html("");
 			var dd="";
 			if(val[i].reid == setid){
 				var s=val[i].ment;

@@ -13,57 +13,45 @@ a, b {
 <title>MeshTagram</title>
 </head>
 <body>
-  
-  
- <div class="container-fluid">
-  <div class="row content">
-    <div class="col-sm-3 sidenav">
-  		<c:forEach items="${followList }" var="obj">
-      <ul class="nav nav-pills nav-stacked">
-        	<li><a href="#section2"><span id="${obj.ID}" class="mesen">${obj.PROFILE }${obj.ID }</span></a></li>
-      </ul><br>
-  		</c:forEach>
-</div>
-    <div align="center">
-		<a href="javascript:" id="title"><b>받은 쪽지함</b></a>
+
+
+	<div class="container-fluid">
+		<div class="row content">
+			<div class="col-sm-3 sidenav">
+				<c:forEach items="${followList }" var="obj">
+					<ul class="nav nav-pills nav-stacked">
+							<li><a href="#${obj.ID }"><span id="${obj.ID}"
+									class="mesen" name="${obj._id }" >${obj.ID }</span></a></li>
+					</ul>
+				</c:forEach>
+			<div align="right">
+				<!--  height 고정 / max-height 최대고정 / min-height 최소고정-->
+				<div id="chatBoard" style=" width: 100%; height: 80%; overflow-y: scroll;" >
+					<span id="showdm" style=" text-align: right;"></span>
+					<div style="text-align: left; " id="showre"></div>
+				</div>
+				<hr />
+			<div align="right">
+				<input type="file"  id="upload" value="이미지 파일 업로드" />
+			</div>
+			<div>
+				<input type="text" name="target" id="sender">
+			</div>
+			</div>
+		</div>
+			</div>
 	</div>
-		<div align="center">
-			<c:forEach items="${followingList }" var="obj">
-				<a href="javascript:" id="follower">${obj }</a>
-				<br />
-			</c:forEach>
-			<br /> <input type="text" id="sender">
-		</div>
-		<div align="center">
-			<input type="text" id="content"
-				style="width: 300px; height: 600px; padding: 10px;"
-				placeholder="내용을 입력하세요">
-		</div>
-		<div align="right">
-			<button type="button" onclick="selectLike();" id="likebt">
-				<img alt="좋아요" src="" />
-			</button>
-			<button type="button" onclick="selectImage();" id="imagebt">
-				<img alt="이미지 파일 업로드" src="" />
-			</button>
-			<input type="file" id="upload" />
-		</div>
-		<div>
-			<button type="button" id="sendbt">쪽지 보내기</button>
-		</div>
-    	</div>
-    </div>
-    
+
 </body>
 <script>
 var setid = "${cookie.setId.value}";
 	$(".mesen").on("click", function(){
-		console.log("들어왔다.");
-		findAllMessage();
-		
-		
-		
+		var reid=$(this).html();
+		console.log("들어왔다."+reid);
+		findAllMessage(reid);
 	});
+	
+	
 	function setDigit(num, digit) {
 		var zero = "";
 		num = num.toString();
@@ -89,51 +77,81 @@ var setid = "${cookie.setId.value}";
 	}
 	
 	setTimeout(display, 1000);
-
-	$(".sendbt").on("click", function() {
-		var sender = "${cookie.setId.value}";
-		var receiver = $(this).attr("");
-		$.ajax("/direct/insertMessage.do", {
-			"method" : "get",
-			"async" : false,
-			"data" : {
-				"me" : id,
-				"target" : reid,
-				"content" : content,
-				"like" : like,
-				"curtime" : curtime,
-				"scope" : scope
-			}
-		}).done(function(val) {
-			console.log(val);
-			$("#showdm").html(val.result);
-			findAllMessage();
-		})
-		$("#content").val("");
-	});
-	
-	
-	function findAllMessage(){
-		var id = "${cookies.setId.value}";
-		var content = $(this).response.json;
-		var curtime = $(this).response.json;
+	function showMessage(){
+		senderId=[];
+		$(".mesen").each(function(){
+			senderId.push($(this).attr("name"));
+		});
+		console.log(senderId);
+		$.ajax("/direct/senderId.do",{
+				"method" : "get",
+				"async" : true,
+				"data":{
+					"sender" : setid,
+					"target" :senderId
+				}
 		
+		}).done(function(val){
+			
+			
+		});
+		
+		
+	}
+	
+	
+	function findAllMessage(reid){
+		var code;
+		console.log(reid);
 		$.ajax("/direct/showMessage.do", {
 			"method" : "post",
 			"async" : true,
 			"data" : {
-				"id" : id,
-				"reid" : reid,
+				"sneder" : setid,
+				"target" :reid
+			}
+		}).done(function(val) {
+			console.log(val);
+			$("#showdm").html("");
+			$("#showre").html("");
+			for(var i=0; i<val.length; i++){
+				console.log(val[1].content+val.length);
+				if(val[i].sender == setid){
+					$("#showdm").append("<div id="+val[i].sender+"\" style=\"border: 1px solid black;\">"+val[i].sender+":"+val[i].content+"</div>"+"<br/>");
+				}else{
+					$("#showre").append("<div id="+val[i].target+"\" style=\"border: 1px solid black;\">"+val[i].target+":"+val[i].content+"</div>"+"<br/>");
+				}
+				
+			}
+			$("#charBoard").scrollTop();
+			
+	$("#sender").on("change", function() {
+		var content=$(this).val();
+		var scope=0;
+		var like=0;
+		if (content.length == 0) {
+			window.alert("댓글을 작성해주세요.");
+			return;
+		}
+		console.log("채팅을 치자");
+			$("#sender").val("");
+		$.ajax("/direct/insertMessage.do", {
+			"method" : "get",
+			"async" : false,
+			"data" : {
+				"sender" : setid,
+				"target" : reid,
 				"content" : content,
 				"like" : like,
-				"curtime" : curtime,
 				"scope" : scope
 			}
 		}).done(function(val) {
 			console.log(val);
-			
-		});
+			findAllMessage(reid);
+		})
+	});
+  });
 		
-	};
+};
 </script>
 </html>

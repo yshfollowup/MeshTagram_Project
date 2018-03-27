@@ -1,9 +1,7 @@
 package mvc.controller;
 
 import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Map;
-
+import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -38,10 +36,21 @@ public class MessengerController {
 	
 	@RequestMapping(path="/insertMessage.do", produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String insertMessageHandle(@RequestParam(name="dmtxt") Map param) {
+	public String insertMessageHandle(@RequestParam Map param, @CookieValue(name="setId", required=false) String setId) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String str = sdf.format(System.currentTimeMillis());
 		param.put("date", str);
+		System.out.println(param);
+		List<Map> list=fDAO.selectFollwingProfileId(setId);
+
+		
+		/*String[] uuids = UUID.randomUUID().toString().split("-");
+		String key= uuids[0]+"-"+uuids[1];
+		List<String> code=new ArrayList<>();
+		code.add(key);
+		param.put("code", code);*/
+
+		
 		boolean rst = true;
 		if (rst) {
 			Map result = mDAO.insertMessage(param);
@@ -53,8 +62,22 @@ public class MessengerController {
 	
 	@RequestMapping(path="/showMessage.do", produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String showMessageHandle(@RequestParam MultiValueMap<String, String> vmap) {
+	public String showMessageHandle(@RequestParam Map vmap) {
 		List<Map> result = mDAO.findAllMessage(vmap);
+		List<Map> result2 = mDAO.findMessage(vmap);
+		result.addAll(result2);
+		
+		result.sort(new Comparator<Map>() {
+			@Override
+			public int compare(Map o1, Map o2) {
+				Date d1 = (Date) o1.get("date");
+				Date d2 = (Date) o2.get("date");
+				int result = d1.compareTo(d2);
+				return -result;
+			}
+		});
+		System.out.println(result);
+		
 		return gson.toJson(result);
 	}
 /*	@RequestMapping(path="/likebutton.do", produces="application/json;charset=utf-8")
@@ -64,6 +87,15 @@ public class MessengerController {
 		return gson.toJson(result);
 	}
 	*/
+	@RequestMapping(path="/senderId.do", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String senderIdHandle(@RequestParam MultiValueMap<String, String> vmap) {
+		List<Map> result = mDAO.CheckMessge(vmap);
+		
+		
+		return gson.toJson(result);
+	}
+	
 	@RequestMapping(path="/showFollowing.do", produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String showFollowingHandle(@CookieValue(name="setId", required=false) String setId) {
