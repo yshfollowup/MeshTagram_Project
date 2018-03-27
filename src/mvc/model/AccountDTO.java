@@ -8,7 +8,8 @@ public class AccountDTO {
 	private String name;
 	private String phone;
 	private String profile;
-	private String nick;
+	private int birth;
+	private String gender;
 	private String intro;
 	private int scope;
 	
@@ -22,14 +23,15 @@ public class AccountDTO {
 		this.email = email;
 		this.name = name;
 	}
-	public AccountDTO(String id, String pass, String email, String name, String phone, String profile, String nick, String intro, int scope) {
+	public AccountDTO(String id, String pass, String email, String name, String phone, String profile, int birth, String gender, String intro, int scope) {
 		this.id = id;
 		this.pass = pass;
 		this.email = email;
 		this.name = name;
 		this.phone = phone;
 		this.profile = profile;
-		this.nick = nick;
+		this.birth = birth;
+		this.gender = gender;
 		this.intro = intro;
 		this.scope = scope;
 	}
@@ -71,11 +73,17 @@ public class AccountDTO {
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
-	public String getNick() {
-		return nick;
+	public int getBirth() {
+		return birth;
 	}
-	public void setNick(String nick) {
-		this.nick = nick;
+	public void setBirth(int birth) {
+		this.birth = birth;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 	public String getIntro() {
 		return intro;
@@ -92,7 +100,7 @@ public class AccountDTO {
 	@Override
 	public String toString() {
 		return "\n AccountDTO [id=" + id + ", pass=" + pass + ", email=" + email + ", name=" + name + ", phone=" + phone
-				+ ", profile=" + profile + ", nick=" + nick + ", intro=" + intro + ", scope=" + scope + "]\n\n";
+				+ ", profile=" + profile + ", birth=" + birth + ", gender=" + gender + ", intro=" + intro + ", scope=" + scope + "]\n\n";
 	}
 	
 }

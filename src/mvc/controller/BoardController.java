@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
+import mvc.model.AccountDTO;
 import mvc.service.AccountDAO;
 import mvc.service.FollowDAO;
 import mvc.service.PostDAO;
@@ -81,11 +82,12 @@ public class BoardController {
 			List<String> result2 = (List) result.get("uploadResult");
 				map.put("image", result2);
 				System.out.println(result2);
-			//map.put("path", path);
 			map.put("time", new Date());
 			map.put("comment", commList);
 			map.put("tags", tagList);
 			map.put("annotations", annoList);
+			AccountDTO profile = (AccountDTO) aDAO.selectProfile(id);
+			map.put("profile", profile.getProfile());
 			System.out.println(map);
 			pDao.insertImage(map);
 		}

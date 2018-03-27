@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<html  class="js logged-in client-root">
+<html class="js logged-in client-root">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -52,8 +52,6 @@
 	-webkit-order: 4;
 	-ms-flex-order: 4;
 	order: 4;
-	
-
 }
 
 ._2v79o {
@@ -109,7 +107,11 @@ supports
 
 
 
+
+
  
+
+
 
 
 
@@ -121,11 +123,19 @@ margin-bottom
 
 
 
+
+
+
+
 :env(safe-area-inset-bottom)
 
 
 
+
+
  
+
+
 
 
 
@@ -138,11 +148,19 @@ _evlcw
 
 
 
+
+
+
+
 :
 
 
 
+
+
  
+
+
 
 
 
@@ -150,7 +168,11 @@ not
 
 
 
+
+
  
+
+
 
 
 
@@ -160,7 +182,11 @@ not
 
 
 
+
+
 	
+
+
 
 
 
@@ -172,11 +198,19 @@ margin-bottom
 
 
 
+
+
+
+
 :
 
 
 
+
+
  
+
+
 
 
 
@@ -187,8 +221,16 @@ env
 
 
 
+
+
+
+
 (
 safe-area-inset-bottom
+
+
+
+
 
 
 
@@ -896,7 +938,8 @@ a:active {
 			<div class="_28rsa">
 				<ul class="_mleeu">
 					<li><a class="_fvhml _t0stc" href="/mypage/edit.do">프로필 편집</a></li>
-					<li><a class="_fvhml _etlo6" href="/mypage/pass.do">비밀번호 변경</a></li>
+					<li><a class="_fvhml _etlo6" href="/mypage/pass.do">비밀번호
+							변경</a></li>
 					<li><a class="_fvhml _etlo6" href="/accounts/comment_filter/">댓글</a></li>
 					<li><a class="_fvhml _etlo6" href="/accounts/contact_history/">연락처
 							관리</a></li>
@@ -904,31 +947,33 @@ a:active {
 				<article class="_75z9k">
 					<div class="_1eg8c">
 						<div class="_62ai2 _5g4e2">
-							<c:choose>
-								<c:when test="${empty  aDTO.profile}">
-									<form action="/mypage/uploadProfile.do" method="post" enctype="multipart/form-data">
-									<button class="_3xjwv" onclick="uploadAction();" title="프로필 사진 바꾸기">
-										<img alt="프로필 사진 바꾸기" class="_cuacn" src="/images/insta.jpg"
-											id="preview">${aDTO.id }
-									</button>
-										<div>
-											<input type="file" accept="image/jpeg" id="photo" name="profile" class="_l8al6">
-										</div>
-									</form>
-								</c:when>
-								<c:otherwise>
-									<span class="_3xjwv"> <img
-										src="${applicationScope.path }${aDTO.image}" class="_cuacn" />
-									</span>
-								</c:otherwise>
-							</c:choose>
+							<form id="form1" action="/mypage/uploadProfile.do" method="post"
+								enctype="multipart/form-data">
+								<input type="file" accept="image/*" id="photo" name="profile"
+									class="_l8al6" style="display: none">
+								<button type="button" class="_3xjwv" onclick="$('#photo').click();"
+									title="프로필 사진 바꾸기">
+									<c:choose>
+										<c:when test="${empty  aDTO.profile}">
+											<img alt="프로필 사진 바꾸기" class="_cuacn" src="/images/insta.jpg"
+												id="preview">${aDTO.id }
+										</c:when>
+										<c:otherwise>
+											<span class="_3xjwv"> <img id="preview"
+												src="${applicationScope.path }${aDTO.profile}" class="_cuacn" />
+											</span>
+										</c:otherwise>
+									</c:choose>
+								</button>
+							</form>
 						</div>
 						<div class="_ax54t">
 							<h1 class="_gvhl0" title="id">${aDTO.id }</h1>
-							<a class="_5aav8" href="javascript:" id="confirm">프로필 사진 수정</a>
+							<button type="button" class="_5aav8" id="confirm">적용</button>
 						</div>
 					</div>
-					<form class="_gzffa" action="/mypage/edit.do" method="get">
+					<form id="form2" class="_gzffa" action="/mypage/edit.do"
+						method="post">
 						<div class="_e1xik">
 							<aside class="_kx10g">
 								<label for="pepName">이름</label>
@@ -986,15 +1031,24 @@ a:active {
 						</div>
 						<div class="_e1xik">
 							<aside class="_kx10g">
+								<label for="pepBirth">나의 생일</label>
+							</aside>
+							<div class="_cd2n1">
+								<input type="date" class="_4abhr _o716c" aria-required="false"
+									id="pepBirth" value="${aDTO.birth }" name="birth">
+							</div>
+						</div>
+						<div class="_e1xik">
+							<aside class="_kx10g">
 								<label for="pepGender">성별</label>
 							</aside>
 							<div class="_cd2n1">
 								<div class="_sx05v">
 									<span class="_4v6lq _8scx2 coreSpriteChevronDownGrey"></span> <select
-										id="pepGender" class="_nxkvc _fx9to" name="gender" >
-										<option value="1">남성</option>
-										<option value="2">여성</option>
-										<option value="3" selected="selected">선택 안 함</option>
+										id="pepGender" class="_nxkvc _fx9to" name="gender">
+										<option value="남">남성</option>
+										<option value="여">여성</option>
+										<option value="Unknown" selected="selected">선택 안 함</option>
 									</select>
 								</div>
 							</div>
@@ -1022,8 +1076,8 @@ a:active {
 							</aside>
 							<div class="_cd2n1">
 								<div class="_eqmpg">
-									<span class="_ov9ai"><button
-											class="_qv64e _gexxb _r9b8f _jfvwv" disabled="">적용하기</button></span>
+									<span class="_ov9ai" ><button type="submit" id="bioBt"
+											class="_qv64e _gexxb _r9b8f _jfvwv">적용하기</button></span>
 								</div>
 							</div>
 						</div>
@@ -1040,48 +1094,33 @@ a:active {
 
 
 	<script>
-	//프로필 사진 업로드
-	$(document).ready(function() {
-		$("#photo").on("submit", handleImgSelect);
-	});
+		//프로필 사진 변경
+		$("#confirm").click(function(){
+			$("#form1").submit();
+			window.alert("프로필 사진이 변경되었습니다!");
+		});
 	
-	function uploadAction() {
-		$("#photo").trigger("click");
-	}
-	
-	function handleImgSelect(e) {
-		var file = e.target.files[0];
-		if (!file.type.match("image.*")) {
-			window.alert("이미지파일만 선택할 수 있습니다!");
-			return;
-		}else if (e.target.files.length > 1) {
-			window.alert("이미지 한 장만 선택해주세요!");
-			return;
-		}
+		$("#photo").change(function(e){
+			var file = e.target.files[0];
+			if (!file.type.match("image.*")) {
+				window.alert("이미지파일만 선택할 수 있습니다!");
+				return;
+			}
+			var reader = new FileReader();
+			console.log(reader);
+			reader.onload = function(e) {
+				$("#preview").attr("src", e.target.result);
+			}
+			reader.readAsDataURL(file);
+		});
 		
-		var reader = new FileReader();
-		console.log(reader);
-		reader.onload = function(e) {
-			$("#preview").attr("src", e.target.result);
-			window.alert("변경 완료");
-			//var formData = new FormData();
-			//formData.append("file", file);
-			//$.ajax({
-			//	"url" : "/mypage/uploadProfile.do",
-			//	"method" : "post",
-			//	"data" : formData,
-			//	"contentType" : false,
-			//	"processData" : false,
-			//	success : function(result) {
-			//		window.alert("프로필 사진이 변경되었습니다!");
-			//	},
-			//	error : function(result) {
-			//		window.alert("프로필 사진 변경이 실패하였습니다..");
-			//	}
-			//});
-		}
-		reader.readAsDataURL(file);
-	}
+		//기타 사항 변경
+		$("#bioBt").click(function() {
+			$("#form2").submit();
+			window.alert("계정 정보가 변경되었습니다!");
+		});
+		
+		
 	</script>
 </body>
 </html>

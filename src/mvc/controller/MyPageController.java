@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import mvc.model.AccountDTO;
 import mvc.service.AccountDAO;
+import mvc.service.ExtractService;
 import mvc.service.FollowDAO;
 import mvc.service.MessengerDAO;
 import mvc.service.PostDAO;
@@ -51,6 +52,8 @@ public class MyPageController {
 	MessengerDAO mDAO;
 	@Autowired
 	UploadService2 us2;
+	@Autowired
+	ExtractService es;
 	@Autowired
 	ServletContext ctx;
 	
@@ -168,10 +171,13 @@ public class MyPageController {
 		
 		return "redirect:/mypage/following.do";
 	}
+	
+	//기존의 계정 정보 넘길 때
 	@RequestMapping(path="/edit.do", method=RequestMethod.GET)
-	public String editHandle(ModelMap modelMap, @CookieValue(name="setId", required=false) String setId) {
+	public String editHandle(@RequestParam Map param, ModelMap modelMap, @CookieValue(name="setId", required=false) String setId) {
 		System.out.println("[SERVER]: login success"+setId);
 		String id = setId;
+		
 		//계정 정보
 		AccountDTO aDTO = aDAO.selectOneAccountre(id);
 		modelMap.put("aDTO", aDTO);
@@ -179,25 +185,50 @@ public class MyPageController {
 		System.out.println("[SERVER]: login success");
 		return "mypage_edit";
 	}
+	
+	//수정한 계정 정보 넘길 떄
 	@RequestMapping(path="/edit.do", method=RequestMethod.POST)
 	public String editUpdateHandle(@RequestParam Map param, @CookieValue(name="setId", required=false) String setId, ModelMap modelMap) {
 		System.out.println("[SERVER]: login success"+setId);
 		System.out.println(param.get("name") + "/" + param.get("website") + "/"
-							+ param.get("bio") + "/" + param.get("email") + "/"
-							+ param.get("phone") + "/" + param.get("gender") + "/"
-							+ param.get("privateAccount"));
-		String id = setId;
-		//계정 정보
-		param.put("id", id);
-		int r = aDAO.updateAccount(param);
+				+ param.get("bio") + "/" + param.get("email") + "/"
+				+ param.get("phone") + "/" + param.get("birth") + "/" 
+				+ param.get("gender") + "/" + param.get("privateAccount"));
 		
-		AccountDTO aDTO = aDAO.selectOneAccountre(id);
-		modelMap.put("aDTO", aDTO);
+		if (param != null) {
+			String id = setId;
+			
+			//넘어온 생일 처리하기
+			String birth = (String) param.get("birth");
+			int year = es.extractYear(birth);
+			int month = es.extractMonth(birth);
+			int day = es.extractDay(birth);
+			
+			System.out.println(year);
+			param.put("birth", year);
+			
+			//공개범위(scope) 처리
+			String flag = (String) param.get("privateAccount");
+			if (flag == "on") {
+				param.put("privateAccount", 1);
+			}
+			
+			//계정 정보
+			param.put("id", id);
+			
+			int r = aDAO.updateAccount(param);
+			if (r > 0) {
+				AccountDTO aDTO = aDAO.selectOneAccountre(id);
+				modelMap.put("aDTO", aDTO);			
+			}
+			
+		}
 		
 		System.out.println("[SERVER]: login success");
 		return "redirect:/mypage/index.do";
 	}
 
+	//기존의 비밀번호 정보 넘길 때
 	@RequestMapping(path="/pass.do", method=RequestMethod.GET)
 	public String passHandle(ModelMap modelMap, @CookieValue(name="setId", required=false) String setId) {
 		System.out.println("[SERVER]: login success"+setId);
@@ -210,27 +241,39 @@ public class MyPageController {
 		return "mypage_pass";
 	}
 	
+	//수정한 비밀번호 정보 넘길 때
+	@RequestMapping(path="/pass.do", method=RequestMethod.POST)
+	public String passUpdateHandle(@RequestParam Map param, 
+			ModelMap modelMap, @CookieValue(name="setId", required=false) String setId) {
+		System.out.println("[SERVER]: login success"+setId);
+		String id = setId;
+		//계정 정보
+		param.put("id", id);
+		int r = aDAO.updatePassword(param);
+		if (r > 0) {
+			AccountDTO aDTO = aDAO.selectOneAccountre(id);
+			modelMap.put("aDTO", aDTO);			
+		}
+		System.out.println("[SERVER]: login success");
+		return "redirect:/mypage/index.do";
+	}
+	
 	@RequestMapping(path="/uploadProfile.do", method=RequestMethod.POST)
-	public String uploadProfileHandle(@RequestParam(name="profile") MultipartFile file, HttpServletRequest req, 
+	public String uploadProfileHandle(@RequestParam(name="profile") MultipartFile file,
 			@CookieValue(name="setId", required=false) String setId, ModelMap modelMap) throws Exception {
 		System.out.println("[SERVER]:프로필 사진 넘겼다"+setId);
 		System.out.println("얘가 받아야한다."+file);
 		String id = setId;
-		List result = us2.uploadImage(file);
-		String fileName = (String) result.get(0);
-		//SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-		//String str = sdf.format(System.currentTimeMillis());
+		File target = us2.uploadImage(file);
+		String fileName = "/" + target.getName();
+		System.out.println(fileName);
 		Map param = new HashMap<>();	
-		//String fileName = 
-		//		str+"."+ FilenameUtils.getExtension(file.getOriginalFilename());
 		param.put("id", id);
 		param.put("profile", fileName);
-		System.out.println(fileName);
 		int r = aDAO.updateProfile(param);
 		if (r > 0) {
 			AccountDTO aDTO = aDAO.selectOneAccountre(id);
 			modelMap.put("aDTO", aDTO);	
-			modelMap.put("path", ctx.getRealPath(fileName));
 		}
 		return "redirect:/mypage/index.do";
 	}

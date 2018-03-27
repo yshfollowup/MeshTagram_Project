@@ -2994,8 +2994,17 @@ transform
 				<div class="_qdmzb">
 					<div class="_62ai2">
 						<button class="_3xjwv" onclick="uploadAction();" title="프로필 사진 바꾸기">
-							<img alt="프로필 사진 바꾸기" class="_cuacn" src="/images/insta.jpg"
-								id="preview">${aDTO.id }
+						<c:choose>
+							<c:when test="${empty  aDTO.profile}">
+								<img alt="프로필 사진 바꾸기" class="_cuacn" src="/images/insta.jpg"
+									id="preview">${aDTO.id }
+							</c:when>
+							<c:otherwise>
+								<span class="_3xjwv"> <img id="preview"
+									src="${applicationScope.path }${aDTO.profile}" class="_cuacn" />
+								</span>
+							</c:otherwise>
+						</c:choose>
 						</button>
 						<div>
 							<form action="/mypage/uploadProfile.do" method="post" enctype="multipart/form-data">
@@ -3095,35 +3104,6 @@ transform
 			$("all-screen").attr("aria-hidden", false)
 		});
 		
-		//프로필 사진 업로드
-		$(document).ready(function() {
-			$("#photo").on("change", handleImgSelect);
-		}).done(function() {
-			var confirm = window.confirm("프로필 사진을 변경하시겠습니까?");
-			if (confirm) {
-				window.alert("성공적으로 변경되었습니다!");
-			}
-		});
-		
-		function uploadAction() {
-			$("#photo").trigger("click");
-		}
-		
-		function handleImgSelect(e) {
-			var file = e.target.files[0];
-			if (!file.type.match("image.*")) {
-				window.alert("이미지파일만 선택할 수 있습니다!");
-				return;
-			}
-			
-			var reader = new FileReader();
-			console.log(reader);
-			reader.onload = function(e) {
-				$("#preview").attr("src", e.target.result);
-			}
-			reader.readAsDataURL(file);
-			
-		}
 	</script>
 </body>
 </html>

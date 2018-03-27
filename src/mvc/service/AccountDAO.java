@@ -238,14 +238,11 @@ public class AccountDAO {
 	}
 	
 	//비밀번호 변경
-	public int updatePassword(String id, String pass) {
-		Map map = new HashMap();
-			map.put("id", id);
-			map.put("pass", pass);
+	public int updatePassword(Map param) {
 		SqlSession session = factory.openSession();
 		int r = 0;
 		try {
-			r = session.update("account.updatePassword", map);
+			r = session.update("account.updatePassword", param);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
