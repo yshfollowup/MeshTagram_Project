@@ -3068,7 +3068,6 @@ transform
 	</article>
 	</main>
 
-
 	<!-- Modal -->
 		<div id="myModal" class="modal fade" role="dialog">
 		<div class="_pfyik" role="dialog">

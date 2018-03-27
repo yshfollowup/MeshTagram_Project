@@ -3053,12 +3053,10 @@ safe-area-inset-bottom
 									</div>
 								</div>
 
-
-
 								<section class="_km7ip _ti7l3 parent writereply">
 									<form class="_b6i0l">
 										<textarea  placeholder="댓글 달기..."
-											id="reply_${obj._id }" name="${obj.id }" class="reply _bilrf"
+											id="reply_${obj._id }" name="${obj._id }" class="reply _bilrf"
 											aria-label="${obj._id }" autocomplete="off" autocorrect="off"></textarea>
 									</form>
 								</section>

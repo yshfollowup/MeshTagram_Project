@@ -2,17 +2,73 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-	<div class="title" align="center" style="height: 150px; font-size: 80px" >
+<html>
+<head>
+<title>Meshtagram</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="robots" content="noimageindex, noarchive">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#000000">
+<meta id="viewport" name="viewport"
+	content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover">
+
+<style>
+body{
+background-color: #fafafa;
+
+}
+
+._2e96w {
+	border-top: 1px solid #efefef;
+	border-bottom: 1px solid #efefef;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	-ms-flex-direction: row;
+	flex-direction: row;
+	font-size: 20px;
+	font-weight: 600;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	letter-spacing: 1px;
+	text-align: center;
+	margin-bottom : 30px;
+}
+._2e96w, a._t7nuu, a._t7nuu:visited {
+	color: #999
+}
+
+._2e96w, ._t7nuu, a._sb9lc, a._sb9lc:visited, a._t7nuu, a._t7nuu:visited
+	{
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center
+}
+._dis{
+	display : flex;
+}
+</style>
+</head>
+<body>
+	<div style="height : 70px;"></div>
+	<div class="title" align="center" style=" font-size: 50px;">
 		${title}
-	<div align="center">
-	<small>
-		${count }
-	</small>
+	<div align="center" style="margin : 20 0">
+	<div style="font-size : 20px;">${count }건이 검색되었습니다.</div>
 	</div>
 	</div>
-	<div align="left" style="min-height: 80px;"></div>
-<div align="left" style="min-height: 80px;">게시물</div>
+	
+<div align="left" class="_2e96w">게시물</div>
 <div align="center" >
+	<div class="_dis">
 		<c:forEach var="obj" items="${tagList}">
 		<p style="float: left; width: 33%;">
 				<small><c:forEach items="${obj.tags }" var="tag">
@@ -29,8 +85,8 @@
 			</p>
 		</c:forEach>
 	</div>
-	
-	
+</div>
+</body>	
 <script>
 var setid = "${cookie.setId.value}";
 likeList();
@@ -95,3 +151,7 @@ $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();   
 });
 </script>
+
+
+
+</html>

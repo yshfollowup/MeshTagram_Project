@@ -135,53 +135,12 @@ supports
 
 
 
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
 (
 margin-bottom
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 :env(safe-area-inset-bottom)
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
 
 
 
@@ -191,34 +150,7 @@ _evlcw
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 :
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
 
 
 
@@ -226,22 +158,9 @@ not
 
 
 
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
 (
 ._b696q
+
 
 
 
@@ -260,8 +179,11 @@ not
 
 
 
+
 ){
 margin-bottom
+
+
 
 
 
@@ -287,7 +209,9 @@ margin-bottom
 
 
 
+
  
+
 
 
 
@@ -313,8 +237,12 @@ env
 
 
 
+
+
 (
 safe-area-inset-bottom
+
+
 
 
 
@@ -2969,17 +2897,88 @@ safe-area-inset-bottom
 	width: 100%
 }
 </style>
+<style>
+._h9luf, ._pws6z {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	-ms-flex-direction: row;
+	flex-direction: row;
+}
 
+._h9luf {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding-left: 0px;
+}
+
+._bnq48 {
+	font-size: 16px;
+	margin-right: 40px
+}
+
+._bnq48:first-child {
+	margin-left: 0
+}
+
+._bnq48:last-child {
+	margin-right: 0
+}
+
+._t98z6, ._t98z6:active, ._t98z6:hover, ._t98z6:visited {
+	color: inherit
+}
+
+._t98z6 {
+	font-size: 18px;
+}
+
+ul {
+	list-style-type: none;
+}
+
+._dcj9f {
+	background: 0 0;
+	border: 0;
+	cursor: pointer;
+	height: 36px;
+	outline: 0;
+	overflow: hidden;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 2
+}
+
+._dcj9f::before {
+	color: #fff;
+	content: '\00D7';
+	display: block;
+	font-size: 36px;
+	font-weight: 600;
+	line-height: 36px;
+	padding: 0;
+	margin: 0
+}
+</style>
 
 
 </head>
+
+
+
 <body>
 	<div style="height: 70px;"></div>
 	<main class="_8fi2q _2v79o" role="main">
 	<section class="_owark _gsusx">
-		<div class="_havey" style="margin-right:20px; border-right:1px solid #BDBDBD; min-width:750px;">
-		
-		
+		<div class="_havey"
+			style="margin-right: 20px; border-right: 1px solid #BDBDBD; min-width: 750px;">
+
+
 			<div style="float: left; width: 40%">
 				<c:choose>
 					<c:when test="${empty aDTO.profile}">
@@ -2996,26 +2995,34 @@ safe-area-inset-bottom
 			</div>
 			<div>
 				<section>
-					<div style="font-size: 50px;">${aDTO.id}</div>
-					<input type="button" id="follow" class="follow" value="팔로우"
-						name="${aDTO.id }" />
+					<div
+						style="text-overflow: ellipsis; font-size: 32px; line-height: 40px;">${aDTO.id}</div>
+					<input type="button" id="follow" class="follow btn btn-info"
+						value="팔로우" name="${aDTO.id }"
+						style="height: 20px; padding: 0 12px;" />
 					<button type="button" id="bt" value="${applicationScope.path }"
 						name="${aDTO.id }" class="btn btn-info" data-toggle="collapse"
-						data-target=".collapse">추천계정</button>
+						data-target=".collapse" style="height: 20px; padding: 0 12px;">추천계정</button>
 
 
-					<div>${aDTO.intro }</div>
-					<div>
-						게시물 ${fn:length(myPost)}
-						<button type="button" class="btn btn-info btn-lg"
-							data-toggle="modal" data-target="#myModal1">팔로워
-							${fn:length(follower )}</button>
-						<button type="button" class="btn btn-info btn-lg"
-							data-toggle="modal" data-target="#myModal2">
-							팔로우${fn:length(following)}</button>
+					<div style="margin: 10px 0;">${aDTO.intro }</div>
+
+					<div style="margin-top: 20px;">
+						<ul class="_h9luf">
+							<li class="_bnq48"><span class="_t98z6">게시물${fn:length(myPost) }
+							</span></li>
+							<li class="_bnq48"><a class="_t98z6" data-toggle="modal"
+								data-target="#myModal1"
+								style="cursor: hand; text-decoration: none;">팔로워${fn:length(follower) }</a></li>
+							<li class="_bnq48"><a class="_t98z6" data-toggle="modal"
+								data-target="#myModal2"
+								style="cursor: hand; text-decoration: none;">팔로우${fn:length(following) }</a></li>
+						</ul>
 					</div>
+
 				</section>
 			</div>
+
 			<div style="min-height: 80px;"></div>
 			<div id="demo" class="collapse">추천계정</div>
 			<div align="center" style="min-height: 100px;"></div>
@@ -3318,10 +3325,11 @@ safe-area-inset-bottom
 		<div id="myModal1" class="modal fade" role="dialog">
 			<div class="modal-dialog">
 				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header">
+				<div class="modal-content"
+					style="width: 50%; margin: 0 auto; background-color: rgba(255, 255, 255, 0.9)">
+					<div class="modal-header" style="width: 100%;">
 						<c:forEach var="obj" items="${follower }">
-							<p style="float: left; width: 25%;">
+							<div style="float: left; width: 90%; margin: 10 20;">
 								<c:choose>
 									<c:when test="${empty obj.profile }">
 										<img src="/images/insta.jpg"
@@ -3334,22 +3342,26 @@ safe-area-inset-bottom
 									</c:otherwise>
 								</c:choose>
 								<a href="/search.do?id=${obj.id}" name="id">${obj.id }</a> <input
-									type="button" name="${obj.id }" value="팔로우" class="follower" />
-							</p>
+									type="button" name="${obj.id }" value="팔로dn"
+									class="follower btn btn-info"
+									style="height: 20px; padding: 0 12px; float: right;" />
+							</div>
 						</c:forEach>
 					</div>
 				</div>
 			</div>
+			<button class="_dcj9f" data-dismiss="modal">&times;</button>
 		</div>
 
 		<!-- Modal -->
 		<div id="myModal2" class="modal fade" role="dialog">
 			<div class="modal-dialog">
 				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header">
+				<div class="modal-content"
+					style="width: 50%; margin: 0 auto; background-color: rgba(255, 255, 255, 0.9)">
+					<div class="modal-header" style="width: 100%;">
 						<c:forEach var="obj" items="${following }">
-							<p style="float: left; width: 25%;">
+							<div style="float: left; width: 90%; margin: 10 20;">
 								<c:choose>
 									<c:when test="${empty obj.profile }">
 										<img src="/images/insta.jpg"
@@ -3362,12 +3374,15 @@ safe-area-inset-bottom
 									</c:otherwise>
 								</c:choose>
 								<a href="/search.do?id=${obj.id}" name="id">${obj.id }</a> <input
-									type="button" name="${obj.id }" value="팔로잉" class="follower" />
-							</p>
+									type="button" name="${obj.id }" value="팔로잉"
+									class="follower btn btn-info"
+									style="height: 20px; padding: 0 12px; float: right;" />
+							</div>
 						</c:forEach>
 					</div>
 				</div>
 			</div>
+			<button class="_dcj9f" data-dismiss="modal">&times;</button>
 		</div>
 
 		<!-- 사이드 페이지 -->

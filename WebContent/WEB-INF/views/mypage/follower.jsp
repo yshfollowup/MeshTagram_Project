@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div style="height:70px;"></div>
 
-<div align="center" style="min-hight: 490px" aria-hidden="true" id="screen1">
+<div align="center" style="min-height: 490px" aria-hidden="true" id="screen1">
 	<c:forEach var="obj" items="${followerJoin }">
 		<p style="float: left; width: 25%;">
 			<c:choose>
@@ -19,6 +19,7 @@
 		</p>
 	</c:forEach>
 </div>
+
 <script>
 	$(".follower").click(function() {
 		console.log("팔로우 들어왔다.")
