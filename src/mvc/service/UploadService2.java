@@ -21,13 +21,13 @@ public class UploadService2 {
 	@Autowired
 	PostDAO pDAO;
 	
-	public List<String> uploadImage(MultipartFile file) {
+	public File uploadImage(MultipartFile file) {
 		Boolean rst = true;
 		final long sizeLimit = 1024 * 1024 * 10;
 		List<String> result = new ArrayList<>();
 		Map<String, Object> map = new LinkedHashMap<>();
 		if (file == null) {
-			return result;
+			return null;
 		}
 		File target = null;
 		int i=0;
@@ -41,19 +41,20 @@ public class UploadService2 {
 		String original = file.getOriginalFilename();
 		System.out.println(str);
 		if (size < sizeLimit) {
-			target = new File(path, str + "_" + i++ 
-					+ "." + FilenameUtils.getExtension(original));
-			String targetName = target.getName();
-			result.add("/" + targetName);
+			target = new File(path, str + "." + FilenameUtils.getExtension(original));
+			//String targetName = target.getName();
+			//result.add("/" + targetName);
 			//System.out.println(result);
-			try {
-				file.transferTo(target);
-				rst = true;
-			} catch (Exception e) {
-				rst = false;
+			if(rst) {
+				try {
+					file.transferTo(target);
+					rst = true;
+				} catch (Exception e) {
+					rst = false;
+					e.printStackTrace();
+				}
 			}
 		}
-		
-		return result;
+		return target;
 	}
 }

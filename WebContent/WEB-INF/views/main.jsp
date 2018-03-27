@@ -2929,7 +2929,7 @@ safe-area-inset-bottom
 										style="width: 30px; height: 30px;">
 										<c:choose>
 											<c:when test="${empty obj.profile}">
-												<img src="/images/insta.jpg" class="_rewi8" id="writer">
+												<img src="/images/insta.jpg" class="_rewi8" id="writer">${obj.id }
 											</c:when>
 											<c:otherwise>
 												<img src="${applicationScope.path }${obj.profile}"
@@ -3105,7 +3105,7 @@ safe-area-inset-bottom
 									<img src="/images/insta.jpg" class="_rewi8" id="profile">
 								</c:when>
 								<c:otherwise>
-									<img src="${obj.path }${obj.image}" class="_rewi8" id="profile" />
+									<img src="${applicationScope.path }${aDTO.profile}" class="_rewi8" id="profile" />
 								</c:otherwise>
 							</c:choose> ${aDTO.id }
 						</a>
