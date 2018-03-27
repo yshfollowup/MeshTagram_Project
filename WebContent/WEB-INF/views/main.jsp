@@ -3013,8 +3013,8 @@ safe-area-inset-bottom
 										<span class="_8scx2 coreSpriteHeartFull">좋아요취소</span>
 									</a> <a class="_p6oxf _6p9ga rebt" role="button" name="${obj._id }">
 										<span class="_8scx2 coreSpriteComment">댓글 달기</span>
-									</a> <a class="_mpkky _et4ho" href="#" role="button"
-										aria-disabled="false"> <span
+									</a> <a class="_mpkky _et4ho mark" href="#" role="button"
+										aria-disabled="false" name="${obj._id }" id="mark_"${obj._id }> <span
 										class="_8scx2 coreSpriteSaveOpen">저장</span>
 									</a>
 								</section>
@@ -3158,6 +3158,25 @@ safe-area-inset-bottom
 	</section>
 
 	<script type="text/javascript" src="/js/custom.js"></script> <script>
+		$(".mark").on("click", function(){
+			console.log("좋아요 들어왔다");
+			var reid = "${cookie.setId.value}";
+			var boardid = $(this).attr("name");
+			var bt = $("#mark"+boardid).attr("name");
+			console.log(bt+"구분자"+boardid+"아이디"+"저장");
+				$.ajax("/markBoard.do", {
+					"method" : "get",
+					"async" : true,
+					"data" : {
+						"boardId" : boardid,
+						"id" : reid,
+						"mark": "저장"
+					}
+				}).done(function(val){
+					console.log("저장이 성공적");
+				});
+		});
+		
 		$(".show").on("click", function() {
 			console.log($(this).attr("aria-expanded"));
 			if ($(this).attr("aria-expanded") == "false") {

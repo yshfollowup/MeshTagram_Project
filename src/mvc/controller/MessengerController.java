@@ -44,11 +44,9 @@ public class MessengerController {
 		List<Map> list=fDAO.selectFollwingProfileId(setId);
 
 		
-		/*String[] uuids = UUID.randomUUID().toString().split("-");
+		String[] uuids = UUID.randomUUID().toString().split("-");
 		String key= uuids[0]+"-"+uuids[1];
-		List<String> code=new ArrayList<>();
-		code.add(key);
-		param.put("code", code);*/
+		param.put("code", key);
 
 		
 		boolean rst = true;
@@ -87,6 +85,8 @@ public class MessengerController {
 		return gson.toJson(result);
 	}
 	*/
+	
+	
 	@RequestMapping(path="/senderId.do", produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String senderIdHandle(@RequestParam MultiValueMap<String, String> vmap) {
@@ -102,7 +102,23 @@ public class MessengerController {
 		List<FollowDTO> result = fDAO.selectFollwing(setId);
 		return gson.toJson(result);
 	}
+	@RequestMapping(path="/updateScope.do", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String UpdateScopeHandle(@RequestParam Map map) {
+		mDAO.UpdateScopeMessage(map);
+		System.out.println("일단업데이트");
+		
+		return  "{result : false}";
+	}
 	
+	@RequestMapping(path="/updateLike.do", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String UpdateLikeHandle(@RequestParam Map map) {
+		mDAO.updateMessageLike(map);
+		System.out.println("일단업데이트");
+		
+		return  "{result : false}";
+	}
 	
 	@RequestMapping(path="/deleteLike.do", produces="application/json;charset=utf-8")
 	@ResponseBody

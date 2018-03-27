@@ -36,6 +36,12 @@ public class ReplyDAO {
 			System.out.println("성공");
 		return true;
 	}
+	public Boolean markBoard(Map param) {
+			template.insert(param,"markBoard");
+			System.out.println("마크 저장 완료");
+
+		return true;
+	}
 	//Insert - 좋아요 
 	public Boolean UpdateLikeReply(Map param ) {
 		List<Map> list = new LinkedList<>();

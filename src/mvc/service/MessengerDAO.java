@@ -65,11 +65,12 @@ public class MessengerDAO {
 	
 	public List<Map> CheckMessge(MultiValueMap<String, String> map) {
 		List<Map> list2 = new LinkedList<>();
-		System.out.println("게시물 받음"+map.get("sneder")+".."+map.get("target[]"));
-		String[] s=map.get("target[]").toString().split(",");
+		System.out.println(map+"게시물 받음"+map.get("sneder[]")+".."+map.get("target")+map.size());
+		String[] s=map.get("sender[]").toString().split(",");
 		for(int i=0; i<map.size(); i++) {
 			String a=s[i];
-			Query query2 = Query.query(Criteria.where("sender").is(s).where("target").in(map.get("sender")));
+			System.out.println("sender 리스트 받음"+a);
+			Query query2 = Query.query(Criteria.where("sender").is(a).where("target").in(map.get("target")));
 			list2.addAll(template.find(query2 ,Map.class, "Messenger"));
 		}
 		System.out.println(list2);
@@ -78,18 +79,20 @@ public class MessengerDAO {
 	
 	//메세지 좋아요 
 	public void updateMessageLike(Map map) {
-		System.out.println(map.get("like"));
-		Query query = new Query(Criteria.where("like").is(map.get("like")));
-		Update update = new Update().set("like", "좋아요");
-		template.updateFirst(query,update , "MeshTaramMessenger");
+		System.out.println(map+"스코프가 들어왔다. 좋아요 버틍");
+		Query query = new Query(Criteria.where("code").in(map.get("oid")));
+		Update update = new Update();
+		update.set("like", "좋아요");
+		template.updateFirst(query,update , "Messenger");
 	}
 	
 	// Scope설정
 	public void UpdateScopeMessage(Map map) {
-		System.out.println(map.get("like"));
-		Query query = new Query(Criteria.where("like").is(map.get("like")));
-		Update update = new Update().set("like", "좋아요");
-		template.updateFirst(query,update , "MeshTaramMessenger");
+		System.out.println(map+"스코프가 들어왔다.");
+		Query query = new Query(Criteria.where("sender").in(map.get("target")).where("target").in(map.get("sender")));
+		Update update = new Update();
+		update.set("scope", "1");
+		template.updateMulti(query,update , "Messenger");
 	}
 	
 	public void deleteMessageLike(Map param) {

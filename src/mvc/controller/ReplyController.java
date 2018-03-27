@@ -178,7 +178,13 @@ public class ReplyController {
 		System.out.println(list2);
 		return gson.toJson(list2);
 	}
-	
+	@RequestMapping(path="/markBoard.do", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String MarkBoardHandle(@RequestParam MultiValueMap<String, String> map) {
+		System.out.println("북마크 리스트 받음"+ map);
+		rDAO.markBoard(map);
+		return gson.toJson(map);
+	}
 	@RequestMapping(path="/delReply.do", produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String ReplydeleteHandle(@RequestParam MultiValueMap<String, String> map) {

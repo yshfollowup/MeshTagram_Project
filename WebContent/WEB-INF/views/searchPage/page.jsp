@@ -3025,7 +3025,7 @@ ul {
 
 			<div style="min-height: 80px;"></div>
 			<div id="demo" class="collapse">추천계정</div>
-			<div align="center" style="min-height: 100px;"></div>
+			<div align="center" style="min-height: 100px;" ></div>
 			<div>
 				<c:forEach var="obj" items="${myPost }">
 					<p style="float: left; width: 33%;">
@@ -3085,7 +3085,7 @@ ul {
 															.done(
 																	function(
 																			val2) {
-
+																			console.log(val2);
 																		for (var i = 0; i < val.length; i++) {
 																			var fbt;
 																			var image = val[i].PROFILE;
@@ -3111,8 +3111,7 @@ ul {
 																			if (cnt2 != 1) {
 																				fbt = "<input  type=\"button\" name="+val[i].TARGET+"\ class=\"follower\" value=\"팔로우\"/>";
 																				$(
-																						"#demo")
-																						.append(
+																						"#demo").append(
 																								"<a href=\"/search.do?id="
 																										+ val[i].TARGET
 																										+ "\">"

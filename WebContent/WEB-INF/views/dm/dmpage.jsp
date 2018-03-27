@@ -21,7 +21,7 @@ a, b {
 				<c:forEach items="${followList }" var="obj">
 					<ul class="nav nav-pills nav-stacked">
 							<li><a href="#${obj.ID }"><span id="${obj.ID}"
-									class="mesen" name="${obj._id }" >${obj.ID }</span></a></li>
+									class="mesen" name="${obj._id }" >${obj.ID }</span><span id="sp_${obj.ID }"></span></a></li>
 					</ul>
 				</c:forEach>
 			<div align="right">
@@ -50,6 +50,7 @@ var setid = "${cookie.setId.value}";
 		console.log("들어왔다."+reid);
 		findAllMessage(reid);
 	});
+	showMessage();
 	
 	
 	function setDigit(num, digit) {
@@ -79,20 +80,30 @@ var setid = "${cookie.setId.value}";
 	setTimeout(display, 1000);
 	function showMessage(){
 		senderId=[];
+		console.log("체크하거라");
 		$(".mesen").each(function(){
-			senderId.push($(this).attr("name"));
+			console.log($(this).attr("id"));
+			senderId.push($(this).attr("id"));
 		});
 		console.log(senderId);
 		$.ajax("/direct/senderId.do",{
 				"method" : "get",
 				"async" : true,
 				"data":{
-					"sender" : setid,
-					"target" :senderId
+					"sender" : senderId,
+					"target" : setid
 				}
 		
 		}).done(function(val){
-			
+			console.log(val);
+			for(var i=0; i<val.length; i++){
+					var a=0;
+				if(val[i].scope == "0"){
+					a++
+					$("#sp_"+val[i].sender).html(" "+a);
+				}
+				
+			}
 			
 		});
 		
@@ -102,6 +113,8 @@ var setid = "${cookie.setId.value}";
 	
 	function findAllMessage(reid){
 		var code;
+		var target;
+			var oid;
 		console.log(reid);
 		$.ajax("/direct/showMessage.do", {
 			"method" : "post",
@@ -115,16 +128,54 @@ var setid = "${cookie.setId.value}";
 			$("#showdm").html("");
 			$("#showre").html("");
 			for(var i=0; i<val.length; i++){
+			var bt="<input class=\"_eszkz _l9yih like\" name=\""+val[i].code+"\" type=\"button\" id=\"like_${obj._id }\">";
 				console.log(val[1].content+val.length);
 				if(val[i].sender == setid){
-					$("#showdm").append("<div id="+val[i].sender+"\" style=\"border: 1px solid black;\">"+val[i].sender+":"+val[i].content+"</div>"+"<br/>");
+					$("#showdm").append("<div id="+val[i].sender+"\" style=\"border: 1px solid black;\">"+val[i].sender+":"+val[i].content+bt+"</button>"+"</div>"+"<br/>");
 				}else{
-					$("#showre").append("<div id="+val[i].target+"\" style=\"border: 1px solid black;\">"+val[i].target+":"+val[i].content+"</div>"+"<br/>");
+					$("#showre").append("<div id="+val[i].sender+"\" style=\"border: 1px solid black;\">"+val[i].sender+":"+val[i].content+bt+"</button>"+"</div>"+"<br/>");
+					target=val[i].sender;
+					console.log(target+"댓그르그");
 				}
-				
 			}
-			$("#charBoard").scrollTop();
-			
+		console.log("타켓팅" + target+"scope업데이트");
+					$.ajax("/direct/updateScope.do", {
+							"method" : "get",
+							"async" :true,
+							"data" :{
+								"sender" :setid,
+								"target" : target
+								
+							}
+				
+						}).done(function(val2){
+							var a=0;
+							console.log("업데이트 ");
+								$("#sp_"+target).html(" ");
+						});
+	$("#charBoard").scrollTop();
+	
+			$(".like").on("click", function(){
+				var oid=$(this).attr("name");
+				console.log(oid);
+
+				$.ajax("/direct/updateLike.do", {
+					"method": "get",
+					"async" : true,
+					"data" : {
+						"sender" : setid,
+						"target" : target,
+						"oid"	: oid
+						
+					}
+				}).done(function(val){
+							
+							
+			});	
+				//====================================================================
+		})
+		
+	});
 	$("#sender").on("change", function() {
 		var content=$(this).val();
 		var scope=0;
@@ -150,7 +201,6 @@ var setid = "${cookie.setId.value}";
 			findAllMessage(reid);
 		})
 	});
-  });
 		
 };
 </script>
