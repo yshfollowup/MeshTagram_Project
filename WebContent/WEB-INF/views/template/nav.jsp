@@ -1982,7 +1982,7 @@ px
 					</div>
 					<div class="_devkn">
 						<div class="_qlijk">
-							<div class="_b28md" style="padding-top : 1px; width:99%;">
+							<div class="_b28md" style="padding-top : 1px;">
 								<a class=" _gvoze" href="/direct/index.do"><img src="/images/plane.png"/></a>
 							</div>
 							<div class="_b28md">
@@ -1993,7 +1993,7 @@ px
 							<div class="_b28md">
 								<a href="#"
 									 role="button" class="btn btn-primary dropdown-toggle _ohbcb _gvoze" style="margin-left: 20px;" data-toggle="dropdown">
-									<img src="/images/heart.png" style="padding-top:2px;"/>
+									<img src="/images/heart.png" style="padding-top:2px;" id="notice"/>
 									<span class="caret">
 									
 									</span></a> 
@@ -2027,6 +2027,22 @@ px
 	</nav>
 
 	<script>
+	
+	$("#notice").on("click", function(){
+		console.log("공지사항 들어왔다.");
+		
+		$.ajax("/noticeBaord.do",{
+			"method" : "get",
+			"async" : true	,
+			"data" : {
+				
+			}
+		}).done(function(val){
+			console.log(val);
+		
+		});
+	});
+	
 		$("#search")
 				.on(
 						"keyup",

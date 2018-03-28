@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -74,21 +75,25 @@ public class BoardController {
 			}
 		}
 		
-			
+		String[] uuids = UUID.randomUUID().toString().split("-");
+		String key= uuids[2]+"-"+uuids[1];
 		if (rst) {
 			Map map = new LinkedHashMap<>();
 			map.put("writer", id);
 			//업로드한 파일의 갯수만큼 uploads에 저장
 			List<String> result2 = (List) result.get("uploadResult");
 				map.put("image", result2);
-				System.out.println(result2);
+				//System.out.println(result2);
 			map.put("time", new Date());
 			map.put("comment", commList);
 			map.put("tags", tagList);
 			map.put("annotations", annoList);
-			AccountDTO profile = (AccountDTO) aDAO.selectProfile(id);
-			map.put("profile", profile.getProfile());
-			System.out.println(map);
+			AccountDTO aDTO = aDAO.selectOneAccountre(id);
+		//	System.out.println(aDTO.getProfile()+"값");
+			map.put("profile", aDTO.getProfile()=="null" ? "null" : aDTO.getProfile());
+			//System.out.println("게시물 이디이"+key);
+			map.put("code", key);
+		//	System.out.println(map);
 			pDao.insertImage(map);
 		}
 		return "insta_main";
