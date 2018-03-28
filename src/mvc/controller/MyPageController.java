@@ -211,7 +211,7 @@ public class MyPageController {
 
 		// 공개범위(scope) 처리하기
 		String flag = (String) param.get("privateAccount");
-		param.put("scope", flag ==null ? 0: 1);
+		param.put("scope", flag == null ? 0 : 1);
 		// 계정 정보
 		param.put("id", id);
 		int r = aDAO.updateAccount(param);

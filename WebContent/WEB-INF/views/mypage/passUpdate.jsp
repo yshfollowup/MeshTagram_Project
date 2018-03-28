@@ -32,7 +32,7 @@
 		</div>
 		<div class="_ax54t">
 			<h1 class="_gvhl0" title="${aDTO.id }">aDTO.id</h1>
-			<a class="_5aav8" href="#">프로필 사진 수정</a>
+			<button type="button" class="_5aav8" id="uploadBt">적용</button>
 		</div>
 		<div>
 			<form id="form1" action="/mypage/uploadProfile.do"
@@ -89,7 +89,7 @@
 
 <script> 
 	//비밀번호 변경
-		
+
 	$("#confirm").keypress(function() {
 		$("#sendBt").prop("disabled", false);
 	});
@@ -105,28 +105,29 @@
 		
 		if (oldPass == newPass) {
 			window.alert("같은 비밀번호로 변경할 수 없습니다.");
-			return;
-		} 
-		if (oldPass != $("#hideOp").attr("value")) {
+			
+		} else if (oldPass != $("#hideOp").attr("value")) {
 			window.alert("이전 비밀번호가 일치하지 않습니다.");
-			return;
-		} 
-		if ((!newPass.match("[A-Za-z0-9]+")) && (newPass.length < 8)) {
+		
+		} else if ((!newPass.match("[A-Za-z0-9]+")) || 
+					(newPass.match("[0-9]")) || 
+					(newPass.match("[A-Za-z]+")) ||
+					(newPass.length < 8)) {
 			window.alert("비밀번호는 영문+숫자를 조합하여 8자리 이상으로 변경해주십시오.");
-			return;
-		} 
-		if (confirm != newPass) {
+			
+		} else if (confirm != newPass) {
 			window.alert("확인된 비밀번호가 틀립니다.");
-			return;
+
+		} else {
+			$("#form2").submit();
+			window.alert("비밀번호가 변경되었습니다!");
 		}
 		
-		$("#form2").submit();
-		window.alert("비밀번호가 변경되었습니다!");
 		
 	});
 	
 	//프로필 사진 변경
-	$("#Bt").click(function(){
+	$("#uploadBt").click(function(){
 		$("#form1").submit();
 		window.alert("프로필 사진이 변경되었습니다!");
 	});

@@ -1050,10 +1050,19 @@ a:active {
 							</aside>
 							<div class="_cd2n1">
 								<div class="_6dodw">
-									<label class="_l67zd" for="pepPrivateAccount"><input
-										type="checkbox" class="_snyzf" id="pepPrivateAccount"
-										value="on" name="privateAccount">
-										<div class="_1u1jc"></div></label>
+									<label class="_l67zd" for="pepPrivateAccount">
+									<c:choose>
+										<c:when test="${aDTO.scope eq 1}">
+											<input type="checkbox" checked="checked" class="_snyzf" id="pepPrivateAccount"
+											value="on" name="privateAccount">
+										</c:when>
+										<c:otherwise>
+											<input type="checkbox" class="_snyzf" id="pepPrivateAccount"
+											value="on" name="privateAccount">
+										</c:otherwise>
+									</c:choose>
+									<div class="_1u1jc"></div>
+									</label>
 								</div>
 								<label class="_aqsz9" for="pepPrivateAccount">계정이 비공개
 									상태인 경우 회원님이 승인한 사람만 Meshtagram에서 회원님의 사진과 동영상을 볼 수 있습니다. 기존
