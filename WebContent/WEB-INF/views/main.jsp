@@ -3005,16 +3005,16 @@ safe-area-inset-bottom
 							</div>
 							<div class="_ebcx9">
 								<section class="_hmd6j _8oo9w">
-									<a class="_eszkz _l9yih like" name="${obj._id }" role="button" title="${obj.id }"
-										id="like_${obj._id }"> <span
-										class="_8scx2 coreSpriteHeartOpen" id="likespan_${obj._id }" >좋아요</span>
-									</a> <a class="_eszkz _l9yih dislike ${obj.id }" name="${obj._id }"
-										role="button" id="dislike_${obj._id }" style="display: none;">
+									<a class="_eszkz _l9yih like" name="${obj.code }" role="button" title="${obj.id }"
+										id="like_${obj.code }"> <span
+										class="_8scx2 coreSpriteHeartOpen" id="likespan_${obj.code }" >좋아요</span>
+									</a> <a class="_eszkz _l9yih dislike ${obj.id }" name="${obj.code }"
+										role="button" id="dislike_${obj.code }" style="display: none;">
 										<span class="_8scx2 coreSpriteHeartFull">좋아요취소</span>
-									</a> <a class="_p6oxf _6p9ga rebt" role="button" name="${obj._id }">
+									</a> <a class="_p6oxf _6p9ga rebt" role="button" name="${obj.code }">
 										<span class="_8scx2 coreSpriteComment">댓글 달기</span>
 									</a> <a class="_mpkky _et4ho mark" href="#" role="button"
-										aria-disabled="false" name="${obj._id }" id="mark_"${obj._id }> <span
+										aria-disabled="false" name="${obj.code }" id="mark_"${obj.code }> <span
 										class="_8scx2 coreSpriteSaveOpen">저장</span>
 									</a>
 								</section>
@@ -3022,7 +3022,7 @@ safe-area-inset-bottom
 									<div class="">
 										<a class="_nzn1h" data-toggle="modal" data-target="#myModal1"
 											style="color: black; font-weight: bold; text-decoration: none;">좋아요
-											<span data-toggle="modal" data-target="#myModal1" id="cnt_${obj._id }"></span>개
+											<span data-toggle="modal" data-target="#myModal1" id="cnt_${obj.code }"></span>개
 										</a>
 									</div>
 								</section>
@@ -3047,8 +3047,8 @@ safe-area-inset-bottom
 											style="width: 100%; margin: 0 auto;" data-toggle="collapse"
 											data-target=".collapse">댓글보기</button>
 										<div id="demo" class="collapse" style="margin: 10 0;">
-											<span id="sp_${obj._id }" class="re_${obj._id }"
-												name="${obj._id }"></span>
+											<span id="sp_${obj.code }" class="re_${obj.code }"
+												name="${obj.code }"></span>
 										</div>
 									</div>
 								</div>
@@ -3057,8 +3057,8 @@ safe-area-inset-bottom
 								<section class="_km7ip _ti7l3 parent writereply">
 									<form class="_b6i0l">
 										<textarea  placeholder="댓글 달기..."
-											id="reply_${obj._id }" name="${obj.id }" class="reply _bilrf"
-											aria-label="${obj._id }" autocomplete="off" autocorrect="off"></textarea>
+											id="reply_${obj.code }" name="${obj.id }" class="reply _bilrf"
+											aria-label="${obj.code }" autocomplete="off" autocorrect="off"></textarea>
 									</form>
 								</section>
 							</div>

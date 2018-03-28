@@ -38,6 +38,7 @@ public class PostDAO {
 			map.put("comment", (List)param.get("comment"));
 			map.put("tags", (List)param.get("tags"));
 			map.put("annotations", (List)param.get("annotations"));
+			map.put("code", param.get("code"));
 			template.insert(map,"MeshTagramUpload");
 			System.out.println("성공");
 		return map;

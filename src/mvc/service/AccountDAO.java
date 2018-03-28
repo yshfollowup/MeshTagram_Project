@@ -252,13 +252,13 @@ public class AccountDAO {
 	}
 	
 	//프로필 사진 가져오기
-	public List<AccountDTO> selectProfile(String id) {
+	public AccountDTO selectProfile(String id) {
 		Map map = new HashMap<>();
 			map.put("id", id);
-		List<AccountDTO> aList = null;
+		AccountDTO aList = null;
 		SqlSession session = factory.openSession();
 		try {
-			aList = session.selectList("account.selectProfile", map);
+			aList = session.selectOne("account.selectProfile", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

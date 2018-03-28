@@ -294,13 +294,15 @@ public class AccountController {
 					}
 			
 					List<Map> myresult=pDAO.findPostById(setId);
-					if(!myresult.isEmpty()) {
-					for(int i=0; i<myresult.size(); i++) {
-						//System.out.println("첫 게시판");
-						eachResult.add(myresult.get(i));
-						
-					}
-					}
+					
+						System.out.println("첫 게시판"+myresult);
+						if(eachResult!=null) {
+							
+							eachResult.addAll(myresult);
+						}else {
+							eachResult=myresult;
+						}
+					
 					modelMap.addAttribute("ids", idList);
 					System.out.println("ids"+idList);
 					modelMap.addAttribute("tags", tagList);
