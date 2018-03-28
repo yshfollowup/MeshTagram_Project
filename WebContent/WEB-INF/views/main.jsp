@@ -2929,7 +2929,7 @@ safe-area-inset-bottom
 										style="width: 30px; height: 30px;">
 										<c:choose>
 											<c:when test="${empty obj.profile}">
-												<img src="/images/insta.jpg" class="_rewi8" id="writer">${obj.id }
+												<img src="/images/insta.jpg" class="_rewi8" id="writer" >${obj.id }
 											</c:when>
 											<c:otherwise>
 												<img src="${applicationScope.path }${obj.profile}"
@@ -2943,7 +2943,7 @@ safe-area-inset-bottom
 										<div class="_eeohz">
 											<a class="_2g7d5 notranslate _iadoq"
 												href="/search.do?id=${obj.id }"
-												style="text-decoration: none !important;">${obj.id }</a>
+												style="text-decoration: none !important;" name="${obj.id }">${obj.id }</a>
 										</div>
 									</div>
 									<div class="_60iqg"></div>
@@ -3005,10 +3005,10 @@ safe-area-inset-bottom
 							</div>
 							<div class="_ebcx9">
 								<section class="_hmd6j _8oo9w">
-									<a class="_eszkz _l9yih like" name="${obj._id }" role="button"
+									<a class="_eszkz _l9yih like" name="${obj._id }" role="button" title="${obj.id }"
 										id="like_${obj._id }"> <span
 										class="_8scx2 coreSpriteHeartOpen" id="likespan_${obj._id }" >좋아요</span>
-									</a> <a class="_eszkz _l9yih dislike" name="${obj._id }"
+									</a> <a class="_eszkz _l9yih dislike ${obj.id }" name="${obj._id }"
 										role="button" id="dislike_${obj._id }" style="display: none;">
 										<span class="_8scx2 coreSpriteHeartFull">좋아요취소</span>
 									</a> <a class="_p6oxf _6p9ga rebt" role="button" name="${obj._id }">
@@ -3057,7 +3057,7 @@ safe-area-inset-bottom
 								<section class="_km7ip _ti7l3 parent writereply">
 									<form class="_b6i0l">
 										<textarea  placeholder="댓글 달기..."
-											id="reply_${obj._id }" name="${obj._id }" class="reply _bilrf"
+											id="reply_${obj._id }" name="${obj.id }" class="reply _bilrf"
 											aria-label="${obj._id }" autocomplete="off" autocorrect="off"></textarea>
 									</form>
 								</section>
@@ -3295,17 +3295,19 @@ safe-area-inset-bottom
 		// 댓글 쓰기
 		$(".reply").on("change", function() {
 			var boardid = [];
-			var input = $(this).attr("aria-label");
-			$(".rebt").each(function() {
-				boardid.push($(this).attr("name"));
+			var input = $(this).attr("name");
+			var iii=$(this).attr("aria-label");
+			$(".reply").each(function() {
+				boardid.push($(this).attr("aria-label"));
 			});
+			console.log(boardid);
 			var ment = $(this).val();
 			var src = $(this);
 			if (ment.length == 0) {
 				window.alert("댓글을 작성해주세요.");
 				return;
 			}
-			console.log("댓글을 쓴다." + ment + boardid);
+			console.log("댓글을 쓴다." + ment +iii+"타켓아이디"+input);
 			var id = $(this).attr("aria-label");
 			var reid = "${cookie.setId.value}";
 			//console.log(id+ment);
@@ -3315,6 +3317,7 @@ safe-area-inset-bottom
 				"data" : {
 					"boardId" : id,
 					"reid" : reid,
+					"target": input,
 					"ment" : ment
 				}
 			}).done(function(obj) {
@@ -3322,10 +3325,10 @@ safe-area-inset-bottom
 				$("#reply_" + input).val("");
 				$("#re_" + input).val("");
 				for (var i = 0; i < boardid.length; i++) {
-					if (boardid[i] == input) {
-						console.log("댓글 들어왔다." + input + obj.ment);
-						$("#sp_" + input).append(obj.ment);
-
+					if (boardid[i] == iii) {
+						console.log("댓글 들어왔다." + boardid[i] + obj.ment);
+						$("#sp_" + boardid[i]).append(obj.ment);
+						
 					}
 				}
 			})
@@ -3342,15 +3345,16 @@ safe-area-inset-bottom
 			var boardid = $(this).attr("name");
 			var bt = $("#likespan_"+boardid).attr("name");
 			var like = "좋아요";
-			console.log(bt);
+			var target= $(this).attr("title");
+			console.log(bt+"타켓 아이디"+target);
 				$.ajax("/likeBoard.do", {
 					"method" : "get",
 					"async" : true,
 					"data" : {
 						"boardId" : boardid,
 						"id" : reid,
-
-						"like" : like,
+						"target" : target,
+						"like" : like
 					}
 				}).done(function(val) {
 					$(".like").hide();

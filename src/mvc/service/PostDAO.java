@@ -14,6 +14,8 @@ import org.springframework.stereotype.Repository;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
+import mvc.model.FollowDTO;
+
 /*
  * db의 이름 : MeshTagramUpload
  * 컬럼 : id, image, date, comment, tags
@@ -58,12 +60,41 @@ public class PostDAO {
 		return list;
 	}
 	
+	//Find(내가 팔로우 한사람들의 최신 게시물 받기)
+	public List<Map> findAllFollowingPost(List<FollowDTO> map) {
+		List<Map> list = new LinkedList<>();
+		System.out.println("게시물 받음공지 리스트"+map.size());
+		
+		for(int i=0; i<map.size();i++) {
+			String id= map.get(i).getTarget();
+			System.out.println("공지 받을 아이디"+ id);
+			Query query= new Query(Criteria.where("id").is(id));
+			list.addAll(template.findAll(Map.class, "MeshTagramUpload"));
+		}
+		
+		
+		
+		list.sort(new Comparator<Map>() {
+			@Override
+			public int compare(Map o1, Map o2) {
+				Date d1 = (Date) o1.get("date");
+				Date d2 = (Date) o2.get("date");
+				int result = d1.compareTo(d2);
+				return -result;
+			}
+		});
+		return list;
+	}
+	
 	//id에 해당하는 게시물
 	public List<Map> findPostById(String id) {
 		List<Map> list = new LinkedList<>();
 		Query query = 
 				new Query(Criteria.where("id").is(id));
 		list = template.find(query, Map.class, "MeshTagramUpload");
+		 
+
+
 		list.sort(new Comparator<Map>() {
 			@Override
 			public int compare(Map o1, Map o2) {

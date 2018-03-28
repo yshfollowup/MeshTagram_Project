@@ -91,7 +91,7 @@ function likeList(setid) {
 	});
 	// console.log(boardid);
 	$.ajax("/likeList.do", {
-		"method" : "get",
+		"method" : "post",
 		"async" : true,
 		"data" : {
 			"boardId" : boardid
@@ -115,16 +115,16 @@ function likeList(setid) {
 
 function List(setid) {
 	var boardid=[];
-	console.log("댓글 리스트 보여주기");
 	$(".rebt").each(function() {
 		boardid.push($(this).attr("name"));
 	});
+	console.log("댓글 리스트 보여"+boardid);
 	 console.log(boardid.length);
 	 if(boardid.length>0){
 		 
 	
 	$.ajax("/listReply.do", {
-		"method" : "get",
+		"method" : "post",
 		"async" : true,
 		"data" : {
 			"boardId" : boardid

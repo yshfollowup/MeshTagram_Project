@@ -50,7 +50,7 @@ public class ReplyController {
 		}
 	}
 	
-	@RequestMapping(path="/likeBoard.do", produces="application/json;charset=utf-8")
+	@RequestMapping(path="/likeBoard.do", produces="application/json;charset=utf-8" )
 	@ResponseBody
 	public String likeBoardHandle(@RequestParam Map map) {
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
@@ -97,7 +97,7 @@ public class ReplyController {
 
 		}
 	}
-	@RequestMapping(path="/likeList.do", produces="application/json;charset=utf-8")
+	@RequestMapping(path="/likeList.do", produces="application/json;charset=utf-8", method=RequestMethod.POST)
 	@ResponseBody
 	public String likeListHandle(@RequestParam MultiValueMap<String, String> map) {
 		System.out.println(map+"좋아요 리스트");
@@ -141,10 +141,10 @@ public class ReplyController {
 	}
 	//============================
 	//댓글 리스트 받기
-	@RequestMapping(path="/listReply.do", produces="application/json;charset=utf-8")
+	@RequestMapping(path="/listReply.do", produces="application/json;charset=utf-8" , method=RequestMethod.POST)
 	@ResponseBody
 	public String replyListHandle(@RequestParam MultiValueMap<String, String> map) {
-		//System.out.println(map+"댓글 리스트 받ㅇ");
+		System.out.println(map+"댓글 리스트 받ㅇ");
 		List<Map> result = rDAO.findAllReply(map);
 		System.out.println("댓글리스트이다"+result);
 		return gson.toJson(result);

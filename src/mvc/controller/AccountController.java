@@ -190,6 +190,10 @@ public class AccountController {
 							//============================================================
 							List<FollowDTO> followerList = fDAO.selectFollwer(setId);	//나를 팔로우
 							List<FollowDTO> followingList = fDAO.selectFollwing(setId);	//내가 팔로잉
+							//=============================================================
+							//공지사항 
+							List<Map> noticeboard= pDAO.findAllFollowingPost(followingList);
+							System.out.println("공지사항 게시물"+noticeboard);
 							
 							//나를 팔로우하거나 내가 팔로우한 목록 뽑고 그에 대한 게시물 보냄(4순위)
 							List<Map> followerResult =null;
