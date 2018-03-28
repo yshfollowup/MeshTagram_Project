@@ -44,13 +44,51 @@ public class ReplyDAO {
 
 		return true;
 	}
+	// 북마크 취소
+	public Boolean markBoardDelete(Map param) {
+		Map<String, Object> map = new LinkedHashMap<>();
+		String d=(String)param.get("id");
+		String s=(String)param.get("boardId");
+		System.out.println("좋아요 취소"+d+s);
+		Query query = new Query(Criteria.where("boardId").is(s).and("id").is(d));
+		template.remove(query, Map.class, "markBoard");
+		System.out.println("성공했을까?");
+
+		return true;
+	}
+	// 북마크 리스트
+	public List<Map> markBoardList(MultiValueMap<String, String> param) {
+		List<Map> list = new LinkedList<>();
+		System.out.println("좋아요 취소asd"+param);
+		Query query = new Query(Criteria.where("boardId").in(param.get("boardId[]")));
+		list=template.find(query, Map.class, "markBoard");
+		System.out.println(list+"리스트를 받았다.");
+		
+		//===========
+
+		return list;
+	}
 	
 	//Find(=Search) -댓글 리스트 :이부분에서 에러가 뜬다.
 	public List<Map> markBoardFind(String id) {
 		System.out.println("북마크");
-		Query query = Query.query(Criteria.where("boardId").in(id));
-		List<Map> list = template.find(query,Map.class, "MeshTagramUpload");
-		System.out.println("댓글리스트"+list);
+		Query query = Query.query(Criteria.where("id").in(id));
+		List<Map> list =new LinkedList<>();
+				list=template.find(query,Map.class, "markBoard");
+		System.out.println("북마크리스트"+list);
+		return list;
+	}
+	//Find(=Search) -댓글 리스트 :이부분에서 에러가 뜬다.
+	public List<Map> AllmarkBoardFind(List<Map> vmap) {
+		System.out.println("북마크"+vmap);
+		List<Map> list =new LinkedList<>();
+		for(int i =0 ; i< vmap.size(); i++) {
+			String id = (String)vmap.get(i).get("boardId");
+			Query query = Query.query(Criteria.where("code").in(id));
+			list.addAll(template.find(query,Map.class, "MeshTagramUpload"));
+			
+		}
+		System.out.println("북마크리스트111"+list);
 		return list;
 	}
 	//Insert - 좋아요 

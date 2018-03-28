@@ -3035,7 +3035,7 @@ ul {
 							href="${applictionScope.path}/detail/detail.do?boardid=${obj._id }"
 							data-toggle="tooltip" id="top_${obj._id }" name="${obj._id }"
 							class="tool" title=""> <c:forEach items="${obj.image }"
-								var="image" varStatus="st">
+								var="image" varStatus="st" end="0">
 								<img src="${obj.path }${image }"
 									style="width: 230px; height: 230px;" />
 							</c:forEach>

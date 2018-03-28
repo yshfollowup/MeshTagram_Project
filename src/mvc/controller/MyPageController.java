@@ -86,16 +86,44 @@ public class MyPageController {
 		return "insta_myPage";
 	}
 
-	@RequestMapping("/markBoard.do")
-	@ResponseBody
-	public String markBoardHandle(@CookieValue(name = "setId", required = false) String setId) {
+	@RequestMapping(path="/markBoard.do")
+	public String markBoardHandle(@CookieValue(name = "setId", required = false) String setId,ModelMap modelMap) {
 		System.out.println("[SERVER]: MyPage success" + setId);
 		String id = setId;
-		List<Map> result = rDAO.markBoardFind(id);
+		List<Map> result = new ArrayList<>();
+		result=	rDAO.markBoardFind(id);
+		List<Map> result2=rDAO.AllmarkBoardFind(result);
+		AccountDTO aDTO = aDAO.selectOneAccountre(id);
+		modelMap.put("aDTO", aDTO);
+
+		// 이전에 쓴 모든 게시물 정보
+		List<Map> myPost = sDAO.findSearchTag(id);
+		if (myPost != null)
+			modelMap.put("myPost", myPost);
+
+		// 팔로잉 - 내가 구독한 사람들
+		List<AccountDTO> followingList = new ArrayList<>();
+		followingList = aDAO.selectAllAccountFollowing(id);
+
+		// 팔로워 - 나를 구독하는 사람들
+		List<AccountDTO> followerList = new ArrayList<>();
+		followerList = aDAO.selectAllAccountFollower(id);
+
+		modelMap.put("following", followingList);
+		modelMap.put("follower", followerList);
+		modelMap.put("myPost", result2);
+		return "insta_myPage";
+	}
+/*	@RequestMapping(path="/markSearch.do", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String markSearchHandle(@CookieValue(name = "setId", required = false) String setId, @RequestParam MultiValueMap<String,String> vmap) {
+		System.out.println("[SERVER]: MyPage success" + vmap.get("boardId[]"));
+		String id = setId;
+		List<Map> result = rDAO.AllmarkBoardFind(vmap);
 		Gson gson = new Gson();
 		return gson.toJson(result);
 	}
-
+*/
 	@RequestMapping("/follower.do")
 	public String followerHandle(@CookieValue(name = "setId", required = false) String setId, ModelMap modelMap) {
 		System.out.println("[SERVER]: MyPage success" + setId);

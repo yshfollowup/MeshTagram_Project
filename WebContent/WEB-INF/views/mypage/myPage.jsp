@@ -3047,7 +3047,7 @@ transform
 		<div class="_2e96w">
 			<a class="_t7nuu _sb9lc" href="/mypage/index.do"
 				style="margin-right: 30px;"><div class="board">게시물</div></a>
-			<a class="_t7nuu" href="#" id="markboard"><div class="mark">저장됨</div></a>
+			<a class="_t7nuu" href="/mypage/markBoard.do" id="markboard"><div class="mark">저장됨</div></a>
 		</div>
 		<div>
 			<div class="_havey" style="padding-top: 0px; padding-bottom: 0px;">
@@ -3098,7 +3098,7 @@ transform
 	<script>
 	var setid = "${cookie.setId.value}";
 
-	$("#markboard").onclick(function(){
+	/*$ ("#markboard").on("click",function(){
 		console.log("들어왔다.");
 		$.ajax("/mypage/markBoard.do",{
 			"method" : "get",
@@ -3107,9 +3107,31 @@ transform
 				"id" : setid
 			}
 		}).done(function(val){
+			console.log(val);
+			var boardId=[];
+			for(var i=0; i<val.length; i++){
+				boardId.push(val[i].boardId);
+			}
+			console.log(boardId);
 			
-		});
+			 $.ajax("/mypage/markSearch.do",{
+				"method" : "get",
+				"async" : true,
+				"data" : {
+					"boardId": boardId
+					
+				}
+				
+			}).done(function(val){
+				console.log(val);
+				for(var i=0; i<val.length; i++){
+					
+					
+				}
+				
+			}); 
 	});
+	}); */
 		$("#follower").on("change", function() {
 			$("all-screen").attr("aria-hidden", false)
 		});

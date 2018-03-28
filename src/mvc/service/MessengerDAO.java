@@ -44,8 +44,8 @@ public class MessengerDAO {
 	
 	public List<Map> findAllMessage( Map map) {
 		List<Map> list = new LinkedList<>();
-		System.out.println("게시물 받음"+map.get("sneder")+".."+map.get("target"));
-		Query query = Query.query(Criteria.where("sender").in(map.get("sender")).where("target").in(map.get("target")));
+		System.out.println("게시물 받음"+map.get("sender")+".."+map.get("target"));
+		Query query = Query.query(Criteria.where("sender").in(map.get("sender")).and("target").in(map.get("target")));
 		list = template.find(query,Map.class, "Messenger");
 		return list;
 	}
@@ -54,8 +54,8 @@ public class MessengerDAO {
 	
 	public List<Map> findMessage( Map map) {
 		List<Map> list2 = new LinkedList<>();
-		System.out.println("게시물 받음"+map.get("sneder")+".."+map.get("target"));
-		Query query2 = Query.query(Criteria.where("target").in(map.get("sender")).where("sender").in(map.get("target")));
+		System.out.println("게시물 받음"+map.get("target")+".."+map.get("sender"));
+		Query query2 = Query.query(Criteria.where("sender").in(map.get("target")).and("target").in(map.get("sender")));
 		list2 = template.find(query2 ,Map.class, "Messenger");
 		
 		return list2;
@@ -65,9 +65,9 @@ public class MessengerDAO {
 	
 	public List<Map> CheckMessge(MultiValueMap<String, String> map) {
 		List<Map> list2 = new LinkedList<>();
-		System.out.println(map+"게시물 받음"+map.get("sneder[]")+".."+map.get("target")+map.size());
+		System.out.println(map+"게시물 받음"+map.get("sneder")+".."+map.get("target")+map.size());
 		String[] s=map.get("sender[]").toString().split(",");
-		for(int i=0; i<map.size(); i++) {
+		for(int i=0; i<map.size()-1; i++) {
 			String a=s[i];
 			System.out.println("sender 리스트 받음"+a);
 			Query query2 = Query.query(Criteria.where("sender").is(a).where("target").in(map.get("target")));
