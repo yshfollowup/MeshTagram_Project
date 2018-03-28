@@ -28,7 +28,7 @@ public class KeepFilter implements Filter {
 			Cookie t = null;
 			if (ar != null) {
 				for (Cookie a : ar) {
-					if (a.getName().equals("keep")) {
+					if (a.getName().equals("setId")) {
 						t = a;
 						break;
 					}
@@ -36,6 +36,7 @@ public class KeepFilter implements Filter {
 			}
 			if (t != null) {
 				String id = t.getValue();
+				System.out.println(id+"쿠키 세션 만듬");
 						session.setAttribute("setId", id); // id 같은걸 올려둠.
 			}
 		}

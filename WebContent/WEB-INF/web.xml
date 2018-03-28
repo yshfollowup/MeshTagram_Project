@@ -27,6 +27,27 @@
       <param-value>utf-8</param-value>
     </init-param>
   </filter>
+   <filter>
+  	<filter-name>keep</filter-name>
+  	<filter-class>filter.KeepFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>keep</filter-name>
+  	<url-pattern>/mypage/*</url-pattern> 
+	<url-pattern>/account/up*</url-pattern>   
+	<url-pattern>/follow/*</url-pattern>	
+	<url-pattern>/d*</url-pattern>
+  </filter-mapping>
+    <listener>
+  	<listener-class>listeners.SessionChangeListener</listener-class>
+  </listener> 
+    <listener>
+  	<listener-class>listeners.SessionContextListener</listener-class>
+  </listener>
+   <listener>
+  	<listener-class>listeners.SessionListener</listener-class>
+  </listener>
+  
   <filter-mapping>
     <filter-name>encode</filter-name>
     <url-pattern>/*</url-pattern>
@@ -38,9 +59,10 @@
   </filter>
     <filter-mapping>
   	<filter-name>filter</filter-name>
-	<url-pattern>/mypage/*</url-pattern>  
+	<url-pattern>/mypage/*</url-pattern> 
+	<url-pattern>/account/up*</url-pattern>   
 	<url-pattern>/follow/*</url-pattern>	
-	<url-pattern>/detail/*</url-pattern>
+	<url-pattern>/d*</url-pattern>
   </filter-mapping>
   
 </web-app>

@@ -245,9 +245,13 @@ public class ReplyController {
 	@ResponseBody
 	public String MarkListHandle(@RequestParam MultiValueMap<String, String> map) {
 		System.out.println("북마크 리스트 받음"+ map);
-		List<Map> result=rDAO.markBoardList(map);
-		System.out.println("북마크 리스트 결과"+ result);
-		return gson.toJson(result);
+		if(map.size()>0) {
+			List<Map> result=rDAO.markBoardList(map);
+			System.out.println("북마크 리스트 결과"+ result);
+			
+			return gson.toJson(result);
+		}
+		return "{result: false}";
 	}
 	@RequestMapping(path="/delReply.do", produces="application/json;charset=utf-8")
 	@ResponseBody
