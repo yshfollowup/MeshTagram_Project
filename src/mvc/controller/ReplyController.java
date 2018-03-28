@@ -1,9 +1,7 @@
 package mvc.controller;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,9 +29,7 @@ public class ReplyController {
 	@RequestMapping(path="/addreply.do", produces="application/json;charset=utf-8", method=RequestMethod.POST)
 	@ResponseBody
 	public String replyAddHandle(@RequestParam Map map) {
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
-		String str=sdf.format(System.currentTimeMillis());
-		map.put("date", str);
+		map.put("date", new Date());
 		System.out.println(map+(String)map.get("ment")+"댓글을 입력한다.");
 		boolean a= rDAO.insertReply(map);
 		
@@ -53,9 +49,7 @@ public class ReplyController {
 	@RequestMapping(path="/likeBoard.do", produces="application/json;charset=utf-8" )
 	@ResponseBody
 	public String likeBoardHandle(@RequestParam Map map) {
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
-		String str=sdf.format(System.currentTimeMillis());
-		map.put("date", str);
+		map.put("date", new Date());
 		//System.out.println("좋아요 리스트가 들어왔다"+map);
 		
 		boolean a= rDAO.UpdateLikeReply(map);
@@ -66,21 +60,40 @@ public class ReplyController {
 		int count=0;
 		List<Map> list2=new ArrayList();
 		list2=rDAO.findAllLike();
+		long ct= System.currentTimeMillis();
 		for(int i=0; i<list2.size(); i++) {
 			List<Map> list3=new ArrayList();
 			Object objectid=(Object)list2.get(i).get("_id");
 			String boardId=(String)list2.get(i).get("boardId");
 			String id=(String)list2.get(i).get("id");
-			String date=(String)list2.get(i).get("date");
+			Date date=(Date)list2.get(i).get("date");
 			list3=rDAO.findLikeBoardId(boardId);
 			String s=objectid.toString();
+			
+			long dt=date.getTime();
+			long prv=ct-dt;
+			prv /=1000;
+			String rt="";
+				// 몇초전
+				rt= prv+"초전";
+				if(prv>0 &&  prv < 1000L*60) {
+					//몇분전
+					System.out.println(prv+"..."+(int)prv/(60)+"전전전");
+					rt=(long)prv/(60)+"분전";
+				}else if(prv>1000L*60 && prv < 1000L*60*60) {
+					//몇 시간전
+					rt=prv/(60*60)+"시간";
+			}else if(prv>1000L*60*60 && prv <1000L*60*60*24) {
+				// 몇 일전
+				rt=prv/(60*60*24)+"시간";
+			}
 			
 			//System.out.println(s+"카운트 개수");
 			count=list3.size();
 			list2.get(i).put("objectId", s);
 			list2.get(i).put("boardId", boardId);
 			list2.get(i).put("id",id);
-			list2.get(i).put("date", date);
+			list2.get(i).put("date", rt);
 			list2.get(i).put("count", count);
 			
 		}
@@ -107,21 +120,40 @@ public class ReplyController {
 		int count=0;
 		List<Map> list2=new ArrayList();
 		list2=rDAO.findAllLike();
+		long ct=System.currentTimeMillis();
 		for(int i=0; i<list2.size(); i++) {
 			List<Map> list3=new ArrayList();
 			Object objectid=(Object)list2.get(i).get("_id");
 			String boardId=(String)list2.get(i).get("boardId");
 			String id=(String)list2.get(i).get("id");
-			String date=(String)list2.get(i).get("date");
+			Date date=(Date)list2.get(i).get("date");
 			list3=rDAO.findLikeBoardId(boardId);
 			//System.out.println(list3.size()+"카운트 개수");
 			String s=objectid.toString();
+			
+			long dt=date.getTime();
+			long prv=ct-dt;
+			prv /=1000;
+			String rt="";
+				// 몇초전
+				rt= prv+"초전";
+				if(prv>0 &&  prv < 1000L*60) {
+					//몇분전
+					System.out.println(prv+"..."+(int)prv/(60)+"전전전");
+					rt=(long)prv/(60)+"분전";
+				}else if(prv>1000L*60 && prv < 1000L*60*60) {
+					//몇 시간전
+					rt=prv/(60*60)+"시간";
+			}else if(prv>1000L*60*60 && prv <1000L*60*60*24) {
+				// 몇 일전
+				rt=prv/(60*60*24)+"시간";
+			}
 			
 			count=list3.size();
 			list2.get(i).put("objectId", s);
 			list2.get(i).put("boardId", boardId);
 			list2.get(i).put("id",id);
-			list2.get(i).put("date", date);
+			list2.get(i).put("date", rt);
 			list2.get(i).put("count", count);
 			
 		}
@@ -157,21 +189,38 @@ public class ReplyController {
 		int count=0;
 		List<Map> list2=new ArrayList();
 		list2=rDAO.findAllLike();
+		long ct =System.currentTimeMillis();
 		for(int i=0; i<list2.size(); i++) {
 			List<Map> list3=new ArrayList();
 			Object objectid=(Object)list2.get(i).get("_id");
 			String boardId=(String)list2.get(i).get("boardId");
 			String id=(String)list2.get(i).get("id");
-			String date=(String)list2.get(i).get("date");
+			Date date=(Date)list2.get(i).get("date");
 			list3=rDAO.findLikeBoardId(boardId);
 			//System.out.println(list3.size()+"카운트 개수");
 			String s=objectid.toString();
-			
+			long dt=date.getTime();
+			long prv=ct-dt;
+			prv /=1000;
+			String rt="";
+				// 몇초전
+				rt= prv+"초전";
+				if(prv>0 &&  prv < 1000L*60) {
+					//몇분전
+					System.out.println(prv+"..."+(int)prv/(60)+"전전전");
+					rt=(long)prv/(60)+"분전";
+				}else if(prv>1000L*60 && prv < 1000L*60*60) {
+					//몇 시간전
+					rt=prv/(60*60)+"시간";
+			}else if(prv>1000L*60*60 && prv <1000L*60*60*24) {
+				// 몇 일전
+				rt=prv/(60*60*24)+"시간";
+			}
 			count=list3.size();
 			list2.get(i).put("objectId", s);
 			list2.get(i).put("boardId", boardId);
 			list2.get(i).put("id",id);
-			list2.get(i).put("date", date);
+			list2.get(i).put("date", rt);
 			list2.get(i).put("count", count);
 			
 		}

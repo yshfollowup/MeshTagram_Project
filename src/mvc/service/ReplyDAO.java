@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.MultiValueMap;
 
 import mvc.model.AccountDTO;
+import mvc.model.FollowDTO;
 
 /*
  * db의 이름 : MeshTagramReply
@@ -101,6 +102,32 @@ public class ReplyDAO {
 			String[] q=(String[])param.get("boardId").toString().split(",");
 			Query query = Query.query(Criteria.where("boardId").in(q));
 			list = template.find(query,Map.class, "Like");
+			return list;
+		}
+		
+		//finf(=Search) - 좋아요 리스트
+		public List<Map> LikefollowingList(List<FollowDTO> param) {
+			List<Map> list = new LinkedList<>();
+			
+			for(int i=0; i<param.size();i++) {
+				String id= param.get(i).getTarget();
+				Query query= new Query(Criteria.where("id").is(id));
+				list.addAll(template.find(query,Map.class, "Like"));
+			}
+			System.out.println("좋아요공지 리스트"+ list);
+			return list;
+		}
+		
+		//Find(=Search) -댓글 리스트 :이부분에서 에러가 뜬다.
+		public List<Map> findAllReplyFollowingList(List<FollowDTO> param) {
+			List<Map> list = new LinkedList<>();
+			for(int i=0; i<param.size();i++) {
+				String id= param.get(i).getTarget();
+				//System.out.println("댓글공지 받을 아이디"+ id);
+				Query query= new Query(Criteria.where("id").is(id));
+				list.addAll(template.find(query,Map.class, "Reply"));
+			}
+			System.out.println("댓글공지 리스트"+list);
 			return list;
 		}
 		//==============================================================================================

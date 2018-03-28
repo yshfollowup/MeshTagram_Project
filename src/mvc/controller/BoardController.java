@@ -83,17 +83,17 @@ public class BoardController {
 			//업로드한 파일의 갯수만큼 uploads에 저장
 			List<String> result2 = (List) result.get("uploadResult");
 				map.put("image", result2);
-				System.out.println(result2);
+				//System.out.println(result2);
 			map.put("time", new Date());
 			map.put("comment", commList);
 			map.put("tags", tagList);
 			map.put("annotations", annoList);
 			AccountDTO aDTO = aDAO.selectOneAccountre(id);
-			System.out.println(aDTO.getProfile()+"값");
+		//	System.out.println(aDTO.getProfile()+"값");
 			map.put("profile", aDTO.getProfile()=="null" ? "null" : aDTO.getProfile());
-			System.out.println("게시물 이디이"+key);
+			//System.out.println("게시물 이디이"+key);
 			map.put("code", key);
-			System.out.println(map);
+		//	System.out.println(map);
 			pDao.insertImage(map);
 		}
 		return "insta_main";

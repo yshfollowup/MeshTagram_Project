@@ -64,11 +64,11 @@ public class PostDAO {
 	//Find(내가 팔로우 한사람들의 최신 게시물 받기)
 	public List<Map> findAllFollowingPost(List<FollowDTO> map) {
 		List<Map> list = new LinkedList<>();
-		System.out.println("게시물 받음공지 리스트"+map.size());
+		//System.out.println("게시물 받음공지 리스트"+map.size());
 		
 		for(int i=0; i<map.size();i++) {
 			String id= map.get(i).getTarget();
-			System.out.println("공지 받을 아이디"+ id);
+			//System.out.println("공지 받을 아이디"+ id);
 			Query query= new Query(Criteria.where("id").is(id));
 			list.addAll(template.findAll(Map.class, "MeshTagramUpload"));
 		}
