@@ -101,6 +101,7 @@ function likeList(setid) {
 		// console.log(val.length+"크키");
 		for (var i = 0; i < val.length; i++) {
 			$("#cnt_" + val[i].boardId).html( val[i].count);
+			console.log("좋아용가 보여요");
 			if(val[i].id==setid){
 				$("#like_"+val[i].boardId).hide();
 				$("#dislike_"+val[i].boardId).show();
