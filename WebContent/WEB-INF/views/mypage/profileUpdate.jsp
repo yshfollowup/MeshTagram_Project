@@ -969,7 +969,7 @@ a:active {
 						</div>
 						<div class="_ax54t">
 							<h1 class="_gvhl0" title="id">${aDTO.id }</h1>
-							<button type="button" class="_5aav8" id="confirm">적용</button>
+							<a type="button" class="_5aav8" id="confirm" style="cursor : hand; font-size:16px;">적용</a>
 						</div>
 					</div>
 					<form id="form2" class="_gzffa" action="/mypage/edit.do"
