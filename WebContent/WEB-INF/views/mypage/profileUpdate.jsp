@@ -969,7 +969,7 @@ a:active {
 						</div>
 						<div class="_ax54t">
 							<h1 class="_gvhl0" title="id">${aDTO.id }</h1>
-							<button type="button" class="_5aav8" id="confirm">적용</button>
+							<button type="button" class="_5aav8" id="sendBt">적용</button>
 						</div>
 					</div>
 					<form id="form2" class="_gzffa" action="/mypage/edit.do"
@@ -986,19 +986,10 @@ a:active {
 
 						<div class="_e1xik">
 							<aside class="_kx10g">
-								<label for="pepWebsite">웹사이트</label>
-							</aside>
-							<div class="_cd2n1">
-								<input type="text" class="_4abhr _o716c" aria-required="false"
-									id="pepWebsite" name="website" value="">
-							</div>
-						</div>
-						<div class="_e1xik">
-							<aside class="_kx10g">
 								<label for="pepBio">소개</label>
 							</aside>
 							<div class="_cd2n1">
-								<textarea class="_jlcqs" id="pepBio" name="bio"></textarea>
+								<textarea class="_jlcqs" id="pepBio" name="intro" va></textarea>
 							</div>
 						</div>
 						<div class="_e1xik">
@@ -1077,7 +1068,7 @@ a:active {
 							<div class="_cd2n1">
 								<div class="_eqmpg">
 									<span class="_ov9ai" ><button type="submit" id="bioBt"
-											class="_qv64e _gexxb _r9b8f _jfvwv">적용하기</button></span>
+											class="_qv64e _gexxb _r9b8f _jfvwv" disabled="">적용하기</button></span>
 								</div>
 							</div>
 						</div>
@@ -1095,7 +1086,8 @@ a:active {
 
 	<script>
 		//프로필 사진 변경
-		$("#confirm").click(function(){
+		
+		$("#sendBt").click(function(){
 			$("#form1").submit();
 			window.alert("프로필 사진이 변경되었습니다!");
 		});
@@ -1115,6 +1107,10 @@ a:active {
 		});
 		
 		//기타 사항 변경
+		$("#form2").change(function() {
+			$("#bioBt").prop("disabled", false);
+		})
+		
 		$("#bioBt").click(function() {
 			$("#form2").submit();
 			window.alert("계정 정보가 변경되었습니다!");
