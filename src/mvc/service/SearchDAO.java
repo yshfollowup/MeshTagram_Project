@@ -87,4 +87,14 @@ public class SearchDAO {
 		System.out.println("작업완료");
 		return list;
 	}
+	// MarkFind 검색
+	public List<Map> findMarkBoard(MultiValueMap<String, String> map) {
+		List<Map> list = new LinkedList<>();
+
+		System.out.println("게시물 받음" + map.get("boardId"));
+		Query query = Query.query(Criteria.where("boardId").in(map.get("boardId")));
+		list = template.find(query, Map.class, "MeshTagramUpload");
+		System.out.println("작업완료");
+		return list;
+	}
 }

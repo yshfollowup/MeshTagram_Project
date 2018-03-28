@@ -113,7 +113,6 @@ function likeList(setid) {
 		}
 	})
 };
-
 function List(setid) {
 	var boardid=[];
 	$(".rebt").each(function() {

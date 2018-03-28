@@ -3014,10 +3014,10 @@ safe-area-inset-bottom
 									</a> <a class="_p6oxf _6p9ga rebt" role="button" name="${obj.code }">
 										<span class="_8scx2 coreSpriteComment">댓글 달기</span>
 									</a> <a class="_mpkky _et4ho mark" href="#" role="button"
-										aria-disabled="false" name="${obj.code }" id="mark_"${obj.code }> <span
+										aria-disabled="false" name="${obj.code }" id="mark_${obj.code }" > <span
 										class="_8scx2 coreSpriteSaveOpen">저장</span>
 									</a> <a class="_mpkky _et4ho unmark" role="button"
-										aria-disabled="false" name="${obj._id }" id="mark_"${obj._id } style="display : none;"> <span
+										aria-disabled="false" name="${obj.code }" id="unmark_${obj.code }" style="display : none;"> <span
 										class="_8scx2 coreSpriteSaveFull">저장취소</span>
 									</a>
 								</section>
@@ -3177,8 +3177,8 @@ safe-area-inset-bottom
 						"mark": "저장"
 					}
 				}).done(function(val){
-					$(".mark").hide();
-					$(".unmark").show();
+					$("#mark_"+boardid).hide();
+					$("#unmark_"+boardid).show();
 					console.log("저장이 성공적");
 				});
 		});
@@ -3189,7 +3189,7 @@ safe-area-inset-bottom
 			var boardid = $(this).attr("name");
 			var bt = $("#mark"+boardid).attr("name");
 			console.log(bt+"구분자"+boardid+"아이디"+"저장");
-				$.ajax("/markBoard.do", {
+				$.ajax("/markBoardDelete.do", {
 					"method" : "get",
 					"async" : true,
 					"data" : {
@@ -3198,8 +3198,8 @@ safe-area-inset-bottom
 						"mark": "저장취소"
 					}
 				}).done(function(val){
-					$(".mark").show();
-					$(".unmark").hide();
+					$("#mark_"+boardid).show();
+					$("#mark_"+boardid).hide();
 					console.log("저장취소 성공");
 				});
 		});
@@ -3221,14 +3221,10 @@ safe-area-inset-bottom
 						"click",
 						function() {
 							var reid = "${cookie.setId.value}";
-							var boardid;
+							var boardid=$(this).attr("name");
 							var listId = [];
 							var value = $(this).attr("name");
 							var address = $("#myList");
-							$(".rebt").each(function() {
-								boardid += "," + ($(this).attr("name"));
-								//console.log("하나하나씩"+boardid);
-							});
 							$
 									.ajax("/likeList.do", {
 										"method" : "get",
@@ -3362,67 +3358,96 @@ safe-area-inset-bottom
 		});
 		likeList(setid);
 		List(setid);
+		markList(setid);
 		//댓글 리스트 자동 생성
 
+		
+
+		function markList(setid) {
+			var boardid = [];
+			$(".rebt").each(function() {
+				boardid.push($(this).attr("name"));
+			});
+			 console.log(boardid+"북마크 리스트 받아라");
+			$.ajax("/markList.do", {
+				"method" : "get",
+				"async" : true,
+				"data" : {
+					"boardId" : boardid
+				}
+			}).done(function(val) {
+				console.log(val + "북마크ㅋㅋㅋ");
+				// console.log(val.length+"크키");
+				for (var i = 0; i < val.length; i++) {
+					console.log("북마크가 보여요");
+					if (val[i].id == setid) {
+						$("#mark_" + val[i].boardId).hide();
+						$("#unmark_" + val[i].boardId).show();
+						console.log(val[i].id + val[i].boardId + "북마크 리스트다");
+						$("#mark_" + val[i].boardId).val(val[i].objectId);
+
+					}
+					// console.log($("#like_"+val[i].boardId).val()+"좋아요리스트 번호");
+				}
+			})
+		};
 		//좋아요 ....
 		$(".like").on("click", function() {
-			
+
 			console.log("좋아요 들어왔다");
 			var reid = "${cookie.setId.value}";
 			var boardid = $(this).attr("name");
-			var bt = $("#likespan_"+boardid).attr("name");
+			var bt = $("#likespan_" + boardid).attr("name");
 			var like = "좋아요";
-			var target= $(this).attr("title");
-			console.log(bt+"타켓 아이디"+target);
-				$.ajax("/likeBoard.do", {
-					"method" : "get",
-					"async" : true,
-					"data" : {
-						"boardId" : boardid,
-						"id" : reid,
-						"target" : target,
-						"like" : like
-					}
-				}).done(function(val) {
-					$(".like").hide();
-					$(".dislike").show();
-					var a;
-					likeList();
-					console.log(val);
-					for (var i = 0; i < val.length; i++) {
-						//console.log(bt + "아이디아디이디" + val[i].objectId+val[i].id+a);
-						$("#likespan_" + boardid).attr("name",val[i].objectId);
-
-					}
-					likeList();
-				})
-				
-		});	
-			$(".dislike").on("click",function(){
-				var reid = "${cookie.setId.value}";
-				var boardid = $(this).attr("name");
-				
-				$.ajax("/deleteLike.do", {
-					"method" : "get",
-					"async" : true,
-					"data" : {
-						"boardid" : boardid,
-						"id" : reid
-					}
-				}).done(function(val2) {
-					for (var i = 0; i < val2.length; i++) {
-						if (val2[i].boardId == boardid) {
-							$("#likespan_" + boardid).attr("name","");
-
-						}
-					}
-				})
+			var target = $(this).attr("title");
+			console.log(bt + "타켓 아이디" + target);
+			$.ajax("/likeBoard.do", {
+				"method" : "get",
+				"async" : true,
+				"data" : {
+					"boardId" : boardid,
+					"id" : reid,
+					"target" : target,
+					"like" : like
+				}
+			}).done(function(val) {
+				$("#like_"+boardid).hide();
+				$("#dislike_"+boardid).show();
+				var a;
 				likeList();
-				$(".like").show();
-				$(".dislike").hide();
-		});
+				console.log(val);
+				for (var i = 0; i < val.length; i++) {
+					//console.log(bt + "아이디아디이디" + val[i].objectId+val[i].id+a);
+					$("#likespan_" + boardid).attr("name", val[i].objectId);
 
-		
+				}
+				likeList();
+			})
+
+		});
+		$(".dislike").on("click", function() {
+			var reid = "${cookie.setId.value}";
+			var boardid = $(this).attr("name");
+
+			$.ajax("/deleteLike.do", {
+				"method" : "get",
+				"async" : true,
+				"data" : {
+					"boardid" : boardid,
+					"id" : reid
+				}
+			}).done(function(val2) {
+				for (var i = 0; i < val2.length; i++) {
+					if (val2[i].boardId == boardid) {
+						$("#likespan_" + boardid).attr("name", "");
+
+					}
+				}
+			})
+			likeList();
+			$("#like_"+boardid).show();
+			$("#dislike_"+boardid).hide();
+		});
 	</script> </main>
 </body>
 </html>

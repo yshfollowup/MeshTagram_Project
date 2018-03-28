@@ -64,17 +64,18 @@ public class MessengerController {
 		List<Map> result = mDAO.findAllMessage(vmap);
 		List<Map> result2 = mDAO.findMessage(vmap);
 		result.addAll(result2);
-		
+		System.out.println(vmap+"..."+result+result2);
+
 		result.sort(new Comparator<Map>() {
 			@Override
 			public int compare(Map o1, Map o2) {
 				Date d1 = (Date) o1.get("date");
 				Date d2 = (Date) o2.get("date");
 				int result = d1.compareTo(d2);
-				return -result;
+				return result;
 			}
 		});
-		System.out.println(result);
+		System.out.println(result + "메세지 합친거");
 		
 		return gson.toJson(result);
 	}
@@ -115,7 +116,7 @@ public class MessengerController {
 	@ResponseBody
 	public String UpdateLikeHandle(@RequestParam Map map) {
 		mDAO.updateMessageLike(map);
-		System.out.println("일단업데이트");
+		System.out.println("일단업데이트"+map);
 		List<Map> result = mDAO.findAllMessage(map);
 		List<Map> result2 = mDAO.findMessage(map);
 		result.addAll(result2);
@@ -126,7 +127,7 @@ public class MessengerController {
 				Date d1 = (Date) o1.get("date");
 				Date d2 = (Date) o2.get("date");
 				int result = d1.compareTo(d2);
-				return -result;
+				return result;
 			}
 		});
 		System.out.println(result);
@@ -149,7 +150,7 @@ public class MessengerController {
 				Date d1 = (Date) o1.get("date");
 				Date d2 = (Date) o2.get("date");
 				int result = d1.compareTo(d2);
-				return -result;
+				return result;
 			}
 		});
 		System.out.println(result);

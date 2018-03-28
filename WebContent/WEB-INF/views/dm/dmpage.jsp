@@ -322,8 +322,8 @@ body {
 			<c:forEach items="${followList }" var="obj">
 				<ul class="nav nav-pills nav-stacked">
 					<li><a href="#${obj.ID }"><span id="${obj.ID}"
-							class="mesen" name="${obj._id }">${obj.ID }</span><span
-							id="sp_${obj.ID }"></span></a></li>
+							class="mesen" name="${obj._id }">${obj.ID }</span>
+							<span id="sp_${obj.ID }"></span></a></li>
 				</ul>
 			</c:forEach>
 		</div>
@@ -399,7 +399,10 @@ body {
 			console.log($(this).attr("id"));
 			senderId.push($(this).attr("id"));
 		});
+		
 		console.log(senderId);
+		if(senderId !=""){
+			
 		$.ajax("/direct/senderId.do", {
 			"method" : "get",
 			"async" : true,
@@ -413,13 +416,16 @@ body {
 			for (var i = 0; i < val.length; i++) {
 				var a = 0;
 				if (val[i].scope == "0") {
-					a++
-					$("#sp_" + val[i].sender).html(" " + a);
+					a++;
+					console.log(val[i].sender+"이사랑이 보냄");
+					$("#sp_" + val[i].sender).html("1");
 				}
 
 			}
 
 		});
+			
+		}
 
 	}
 
@@ -427,7 +433,7 @@ body {
 		var code;
 		var target;
 		var oid;
-		console.log(reid);
+		console.log(reid+"이것이 들어왔다."+setid);
 		$
 				.ajax("/direct/showMessage.do", {
 					"method" : "post",
@@ -488,7 +494,7 @@ body {
 								
 								
 							}
-							console.log("타켓팅" + target + "scope업데이트");
+							console.log("타켓팅" + reid + "scope업데이트");
 							$.ajax("/direct/updateScope.do", {
 								"method" : "get",
 								"async" : true,

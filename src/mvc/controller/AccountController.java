@@ -145,7 +145,7 @@ public class AccountController {
 		List<Map> myresult = pDAO.findPostById(setId);
 
 		System.out.println("첫 게시판" + myresult);
-		if (!eachResult.isEmpty()) {
+		if (eachResult !=null) {
 
 			eachResult.addAll(myresult);
 		} else {
@@ -214,9 +214,9 @@ public class AccountController {
 					// modelMap.addAttribute("followingResult", followingResult);
 					// System.out.println(followerResult.size()+" / "+followingResult.size());
 				}
-				if (followerResult.size() > 0 && a > 0) {
+				if (followerResult.size() > 0 && eachResult != null) {
 					for (int i = 0; i < followerResult.size(); i++) {
-						if(eachResult !=null) {
+						if(eachResult.size() > 0) {
 							
 							if (!eachResult.get(i).get("_id").equals(followerResult.get(i).get("_id"))) {
 								// System.out.println("비교값이 들어갔다.
@@ -228,7 +228,7 @@ public class AccountController {
 						}
 					}
 				}
-				if (followingResult.size() > 0 && a > 0) {
+				if (followingResult.size() > 0) {
 					for (int i = 0; i < followingResult.size(); i++) {
 						if(eachResult !=null) {
 							
@@ -382,25 +382,31 @@ public class AccountController {
 					// modelMap.addAttribute("followingResult", followingResult);
 					// System.out.println(followerResult.size()+" / "+followingResult.size());
 				}
-				if (followerResult.size() > 0) {
+				if (followerResult.size() > 0 && eachResult != null) {
 					for (int i = 0; i < followerResult.size(); i++) {
-						if (!eachResult.get(i).get("_id").equals(followerResult.get(i).get("_id"))) {
-							// System.out.println("비교값이 들어갔다.
-							// 사이즈="+followerResult.size()+followerResult.get(i));
-							eachResult.add(followerResult.get(i));
-							// modelMap.addAttribute("eachResult", followerResult.get(i));
-
+						if(eachResult.size() > 0) {
+							
+							if (!eachResult.get(i).get("_id").equals(followerResult.get(i).get("_id"))) {
+								// System.out.println("비교값이 들어갔다.
+								// 사이즈="+followerResult.size()+followerResult.get(i));
+								eachResult.add(followerResult.get(i));
+								// modelMap.addAttribute("eachResult", followerResult.get(i));
+								
+							}
 						}
 					}
 				}
 				if (followingResult.size() > 0) {
 					for (int i = 0; i < followingResult.size(); i++) {
-						if (!eachResult.get(i).get("_id").equals(followingResult.get(i).get("_id"))) {
-							// System.out.println("비교값이 들어갔다.
-							// 사이즈="+followingResult.size()+followingResult.get(i));
-							eachResult.add(followingResult.get(i));
-							// modelMap.addAttribute("eachResult", followingResult.get(i));
-
+						if(eachResult !=null) {
+							
+							if (!eachResult.get(i).get("_id").equals(followingResult.get(i).get("_id"))) {
+								// System.out.println("비교값이 들어갔다.
+								// 사이즈="+followingResult.size()+followingResult.get(i));
+								eachResult.add(followingResult.get(i));
+								// modelMap.addAttribute("eachResult", followingResult.get(i));
+								
+							}
 						}
 					}
 				}

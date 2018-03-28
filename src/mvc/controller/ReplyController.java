@@ -229,10 +229,29 @@ public class ReplyController {
 	}
 	@RequestMapping(path="/markBoard.do", produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String MarkBoardHandle(@RequestParam MultiValueMap<String, String> map) {
+	public String MarkBoardHandle(@RequestParam Map map) {
 		System.out.println("북마크 리스트 받음"+ map);
 		rDAO.markBoard(map);
 		return gson.toJson(map);
+	}
+	@RequestMapping(path="/markBoardDelete.do", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String MarkBoardDeleteHandle(@RequestParam Map map) {
+		System.out.println("북마크 리스트 받음"+ map);
+		rDAO.markBoardDelete(map);
+		return gson.toJson(map);
+	}
+	@RequestMapping(path="/markList.do", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String MarkListHandle(@RequestParam MultiValueMap<String, String> map) {
+		System.out.println("북마크 리스트 받음"+ map);
+		if(map.size()>0) {
+			List<Map> result=rDAO.markBoardList(map);
+			System.out.println("북마크 리스트 결과"+ result);
+			
+			return gson.toJson(result);
+		}
+		return "{result: false}";
 	}
 	@RequestMapping(path="/delReply.do", produces="application/json;charset=utf-8")
 	@ResponseBody

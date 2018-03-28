@@ -83,18 +83,36 @@ public class SearchController {
 				int count=0;
 				List<Map> list2=new ArrayList();
 				//list2=rDAO.findAllLike();
+				long ct=System.currentTimeMillis();
+
 				for(int i=0; i<result.size(); i++) {
 					List<Map> list3=new ArrayList();
 					String boardId=(String)result.get(i).get("boardId");
 					String id=(String)result.get(i).get("id");
-					String date=(String)result.get(i).get("date");
+					Date date=(Date)result.get(i).get("date");
 					String ment=(String)result.get(i).get("ment");
 					list3=rDAO.findReplyBoardId(boardId);
 					//System.out.println(list3.size()+"카운트 개수");
+					
+					long dt=date.getTime();
+					long prv=ct-dt;
+					prv /=1000;
+					String rt="";
+					if(prv>0 &&  prv < 1000L*60) {
+						//몇분전
+						System.out.println(prv+"..."+(int)prv/(60)+"전전전");
+						rt=(long)prv/(60)+"분전";
+					}else if(prv>1000L*60 && prv < 1000L*60*60) {
+						//몇 시간전
+						rt=prv/(60*60)+"시간";
+				}else if(prv>1000L*60*60 && prv <1000L*60*60*24) {
+					// 몇 일전
+					rt=prv/(60*60*24)+"일";
+				}
 					count=list3.size();
 					result.get(i).put("boardId", boardId);
 					result.get(i).put("id",id);
-					result.get(i).put("date", date);
+					result.get(i).put("date", rt);
 					result.get(i).put("ment", ment);
 					result.get(i).put("count", count);
 				}
@@ -112,17 +130,36 @@ public class SearchController {
 		int count=0;
 		List<Map> list2=new ArrayList();
 		list2=rDAO.findAllLike();
+		long ct=System.currentTimeMillis();
+
 		for(int i=0; i<list2.size(); i++) {
 			List<Map> list3=new ArrayList();
 			String boardId=(String)list2.get(i).get("boardId");
 			String id=(String)list2.get(i).get("id");
-			String date=(String)list2.get(i).get("date");
+			Date date=(Date) list2.get(i).get("date");
 			list3=rDAO.findLikeBoardId(boardId);
 			//System.out.println(list3.size()+"카운트 개수");
+			long dt=date.getTime();
+			long prv=ct-dt;
+			prv /=1000;
+			String rt="";
+			if(prv>0 &&  prv < 1000L*60) {
+				//몇분전
+				System.out.println(prv+"..."+(int)prv/(60)+"전전전");
+				rt=(long)prv/(60)+"분전";
+			}else if(prv>1000L*60 && prv < 1000L*60*60) {
+				//몇 시간전
+				rt=prv/(60*60)+"시간";
+		}else if(prv>1000L*60*60 && prv <1000L*60*60*24) {
+			// 몇 일전
+			rt=prv/(60*60*24)+"일";
+		}
+			
+			
 			count=list3.size();
 			list2.get(i).put("boardId", boardId);
 			list2.get(i).put("id",id);
-			list2.get(i).put("date", date);
+			list2.get(i).put("date", rt);
 			list2.get(i).put("count", count);
 			
 		}
