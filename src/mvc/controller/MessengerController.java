@@ -116,14 +116,44 @@ public class MessengerController {
 	public String UpdateLikeHandle(@RequestParam Map map) {
 		mDAO.updateMessageLike(map);
 		System.out.println("일단업데이트");
+		List<Map> result = mDAO.findAllMessage(map);
+		List<Map> result2 = mDAO.findMessage(map);
+		result.addAll(result2);
 		
-		return  "{result : false}";
+		result.sort(new Comparator<Map>() {
+			@Override
+			public int compare(Map o1, Map o2) {
+				Date d1 = (Date) o1.get("date");
+				Date d2 = (Date) o2.get("date");
+				int result = d1.compareTo(d2);
+				return -result;
+			}
+		});
+		System.out.println(result);
+		Gson gson=new Gson();
+		return  gson.toJson(result);
 	}
 	
 	@RequestMapping(path="/deleteLike.do", produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String deleteLikeHandle(Map param) {
-		mDAO.deleteMessageLike(param);
-		return gson.toJson(param);
+	public String deleteLikeHandle(@RequestParam Map map) {
+		mDAO.deleteMessageLike(map);
+		System.out.println("일단업데이트");
+		List<Map> result = mDAO.findAllMessage(map);
+		List<Map> result2 = mDAO.findMessage(map);
+		result.addAll(result2);
+		
+		result.sort(new Comparator<Map>() {
+			@Override
+			public int compare(Map o1, Map o2) {
+				Date d1 = (Date) o1.get("date");
+				Date d2 = (Date) o2.get("date");
+				int result = d1.compareTo(d2);
+				return -result;
+			}
+		});
+		System.out.println(result);
+		Gson gson=new Gson();
+		return  gson.toJson(result);
 	}
 }

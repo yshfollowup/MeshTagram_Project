@@ -96,7 +96,10 @@ public class MessengerDAO {
 	}
 	
 	public void deleteMessageLike(Map param) {
-		Query query = new Query(Criteria.where("_id").is(param.get("_id")));
-		template.remove(query, "LikeMessage");
+		System.out.println(param+"스코프가 들어왔다. 좋아요취소 버틍");
+		Query query = new Query(Criteria.where("code").in(param.get("oid")));
+		Update update = new Update();
+		update.set("like", "0");
+		template.updateFirst(query,update , "Messenger");
 	}
 }

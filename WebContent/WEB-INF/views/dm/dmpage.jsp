@@ -445,21 +445,43 @@ body {
 							for (var i = 0; i < val.length; i++) {
 								var bt = "<input class=\"_eszkz _l9yih like\" name=\""+val[i].code+"\" type=\"image\" id=\"like_${obj._id }\" src=\"/images/sheart.png\"/>";
 								var bt2 = "<input class=\"_eszkz _l9yih dislike\" name=\""+val[i].code+"\" type=\"image\" id=\"dislike_${obj._id }\" src=\"/images/sheart_full.png\"/>";
-								console.log(val[1].content + val.length);
+								console.log(val[i].content + val.length);
 								if (val[i].sender == setid) {
+									if(val[i].like =="좋아요"){
+										$("#showdm").append(
+												"<div id="+val[i].sender+"\" style=\"font-size:16px;\">"
+														+ bt2 +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
+														+ val[i].content
+														+ "</button>" + "</div>"
+														+ "<br/>");										
+									}else{
+										
 									$("#showdm").append(
 											"<div id="+val[i].sender+"\" style=\"font-size:16px;\">"
-													+ bt + bt2+"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
+													+ bt +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
 													+ val[i].content
 													+ "</button>" + "</div>"
 													+ "<br/>");
+									}
 								} else {
+									if(val[i].like=="좋아요"){
+										$("#showre").append(
+												"<div id="+val[i].sender+"\">"
+														+ bt2 +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
+														+ val[i].content
+														+ "</button>" + "</div>"
+														+ "<br/>");
+										
+									}else{
+										
 									$("#showre").append(
 											"<div id="+val[i].sender+"\">"
-													+ bt + bt2+"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
+													+ bt +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
 													+ val[i].content
 													+ "</button>" + "</div>"
 													+ "<br/>");
+										
+									}
 									target = val[i].sender;
 									console.log(target + "댓그르그");
 								}
@@ -482,7 +504,90 @@ body {
 								$("#sp_" + target).html(" ");
 							});
 							$("#charBoard").scrollTop();
+							//======
+							//좋아요 취소
+							$(".dislike").on("click", function(){
+								var oid = $(this).attr("name");
+								console.log(oid);
+								$.ajax("/direct/deleteLike.do",{
+									"method" : "get",
+									"async" :true,
+									"data" :{
+										"sender": setid,
+										"target" : reid,
+										"oid" : oid
+										
+									}
+									
+								}).done(function(val){
+									console.log(val+"좋아요 버튼이 들어왔다잉");
+									$("#showdm").html("");
+									$("#showre").html("");
+									for (var i = 0; i < val.length; i++) {
+										var bt = "<input class=\"_eszkz _l9yih like\" name=\""+val[i].code+"\" type=\"image\" id=\"like_${obj._id }\" src=\"/images/sheart.png\"/>";
+										var bt2 = "<input class=\"_eszkz _l9yih dislike\" name=\""+val[i].code+"\" type=\"image\" id=\"dislike_${obj._id }\" src=\"/images/sheart_full.png\"/>";
+										console.log(val[i].content + val.length);
+										if (val[i].sender == setid) {
+											if(val[i].like =="좋아요"){
+												$("#showdm").append(
+														"<div id="+val[i].sender+"\" style=\"font-size:16px;\">"
+																+ bt2 +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
+																+ val[i].content
+																+ "</button>" + "</div>"
+																+ "<br/>");										
+											}else{
+												
+											$("#showdm").append(
+													"<div id="+val[i].sender+"\" style=\"font-size:16px;\">"
+															+ bt +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
+															+ val[i].content
+															+ "</button>" + "</div>"
+															+ "<br/>");
+											}
+										} else {
+											if(val[i].like=="좋아요"){
+												$("#showre").append(
+														"<div id="+val[i].sender+"\">"
+																+ bt2 +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
+																+ val[i].content
+																+ "</button>" + "</div>"
+																+ "<br/>");
+												
+											}else{
+												
+											$("#showre").append(
+													"<div id="+val[i].sender+"\">"
+															+ bt +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
+															+ val[i].content
+															+ "</button>" + "</div>"
+															+ "<br/>");
+												
+											}
+											target = val[i].sender;
+											console.log(target + "댓그르그");
+										}
+										
+										
+									}
+									console.log("타켓팅" + target + "scope업데이트");
+									$.ajax("/direct/updateScope.do", {
+										"method" : "get",
+										"async" : true,
+										"data" : {
+											"sender" : setid,
+											"target" : target
 
+										}
+
+									}).done(function(val2) {
+										var a = 0;
+										console.log("업데이트 ");
+										$("#sp_" + target).html(" ");
+									});
+								});
+							});
+							//=======
+							//좋아요 버튼
 							$(".like").on("click", function() {
 								var oid = $(this).attr("name");
 								console.log(oid);
@@ -492,13 +597,78 @@ body {
 									"async" : true,
 									"data" : {
 										"sender" : setid,
-										"target" : target,
+										"target" : reid,
 										"oid" : oid
 
 									}
 								}).done(function(val) {
+								//=====================================================
+									console.log(val+"좋아요 버튼이 들어왔다잉");
+							$("#showdm").html("");
+							$("#showre").html("");
+							for (var i = 0; i < val.length; i++) {
+								var bt = "<input class=\"_eszkz _l9yih like\" name=\""+val[i].code+"\" type=\"image\" id=\"like_${obj._id }\" src=\"/images/sheart.png\"/>";
+								var bt2 = "<input class=\"_eszkz _l9yih dislike\" name=\""+val[i].code+"\" type=\"image\" id=\"dislike_${obj._id }\" src=\"/images/sheart_full.png\"/>";
+								console.log(val[i].content + val.length);
+								if (val[i].sender == setid) {
+									if(val[i].like =="좋아요"){
+										$("#showdm").append(
+												"<div id="+val[i].sender+"\" style=\"font-size:16px;\">"
+														+ bt2 +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
+														+ val[i].content
+														+ "</button>" + "</div>"
+														+ "<br/>");										
+									}else{
+										
+									$("#showdm").append(
+											"<div id="+val[i].sender+"\" style=\"font-size:16px;\">"
+													+ bt +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
+													+ val[i].content
+													+ "</button>" + "</div>"
+													+ "<br/>");
+									}
+								} else {
+									if(val[i].like=="좋아요"){
+										$("#showre").append(
+												"<div id="+val[i].sender+"\">"
+														+ bt2 +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
+														+ val[i].content
+														+ "</button>" + "</div>"
+														+ "<br/>");
+										
+									}else{
+										
+									$("#showre").append(
+											"<div id="+val[i].sender+"\">"
+													+ bt +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
+													+ val[i].content
+													+ "</button>" + "</div>"
+													+ "<br/>");
+										
+									}
+									target = val[i].sender;
+									console.log(target + "댓그르그");
+								}
+								
+								
+							}
+							console.log("타켓팅" + target + "scope업데이트");
+							$.ajax("/direct/updateScope.do", {
+								"method" : "get",
+								"async" : true,
+								"data" : {
+									"sender" : setid,
+									"target" : target
 
-								});
+								}
+
+							}).done(function(val2) {
+								var a = 0;
+								console.log("업데이트 ");
+								$("#sp_" + target).html(" ");
+							});
+								//=====================================================
+						});
 								//====================================================================
 							})
 
