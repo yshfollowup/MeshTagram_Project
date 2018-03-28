@@ -59,9 +59,9 @@
   </filter>
     <filter-mapping>
   	<filter-name>filter</filter-name>
-	<url-pattern>/mypage/*</url-pattern> 
+	<url-pattern>/m*</url-pattern> 
 	<url-pattern>/account/up*</url-pattern>   
-	<url-pattern>/follow/*</url-pattern>	
+	<url-pattern>/f*</url-pattern>	
 	<url-pattern>/d*</url-pattern>
   </filter-mapping>
   

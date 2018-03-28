@@ -3050,8 +3050,8 @@ safe-area-inset-bottom
 											style="width: 100%; margin: 0 auto;" data-toggle="collapse"
 											data-target=".collapse">댓글보기</button>
 										<div id="demo" class="collapse" style="margin: 10 0;">
-											<span id="sp_${obj.code }" class="re_${obj.code }"
-												name="${obj.code }"></span>
+											<span id="sp_${obj._id }" class="re_${obj._id }"
+												name="${obj._id }"></span>
 										</div>
 									</div>
 								</div>
@@ -3060,8 +3060,8 @@ safe-area-inset-bottom
 								<section class="_km7ip _ti7l3 parent writereply">
 									<form class="_b6i0l">
 										<textarea  placeholder="댓글 달기..."
-											id="reply_${obj.code }" name="${obj.id }" class="reply _bilrf"
-											aria-label="${obj.code }" autocomplete="off" autocorrect="off"></textarea>
+											id="reply_${obj._id }" name="${obj.id }" class="reply _bilrf"
+											aria-label="${obj._id }" autocomplete="off" autocorrect="off"></textarea>
 									</form>
 								</section>
 							</div>

@@ -2035,25 +2035,25 @@ px
 			$(".dropdown-menu").empty();
 			val.forEach(function(f) {
 				if (f.startsWith("noId")) {
-					$(".dropdown-menu").append("<li class=\"_75ljm _3qhgf\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do\"><b>
+					$(".dropdown-menu").append("<li class=\"\"_75ljm _3qhgf\"\"><div class=\"\"_b96u5\"\">회원님이 팔로잉한<a href=\"/detail/detail.do\">\"<b>"
 							+ f.noId
-							+ "</b>님이 새 게시물을 올렸습니다.</a><a href=\"/detail/detail.do\">게시물 보기</a><div class=\"_3lema _6g6t5\">
+							+ "</b>님이 새 게시물을 올렸습니다.</a><a href=\"/detail/detail.do\">게시물 보기</a><div class=\"\"_3lema _6g6t5\"\">"
 							+ f.date
 							+ "</div></div></li>");
 				} else if (f.startsWith("noLikeId")) {
-					$(".dropdown-menu").append("<li class=\"_75ljm _3qhgf\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do\"><b>
+					$(".dropdown-menu").append("<li class=\"_75ljm _3qhgf\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do\"><b>"
 							+ f.noLikeId
-							+ "</b>님이<b>
+							+ "</b>님이<b>"
 							+ f.noLikeTarget
-							+ "</b>님의 게시물에 좋아요를 눌렀습니다.</a><div class=\"_3lema _6g6t5\">
+							+ "</b>님의 게시물에 좋아요를 눌렀습니다.</a><div class=\"_3lema _6g6t5\">"
 							+ f.date
 							+ "</div></div></li>");
 				} else {
-					$(".dropdown-menu").append("<li class=\"_75ljm _3qhgf\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do\"><b>
+					$(".dropdown-menu").append("<li class=\"_75ljm _3qhgf\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do\"><b>"
 							+ f.noReplyId
-							+ "</b>님이<b>
+							+ "</b>님이<b>"
 							+ f.noReplyTarget
-							+ "</b>님의 게시물에 댓글을 달았습니다.</a><a href=\"/detail/detail.do\">댓글 보기</a><div class=\"_3lema _6g6t5\">
+							+ "</b>님의 게시물에 댓글을 달았습니다.</a><a href=\"/detail/detail.do\">댓글 보기</a><div class=\"_3lema _6g6t5\">"
 							+ f.date
 							+ "</div></div></li>");
 				}
@@ -2067,6 +2067,7 @@ px
 		var tag = null;
 		var idsh = null;
 		var comm = null
+		console.log("아아아아");
 		if (value.startsWith("#")) {
 			tag = value;
 		} else if (value.startsWith("@")) {
@@ -2097,14 +2098,7 @@ px
 						var a = val[i].tags[i];
 						s = a.replace('#', '%23');
 					}
-					str += "<a href=/searchtag.do?tags="
-							+ s
-							+ ">"
-							+ val[i].tags
-							+ "<br/>게시물 "
-							+ val[i].count
-							+ "</a>"
-							+ "<br/>";
+					str += "<a href=/searchtag.do?tags="+ s+ ">"+ val[i].tags+ "<br/>게시물 "+ val[i].count+ "</a>"+ "<br/>";
 				} else if (val.PROFILE == null) {
 					ii = img;
 				} else {
@@ -2117,16 +2111,7 @@ px
 					name = val[i].NAME;
 				}
 				
-				str += "<a href=/search.do?id="
-						+ val[i].ID
-						+ "><div>"
-						+ ii
-						+ "<div>"
-						+ val[i].ID
-						+ "</div><div style=\"border-bottom: 1px solid grey;\">"
-						+ name
-						+ "</div></div></a>"
-						+ "<br/>";
+				str += "<a href=/search.do?id="+ val[i].ID+ "><div>"+ ii+ "<div>"+ val[i].ID+ "</div><div style=\"border-bottom: 1px solid grey;\">"+ name+ "</div></div></a>"+ "<br/>";
 			}
 		});
 		$("#pp").html(str);
