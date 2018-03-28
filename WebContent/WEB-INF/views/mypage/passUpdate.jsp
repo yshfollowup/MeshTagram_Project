@@ -1087,13 +1087,24 @@ a:active {
 				<article class="_75z9k">
 					<div class="_1eg8c">
 						<div class="_62ai2 _5g4e2">
-							<button class="_3xjwv" title="프로필 사진 바꾸기">
-								<img alt="프로필 사진 바꾸기" class="_cuacn" src="/images/insta.jpg">
+							<button type="button" class="_3xjwv" onclick="$('#photo').click();" 
+								title="프로필 사진 바꾸기">
+								<c:choose>
+									<c:when test="${empty  aDTO.profile}">
+										<img alt="프로필 사진 바꾸기" class="_cuacn" src="/images/insta.jpg"
+											id="preview">${aDTO.id }
+									</c:when>
+									<c:otherwise>
+										<span class="_3xjwv"> <img id="preview"
+											src="${applicationScope.path }${aDTO.profile}" class="_cuacn" />
+										</span>
+									</c:otherwise>
+								</c:choose>
 							</button>
 						</div>
 						<div class="_ax54t">
 							<h1 class="_gvhl0" title="${aDTO.id }">aDTO.id</h1>
-							<a class="_5aav8" style="cursor:hand; font-size:16px;">프로필 사진 수정</a>
+							<a type="button" class="_5aav8" id="updateBt" style="cursor: hand; font-size: 16px;">적용</a>
 						</div>
 						<div>
 							<form enctype="multipart/form-data">
@@ -1108,7 +1119,7 @@ a:active {
 							</aside>
 							<div class="_cd2n1">
 								<input type="password" class="_4abhr _o716c"
-									aria-required="true" id="op" value="">
+									aria-required="true" id="op" name="oldPass" value="">
 							</div>
 						</div>
 						<div class="_e1xik">
@@ -1117,7 +1128,8 @@ a:active {
 							</aside>
 							<div class="_cd2n1">
 								<input type="password" class="_4abhr _o716c"
-									aria-required="true" id="np" value="">
+									aria-required="true" id="np" name="newPass" value="">
+								<span id="alert1"></span>
 							</div>
 						</div>
 						<div class="_e1xik">
@@ -1126,7 +1138,8 @@ a:active {
 							</aside>
 							<div class="_cd2n1">
 								<input type="password" class="_4abhr _o716c"
-									aria-required="true" id="confirm" value="">
+									aria-required="true" id="confirm" name="confirmPass" value="">
+								<span id="alert2"></span>
 							</div>
 						</div>
 						<div class="_e1xik">
@@ -1136,7 +1149,7 @@ a:active {
 							<div class="_cd2n1">
 								<div class="_qr7ez">
 									<span class="_ov9ai">
-										<button id="sendBt" class="_qv64e _gexxb _r9b8f _jfvwv"
+										<button id="passBt" class="_qv64e _gexxb _r9b8f _jfvwv"
 											disabled="">비밀번호 변경</button>
 									</span>
 								</div>
@@ -1148,58 +1161,48 @@ a:active {
 			</div>
 			</main>
 		</section>
-	</span>
-	<script> 
-		document.getElementById("photo").onchange=function(){
-			console.log(this.files[0]);
-			if(!this.files[0].type.startsWith("image")){
-				window.alert("이미지 파일만 선택 가능합니다.")
-				return ;
-			}
-			// 미리보기를 구현할려면, XMLHttpRequest 객체같이
-			var reader=new FileReader();
-			reader.readAsDataURL(this.files[0]);
-			console.log(reader);
-			reader.onload=function(){// readAsDataURL이 끝나면 발생하는 이벤트
-
+	</span> 
 <script> 
 	//비밀번호 변경
-
+	var oldPass = $("#op").val();
+	var newPass = $("#np").val();
+	var confirm = $("#confirm").val();
+	
 	$("#confirm").keypress(function() {
-		$("#sendBt").prop("disabled", false);
+		$("#passBt").prop("disabled", false);
 	});
 	
-		
-	$("#sendBt").on("click", function() {
-		var oldPass = $("#op").val();
-		var newPass = $("#np").val();
-		var confirm = $("#confirm").val();
-		console.log(oldPass);
-		console.log(newPass);
-		console.log(confirm);
-		
+	$("#np").on("change", function() {
 		if (oldPass == newPass) {
-			window.alert("같은 비밀번호로 변경할 수 없습니다.");
+			$("#alert1").html("같은 비밀번호로 변경할 수 없습니다.");
 			
 		} else if (oldPass != $("#hideOp").attr("value")) {
-			window.alert("이전 비밀번호가 일치하지 않습니다.");
+			$("#alert1").html("이전 비밀번호가 일치하지 않습니다.");
 		
 		} else if ((!newPass.match("[A-Za-z0-9]+")) || 
 					(newPass.match("[0-9]")) || 
 					(newPass.match("[A-Za-z]+")) ||
 					(newPass.length < 8)) {
-			window.alert("비밀번호는 영문+숫자를 조합하여 8자리 이상으로 변경해주십시오.");
-			
-		} else if (confirm != newPass) {
-			window.alert("확인된 비밀번호가 틀립니다.");
-
-		} else {
-			$("#form2").submit();
-			window.alert("비밀번호가 변경되었습니다!");
-		}
-		
-		
+			$("#alert1").html("비밀번호는 영문+숫자를 조합하여 8자리 이상으로 변경해주십시오.");
+		}	
 	});
+	
+	$("#confirm").on("change", function() {
+		if (confirm != newPass) {
+			$("#alert2").html("확인된 비밀번호가 아닙니다.");
+		}
+	});
+		
+	$("#passBt").on("click", function() {
+		
+		console.log(oldPass);
+		console.log(newPass);
+		console.log(confirm);
+		
+		$("#form2").submit();
+		window.alert("비밀번호가 변경되었습니다!");
+	});
+		
 	
 	//프로필 사진 변경
 	$("#uploadBt").click(function(){

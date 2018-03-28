@@ -1998,7 +1998,7 @@ px
 									
 									</span></a> 
 								<ul class="dropdown-menu">
-									<li><a href="#">공지사항</a></li>
+									<li id="noticeList"></li>
 								</ul>
 
 							</div>
@@ -2026,114 +2026,111 @@ px
 		</div>
 	</nav>
 
-	<script>
-	
-	$("#notice").on("click", function(){
+<script>
+	//최신 소식 띄우기
+	$("#notice").on("click", function() {
 		console.log("공지사항 들어왔다.");
-		var noid; 
-		var code;
-		var date;
-		var noLikeid;
-		var noLikeTarget;
-		var Likecode;
-		var Likedate;
-		var noReplyid;
-		var noReplyTarget;
-		var Replycode;
-		var Replydate;
-		
-		$.ajax("/noticeBoard.do",{
-			"method" : "get",
-			"async" : true,
-			"data" : {
-				
-			}
-		}).done(function(val){
+		$.getJSON("/noticeBoard.do", function(val){
 			console.log(val);
-		
+			$(".dropdown-menu").empty();
+			val.forEach(function(f) {
+				if (f.startsWith("noId")) {
+					$(".dropdown-menu").append("<li class=\"_75ljm _3qhgf\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do\"><b>
+							+ f.noId
+							+ "</b>님이 새 게시물을 올렸습니다.</a><a href=\"/detail/detail.do\">게시물 보기</a><div class=\"_3lema _6g6t5\">
+							+ f.date
+							+ "</div></div></li>");
+				} else if (f.startsWith("noLikeId")) {
+					$(".dropdown-menu").append("<li class=\"_75ljm _3qhgf\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do\"><b>
+							+ f.noLikeId
+							+ "</b>님이<b>
+							+ f.noLikeTarget
+							+ "</b>님의 게시물에 좋아요를 눌렀습니다.</a><div class=\"_3lema _6g6t5\">
+							+ f.date
+							+ "</div></div></li>");
+				} else {
+					$(".dropdown-menu").append("<li class=\"_75ljm _3qhgf\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do\"><b>
+							+ f.noReplyId
+							+ "</b>님이<b>
+							+ f.noReplyTarget
+							+ "</b>님의 게시물에 댓글을 달았습니다.</a><a href=\"/detail/detail.do\">댓글 보기</a><div class=\"_3lema _6g6t5\">
+							+ f.date
+							+ "</div></div></li>");
+				}
+			});
 		});
 	});
 	
-		$("#search")
-				.on(
-						"keyup",
-						function() {
-							var value = $("#search").val();
-							var tag = null;
-							var idsh = null;
-							var comm = null
-							if (value.startsWith("#")) {
-								tag = value;
-							} else if (value.startsWith("@")) {
-								idsh = value;
-							} else {
-								comm = value;
-							}
-							$
-									.ajax("/autocom.do", {
-										"method" : "post",
-										"async" : true,
-										"data" : {
-											"tag" : tag,
-											"idsh" : idsh,
-											"comm" : comm
-										}
-									})
-									.done(
-											function(val) {
-												console.log(val);
-												var str = "";
-												var img = "<img src=\"/images/insta.jpg\" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
-												for (var i = 0; i < val.length; i++) {
-													var img2 = "<img src=\"${applicationScope.path }"+val.PROFILE+" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
-													var com = null;
-													var ii = null;
-													if (val[i]._id != null) {
-														var s = null;
-														if (val[i].tags[0]
-																.startsWith("#")) {
-															console
-																	.log(val[i].tags[i]);
-															var a = val[i].tags[i];
-															s = a.replace('#',
-																	'%23');
-														}
-														str += "<a href=/searchtag.do?tags="
-																+ s
-																+ ">"
-																+ val[i].tags
-																+ "<br/>게시물 "
-																+ val[i].count
-																+ "</a>"
-																+ "<br/>";
-													} else {
-														if (val.PROFILE == null) {
-															ii = img;
-														} else {
-															ii = img2;
-														}
-														if (val[i].NAME == null) {
-															name = "";
-														} else {
-															name = val[i].NAME;
-														}
-														str += "<a href=/search.do?id="
-																+ val[i].ID
-																+ "><div>"
-																+ ii
-																+ "<div>"
-																+ val[i].ID
-																+ "</div><div style=\"border-bottom: 1px solid grey;\">"
-																+ name
-																+ "</div></div></a>"
-																+ "<br/>";
-													}
-												}
-												$("#pp").html(str);
-											})
-						});
-	</script>
-
-
+	//검색창
+	$("#search").on("keyup", function() {
+		var value = $("#search").val();
+		var tag = null;
+		var idsh = null;
+		var comm = null
+		if (value.startsWith("#")) {
+			tag = value;
+		} else if (value.startsWith("@")) {
+			idsh = value;
+		} else {
+			comm = value;
+		}
+		$.ajax("/autocom.do", {
+			"method" : "post",	
+			"async" : true,
+			"data" : {
+				"tag" : tag,
+				"idsh" : idsh,
+				"comm" : comm
+			}
+		}).done(function(val) {
+			console.log(val);
+			var str = "";
+			var img = "<img src=\"/images/insta.jpg\" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
+			for (var i = 0; i < val.length; i++) {
+				var img2 = "<img src=\"${applicationScope.path }"+val.PROFILE+" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
+				var com = null;
+				var ii = null;
+				if (val[i]._id != null) {
+					var s = null;
+					if (val[i].tags[0].startsWith("#")) {
+						console.log(val[i].tags[i]);
+						var a = val[i].tags[i];
+						s = a.replace('#', '%23');
+					}
+					str += "<a href=/searchtag.do?tags="
+							+ s
+							+ ">"
+							+ val[i].tags
+							+ "<br/>게시물 "
+							+ val[i].count
+							+ "</a>"
+							+ "<br/>";
+				} else if (val.PROFILE == null) {
+					ii = img;
+				} else {
+					ii = img2;
+				}
+				
+				if (val[i].NAME == null) {
+					name = "";
+				} else {
+					name = val[i].NAME;
+				}
+				
+				str += "<a href=/search.do?id="
+						+ val[i].ID
+						+ "><div>"
+						+ ii
+						+ "<div>"
+						+ val[i].ID
+						+ "</div><div style=\"border-bottom: 1px solid grey;\">"
+						+ name
+						+ "</div></div></a>"
+						+ "<br/>";
+			}
+		});
+		$("#pp").html(str);
+	});
+</script>
 </body>
 </html>
