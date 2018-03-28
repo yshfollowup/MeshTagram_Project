@@ -91,7 +91,7 @@ function likeList(setid) {
 	});
 	// console.log(boardid);
 	$.ajax("/likeList.do", {
-		"method" : "get",
+		"method" : "post",
 		"async" : true,
 		"data" : {
 			"boardId" : boardid
@@ -115,16 +115,16 @@ function likeList(setid) {
 
 function List(setid) {
 	var boardid=[];
-	console.log("댓글 리스트 보여주기");
 	$(".rebt").each(function() {
 		boardid.push($(this).attr("name"));
 	});
+	console.log("댓글 리스트 보여"+boardid);
 	 console.log(boardid.length);
 	 if(boardid.length>0){
 		 
 	
 	$.ajax("/listReply.do", {
-		"method" : "get",
+		"method" : "post",
 		"async" : true,
 		"data" : {
 			"boardId" : boardid
@@ -145,7 +145,8 @@ function List(setid) {
 				// console.log("댓글버튼"+setid+s);
 				dd="<button type=\"button\" class=\"del\" name="+val[i].boardId+" id=\""+val[i].ment+"\" >삭제룽</button>";
 			}
-			$("#sp_" + val[i].boardId).append("<a href=/search.do?id="+val[i].reid+">"+val[i].reid+"</a>" + "&emsp; <span id=\"ment_" + val[i].ment+" class=\"ment\" name="+val[i].ment+" >"+val[i].ment+"</span>" +"\t\t"+dd+"<br/>");
+			console.log(val[i].date+"데이트 객체");
+			$("#sp_" + val[i].boardId).append("<a href=/search.do?id="+val[i].reid+">"+val[i].reid+"</a>" + "&emsp; <span id=\"ment_" + val[i].ment+" class=\"ment\" name="+val[i].ment+" >"+val[i].ment+"</span>" +"\t\t"+dd+val[i].date+"<br/>");
 		}
 		var id=setid;
 		
