@@ -1982,7 +1982,7 @@ px
 					</div>
 					<div class="_devkn">
 						<div class="_qlijk">
-							<div class="_b28md" style="padding-top : 1px; width:99%;">
+							<div class="_b28md" style="padding-top : 1px;">
 								<a class=" _gvoze" href="/direct/index.do"><img src="/images/plane.png"/></a>
 							</div>
 							<div class="_b28md">

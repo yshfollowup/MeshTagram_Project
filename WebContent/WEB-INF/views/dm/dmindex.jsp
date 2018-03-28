@@ -16,6 +16,7 @@
 <title>MeshTagram</title>
 </head>
 <body>
+
 	<div align="center">
 		<a href="javascript:" id="title"><b>받은 쪽지함</b></a>
 	</div>

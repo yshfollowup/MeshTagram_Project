@@ -3013,9 +3013,12 @@ safe-area-inset-bottom
 										<span class="_8scx2 coreSpriteHeartFull">좋아요취소</span>
 									</a> <a class="_p6oxf _6p9ga rebt" role="button" name="${obj._id }">
 										<span class="_8scx2 coreSpriteComment">댓글 달기</span>
-									</a> <a class="_mpkky _et4ho mark" href="#" role="button"
+									</a> <a class="_mpkky _et4ho mark" role="button"
 										aria-disabled="false" name="${obj._id }" id="mark_"${obj._id }> <span
 										class="_8scx2 coreSpriteSaveOpen">저장</span>
+									</a> <a class="_mpkky _et4ho unmark" role="button"
+										aria-disabled="false" name="${obj._id }" id="mark_"${obj._id } style="display : none;"> <span
+										class="_8scx2 coreSpriteSaveFull">저장취소</span>
 									</a>
 								</section>
 								<section class="_1w76c _nlmjy">
@@ -3157,9 +3160,10 @@ safe-area-inset-bottom
 		</div>
 	</section>
 
-	<script type="text/javascript" src="/js/custom.js"></script> <script>
+	<script type="text/javascript" src="/js/custom.js"></script> 
+	<script>
 		$(".mark").on("click", function(){
-			console.log("좋아요 들어왔다");
+			console.log("저장 들어왔다");
 			var reid = "${cookie.setId.value}";
 			var boardid = $(this).attr("name");
 			var bt = $("#mark"+boardid).attr("name");
@@ -3173,7 +3177,30 @@ safe-area-inset-bottom
 						"mark": "저장"
 					}
 				}).done(function(val){
+					$(".mark").hide();
+					$(".unmark").show();
 					console.log("저장이 성공적");
+				});
+		});
+		
+		$(".unmark").on("click", function(){
+			console.log("저장 취소시도");
+			var reid = "${cookie.setId.value}";
+			var boardid = $(this).attr("name");
+			var bt = $("#mark"+boardid).attr("name");
+			console.log(bt+"구분자"+boardid+"아이디"+"저장");
+				$.ajax("/markBoard.do", {
+					"method" : "get",
+					"async" : true,
+					"data" : {
+						"boardId" : boardid,
+						"id" : reid,
+						"mark": "저장취소"
+					}
+				}).done(function(val){
+					$(".mark").show();
+					$(".unmark").hide();
+					console.log("저장취소 성공");
 				});
 		});
 		
