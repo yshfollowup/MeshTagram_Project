@@ -105,8 +105,16 @@
 @
 supports
 
+<ul class="_mleeu">
+	<li><a class="_fvhml _etlo6" href="/mypage/edit.do">프로필 편집</a></li>
+	<li><a class="_fvhml _t0stc" href="/mypage/pass.do">비밀번호 변경</a></li>
+	<li><a class="_fvhml _etlo6" href="/accounts/comment_filter/">댓글</a>
+	</li>
+	<li><a class="_fvhml _etlo6" href="/accounts/contact_history/">연락처
+			관리</a></li>
+</ul>
 
-
+<<<<<<< HEAD
 
 
 
@@ -1136,8 +1144,8 @@ a:active {
 						</div>
 					</form>
 				</article>
-			</div>
 
+			</div>
 			</main>
 		</section>
 	</span>
@@ -1153,29 +1161,66 @@ a:active {
 			reader.readAsDataURL(this.files[0]);
 			console.log(reader);
 			reader.onload=function(){// readAsDataURL이 끝나면 발생하는 이벤트
+
+<script> 
+	//비밀번호 변경
+
+	$("#confirm").keypress(function() {
+		$("#sendBt").prop("disabled", false);
+	});
+	
+		
+	$("#sendBt").on("click", function() {
+		var oldPass = $("#op").val();
+		var newPass = $("#np").val();
+		var confirm = $("#confirm").val();
+		console.log(oldPass);
+		console.log(newPass);
+		console.log(confirm);
+		
+		if (oldPass == newPass) {
+			window.alert("같은 비밀번호로 변경할 수 없습니다.");
 			
-				document.getElementById("preview").src=this.result;
-				
-			}
-		document.getElementById("preview").onclick=function(){
-			document.getElementById("photo").click();
-		}	
+		} else if (oldPass != $("#hideOp").attr("value")) {
+			window.alert("이전 비밀번호가 일치하지 않습니다.");
+		
+		} else if ((!newPass.match("[A-Za-z0-9]+")) || 
+					(newPass.match("[0-9]")) || 
+					(newPass.match("[A-Za-z]+")) ||
+					(newPass.length < 8)) {
+			window.alert("비밀번호는 영문+숫자를 조합하여 8자리 이상으로 변경해주십시오.");
 			
-		$("#sendBt").on("click", function(e) {
-			var oldPass = $("#op").attr(e.target);
-			var newPass = $("#np").attr(e.target);
-			var confirm = $("#confirm").attr(e.target);
-			if (oldPass == newPass) {
-				window.alert("같은 비밀번호는 사용할 수 없습니다.");
-				return;
-			}else if (confirm == null) {
-				window.alert("비밀번호 확인을 반드시 해주세요!");
-			}
-			
-			$("#form1").on("submit", function() {
-				window.alert("비밀번호가 변경되었습니다!");			
-			});		
-		});
+		} else if (confirm != newPass) {
+			window.alert("확인된 비밀번호가 틀립니다.");
+
+		} else {
+			$("#form2").submit();
+			window.alert("비밀번호가 변경되었습니다!");
+		}
+		
+		
+	});
+	
+	//프로필 사진 변경
+	$("#uploadBt").click(function(){
+		$("#form1").submit();
+		window.alert("프로필 사진이 변경되었습니다!");
+	});
+
+	$("#photo").change(function(e){
+		var file = e.target.files[0];
+		if (!file.type.match("image.*")) {
+			window.alert("이미지파일만 선택할 수 있습니다!");
+			return;
+		}
+		var reader = new FileReader();
+		console.log(reader);
+		reader.onload = function(e) {
+			$("#preview").attr("src", e.target.result);
+		}
+		reader.readAsDataURL(file);
+	});
+		
 		
 	</script>
 

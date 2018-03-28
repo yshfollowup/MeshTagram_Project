@@ -3039,7 +3039,7 @@ transform
 						id="following">팔로우${fn:length(following) }</a></li>
 				</ul>
 				<div class="_tb97a">
-					<h1 class="_kc4z2">${aDTO.name }</h1>
+					<h1 class="_kc4z2">${aDTO.name }</h1>  <span>${aDTO.intro }</span>
 				</div>
 			</section>
 		</header>

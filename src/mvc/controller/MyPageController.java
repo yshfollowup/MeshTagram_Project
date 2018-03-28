@@ -60,8 +60,7 @@ public class MyPageController {
 	Gson gson;
 
 	@RequestMapping("/index.do")
-	public String MyPageHandle(@CookieValue(name = "setId", required = false) 
-			String setId, ModelMap modelMap) {
+	public String MyPageHandle(@CookieValue(name = "setId", required = false) String setId, ModelMap modelMap) {
 		System.out.println("[SERVER]: MyPage success" + setId);
 		String id = setId;
 		// 계정 정보
@@ -80,25 +79,23 @@ public class MyPageController {
 		// 팔로워 - 나를 구독하는 사람들
 		List<AccountDTO> followerList = new ArrayList<>();
 		followerList = aDAO.selectAllAccountFollower(id);
-		
+
 		modelMap.put("following", followingList);
 		modelMap.put("follower", followerList);
 
 		return "insta_myPage";
 	}
-	
 
 	@RequestMapping("/markBoard.do")
 	@ResponseBody
-	public String markBoardHandle(@CookieValue(name = "setId", required = false) 
-			String setId) {
+	public String markBoardHandle(@CookieValue(name = "setId", required = false) String setId) {
 		System.out.println("[SERVER]: MyPage success" + setId);
 		String id = setId;
-		List<Map> result=rDAO.markBoardFind(id);
-		Gson gson=new Gson();
+		List<Map> result = rDAO.markBoardFind(id);
+		Gson gson = new Gson();
 		return gson.toJson(result);
 	}
-	
+
 	@RequestMapping("/follower.do")
 	public String followerHandle(@CookieValue(name = "setId", required = false) String setId, ModelMap modelMap) {
 		System.out.println("[SERVER]: MyPage success" + setId);
@@ -114,17 +111,18 @@ public class MyPageController {
 		// 팔로워 - 나를 구독하는 사람들
 		List<AccountDTO> followerList = new ArrayList<>();
 		followerList = aDAO.selectAllAccountFollower(id);
-		
+
 		// 팔로워 - 나를 구독하는 사람들조인 문
 		List<Map> followerListJoin = new ArrayList<>();
 		followerListJoin = fDAO.selectFollwerProfileId(id);
-		
+
 		modelMap.put("following", followingList);
 		modelMap.put("follower", followerList);
 		modelMap.put("followerJoin", followerListJoin);
 
 		return "myPage_follower";
 	}
+
 	@RequestMapping("/following.do")
 	public String followingHandle(@CookieValue(name = "setId", required = false) String setId, ModelMap modelMap) {
 		System.out.println("[SERVER]: MyPage success" + setId);
@@ -136,155 +134,146 @@ public class MyPageController {
 		// 팔로잉 - 내가 구독한 사람들
 		List<AccountDTO> followingList = new ArrayList<>();
 		followingList = aDAO.selectAllAccountFollowing(id);
-		
+
 		// 팔로잉 - 내가 구독한 사람들
 		List<Map> followingJoin = new ArrayList<>();
 		followingJoin = fDAO.selectFollwingProfileId(id);
-				
 
 		// 팔로워 - 나를 구독하는 사람들
 		List<AccountDTO> followerList = new ArrayList<>();
 		followerList = aDAO.selectAllAccountFollower(id);
-		
+
 		modelMap.put("following", followingList);
 		modelMap.put("follower", followerList);
 		modelMap.put("followingJoin", followingJoin);
 
 		return "myPage_following";
 	}
-	
+
 	@RequestMapping("/insert.do")
-	public String insertHandle(@RequestParam MultiValueMap<String,String> vmap) {
+	public String insertHandle(@RequestParam MultiValueMap<String, String> vmap) {
 		String me = vmap.getFirst("me");
 		String target = vmap.getFirst("target");
-		System.out.println("[SERVER]: insert follow, me->"+me+" | target->"+target);
-		
-		int r= fDAO.insertFollow(me, target);
-		if(r==0) {
-			System.out.println("[SERVER]: follow failed "+r);
+		System.out.println("[SERVER]: insert follow, me->" + me + " | target->" + target);
+
+		int r = fDAO.insertFollow(me, target);
+		if (r == 0) {
+			System.out.println("[SERVER]: follow failed " + r);
 			return "insta_follow";
 		}
 		System.out.println("[SERVER]: follow success");
-		
+
 		return "redirect:/mypage/follower.do";
 	}
-	
+
 	@RequestMapping("/delete.do")
-	public String deleteHandle(@RequestParam MultiValueMap<String,String> vmap) {
+	public String deleteHandle(@RequestParam MultiValueMap<String, String> vmap) {
 		String me = vmap.getFirst("me");
 		String target = vmap.getFirst("target");
-		System.out.println("[SERVER]: delete follow, me->"+me+" | target->"+target);
-		
-		int r= fDAO.deleteFollow(me, target);
-		if(r==0) {
-			System.out.println("[SERVER]: delete failed "+r);
+		System.out.println("[SERVER]: delete follow, me->" + me + " | target->" + target);
+
+		int r = fDAO.deleteFollow(me, target);
+		if (r == 0) {
+			System.out.println("[SERVER]: delete failed " + r);
 			return "insta_follow";
 		}
 		System.out.println("[SERVER]: delete success");
-		
+
 		return "redirect:/mypage/following.do";
 	}
-	
-	//기존의 계정 정보 넘길 때
-	@RequestMapping(path="/edit.do", method=RequestMethod.GET)
-	public String editHandle(@RequestParam Map param, ModelMap modelMap, @CookieValue(name="setId", required=false) String setId) {
-		System.out.println("[SERVER]: login success"+setId);
+
+	// 기존의 계정 정보 넘길 때
+	@RequestMapping(path = "/edit.do", method = RequestMethod.GET)
+	public String editHandle(@RequestParam Map param, ModelMap modelMap,
+			@CookieValue(name = "setId", required = false) String setId) {
+		System.out.println("[SERVER]: login success" + setId);
 		String id = setId;
-		
-		//계정 정보
+
+		// 계정 정보
 		AccountDTO aDTO = aDAO.selectOneAccountre(id);
 		modelMap.put("aDTO", aDTO);
-		
+
 		System.out.println("[SERVER]: login success");
 		return "mypage_edit";
 	}
-	
-	//수정한 계정 정보 넘길 떄
-	@RequestMapping(path="/edit.do", method=RequestMethod.POST)
-	public String editUpdateHandle(@RequestParam Map param, @CookieValue(name="setId", required=false) String setId, ModelMap modelMap) {
-		System.out.println("[SERVER]: login success"+setId);
-		System.out.println(param.get("name") + "/" + param.get("website") + "/"
-				+ param.get("bio") + "/" + param.get("email") + "/"
-				+ param.get("phone") + "/" + param.get("birth") + "/" 
-				+ param.get("gender") + "/" + param.get("privateAccount"));
-		
-		if (param != null) {
-			String id = setId;
-			
-			//넘어온 생일 date 타입으로 처리하기
-			String result = (String) param.get("birth");		//yyyy-mm-dd로 넘어올 것임
-			System.out.println(result);
-			Date birth = Date.valueOf(result);
-			//System.out.println(birth);
-			param.put("birth", birth);
-			
-			//공개범위(scope) 처리하기
-			String flag = (String) param.get("privateAccount");
-			if (flag == "on") {
-				param.put("privateAccount", 1);
-			}
-			
-			//계정 정보
-			param.put("id", id);
-			
-			int r = aDAO.updateAccount(param);
-			if (r > 0) {
-				AccountDTO aDTO = aDAO.selectOneAccountre(id);
-				modelMap.put("aDTO", aDTO);			
-			}
-			
+
+	// 수정한 계정 정보 넘길 떄
+	@RequestMapping(path = "/edit.do", method = RequestMethod.POST)
+	public String editUpdateHandle(@RequestParam Map param, @CookieValue(name = "setId", required = false) String setId,
+			ModelMap modelMap) {
+		System.out.println("[SERVER]: login success" + setId);
+		System.out.println(param.get("name") + "/" + param.get("intro") + "/"
+				+ param.get("email") + "/" + param.get("phone") + "/" 
+				+ param.get("birth") + "/" + param.get("gender")
+				+ "/" + param.get("privateAccount"));
+
+		String id = setId;
+
+		// 공개범위(scope) 처리하기
+		String flag = (String) param.get("privateAccount");
+		param.put("scope", flag == null ? 0 : 1);
+		// 계정 정보
+		param.put("id", id);
+		int r = aDAO.updateAccount(param);
+		if (r > 0) {
+			AccountDTO aDTO = aDAO.selectOneAccountre(id);
+			modelMap.put("aDTO", aDTO);
 		}
 		
 		System.out.println("[SERVER]: login success");
 		return "redirect:/mypage/index.do";
 	}
 
-	//기존의 비밀번호 정보 넘길 때
-	@RequestMapping(path="/pass.do", method=RequestMethod.GET)
-	public String passHandle(ModelMap modelMap, @CookieValue(name="setId", required=false) String setId) {
-		System.out.println("[SERVER]: login success"+setId);
+	// 기존의 비밀번호 정보 넘길 때
+	@RequestMapping(path = "/pass.do", method = RequestMethod.GET)
+	public String passHandle(ModelMap modelMap, @CookieValue(name = "setId", required = false) String setId) {
+		System.out.println("[SERVER]: login success" + setId);
 		String id = setId;
-		//계정 정보
+		// 계정 정보
 		AccountDTO aDTO = aDAO.selectOneAccountre(id);
 		modelMap.put("aDTO", aDTO);
-		
+
 		System.out.println("[SERVER]: login success");
 		return "mypage_pass";
 	}
-	
-	//수정한 비밀번호 정보 넘길 때
-	@RequestMapping(path="/pass.do", method=RequestMethod.POST)
-	public String passUpdateHandle(@RequestParam Map param, 
-			ModelMap modelMap, @CookieValue(name="setId", required=false) String setId) {
-		System.out.println("[SERVER]: login success"+setId);
+
+	// 수정한 비밀번호 정보 넘길 때
+	@RequestMapping(path = "/pass.do", method = RequestMethod.POST)
+	public String passUpdateHandle(@RequestParam Map param, ModelMap modelMap,
+			@CookieValue(name = "setId", required = false) String setId) {
+		System.out.println("[SERVER]: login success" + setId);
+		System.out.println(param.get("oldPass") + " / " + param.get("newPass") + " / " + param.get("confirmPass"));
 		String id = setId;
-		//계정 정보
+		String pass = (String) param.get("newPass");
+		// 계정 정보
 		param.put("id", id);
+		param.put("pass", pass);
 		int r = aDAO.updatePassword(param);
 		if (r > 0) {
 			AccountDTO aDTO = aDAO.selectOneAccountre(id);
-			modelMap.put("aDTO", aDTO);			
+			modelMap.put("aDTO", aDTO);
 		}
+		
 		System.out.println("[SERVER]: login success");
 		return "redirect:/mypage/index.do";
 	}
-	
-	@RequestMapping(path="/uploadProfile.do", method=RequestMethod.POST)
-	public String uploadProfileHandle(@RequestParam(name="profile") MultipartFile file,
-			@CookieValue(name="setId", required=false) String setId, ModelMap modelMap) throws Exception {
-		System.out.println("[SERVER]:프로필 사진 넘겼다"+setId);
-		System.out.println("얘가 받아야한다."+file);
+
+	@RequestMapping(path = "/uploadProfile.do", method = RequestMethod.POST)
+	public String uploadProfileHandle(@RequestParam(name = "profile") MultipartFile file,
+			@CookieValue(name = "setId", required = false) String setId, ModelMap modelMap) throws Exception {
+		System.out.println("[SERVER]:프로필 사진 넘겼다" + setId);
+		System.out.println("얘가 받아야한다." + file);
 		String id = setId;
 		File target = us2.uploadImage(file);
 		String fileName = "/" + target.getName();
 		System.out.println(fileName);
-		Map param = new HashMap<>();	
+		Map param = new HashMap<>();
 		param.put("id", id);
 		param.put("profile", fileName);
 		int r = aDAO.updateProfile(param);
 		if (r > 0) {
 			AccountDTO aDTO = aDAO.selectOneAccountre(id);
-			modelMap.put("aDTO", aDTO);	
+			modelMap.put("aDTO", aDTO);
 		}
 		return "redirect:/mypage/index.do";
 	}

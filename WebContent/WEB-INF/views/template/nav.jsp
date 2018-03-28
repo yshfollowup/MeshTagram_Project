@@ -2030,10 +2030,21 @@ px
 	
 	$("#notice").on("click", function(){
 		console.log("공지사항 들어왔다.");
+		var noid; 
+		var code;
+		var date;
+		var noLikeid;
+		var noLikeTarget;
+		var Likecode;
+		var Likedate;
+		var noReplyid;
+		var noReplyTarget;
+		var Replycode;
+		var Replydate;
 		
-		$.ajax("/noticeBaord.do",{
+		$.ajax("/noticeBoard.do",{
 			"method" : "get",
-			"async" : true	,
+			"async" : true,
 			"data" : {
 				
 			}

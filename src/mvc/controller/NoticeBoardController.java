@@ -35,7 +35,7 @@ public class NoticeBoardController {
 	@Autowired
 	Gson gson;
 	
-	@RequestMapping(path="/noticeBaord.do")
+	@RequestMapping(path="/noticeBoard.do")
 	@ResponseBody
 	public String noticeBoardHandle(@CookieValue(name="setId") String setId) {
 		
@@ -68,7 +68,6 @@ public class NoticeBoardController {
 		
 		
 		List<Map> notice1=new LinkedList();
-		int size=noticeboard.size()/17;
 		System.out.println(noticeboard.size());
 		
 		long ct=System.currentTimeMillis();
@@ -93,7 +92,7 @@ public class NoticeBoardController {
 						rt=prv/(60*60)+"시간";
 				}else if(prv>1000L*60*60 && prv <1000L*60*60*24) {
 					// 몇 일전
-					rt=prv/(60*60*24)+"시간";
+					rt=prv/(60*60*24)+"일";
 				}
 					
 				Map ss=new LinkedHashMap();
@@ -139,7 +138,7 @@ public class NoticeBoardController {
 						rt=prv/(60*60)+"시간";
 				}else if(prv>1000L*60*60 && prv <1000L*60*60*24) {
 					// 몇 일전
-					rt=prv/(60*60*24)+"시간";
+					rt=prv/(60*60*24)+"일";
 				}
 					
 					
@@ -192,7 +191,7 @@ public class NoticeBoardController {
 						rt=prv/(60*60)+"시간";
 				}else if(prv>1000L*60*60 && prv <1000L*60*60*24) {
 					// 몇 일전
-					rt=prv/(60*60*24)+"시간";
+					rt=prv/(60*60*24)+"일";
 				}
 				
 				Map ss=new LinkedHashMap();
