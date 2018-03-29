@@ -2777,7 +2777,7 @@ margin-bottom:env(safe-area-inset-bottom)
 </head>
 <body>
 
-<div style="height: 70px;"></div>
+
 <main class="_8fi2q _2v79o" role="main">
 <section class="_owark _gsusx">
 <div class="_d4oao">
