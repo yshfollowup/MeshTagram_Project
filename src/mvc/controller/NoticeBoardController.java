@@ -35,7 +35,7 @@ public class NoticeBoardController {
 	@Autowired
 	Gson gson;
 	
-	@RequestMapping(path = "/noticeBoard.do")
+	@RequestMapping(path = "/noticeBoard.do", produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String noticeBoardHandle(@CookieValue(name = "setId") String setId) {
 
