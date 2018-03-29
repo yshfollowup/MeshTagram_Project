@@ -3050,8 +3050,8 @@ safe-area-inset-bottom
 											style="width: 100%; margin: 0 auto;" data-toggle="collapse"
 											data-target=".collapse">댓글보기</button>
 										<div id="demo" class="collapse" style="margin: 10 0;">
-											<span id="sp_${obj._id }" class="re_${obj._id }"
-												name="${obj._id }"></span>
+											<span id="sp_${obj.code }" class="re_${obj.code }"
+												name="${obj.code }"></span>
 										</div>
 									</div>
 								</div>

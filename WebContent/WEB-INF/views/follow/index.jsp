@@ -93,12 +93,14 @@
 		<div class="col-sm-8 text-left">
 			<c:forEach var="objLatest" items="${latest}">
 				<p style="float: left; width: 50%;">
-					<a href="${applictionScope.path}/detail/detail.do?boardid=${objLatest._id }" data-toggle="tooltip" id="top_${objLatest._id }" name="${objLatest._id }" class="tool" title="">
-							<c:forEach items="${objLatest.image }" var="image"  varStatus="st" end="0">
-								<img src="${objLatest.path }${image }"
-										style="width: 230px; height: 230px; " />
+				<a href="${applictionScope.path}/detail/detail.do?boardid=${obj._id }"
+							data-toggle="tooltip" id="top_${obj._id }" name="${obj._id }"
+							class="tool" title=""> <c:forEach items="${obj.image }"
+								var="image" varStatus="st" end="0">
+								<img src="${obj.path }${image }"
+									style="width: 230px; height: 230px;" />
 							</c:forEach>
-					</a>
+						</a>
 				</p>
 			</c:forEach>
 		</div>
@@ -236,7 +238,7 @@
 	});
 	likeList();
 	function likeList() {
-		var boardid=[];
+		var boardid = [];
 		$(".tool").each(function() {
 			boardid.push($(this).attr("name"));
 		});
@@ -252,19 +254,20 @@
 			for (var i = 0; i < val.length; i++) {
 				// console.log(val.length);
 				//$("#top_" + val[i].boardId).attr("title","좋아요 " + val[i].count+"개");
-				$("#top_" + val[i].boardId).val( val[i].count+"개");
+				$("#top_" + val[i].boardId).val(val[i].count + "개");
 			}
-			List();
+			console.log(boardid);
+			List(boardid);
 		})
-		
+
 	};
-	
-	function List() {
-		var boardid=[];
+
+	function List(boardid) {
+	/* 	var boardid = [];
 
 		$(".tool").each(function() {
 			boardid.push($(this).attr("name"));
-		});
+		}); */
 		console.log(boardid);
 		$.ajax("/ReList.do", {
 			"method" : "get",
@@ -274,7 +277,7 @@
 			}
 		}).done(
 				function(val) {
-					
+
 					var boardid = [];
 					var reply = [];
 					$(".rebt").each(function() {
@@ -282,11 +285,16 @@
 						reply.push($(this).attr("name"));
 					});
 					// console.log(val);
-						
+
 					for (var i = 0; i < val.length; i++) {
-						var reply=$("#top_" + val[i].boardId).val();
+						var reply = $("#top_" + val[i].boardId).val();
 						console.log(reply);
-						$("#top_" + val[i].boardId).attr("title","좋아요 " + $("#top_"+val[i].boardId).val()+"댓글 "+ val[i].count + "개");
+						$("#top_" + val[i].boardId).attr(
+								"title",
+								"좋아요 "
+										+ $("#top_" + val[i].boardId)
+												.val() + "댓글 "
+										+ val[i].count + "개");
 						//reply.appent("댓글 "+ val[i].count + "개");
 					}
 				})
