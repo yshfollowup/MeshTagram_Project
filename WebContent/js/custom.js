@@ -136,8 +136,8 @@ function List(setid) {
 			boardid.push($(this).attr("name"));
 			reply.push($(this).attr("name"));
 		});
-		$(".showing").html("");
-		console.log(val);
+		 console.log(val.length+"가가가"+val[0].length);
+		 console.log(val);
 		for (var i = 0; i < val.length; i++) {
 			var dd="";
 			if(val[i].reid == setid){
