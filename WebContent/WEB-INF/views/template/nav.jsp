@@ -2032,7 +2032,6 @@ px
 		console.log("공지사항 들어왔다.");
 		$.getJSON("/noticeBoard.do", function(val){
 			console.log(val);
-			var noticeList = [];
 			$.each(val, function(i, key) {
 				//console.log(i);
 				//console.log(key);
@@ -2040,7 +2039,6 @@ px
 				var noLikeId = key.noLikeId;
 				var noReplyId = key.noReplyId;
 				console.log(noId+"..."+noLikeId+"..."+noReplyId);
-				//console.log(this.size);
 				$(".dropdown-menu").empty();
 				if (noId != null) {
 					$(".dropdown-menu").append("<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="

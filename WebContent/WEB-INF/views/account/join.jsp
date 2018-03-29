@@ -2526,7 +2526,11 @@ color : #999;
 												pattern="[A-Za-z0-9]+"
 												value=""/>
 										</div>
-										<div class="_gaby6"></div>
+										<div class="_gaby6">
+											<button type="button" class="_qv64e _gexxb _4tgw8 _njrw0 btn btn-default" 
+												id="idConfirm">중복체크</button>
+											<span id="rst1"></span>
+										</div>
 									</div>
 								</div>
 								<div class="_agqzm">
@@ -2549,9 +2553,9 @@ color : #999;
 												value="${email }"/>
 										</div>
 										<div class="_gaby6">
-										<button type="button" class="_qv64e _gexxb _4tgw8 _njrw0 btn btn-default"
-										 id="confirm">인증</button>
-												<span id="rst"></span>
+											<button type="button" class="_qv64e _gexxb _4tgw8 _njrw0 btn btn-default"
+											 id="emConfirm">인증</button>
+												<span id="rst2"></span>
 										</div>
 									</div>
 								</div>
@@ -2662,7 +2666,31 @@ color : #999;
 			}
 		}
 	});
-	$("#confirm").click(function() {
+	
+	$(document).ready(function() {
+		$("#idConfirm").click(function() {
+			var id = $("#id").val();
+			console.log(id);
+			$.ajax("/account/idCheck.do", {
+				"method" : "get",
+				"async" : true,
+				"data" : {"id" : id},
+				success : function(data) {
+					console.log(data);
+					console.log(data.result);
+					if(data.result == '-1') {
+						$("#rst1").html("중복된 아이디입니다.");
+					} else if(data.result == '1') {
+						$("#rst1").html("사용가능한 아이디입니다!");
+					} else {
+						window.alert("알 수 없는 오류 발생");
+					}
+				}
+			});
+		});	
+	});
+	
+	$("#emConfirm").click(function() {
 		$.ajax("/key/sendKey.do", {
 			"email" : "get",
 			"async" : true,
@@ -2672,10 +2700,9 @@ color : #999;
 			}
 		}).done(function(obj) {
 			console.obj(obj);
-			$("#rst").html(obj.result);
+			$("#rst2").html(obj.result);
 		});
 	});
-	
 	// 테스트 위해 일단 주석처리함.
 /* 	disabled();
 	function disabled() {
