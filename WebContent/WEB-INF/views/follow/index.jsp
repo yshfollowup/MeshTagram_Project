@@ -93,11 +93,11 @@
 		<div class="col-sm-8 text-left">
 			<c:forEach var="objLatest" items="${latest}">
 				<p style="float: left; width: 50%;">
-				<a href="${applictionScope.path}/detail/detail.do?boardid=${obj._id }"
-							data-toggle="tooltip" id="top_${obj._id }" name="${obj._id }"
-							class="tool" title=""> <c:forEach items="${obj.image }"
+				<a href="${applictionScope.path}/detail/detail.do?boardid=${objLatest._id }"
+							data-toggle="tooltip" id="top_${objLatest._id }" name="${objLatest._id }"
+							class="tool" title=""> <c:forEach items="${objLatest.image }"
 								var="image" varStatus="st" end="0">
-								<img src="${obj.path }${image }"
+								<img src="${objLatest.path }${image }"
 									style="width: 230px; height: 230px;" />
 							</c:forEach>
 						</a>
