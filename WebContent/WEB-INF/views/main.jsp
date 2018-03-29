@@ -2920,7 +2920,7 @@ margin-bottom:env(safe-area-inset-bottom)
 											style="width: 100%; margin: 0 auto;" data-toggle="collapse"
 											data-target=".collapse">댓글보기</button>
 										<div id="demo" class="collapse" style="margin: 10 0;">
-											<span id="sp_${obj.code }" class="re_${obj.code }"
+											<span id="sp_${obj.code }" class="showing"
 												name="${obj.code }"></span>
 										</div>
 									</div>
@@ -3207,6 +3207,7 @@ margin-bottom:env(safe-area-inset-bottom)
 			console.log("댓글을 쓴다." + ment + iii + "타켓아이디" + input);
 			var id = $(this).attr("aria-label");
 			var reid = "${cookie.setId.value}";
+			$(this).val("");
 			//console.log(id+ment);
 			$.ajax("/addreply.do", {
 				"method" : "post",
@@ -3219,6 +3220,8 @@ margin-bottom:env(safe-area-inset-bottom)
 				}
 			}).done(function(obj) {
 				//console.log($(this).val());
+				$(ment).val("");
+				$(ment).html("");
 				$("#reply_" + input).val("");
 				$("#re_" + input).val("");
 				for (var i = 0; i < boardid.length; i++) {

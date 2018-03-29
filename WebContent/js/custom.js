@@ -136,9 +136,9 @@ function List(setid) {
 			boardid.push($(this).attr("name"));
 			reply.push($(this).attr("name"));
 		});
-		// console.log(val);
+		$(".showing").html("");
+		console.log(val);
 		for (var i = 0; i < val.length; i++) {
-			$("#sp_" + val[i].boardId).html("");
 			var dd="";
 			if(val[i].reid == setid){
 				var s=val[i].ment;

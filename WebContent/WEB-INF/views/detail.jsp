@@ -2884,7 +2884,7 @@ margin-bottom:env(safe-area-inset-bottom)
 								</section>
 								<section class="_1w76c _nlmjy">
 								<div>
-									<a id="List_like${obj._id }" name="${obj._id }"
+									<a id="List_like${obj.code }" name="${obj.code }"
 										class="_nzn1h" data-toggle="modal"
 										data-target="#myModal1"
 										style="color: black; font-weight: bold; text-decoration: none;">좋아요 <span id="cnt_${obj.code }"
@@ -2895,7 +2895,7 @@ margin-bottom:env(safe-area-inset-bottom)
 						<div class="_4a48i _277v9">
 									<ul class="_b0tqa">
 										<li class="_ezgzd"><a class="_2g7d5 notranslate _95hvo"
-											href="/mypage/index.do?id=${obj.id }"> <span>${obj.id }</span></a>
+											href="/search.do?id=${obj.id }"> <span>${obj.id }</span></a>
 											<c:forEach items="${obj.comment }" var="comm">
 												<span>${comm }</span>
 											</c:forEach> <c:forEach items="${obj.tags }" var="tag">
@@ -2963,7 +2963,6 @@ margin-bottom:env(safe-area-inset-bottom)
 
 <script type="text/javascript" src="/js/custom.js"></script>
 <script>
-
 $(".mark").on("click", function() {
 	console.log("저장 들어왔다");
 	var reid = "${cookie.setId.value}";
@@ -3010,60 +3009,53 @@ $(".unmark").on("click", function() {
 	likeList(setid);
 	List(setid);
 	function List(setid) {
-		var boardid = [];
-		console.log("댓글 리스트 보여주기");
+		var boardid=[];
 		$(".rebt").each(function() {
 			boardid.push($(this).attr("name"));
 		});
-		//console.log(boardid);
-		$
-				.ajax("/listReply.do", {
-					"method" : "get",
-					"async" : true,
-					"data" : {
-						"boardId" : boardid
-					}
-				})
-				.done(
-						function(val) {
-
-							var boardid = [];
-							var reply = [];
-							$(".rebt").each(function() {
-								boardid.push($(this).attr("name"));
-								reply.push($(this).attr("name"));
-							});
-							// console.log(val);
-							var dd = "";
-							for (var i = 0; i < val.length; i++) {
-								$("#sp_" + val[i].boardId).val("");
-								if (val[i].reid == setid) {
-									var s = val[i].ment;
-									//console.log("댓글버튼"+setid+s);
-									dd = "<button type=\"button\" class=\"delbt\" name="
-											+ val[i].boardId
-											+ " id=\""
-											+ s
-											+ "onclick="
-											+ delReply(setid)
-											+ " >삭제룽</button>";
-								}
-								$("#sp_" + val[i].boardId)
-										.append(
-												"<a href=/search.do?id="
-														+ val[i].reid
-														+ ">"
-														+ val[i].reid
-														+ "</a>"
-														+ "&emsp; <span id=\"ment_" + val[i].ment+" class=\"ment\" name="+val[i].ment+" >"
-														+ val[i].ment
-														+ "</span>" + "\t\t"
-														+ dd + "<br/>");
-
-							}
-						})
+		console.log("댓글 리스트 보여"+boardid);
+		 console.log(boardid.length);
+		 if(boardid.length>0){
+			 
+		
+		$.ajax("/listReply.do", {
+			"method" : "post",
+			"async" : true,
+			"data" : {
+				"boardId" : boardid
+			}
+		}).done(function(val){
+			var boardid = [];
+			var reply = [];
+			$(".rebt").each(function() {
+				boardid.push($(this).attr("name"));
+				reply.push($(this).attr("name"));
+			});
+			// console.log(val);
+			for (var i = 0; i < val.length; i++) {
+				$("#sp_" + val[i].boardId).html("");
+				var dd="";
+				if(val[i].reid == setid){
+					var s=val[i].ment;
+					// console.log("댓글버튼"+setid+s);
+					dd="<button type=\"button\" class=\"del\" name="+val[i].boardId+" id=\""+val[i].ment+"\" >삭제룽</button>";
+				}
+				console.log(val[i].date+"데이트 객체");
+				$("#sp_" + val[i].boardId).append("<a href=/search.do?id="+val[i].reid+">"+val[i].reid+"</a>" + "&emsp; <span id=\"ment_" + val[i].ment+" class=\"ment\" name="+val[i].ment+" >"+val[i].ment+"</span>" +"\t\t"+dd+val[i].date+"<br/>");
+			}
+			var id=setid;
+			
+			$(".del").on("click", function(){
+				var boardids;
+				var ments;
+				boardids=$(this).attr("name");
+				ments=$(this).attr("id");
+				console.log("댓글 삭제할거다"+id+boardids+ments);
+				delReply(id,boardids,ments);
+			});
+		});
+		 }
 	};
-
 	$(".List_like")
 			.on(
 					"click",
@@ -3193,6 +3185,8 @@ $(".unmark").on("click", function() {
 			}
 		}).done(function(obj) {
 			//console.log($(this).val());
+			$(ment).val("");
+				$(ment).html("");
 			$("#reply_" + input).val("");
 			$("#re_" + input).val("");
 			for (var i = 0; i < boardid.length; i++) {

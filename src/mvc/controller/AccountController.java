@@ -108,17 +108,16 @@ public class AccountController {
 		session.setAttribute("setId", setId);
 		modelMap.addAttribute("className", this.getClass());
 
+
 		List<AccountDTO> eachOtherList = aDAO.selectFollowEachOther(setId);
 		// 맞팔되어있는 친구 목록 뽑은 뒤 그에 대한 게시물 보냄(1순위)
-		int a = eachOtherList.size();
-		if (a > 0) {
-			for (AccountDTO eachfollow : eachOtherList) {
-				String eachFollowid = eachfollow.getId();
-				if (id != null) {
-					eachResult = pDAO.findPostById(eachFollowid);
-					// modelMap.addAttribute("eachResult", eachResult);
-					// System.out.println(eachResult.size()+"...eachResult"+eachResult);
-				}
+		for (AccountDTO eachfollow : eachOtherList) {
+			String eachFollowid = eachfollow.getId();
+			if (id != null) {
+			//	System.out.println("아이디가 들어와서 게시물을 가져온다");
+				eachResult = pDAO.findPostById(eachFollowid);
+				// modelMap.addAttribute("eachResult", eachResult);
+				// System.out.println(eachResult.size()+"...eachResult"+eachResult);
 			}
 		}
 		// =========================================================================
@@ -128,63 +127,73 @@ public class AccountController {
 		List<String> annoList=null;
 		System.out.println(list+"으으으으");
 		if(!list.isEmpty()) {
+			//System.out.println("리스트가 비어있지 않아 관심사 들을 받아온다.");
+
 			idList = list.get(0);
 			tagList = list.get(1);
 			annoList = list.get(2);
 		}
 		// 관심사(hashtag)가 같은 사람을 뽑아 그에 대한 게시물 보냄(2순위)
 		List<Map> tagResult = null;
-		if (tagList.size() > 0) {
+		if(tagList !=null) {
 			for (String tag : tagList) {
 				if (tag != null) {
-					tagResult = pDAO.findPostByTag(tag);
+				//	System.out.println("관심사가 있어서 게시물을 가져온다.");
 
+					tagResult = pDAO.findPostByTag(tag);
+					
 				}
 			}
+			
 		}
+
 		List<Map> myresult = pDAO.findPostById(setId);
 
-		System.out.println("첫 게시판" + myresult);
-		if (eachResult !=null) {
+		//System.out.println("첫 게시판" + myresult);
+		if (eachResult != null) {
+			//System.out.println("나의 게시물을 합친다.");
 
 			eachResult.addAll(myresult);
 		} else {
 			eachResult = myresult;
 		}
+
 		modelMap.addAttribute("ids", idList);
-		System.out.println("ids" + idList);
+		//System.out.println("ids" + idList);
 		modelMap.addAttribute("tags", tagList);
-		System.out.println("tags" + tagList);
+		//System.out.println("tags" + tagList);
 		modelMap.addAttribute("annos", annoList);
-		System.out.println("annos" + annoList);
+		//System.out.println("annos" + annoList);
 		// ==================================================================
 		List<AccountDTO> topFollowerList = aDAO.selectTop5Account(setId);
 
 		// 팔로워 수 많은 순대로 뽑고 그에 대한 게시물 보냄(3순위)
 		List<Map> topResult = null;
-		if (topFollowerList.size() > 0) {
-			for (AccountDTO top : topFollowerList) {
-				//System.out.println(top.getId());
-				String[] tops = top.getId().split(",");
-				if (tops.length != 0) {
-					for (String s : tops) {
-						topResult = pDAO.findPostById(s);
-						// modelMap.addAttribute("top5Result", topResult);
-						// System.out.println(topResult.size()+"...top5"+topResult);
-					}
+		for (AccountDTO top : topFollowerList) {
+			// System.out.println(top.getId());
+			String[] tops = top.getId().split(",");
+			if (tops.length != 0) {
+				for (String s : tops) {
+				//	System.out.println("팔오워 순대로 게시물을 가져온다.");
+
+					topResult = pDAO.findPostById(s);
+					// modelMap.addAttribute("top5Result", topResult);
+					// System.out.println(topResult.size()+"...top5"+topResult);
 				}
 			}
 		}
-		if (topResult!=null && eachResult !=null) {
+		if (topResult != null && eachResult != null) {
 
 			for (int i = 0; i < topResult.size(); i++) {
 				if (!eachResult.get(i).get("_id").equals(topResult.get(i).get("_id"))) {
 					if (tagResult.size() < i) {
+						//System.out.println(" 관심사가 없다 그러므로 가져올 값이 없다.");
 
 					} else {
 
 						if (!tagResult.get(i).get("_id").equals(topResult.get(i).get("_id"))) {
-							// System.out.println("비교값이 들어갔다. 사이즈="+topResult.size()+topResult.get(i));
+							
+							//System.out.println("비교값이 들어갔다. 사이즈="+topResult.size()+topResult.get(i));
 							eachResult.add(topResult.get(i));
 							// modelMap.addAttribute("eachResult", topResult.get(i));
 
@@ -198,8 +207,7 @@ public class AccountController {
 		// ============================================================
 		List<FollowDTO> followerList = fDAO.selectFollwer(setId); // 나를 팔로우
 		List<FollowDTO> followingList = fDAO.selectFollwing(setId); // 내가 팔로잉
-		// =============================================================
-
+		
 		// 나를 팔로우하거나 내가 팔로우한 목록 뽑고 그에 대한 게시물 보냄(4순위)
 		List<Map> followerResult = null;
 		List<Map> followingResult = null;
@@ -218,13 +226,10 @@ public class AccountController {
 					for (int i = 0; i < followerResult.size(); i++) {
 						if(eachResult.size() > 0) {
 							
-							if (!eachResult.get(i).get("_id").equals(followerResult.get(i).get("_id"))) {
-								// System.out.println("비교값이 들어갔다.
-								// 사이즈="+followerResult.size()+followerResult.get(i));
+								 //System.out.println("비교값이 들어갔다. 사이즈="+followerResult.size()+followerResult.get(i));
 								eachResult.add(followerResult.get(i));
 								// modelMap.addAttribute("eachResult", followerResult.get(i));
 								
-							}
 						}
 					}
 				}
@@ -232,25 +237,29 @@ public class AccountController {
 					for (int i = 0; i < followingResult.size(); i++) {
 						if(eachResult !=null) {
 							
-							if (!eachResult.get(i).get("_id").equals(followingResult.get(i).get("_id"))) {
-								// System.out.println("비교값이 들어갔다.
-								// 사이즈="+followingResult.size()+followingResult.get(i));
+								//System.out.println("비교값이 들어갔다. 사이즈="+followingResult.size()+followingResult.get(i));
 								eachResult.add(followingResult.get(i));
 								// modelMap.addAttribute("eachResult", followingResult.get(i));
 								
-							}
 						}
 					}
 				}
 			}
 
 		}
+		List<Map> resultList=new ArrayList<Map>();
+			for(int i =0; i< eachResult.size(); i++) {
+				if(!resultList.contains(eachResult.get(i))) {
+					resultList.add(eachResult.get(i));
+				}
+			}
+			 System.out.println("중복제거 했을까?"+resultList);
 
 		/*
 		 * for(int i=0;i<eachResult.size(); i++) {
 		 * System.out.println("마지막 값들"+eachResult.get(i)); }
 		 */
-		modelMap.put("eachResult", eachResult);
+		modelMap.put("eachResult", resultList);
 		// ==================================================================
 		// 이전에 대화한 모든 메시지
 		/*
@@ -284,6 +293,7 @@ public class AccountController {
 		for (AccountDTO eachfollow : eachOtherList) {
 			String eachFollowid = eachfollow.getId();
 			if (id != null) {
+			//	System.out.println("아이디가 들어와서 게시물을 가져온다");
 				eachResult = pDAO.findPostById(eachFollowid);
 				// modelMap.addAttribute("eachResult", eachResult);
 				// System.out.println(eachResult.size()+"...eachResult"+eachResult);
@@ -296,6 +306,8 @@ public class AccountController {
 		List<String> annoList=null;
 		System.out.println(list+"으으으으");
 		if(!list.isEmpty()) {
+			//System.out.println("리스트가 비어있지 않아 관심사 들을 받아온다.");
+
 			idList = list.get(0);
 			tagList = list.get(1);
 			annoList = list.get(2);
@@ -305,6 +317,8 @@ public class AccountController {
 		if(tagList !=null) {
 			for (String tag : tagList) {
 				if (tag != null) {
+				//	System.out.println("관심사가 있어서 게시물을 가져온다.");
+
 					tagResult = pDAO.findPostByTag(tag);
 					
 				}
@@ -316,6 +330,7 @@ public class AccountController {
 
 		//System.out.println("첫 게시판" + myresult);
 		if (eachResult != null) {
+			//System.out.println("나의 게시물을 합친다.");
 
 			eachResult.addAll(myresult);
 		} else {
@@ -338,6 +353,8 @@ public class AccountController {
 			String[] tops = top.getId().split(",");
 			if (tops.length != 0) {
 				for (String s : tops) {
+				//	System.out.println("팔오워 순대로 게시물을 가져온다.");
+
 					topResult = pDAO.findPostById(s);
 					// modelMap.addAttribute("top5Result", topResult);
 					// System.out.println(topResult.size()+"...top5"+topResult);
@@ -349,11 +366,13 @@ public class AccountController {
 			for (int i = 0; i < topResult.size(); i++) {
 				if (!eachResult.get(i).get("_id").equals(topResult.get(i).get("_id"))) {
 					if (tagResult.size() < i) {
+						//System.out.println(" 관심사가 없다 그러므로 가져올 값이 없다.");
 
 					} else {
 
 						if (!tagResult.get(i).get("_id").equals(topResult.get(i).get("_id"))) {
-							// System.out.println("비교값이 들어갔다. 사이즈="+topResult.size()+topResult.get(i));
+							
+							//System.out.println("비교값이 들어갔다. 사이즈="+topResult.size()+topResult.get(i));
 							eachResult.add(topResult.get(i));
 							// modelMap.addAttribute("eachResult", topResult.get(i));
 
@@ -386,13 +405,10 @@ public class AccountController {
 					for (int i = 0; i < followerResult.size(); i++) {
 						if(eachResult.size() > 0) {
 							
-							if (!eachResult.get(i).get("_id").equals(followerResult.get(i).get("_id"))) {
-								// System.out.println("비교값이 들어갔다.
-								// 사이즈="+followerResult.size()+followerResult.get(i));
+								 //System.out.println("비교값이 들어갔다. 사이즈="+followerResult.size()+followerResult.get(i));
 								eachResult.add(followerResult.get(i));
 								// modelMap.addAttribute("eachResult", followerResult.get(i));
 								
-							}
 						}
 					}
 				}
@@ -400,25 +416,29 @@ public class AccountController {
 					for (int i = 0; i < followingResult.size(); i++) {
 						if(eachResult !=null) {
 							
-							if (!eachResult.get(i).get("_id").equals(followingResult.get(i).get("_id"))) {
-								// System.out.println("비교값이 들어갔다.
-								// 사이즈="+followingResult.size()+followingResult.get(i));
+								//System.out.println("비교값이 들어갔다. 사이즈="+followingResult.size()+followingResult.get(i));
 								eachResult.add(followingResult.get(i));
 								// modelMap.addAttribute("eachResult", followingResult.get(i));
 								
-							}
 						}
 					}
 				}
 			}
 
 		}
+		List<Map> resultList=new ArrayList<Map>();
+			for(int i =0; i< eachResult.size(); i++) {
+				if(!resultList.contains(eachResult.get(i))) {
+					resultList.add(eachResult.get(i));
+				}
+			}
+			 System.out.println("중복제거 했을까?"+resultList);
 
 		/*
 		 * for(int i=0;i<eachResult.size(); i++) {
 		 * System.out.println("마지막 값들"+eachResult.get(i)); }
 		 */
-		modelMap.put("eachResult", eachResult);
+		modelMap.put("eachResult", resultList);
 		// ==================================================================
 		/*
 		 * //이전에 대화한 모든 메시지 List<Map> allMessage = mDAO.findAllMessage(); if(allMessage

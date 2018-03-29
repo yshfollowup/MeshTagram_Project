@@ -361,7 +361,7 @@ body {
 	
 	
 	$(".mesen").on("click", function() {
-		var reid = $(this).html();
+		var reid = $(this).attr("id");
 		console.log("들어왔다." + reid);
 		findAllMessage(reid);
 	});
@@ -377,7 +377,6 @@ body {
 		}
 		return zero + num;
 	}
-
 	function display() {
 		var now = new Date();
 		var currentHour = setDigit(now.getHours(), 2);

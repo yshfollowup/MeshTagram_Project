@@ -94,7 +94,7 @@
 			<c:forEach var="objLatest" items="${latest}">
 				<p style="float: left; width: 50%;">
 				<a href="${applictionScope.path}/detail/detail.do?boardid=${objLatest._id }"
-							data-toggle="tooltip" id="top_${objLatest._id }" name="${objLatest._id }"
+							data-toggle="tooltip" id="top_${objLatest.code }" name="${objLatest.code }"
 							class="tool" title=""> <c:forEach items="${objLatest.image }"
 								var="image" varStatus="st" end="0">
 								<img src="${objLatest.path }${image }"
@@ -135,13 +135,13 @@
 					"setId" : setid
 				}
 			}).done(function(val2){
-				
+				console.log(val2);
 				for(var i=0; i<val.length; i++){
 					var fbt;
 					var image=val[i].PROFILE;
 					var profile;
 					if(val[i].PROFILE !=null){
-						profile="<img src="+path+image+" style=\"width: 30px; height: 30px; border-radius: 30px\" class=\"recomId\">"
+						profile="<img src="+image+" style=\"width: 30px; height: 30px; border-radius: 30px\" class=\"recomId\">"
 					}else{
 						profile="<img src=\"/images/insta.jpg\" style=\"width: 30px; height: 30px; border-radius: 30px\" class=\"recomId\">"
 					}
