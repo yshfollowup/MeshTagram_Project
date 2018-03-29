@@ -2062,60 +2062,84 @@ px
 	});
 	
 	//검색창
-	$("#search").on("keyup", function() {
-		var value = $("#search").val();
-		var tag = null;
-		var idsh = null;
-		var comm = null
-		console.log("아아아아");
-		if (value.startsWith("#")) {
-			tag = value;
-		} else if (value.startsWith("@")) {
-			idsh = value;
-		} else {
-			comm = value;
-		}
-		$.ajax("/autocom.do", {
-			"method" : "post",	
-			"async" : true,
-			"data" : {
-				"tag" : tag,
-				"idsh" : idsh,
-				"comm" : comm
-			}
-		}).done(function(val) {
-			console.log(val);
-			var str = "";
-			var img = "<img src=\"/images/insta.jpg\" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
-			for (var i = 0; i < val.length; i++) {
-				var img2 = "<img src=\"${applicationScope.path }"+val.PROFILE+" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
-				var com = null;
-				var ii = null;
-				if (val[i]._id != null) {
-					var s = null;
-					if (val[i].tags[0].startsWith("#")) {
-						console.log(val[i].tags[i]);
-						var a = val[i].tags[i];
-						s = a.replace('#', '%23');
-					}
-					str += "<a href=/searchtag.do?tags="+ s+ ">"+ val[i].tags+ "<br/>게시물 "+ val[i].count+ "</a>"+ "<br/>";
-				} else if (val.PROFILE == null) {
-					ii = img;
-				} else {
-					ii = img2;
-				}
-				
-				if (val[i].NAME == null) {
-					name = "";
-				} else {
-					name = val[i].NAME;
-				}
-				
-				str += "<a href=/search.do?id="+ val[i].ID+ "><div>"+ ii+ "<div>"+ val[i].ID+ "</div><div style=\"border-bottom: 1px solid grey;\">"+ name+ "</div></div></a>"+ "<br/>";
-			}
-		});
-		$("#pp").html(str);
-	});
+	$("#search")
+				.on(
+						"keyup",
+						function() {
+							var value = $("#search").val();
+							var tag = null;
+							var idsh = null;
+							var comm = null
+							if (value.startsWith("#")) {
+								tag = value;
+							} else if (value.startsWith("@")) {
+								idsh = value;
+							} else {
+								comm = value;
+							}
+							$
+									.ajax("/autocom.do", {
+										"method" : "post",
+										"async" : true,
+										"data" : {
+											"tag" : tag,
+											"idsh" : idsh,
+											"comm" : comm
+										}
+									})
+									.done(
+											function(val) {
+												console.log(val);
+												var str = "";
+												var img = "<img src=\"/images/insta.jpg\" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
+												for (var i = 0; i < val.length; i++) {
+													var img2 = "<img src=\"${applicationScope.path }"+val.PROFILE+" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
+													var com = null;
+													var ii = null;
+													if (val[i]._id != null) {
+														var s = null;
+														if (val[i].tags[0]
+																.startsWith("#")) {
+															console
+																	.log(val[i].tags[i]);
+															var a = val[i].tags[i];
+															s = a.replace('#',
+																	'%23');
+														}
+														str += "<a href=/searchtag.do?tags="
+																+ s
+																+ ">"
+																+ val[i].tags
+																+ "<br/>게시물 "
+																+ val[i].count
+																+ "</a>"
+																+ "<br/>";
+													} else {
+														if (val.PROFILE == null) {
+															ii = img;
+														} else {
+															ii = img2;
+														}
+														if (val[i].NAME == null) {
+															name = "";
+														} else {
+															name = val[i].NAME;
+														}
+														str += "<a href=/search.do?id="
+																+ val[i].ID
+																+ "><div>"
+																+ ii
+																+ "<div>"
+																+ val[i].ID
+																+ "</div><div style=\"border-bottom: 1px solid grey;\">"
+																+ name
+																+ "</div></div></a>"
+																+ "<br/>";
+													}
+												}
+												$("#pp").html(str);
+											})
+						});
 </script>
 </body>
 </html>
