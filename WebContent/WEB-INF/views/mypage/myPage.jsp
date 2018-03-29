@@ -289,7 +289,7 @@
 	left: 0;
 	position: absolute;
 	top: 0;
-	display : block;
+	display: block;
 }
 
 ._si7dy {
@@ -1887,17 +1887,23 @@ a._sb9lc, a._sb9lc:visited {
 	
 	
 	
+	
+	
 	:not
 	
 	
+	
 	 
+	
 	
 	
 	(
 	:last-child
 	
 	
+	
 	 
+	
 	
 	
 	){
@@ -1906,10 +1912,14 @@ a._sb9lc, a._sb9lc:visited {
 	
 	
 	
+	
+	
 	:
 	
 	
+	
 	 
+	
 	
 	
 	60
@@ -1918,6 +1928,8 @@ a._sb9lc, a._sb9lc:visited {
 	
 	
 	
+	
+
 
 
 }
@@ -1950,7 +1962,6 @@ a._sb9lc, a._sb9lc:visited {
 		-ms-flex-direction: row;
 		flex-direction: row;
 		height: 44px;
-		
 	}
 }
 </style>
@@ -2375,7 +2386,11 @@ transform
 
 
 
+
+
 :rotate(360deg)
+
+
 
 
 
@@ -2497,6 +2512,8 @@ opacity
 
 
 
+
+
 :
 
 
@@ -2504,7 +2521,11 @@ opacity
 
 
 
+
+
 .1
+
+
 
 
 
@@ -2520,6 +2541,8 @@ opacity
 
 
 
+
+
 :
 
 
@@ -2527,7 +2550,11 @@ opacity
 
 
 
+
+
 .2
+
+
 
 
 
@@ -2543,6 +2570,8 @@ opacity
 
 
 
+
+
 :
 
 
@@ -2550,7 +2579,11 @@ opacity
 
 
 
+
+
 .3
+
+
 
 
 
@@ -2566,6 +2599,8 @@ opacity
 
 
 
+
+
 :
 
 
@@ -2573,7 +2608,11 @@ opacity
 
 
 
+
+
 .4
+
+
 
 
 
@@ -2589,6 +2628,8 @@ opacity
 
 
 
+
+
 :
 
 
@@ -2596,7 +2637,11 @@ opacity
 
 
 
+
+
 .5
+
+
 
 
 
@@ -2612,6 +2657,8 @@ opacity
 
 
 
+
+
 :
 
 
@@ -2619,7 +2666,11 @@ opacity
 
 
 
+
+
 .6
+
+
 
 
 
@@ -2635,6 +2686,8 @@ opacity
 
 
 
+
+
 :
 
 
@@ -2642,7 +2695,11 @@ opacity
 
 
 
+
+
 .7
+
+
 
 
 
@@ -2658,6 +2715,8 @@ opacity
 
 
 
+
+
 :
 
 
@@ -2665,7 +2724,11 @@ opacity
 
 
 
+
+
 .8
+
+
 
 
 
@@ -2680,7 +2743,11 @@ transform
 
 
 
+
+
 :scale
+
+
 
 
 
@@ -2698,10 +2765,14 @@ transform
 
 
 
+
+
 )
 }
 90{
 opacity
+
+
 
 
 
@@ -2715,7 +2786,11 @@ opacity
 
 
 
+
+
 .9
+
+
 
 
 
@@ -2731,7 +2806,11 @@ opacity
 
 
 
+
+
 :
+
+
 
 
 
@@ -2746,7 +2825,11 @@ transform
 
 
 
+
+
 :scale
+
+
 
 
 
@@ -2782,7 +2865,6 @@ transform
 	-webkit-flex-direction: row;
 	-ms-flex-direction: row;
 	flex-direction: row;
-	
 }
 
 ._6d3hm>* {
@@ -2800,7 +2882,7 @@ transform
 
 ._mnav9:last-child {
 	margin-bottom: 0;
-	display : block;
+	display: block;
 }
 
 ._tn0ps:last-child {
@@ -2996,22 +3078,25 @@ transform
 			<div class="_b0acm">
 				<div class="_qdmzb">
 					<div class="_62ai2">
-						<button class="_3xjwv" onclick="uploadAction();" title="프로필 사진 바꾸기">
-						<c:choose>
-							<c:when test="${empty  aDTO.profile}">
-								<img alt="프로필 사진 바꾸기" class="_cuacn" src="/images/insta.jpg"
-									id="preview">${aDTO.id }
+						<button class="_3xjwv" onclick="uploadAction();"
+							title="프로필 사진 바꾸기">
+							<c:choose>
+								<c:when test="${empty  aDTO.profile}">
+									<img alt="프로필 사진 바꾸기" class="_cuacn" src="/images/insta.jpg"
+										id="preview">${aDTO.id }
 							</c:when>
-							<c:otherwise>
-								<span class="_3xjwv"> <img id="preview"
-									src="${applicationScope.path }${aDTO.profile}" class="_cuacn" />
-								</span>
-							</c:otherwise>
-						</c:choose>
+								<c:otherwise>
+									<span class="_3xjwv"> <img id="preview"
+										src="${applicationScope.path }${aDTO.profile}" class="_cuacn" />
+									</span>
+								</c:otherwise>
+							</c:choose>
 						</button>
 						<div>
-							<form action="/mypage/uploadProfile.do" method="post" enctype="multipart/form-data">
-								<input type="file" accept="image/jpeg" id="photo" name="profile" class="_l8al6">
+							<form action="/mypage/uploadProfile.do" method="post"
+								enctype="multipart/form-data">
+								<input type="file" accept="image/jpeg" id="photo" name="profile"
+									class="_l8al6">
 							</form>
 						</div>
 					</div>
@@ -3039,21 +3124,24 @@ transform
 						id="following">팔로우${fn:length(following) }</a></li>
 				</ul>
 				<div class="_tb97a">
-					<h1 class="_kc4z2">${aDTO.name }</h1>  <span>${aDTO.intro }</span>
+					<h1 class="_kc4z2">${aDTO.name }</h1>
+					<span>${aDTO.intro }</span>
 				</div>
 			</section>
 		</header>
 
 		<div class="_2e96w">
-			<a class="_t7nuu _sb9lc" href="/mypage/index.do"
-				style="margin-right: 30px;"><div class="board">게시물</div></a>
-			<a class="_t7nuu" href="/mypage/markBoard.do" id="markboard"><div class="mark">저장됨</div></a>
+			<a class="_t7nuu _sb9lc" href="/mypage/index.do" id="myboard"
+				style="margin-right: 30px;">게시물</a> <a class="_t7nuu"
+				href="/mypage/markBoard.do" id="markboard">저장됨</a>
 		</div>
+
 		<div>
 			<div class="_havey" style="padding-top: 0px; padding-bottom: 0px;">
-				<div class="_6d3hm _mnav9" >
+				<div class="_6d3hm _mnav9">
 					<c:forEach var="obj" items="${myPost }">
-						<div class="_mck9w _gvoze _tn0ps" style="width:30%; height:50%; display: inline-block;">
+						<div class="_mck9w _gvoze _tn0ps"
+							style="width: 30%; height: 50%; display: inline-block;">
 							<div class="_4rbun">
 								<div class="mouseIn" class="_2di5p">
 									<img src="${applicationScope.Path }${obj.image}"
@@ -3078,17 +3166,20 @@ transform
 	</main>
 
 	<!-- Modal -->
-		<div id="myModal" class="modal fade" role="dialog">
+	<div id="myModal" class="modal fade" role="dialog">
 		<div class="_pfyik" role="dialog">
 			<div class="_23gmb"></div>
 			<div class="_o0j5z">
 				<div class="_784q7">
 					<ul class="_cepxb" role="menu">
-						<li class="_o2wxh"><a href="/mypage/pass.do"><button class="_h74gn">비밀번호 변경</button></a></li>
+						<li class="_o2wxh"><a href="/mypage/pass.do"><button
+									class="_h74gn">비밀번호 변경</button></a></li>
 						<li class="_o2wxh"><button class="_h74gn">알림</button></li>
 						<li class="_o2wxh"><button class="_h74gn">개발자정보</button></li>
-						<li class="_o2wxh"><a href="/account/logout.do"><button class="_h74gn">로그아웃</button></a></li>
-						<li class="_o2wxh"><button class="_h74gn" data-dismiss="modal">취소</button></li>
+						<li class="_o2wxh"><a href="/account/logout.do"><button
+									class="_h74gn">로그아웃</button></a></li>
+						<li class="_o2wxh"><button class="_h74gn"
+								data-dismiss="modal">취소</button></li>
 					</ul>
 				</div>
 			</div>
@@ -3096,42 +3187,42 @@ transform
 		</div>
 	</div>
 	<script>
-	var setid = "${cookie.setId.value}";
+		var setid = "${cookie.setId.value}";
 
-	/*$ ("#markboard").on("click",function(){
-		console.log("들어왔다.");
-		$.ajax("/mypage/markBoard.do",{
-			"method" : "get",
-			"async" : true,
-			"data" : {
-				"id" : setid
-			}
-		}).done(function(val){
-			console.log(val);
-			var boardId=[];
-			for(var i=0; i<val.length; i++){
-				boardId.push(val[i].boardId);
-			}
-			console.log(boardId);
-			
-			 $.ajax("/mypage/markSearch.do",{
+		/*$ ("#markboard").on("click",function(){
+			console.log("들어왔다.");
+			$.ajax("/mypage/markBoard.do",{
 				"method" : "get",
 				"async" : true,
 				"data" : {
-					"boardId": boardId
-					
+					"id" : setid
 				}
-				
 			}).done(function(val){
 				console.log(val);
+				var boardId=[];
 				for(var i=0; i<val.length; i++){
-					
-					
+					boardId.push(val[i].boardId);
 				}
+				console.log(boardId);
 				
-			}); 
-	});
-	}); */
+				 $.ajax("/mypage/markSearch.do",{
+					"method" : "get",
+					"async" : true,
+					"data" : {
+						"boardId": boardId
+						
+					}
+					
+				}).done(function(val){
+					console.log(val);
+					for(var i=0; i<val.length; i++){
+						
+						
+					}
+					
+				}); 
+		});
+		}); */
 		$("#follower").on("change", function() {
 			$("all-screen").attr("aria-hidden", false)
 		});
@@ -3139,7 +3230,19 @@ transform
 		$("#following").on("change", function() {
 			$("all-screen").attr("aria-hidden", false)
 		});
-		
 	</script>
+	<script>
+		$(document).ready(function() {
+			// window.alert(location.pathname);
+			if (location.pathname == "/mypage/index.do") {
+				$("#myboard").addClass("_sb9lc");
+				$("#markboard").removeClass("_sb9lc");
+			} else {
+				$("#markboard").addClass("_sb9lc");
+				$("#myboard").removeClass("_sb9lc");
+			}
+		});
+	</script>
+
 </body>
 </html>

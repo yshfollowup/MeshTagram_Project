@@ -2880,7 +2880,7 @@ margin-bottom:env(safe-area-inset-bottom)
 									</a> <a class="_p6oxf _6p9ga rebt" role="button"
 										name="${obj.code }"> <span
 										class="_8scx2 coreSpriteComment">댓글 달기</span>
-									</a> <a class="_mpkky _et4ho mark" href="#" role="button"
+									</a> <a class="_mpkky _et4ho mark" role="button"
 										aria-disabled="false" name="${obj.code }"
 										id="mark_${obj.code }"> <span
 										class="_8scx2 coreSpriteSaveOpen">저장</span>
