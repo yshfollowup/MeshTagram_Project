@@ -137,227 +137,9 @@
 }
 
 @
-supports
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-(
-margin-bottom
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-:env(safe-area-inset-bottom)
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-){
-.
-_evlcw
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-:
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-not
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-(
-._b696q
-
-
-
-
-
-
-
-
-
-
-	
-
-
-
-
-
-
-
-
-
-){
-margin-bottom
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-:
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-env
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-(
-safe-area-inset-bottom
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-)
+supports(margin-bottom:env(safe-area-inset-bottom)){
+._evlcw:not(._b696q){
+margin-bottom:env(safe-area-inset-bottom)
 }
 }
 ._b696q {
@@ -3002,11 +2784,11 @@ safe-area-inset-bottom
 		<div class="_d4oao">
 			<div>
 				<div class="_havey">
-					<!-- 왼쪽다단 -->
-					<!--article : 게시글 단위 -->
-					<!--↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓아이디 & 헤더 부분↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
+
 					<c:forEach var="obj" items="${eachResult}">
+					<!--article : 게시글 단위 -->
 						<article class="_s5vjd _622au _5lms4 _8n9ix _9445e">
+					<!--↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓아이디 & 헤더 부분↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
 							<header class="_7b8eu _9dpug">
 								<div class="_82odm _i2o1o" style="float: left; width: 40px;">
 									<canvas class="_15vpm" width="40" height="40"
@@ -3029,7 +2811,7 @@ safe-area-inset-bottom
 										<div class="_eeohz">
 											<a class="_2g7d5 notranslate _iadoq"
 												href="/search.do?id=${obj.id }"
-												style="text-decoration: none !important;" name="${obj.id }">${obj.id }</a>
+												style="text-decoration: none !important;">${obj.id }</a>
 										</div>
 									</div>
 									<div class="_60iqg"></div>
@@ -3082,13 +2864,10 @@ safe-area-inset-bottom
 											</div>
 											<div class="_si7dy"></div>
 										</div>
-
-
-
-										<!--↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓좋아요 + 댓글 부분↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
 									</div>
 								</div>
 							</div>
+								<!--↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓좋아요 + 댓글 부분↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
 							<div class="_ebcx9">
 								<section class="_hmd6j _8oo9w">
 									<a class="_eszkz _l9yih like" name="${obj.code }" role="button"
@@ -3253,8 +3032,10 @@ safe-area-inset-bottom
 			</div>
 		</div>
 	</section>
+	</main>
 
-	<script type="text/javascript" src="/js/custom.js"></script> <script>
+	<script type="text/javascript" src="/js/custom.js"></script>
+<script>
 		$(".mark").on("click", function() {
 			console.log("저장 들어왔다");
 			var reid = "${cookie.setId.value}";
@@ -3539,6 +3320,7 @@ safe-area-inset-bottom
 			$("#like_" + boardid).show();
 			$("#dislike_" + boardid).hide();
 		});
-	</script> </main>
+	</script>
+	
 </body>
 </html>

@@ -2976,7 +2976,7 @@ ul {
 	<main class="_8fi2q _2v79o" role="main">
 	<section class="_owark _gsusx">
 		<div class="_havey"
-			style="margin-right: 20px; border-right: 1px solid #BDBDBD; min-width: 750px;">
+			style="min-width: 750px;">
 
 
 			<div style="float: left; width: 40%">
@@ -3384,72 +3384,7 @@ ul {
 			<button class="_dcj9f" data-dismiss="modal">&times;</button>
 		</div>
 
-		<!-- 사이드 페이지 -->
-		<div class="_11dqz">
-			<div style="position: fixed;">
-				<div class="_i4wsm">
-					<div class="_ikq0n">
-						<div class="_82odm _pbvu8">
-							<canvas class="_15vpm" width="60" height="60"
-								style="transform: translate(-5px, -5px); position: absolute; top: 0px; left: 0px; width: 60px; height: 60px;"></canvas>
-							<a class="_pg23k _jpwof _gvoze"
-								href="/mypage/index.do?id=${aDTO.id }"
-								style="width: 50px; height: 50px;"> <c:choose>
-									<c:when test="${empty aDTO.profile }">
-										<img src="/images/insta.jpg" class="_rewi8" id="profile">
-									</c:when>
-									<c:otherwise>
-										<img src="${obj.path }${obj.image}" class="_rewi8"
-											id="profile" />
-									</c:otherwise>
-								</c:choose> ${aDTO.id }
-							</a>
 
-						</div>
-						<div class="_on99m">
-							<div class="_8hjc5">
-								<a class="_f89xq" href="/mypage/index.do?id=${aDTO.id }">${aDTO.id }</a>
-							</div>
-							<div class="_ewiye _irzdz">${aDTO.name}</div>
-						</div>
-					</div>
-				</div>
-				<hr class="_qwuqp">
-				<div class="_sfbui">
-					<span class="_72oww">스토리</span>
-				</div>
-				<div class="_ldjog">회원님이 팔로우하는 사람들의 스토리가 여기에 표시됩니다.</div>
-				<hr class="_qwuqp">
-				<div class=" _8oc6p">
-					<nav class="_luodr" role="navigation">
-						<ul class="_g8wl6">
-							<li class="_538w0"><a class="_hqmnd" href="/about/us/">Meshtagram
-									정보</a></li>
-							<li class="_538w0"><a class="_hqmnd"
-								href="https://help.instagram.com/">지원</a></li>
-							<li class="_538w0"><a class="_hqmnd"
-								href="http://blog.instagram.com/">블로그</a></li>
-							<li class="_538w0"><a class="_hqmnd"
-								href="https://instagram-press.com/">홍보 센터</a></li>
-							<li class="_538w0"><a class="_hqmnd" href="/developer/">API</a></li>
-							<li class="_538w0"><a class="_hqmnd" href="/about/jobs/">채용
-									정보</a></li>
-							<li class="_538w0"><a class="_hqmnd" href="/legal/privacy/">개인정보처리방침</a></li>
-							<li class="_538w0"><a class="_hqmnd _ts6wg"
-								href="/legal/terms/">약관</a></li>
-							<li class="_538w0"><a class="_hqmnd"
-								href="/explore/locations/">디렉터리</a></li>
-							<li class="_538w0"><a class="_hqmnd"
-								href="/directory/profiles/">프로필</a></li>
-							<li class="_538w0"><a class="_hqmnd"
-								href="/directory/hashtags/">해시태그</a></li>
-
-						</ul>
-					</nav>
-					<span class="_1gmap">© 2018 Meshtagram</span>
-				</div>
-			</div>
-		</div>
 
 		<script>
 			//팔로우 버튼 액션
