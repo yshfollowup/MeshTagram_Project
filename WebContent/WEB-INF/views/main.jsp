@@ -3073,7 +3073,7 @@ margin-bottom:env(safe-area-inset-bottom)
 				}
 			}).done(function(val) {
 				$("#mark_" + boardid).show();
-				$("#mark_" + boardid).hide();
+				$("#unmark_" + boardid).hide();
 				console.log("저장취소 성공");
 			});
 		});
