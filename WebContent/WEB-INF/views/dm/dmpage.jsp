@@ -322,7 +322,7 @@ body {
 			<c:forEach items="${followList }" var="obj">
 				<ul class="nav nav-pills nav-stacked">
 					<li><a href="#${obj.ID }"><span id="${obj.ID}"
-							class="mesen" name="${obj._id }">${obj.ID }</span>
+							class="mesen" name="${obj._id }"><b>${obj.ID }</b></span>
 							<span id="sp_${obj.ID }"></span></a></li>
 				</ul>
 			</c:forEach>

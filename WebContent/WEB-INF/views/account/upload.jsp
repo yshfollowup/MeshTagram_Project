@@ -11,6 +11,13 @@
 <meta name="theme-color" content="#000000">
 <meta id="viewport" name="viewport"
 	content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover">
+<style>
+.selProductFile:hover{
+ border : 1px solid #A4A4A4;
+}
+
+</style>
+
 </head>
 <body style="background-color: #fafafa;">
 	<div style="height: 70px;"></div>
@@ -21,13 +28,14 @@
 			enctype="multipart/form-data" style="margin-top: 10px;">
 			<div class="imgs">
 				<a href="javascript:" onclick="uploadAction();" id="upload"
-					class="btn btn-info" style="width:140px;">파일 선택</a>
+					class="btn btn-info"
+					style="width:140px; height: 30px; padding: 4 0 0 0;">파일 선택</a>
 					 <input type="file" name="photo"
 					id="photo" accept="image/*" style="display: none;" multiple />
 				&nbsp;&nbsp;&nbsp;
 				 <a href="javascript:" onclick="refreshImage();"
 				 id="refresh" class="btn btn-info"
-				 style="width:140px;">새로고침</a>
+				 style="width:140px; height: 30px; padding: 4 0 0 0;">새로고침</a>
 			</div>
 			<div>
 				<div>
@@ -47,7 +55,7 @@
 					style="resize: none; width: 300px; height: 70px; padding: 2px; margin-bottom: 10px; ' font-family: 맑은고딕"></textarea>
 			</div>
 
-			<p style="margin-bottom: 320px;">
+			<p style="margin-bottom: 100px;">
 				<button type="submit" id="bt2" class="btn btn-info"
 					style="width: 300px;">업로드</button>
 			</p>
