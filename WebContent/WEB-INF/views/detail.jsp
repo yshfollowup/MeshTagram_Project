@@ -3033,7 +3033,6 @@ $(".unmark").on("click", function() {
 			});
 			// console.log(val);
 			for (var i = 0; i < val.length; i++) {
-				$("#sp_" + val[i].boardId).html("");
 				var dd="";
 				if(val[i].reid == setid){
 					var s=val[i].ment;
