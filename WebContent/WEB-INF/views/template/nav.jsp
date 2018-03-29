@@ -1998,7 +1998,7 @@ px
 									
 									</span></a> 
 								<ul class="dropdown-menu">
-									<li id="noticeList">새 소식</li>
+									
 								</ul>
 
 							</div>
@@ -2040,31 +2040,34 @@ px
 				var noLikeId = key.noLikeId;
 				var noReplyId = key.noReplyId;
 				console.log(noId+"..."+noLikeId+"..."+noReplyId);
+				//console.log(this.size);
 				$(".dropdown-menu").empty();
 				if (noId != null) {
-					$(".dropdown-menu").append("<li class=\"_75ljm _3qhgf\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do\"><b>"
+					$(".dropdown-menu").append("<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
+							+ key.code
+							+ "\"><b>"
 							+ key.noId
-							+ "</b>님이 새 게시물을 올렸습니다.</a><a href=\"/detail/detail.do\">게시물 보기</a><div class=\"_3lema _6g6t5\">"
+							+ "</b>님이 새 게시물을 올렸습니다.</a><div class=\"_3lema _6g6t5\">"
 							+ key.date
 							+ "</div></div></li>");
-
-				}
-				if (noLikeId != null) {
-					$(".dropdown-menu").append("<li class=\"_75ljm _3qhgf\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do\"><b>"
+				} else if (noLikeId != null) {
+					$(".dropdown-menu").append("<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
+							+ key.code
+							+ "\"><b>"
 							+ key.noLikeId
 							+ "</b>님이<b>"
 							+ key.noLikeTarget
 							+ "</b>님의 게시물에 좋아요를 눌렀습니다.</a><div class=\"_3lema _6g6t5\">"
 							+ key.date
 							+ "</div></div></li>");
-
-				}
-				if (noReplyId != null) {
-					$(".dropdown-menu").append("<li class=\"_75ljm _3qhgf\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do\"><b>"
+				} else {
+					$(".dropdown-menu").append("<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
+							+ key.code
+							+ "\"><b>"
 							+ key.noReplyId
 							+ "</b>님이<b>"
 							+ key.noReplyTarget
-							+ "</b>님의 게시물에 댓글을 달았습니다.</a><a href=\"/detail/detail.do\">댓글 보기</a><div class=\"_3lema _6g6t5\">"
+							+ "</b>님의 게시물에 댓글을 달았습니다.</a><div class=\"_3lema _6g6t5\">"
 							+ key.date
 							+ "</div></div></li>");
 				}
