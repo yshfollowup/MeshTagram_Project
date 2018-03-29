@@ -2047,6 +2047,7 @@ px
 							+ "</b>님이 새 게시물을 올렸습니다.</a><a href=\"/detail/detail.do\">게시물 보기</a><div class=\"_3lema _6g6t5\">"
 							+ key.date
 							+ "</div></div></li>");
+
 				}
 				if (noLikeId != null) {
 					$(".dropdown-menu").append("<li class=\"_75ljm _3qhgf\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do\"><b>"
@@ -2056,6 +2057,7 @@ px
 							+ "</b>님의 게시물에 좋아요를 눌렀습니다.</a><div class=\"_3lema _6g6t5\">"
 							+ key.date
 							+ "</div></div></li>");
+
 				}
 				if (noReplyId != null) {
 					$(".dropdown-menu").append("<li class=\"_75ljm _3qhgf\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do\"><b>"
@@ -2071,75 +2073,84 @@ px
 	});
 	
 	//검색창
-	$("#search").on("keyup", function() {
-		var value = $("#search").val();
-		var tag = null;
-		var idsh = null;
-		var comm = null
-		if (value.startsWith("#")) {
-			tag = value;
-		} else if (value.startsWith("@")) {
-			idsh = value;
-		} else {
-			comm = value;
-		}
-		$.ajax("/autocom.do", {
-			"method" : "post",	
-			"async" : true,
-			"data" : {
-				"tag" : tag,
-				"idsh" : idsh,
-				"comm" : comm
-			}
-		}).done(function(val) {
-			console.log(val);
-			var str = "";
-			var img = "<img src=\"/images/insta.jpg\" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
-			for (var i = 0; i < val.length; i++) {
-				var img2 = "<img src=\"${applicationScope.path }"+val.PROFILE+" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
-				var com = null;
-				var ii = null;
-				if (val[i]._id != null) {
-					var s = null;
-					if (val[i].tags[0].startsWith("#")) {
-						console.log(val[i].tags[i]);
-						var a = val[i].tags[i];
-						s = a.replace('#', '%23');
-					}
-					str += "<a href=/searchtag.do?tags="
-							+ s
-							+ ">"
-							+ val[i].tags
-							+ "<br/>게시물 "
-							+ val[i].count
-							+ "</a>"
-							+ "<br/>";
-				} else if (val.PROFILE == null) {
-					ii = img;
-				} else {
-					ii = img2;
-				}
-				
-				if (val[i].NAME == null) {
-					name = "";
-				} else {
-					name = val[i].NAME;
-				}
-				
-				str += "<a href=/search.do?id="
-						+ val[i].ID
-						+ "><div>"
-						+ ii
-						+ "<div>"
-						+ val[i].ID
-						+ "</div><div style=\"border-bottom: 1px solid grey;\">"
-						+ name
-						+ "</div></div></a>"
-						+ "<br/>";
-			}
-		});
-		$("#pp").html(str);
-	});
+	$("#search")
+				.on(
+						"keyup",
+						function() {
+							var value = $("#search").val();
+							var tag = null;
+							var idsh = null;
+							var comm = null
+							if (value.startsWith("#")) {
+								tag = value;
+							} else if (value.startsWith("@")) {
+								idsh = value;
+							} else {
+								comm = value;
+							}
+							$
+									.ajax("/autocom.do", {
+										"method" : "post",
+										"async" : true,
+										"data" : {
+											"tag" : tag,
+											"idsh" : idsh,
+											"comm" : comm
+										}
+									})
+									.done(
+											function(val) {
+												console.log(val);
+												var str = "";
+												var img = "<img src=\"/images/insta.jpg\" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
+												for (var i = 0; i < val.length; i++) {
+													var img2 = "<img src=\"${applicationScope.path }"+val.PROFILE+" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
+													var com = null;
+													var ii = null;
+													if (val[i]._id != null) {
+														var s = null;
+														if (val[i].tags[0]
+																.startsWith("#")) {
+															console
+																	.log(val[i].tags[i]);
+															var a = val[i].tags[i];
+															s = a.replace('#',
+																	'%23');
+														}
+														str += "<a href=/searchtag.do?tags="
+																+ s
+																+ ">"
+																+ val[i].tags
+																+ "<br/>게시물 "
+																+ val[i].count
+																+ "</a>"
+																+ "<br/>";
+													} else {
+														if (val.PROFILE == null) {
+															ii = img;
+														} else {
+															ii = img2;
+														}
+														if (val[i].NAME == null) {
+															name = "";
+														} else {
+															name = val[i].NAME;
+														}
+														str += "<a href=/search.do?id="
+																+ val[i].ID
+																+ "><div>"
+																+ ii
+																+ "<div>"
+																+ val[i].ID
+																+ "</div><div style=\"border-bottom: 1px solid grey;\">"
+																+ name
+																+ "</div></div></a>"
+																+ "<br/>";
+													}
+												}
+												$("#pp").html(str);
+											})
+						});
 </script>
 </body>
 </html>
