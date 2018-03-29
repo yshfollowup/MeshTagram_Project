@@ -13,7 +13,13 @@
 <meta name="theme-color" content="#000000">
 <meta id="viewport" name="viewport"
 	content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover">
-
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
 <style type="text/css" data-isostyle-id="is39555a4a">
 ._2eqg1 {
 	background-image: -webkit-gradient(linear, left top, right top, from(#3796ef),
@@ -137,7 +143,15 @@ supports
 
 
 
+
+
+
+
  
+
+
+
+
 
 
 
@@ -155,13 +169,29 @@ margin-bottom
 
 
 
+
+
+
+
+
+
+
+
 :env(safe-area-inset-bottom)
 
 
 
 
 
+
+
+
+
  
+
+
+
+
 
 
 
@@ -180,13 +210,29 @@ _evlcw
 
 
 
+
+
+
+
+
+
+
+
 :
 
 
 
 
 
+
+
+
+
  
+
+
+
+
 
 
 
@@ -198,7 +244,15 @@ not
 
 
 
+
+
+
+
  
+
+
+
+
 
 
 
@@ -212,7 +266,15 @@ not
 
 
 
+
+
+
+
 	
+
+
+
+
 
 
 
@@ -230,13 +292,29 @@ margin-bottom
 
 
 
+
+
+
+
+
+
+
+
 :
 
 
 
 
 
+
+
+
+
  
+
+
+
+
 
 
 
@@ -253,8 +331,24 @@ env
 
 
 
+
+
+
+
+
+
+
+
 (
 safe-area-inset-bottom
+
+
+
+
+
+
+
+
 
 
 
@@ -977,12 +1071,6 @@ safe-area-inset-bottom
 	display: block;
 	overflow: hidden;
 	padding-bottom: 100%
-}
-
-._2di5p, ._si7dy {
-	left: 0;
-	position: absolute;
-	top: 0
 }
 
 ._2di5p {
@@ -2587,7 +2675,7 @@ safe-area-inset-bottom
 	-ms-flex-positive: 1;
 	flex-grow: 1;
 	margin-bottom: 3px;
-	padding-left : 30px;
+	padding-left: 30px;
 }
 
 @media ( min-width :876px) {
@@ -2606,10 +2694,10 @@ safe-area-inset-bottom
 		justify-content: space-between;
 		padding: 38px 0
 	}
-	 ._luodr, ._9z659 ._luodr {
+	._luodr, ._9z659 ._luodr {
 		max-width: 100%
 	}
-	._8oc6p{
+	._8oc6p {
 		max-width: 300px;
 	}
 	._8oc6p ._g8wl6, ._9z659 ._g8wl6 {
@@ -2713,7 +2801,6 @@ safe-area-inset-bottom
 	-webkit-justify-content: space-between;
 	-ms-flex-pack: justify;
 	justify-content: space-between;
-	
 }
 
 ._qwuqp {
@@ -2914,8 +3001,7 @@ safe-area-inset-bottom
 	<section class="_owark _gsusx">
 		<div class="_d4oao">
 			<div>
-				<div class="_havey"
-					>
+				<div class="_havey">
 					<!-- 왼쪽다단 -->
 					<!--article : 게시글 단위 -->
 					<!--↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓아이디 & 헤더 부분↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
@@ -2929,7 +3015,7 @@ safe-area-inset-bottom
 										style="width: 30px; height: 30px;">
 										<c:choose>
 											<c:when test="${empty obj.profile}">
-												<img src="/images/insta.jpg" class="_rewi8" id="writer" >${obj.id }
+												<img src="/images/insta.jpg" class="_rewi8" id="writer">${obj.id }
 											</c:when>
 											<c:otherwise>
 												<img src="${applicationScope.path }${obj.profile}"
@@ -2955,48 +3041,48 @@ safe-area-inset-bottom
 							<div class="_sxolz">
 								<div>
 									<div class="_k7ih4">
-										<div>
-											<div class="_e3il2 _gxii9">
-												<div class="_4rbun" style="padding-bottom: 100%;">
-													<c:choose>
-														<c:when test="${fn:length(obj.image) >1}">
-															<div id="${obj._id }" class="carousel slide"
-																data-ride="carousel">
-																<!-- Wrapper for slides -->
-																<div class="carousel-inner">
-																	<c:forEach items="${obj.image }" var="image"
-																		varStatus="st">
-																		<div class="item ${st.first ? 'active' : '' }">
-																			<img src="${obj.path }${image }" class="_2di5p"
-																				size="314px" />
-																		</div>
-																	</c:forEach>
-																</div>
-																<!-- Left and right controls -->
-																<a class="left carousel-control" href="#${obj._id }"
-																	data-slide="prev"> <span
-																	class="glyphicon glyphicon-chevron-left"></span> <span
-																	class="sr-only">Previous</span>
-																</a> <a class="right carousel-control" href="#${obj._id }"
-																	data-slide="next"> <span
-																	class="glyphicon glyphicon-chevron-right"></span> <span
-																	class="sr-only">Next</span>
-																</a>
+										<div class="_e3il2">
+											<div class="_4rbun" style="padding-bottom: 0;">
+												<c:choose>
+													<c:when test="${fn:length(obj.image) >1}">
+														<div id="${obj._id }" class="carousel slide"
+															data-ride="carousel">
+															
+															<!-- Wrapper for slides -->
+															<div class="carousel-inner">
+																<c:forEach items="${obj.image }" var="image"
+																	varStatus="st">
+																	<div class="item ${st.first ? 'active' : '' }">
+																		<img src="${obj.path }${image }" class="_2di5p"
+																			style="width: 100%;" />
+																	</div>
+																</c:forEach>
 															</div>
-														</c:when>
-														<c:otherwise>
-															<c:forEach items="${obj.image }" var="image">
-																<div>
-																	<img src="${obj.path }${image }" class="_2di5p"
-																		size="314px" />
-																</div>
-															</c:forEach>
-														</c:otherwise>
-													</c:choose>
-												</div>
-												<div class="_si7dy"></div>
+															<!-- Left and right controls -->
+															<a class="left carousel-control" href="#${obj._id }"
+																data-slide="prev"> <span
+																class="glyphicon glyphicon-chevron-left"></span> <span
+																class="sr-only">Previous</span>
+															</a> <a class="right carousel-control" href="#${obj._id }"
+																data-slide="next"> <span
+																class="glyphicon glyphicon-chevron-right"></span> <span
+																class="sr-only">Next</span>
+															</a>
+														</div>
+													</c:when>
+													<c:otherwise>
+														<c:forEach items="${obj.image }" var="image">
+															<div>
+																<img src="${obj.path }${image }" class="_2di5p"
+																	style="width: 100%;" />
+															</div>
+														</c:forEach>
+													</c:otherwise>
+												</c:choose>
 											</div>
+											<div class="_si7dy"></div>
 										</div>
+
 
 
 										<!--↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓좋아요 + 댓글 부분↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
@@ -3005,19 +3091,23 @@ safe-area-inset-bottom
 							</div>
 							<div class="_ebcx9">
 								<section class="_hmd6j _8oo9w">
-									<a class="_eszkz _l9yih like" name="${obj.code }" role="button" title="${obj.id }"
-										id="like_${obj.code }"> <span
-										class="_8scx2 coreSpriteHeartOpen" id="likespan_${obj.code }" >좋아요</span>
-									</a> <a class="_eszkz _l9yih dislike ${obj.id }" name="${obj.code }"
-										role="button" id="dislike_${obj.code }" style="display: none;">
-										<span class="_8scx2 coreSpriteHeartFull">좋아요취소</span>
-									</a> <a class="_p6oxf _6p9ga rebt" role="button" name="${obj.code }">
-										<span class="_8scx2 coreSpriteComment">댓글 달기</span>
+									<a class="_eszkz _l9yih like" name="${obj.code }" role="button"
+										title="${obj.id }" id="like_${obj.code }"> <span
+										class="_8scx2 coreSpriteHeartOpen" id="likespan_${obj.code }">좋아요</span>
+									</a> <a class="_eszkz _l9yih dislike ${obj.id }"
+										name="${obj.code }" role="button" id="dislike_${obj.code }"
+										style="display: none;"> <span
+										class="_8scx2 coreSpriteHeartFull">좋아요취소</span>
+									</a> <a class="_p6oxf _6p9ga rebt" role="button"
+										name="${obj.code }"> <span
+										class="_8scx2 coreSpriteComment">댓글 달기</span>
 									</a> <a class="_mpkky _et4ho mark" href="#" role="button"
-										aria-disabled="false" name="${obj.code }" id="mark_${obj.code }" > <span
+										aria-disabled="false" name="${obj.code }"
+										id="mark_${obj.code }"> <span
 										class="_8scx2 coreSpriteSaveOpen">저장</span>
 									</a> <a class="_mpkky _et4ho unmark" role="button"
-										aria-disabled="false" name="${obj.code }" id="unmark_${obj.code }" style="display : none;"> <span
+										aria-disabled="false" name="${obj.code }"
+										id="unmark_${obj.code }" style="display: none;"> <span
 										class="_8scx2 coreSpriteSaveFull">저장취소</span>
 									</a>
 								</section>
@@ -3025,7 +3115,8 @@ safe-area-inset-bottom
 									<div class="">
 										<a class="_nzn1h" data-toggle="modal" data-target="#myModal1"
 											style="color: black; font-weight: bold; text-decoration: none;">좋아요
-											<span data-toggle="modal" data-target="#myModal1" id="cnt_${obj.code }"></span>개
+											<span data-toggle="modal" data-target="#myModal1"
+											id="cnt_${obj.code }"></span>개
 										</a>
 									</div>
 								</section>
@@ -3059,9 +3150,10 @@ safe-area-inset-bottom
 
 								<section class="_km7ip _ti7l3 parent writereply">
 									<form class="_b6i0l">
-										<textarea  placeholder="댓글 달기..."
-											id="reply_${obj.code }" name="${obj.id }" class="reply _bilrf"
-											aria-label="${obj.code }" autocomplete="off" autocorrect="off"></textarea>
+										<textarea placeholder="댓글 달기..." id="reply_${obj.code }"
+											name="${obj.id }" class="reply _bilrf"
+											aria-label="${obj.code }" autocomplete="off"
+											autocorrect="off"></textarea>
 									</form>
 								</section>
 							</div>
@@ -3094,116 +3186,116 @@ safe-area-inset-bottom
 		</div>
 
 		<!--↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓우측 프로필 파트↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓-->
-		<div class="_11dqz" style="margin-top:70px;">
-			<div style="position:fixed;">
-			<div class="_i4wsm">
-				<div class="_ikq0n">
-					<div class="_82odm _pbvu8">
-						<canvas class="_15vpm" width="60" height="60"
-							style="transform: translate(-5px, -5px); position: absolute; top: 0px; left: 0px; width: 60px; height: 60px;"></canvas>
-						<a class="_pg23k _jpwof _gvoze"
-							href="/mypage/index.do?id=${aDTO.id }"
-							style="width: 50px; height: 50px;"> <c:choose>
-								<c:when test="${empty aDTO.profile }">
-									<img src="/images/insta.jpg" class="_rewi8" id="profile">
-								</c:when>
-								<c:otherwise>
-									<img src="${applicationScope.path }${aDTO.profile}" class="_rewi8" id="profile" />
-								</c:otherwise>
-							</c:choose> ${aDTO.id }
-						</a>
+		<div class="_11dqz" style="margin-top: 70px;">
+			<div style="position: fixed;">
+				<div class="_i4wsm">
+					<div class="_ikq0n">
+						<div class="_82odm _pbvu8">
+							<canvas class="_15vpm" width="60" height="60"
+								style="transform: translate(-5px, -5px); position: absolute; top: 0px; left: 0px; width: 60px; height: 60px;"></canvas>
+							<a class="_pg23k _jpwof _gvoze"
+								href="/mypage/index.do?id=${aDTO.id }"
+								style="width: 50px; height: 50px;"> <c:choose>
+									<c:when test="${empty aDTO.profile }">
+										<img src="/images/insta.jpg" class="_rewi8" id="profile">
+									</c:when>
+									<c:otherwise>
+										<img src="${applicationScope.path }${aDTO.profile}"
+											class="_rewi8" id="profile" />
+									</c:otherwise>
+								</c:choose> ${aDTO.id }
+							</a>
 
-					</div>
-					<div class="_on99m">
-						<div class="_8hjc5">
-							<a class="_f89xq" href="/mypage/index.do?id=${aDTO.id }">${aDTO.id }</a>
 						</div>
-						<div class="_ewiye _irzdz">${aDTO.name}</div>
+						<div class="_on99m">
+							<div class="_8hjc5">
+								<a class="_f89xq" href="/mypage/index.do?id=${aDTO.id }">${aDTO.id }</a>
+							</div>
+							<div class="_ewiye _irzdz">${aDTO.name}</div>
+						</div>
 					</div>
 				</div>
-			</div>
-			<hr class="_qwuqp">
-			<div class="_sfbui">
-				<span class="_72oww">스토리</span>
-			</div>
-			<div class="_ldjog">회원님이 팔로우하는 사람들의 스토리가 여기에 표시됩니다.</div>
-			<hr class="_qwuqp">
-			<div class=" _8oc6p">
-				<nav class="_luodr" role="navigation">
-					<ul class="_g8wl6">
-						<li class="_538w0"><a class="_hqmnd" href="/about/us/">Meshtagram
-								정보</a></li>
-						<li class="_538w0"><a class="_hqmnd"
-							href="https://help.instagram.com/">지원</a></li>
-						<li class="_538w0"><a class="_hqmnd"
-							href="http://blog.instagram.com/">블로그</a></li>
-						<li class="_538w0"><a class="_hqmnd"
-							href="https://instagram-press.com/">홍보 센터</a></li>
-						<li class="_538w0"><a class="_hqmnd" href="/developer/">API</a></li>
-						<li class="_538w0"><a class="_hqmnd" href="/about/jobs/">채용
-								정보</a></li>
-						<li class="_538w0"><a class="_hqmnd" href="/legal/privacy/">개인정보처리방침</a></li>
-						<li class="_538w0"><a class="_hqmnd _ts6wg"
-							href="/legal/terms/">약관</a></li>
-						<li class="_538w0"><a class="_hqmnd"
-							href="/explore/locations/">디렉터리</a></li>
-						<li class="_538w0"><a class="_hqmnd"
-							href="/directory/profiles/">프로필</a></li>
-						<li class="_538w0"><a class="_hqmnd"
-							href="/directory/hashtags/">해시태그</a></li>
+				<hr class="_qwuqp">
+				<div class="_sfbui">
+					<span class="_72oww">스토리</span>
+				</div>
+				<div class="_ldjog">회원님이 팔로우하는 사람들의 스토리가 여기에 표시됩니다.</div>
+				<hr class="_qwuqp">
+				<div class=" _8oc6p">
+					<nav class="_luodr" role="navigation">
+						<ul class="_g8wl6">
+							<li class="_538w0"><a class="_hqmnd" href="/about/us/">Meshtagram
+									정보</a></li>
+							<li class="_538w0"><a class="_hqmnd"
+								href="https://help.instagram.com/">지원</a></li>
+							<li class="_538w0"><a class="_hqmnd"
+								href="http://blog.instagram.com/">블로그</a></li>
+							<li class="_538w0"><a class="_hqmnd"
+								href="https://instagram-press.com/">홍보 센터</a></li>
+							<li class="_538w0"><a class="_hqmnd" href="/developer/">API</a></li>
+							<li class="_538w0"><a class="_hqmnd" href="/about/jobs/">채용
+									정보</a></li>
+							<li class="_538w0"><a class="_hqmnd" href="/legal/privacy/">개인정보처리방침</a></li>
+							<li class="_538w0"><a class="_hqmnd _ts6wg"
+								href="/legal/terms/">약관</a></li>
+							<li class="_538w0"><a class="_hqmnd"
+								href="/explore/locations/">디렉터리</a></li>
+							<li class="_538w0"><a class="_hqmnd"
+								href="/directory/profiles/">프로필</a></li>
+							<li class="_538w0"><a class="_hqmnd"
+								href="/directory/hashtags/">해시태그</a></li>
 
-					</ul>
-				</nav>
-				<span class="_1gmap">© 2018 Meshtagram</span>
-			</div>
+						</ul>
+					</nav>
+					<span class="_1gmap">© 2018 Meshtagram</span>
+				</div>
 			</div>
 		</div>
 	</section>
 
-	<script type="text/javascript" src="/js/custom.js"></script> 
-	<script>
-		$(".mark").on("click", function(){
+	<script type="text/javascript" src="/js/custom.js"></script> <script>
+		$(".mark").on("click", function() {
 			console.log("저장 들어왔다");
 			var reid = "${cookie.setId.value}";
 			var boardid = $(this).attr("name");
-			var bt = $("#mark"+boardid).attr("name");
-			console.log(bt+"구분자"+boardid+"아이디"+"저장");
-				$.ajax("/markBoard.do", {
-					"method" : "get",
-					"async" : true,
-					"data" : {
-						"boardId" : boardid,
-						"id" : reid,
-						"mark": "저장"
-					}
-				}).done(function(val){
-					$("#mark_"+boardid).hide();
-					$("#unmark_"+boardid).show();
-					console.log("저장이 성공적");
-				});
+			var bt = $("#mark" + boardid).attr("name");
+			console.log(bt + "구분자" + boardid + "아이디" + "저장");
+			$.ajax("/markBoard.do", {
+				"method" : "get",
+				"async" : true,
+				"data" : {
+					"boardId" : boardid,
+					"id" : reid,
+					"mark" : "저장"
+				}
+			}).done(function(val) {
+				$("#mark_" + boardid).hide();
+				$("#unmark_" + boardid).show();
+				console.log("저장이 성공적");
+			});
 		});
-		
-		$(".unmark").on("click", function(){
+
+		$(".unmark").on("click", function() {
 			console.log("저장 취소시도");
 			var reid = "${cookie.setId.value}";
 			var boardid = $(this).attr("name");
-			var bt = $("#mark"+boardid).attr("name");
-			console.log(bt+"구분자"+boardid+"아이디"+"저장");
-				$.ajax("/markBoardDelete.do", {
-					"method" : "get",
-					"async" : true,
-					"data" : {
-						"boardId" : boardid,
-						"id" : reid,
-						"mark": "저장취소"
-					}
-				}).done(function(val){
-					$("#mark_"+boardid).show();
-					$("#mark_"+boardid).hide();
-					console.log("저장취소 성공");
-				});
+			var bt = $("#mark" + boardid).attr("name");
+			console.log(bt + "구분자" + boardid + "아이디" + "저장");
+			$.ajax("/markBoardDelete.do", {
+				"method" : "get",
+				"async" : true,
+				"data" : {
+					"boardId" : boardid,
+					"id" : reid,
+					"mark" : "저장취소"
+				}
+			}).done(function(val) {
+				$("#mark_" + boardid).show();
+				$("#mark_" + boardid).hide();
+				console.log("저장취소 성공");
+			});
 		});
-		
+
 		$(".show").on("click", function() {
 			console.log($(this).attr("aria-expanded"));
 			if ($(this).attr("aria-expanded") == "false") {
@@ -3221,7 +3313,7 @@ safe-area-inset-bottom
 						"click",
 						function() {
 							var reid = "${cookie.setId.value}";
-							var boardid=$(this).attr("name");
+							var boardid = $(this).attr("name");
 							var listId = [];
 							var value = $(this).attr("name");
 							var address = $("#myList");
@@ -3319,7 +3411,7 @@ safe-area-inset-bottom
 		$(".reply").on("change", function() {
 			var boardid = [];
 			var input = $(this).attr("name");
-			var iii=$(this).attr("aria-label");
+			var iii = $(this).attr("aria-label");
 			$(".reply").each(function() {
 				boardid.push($(this).attr("aria-label"));
 			});
@@ -3330,7 +3422,7 @@ safe-area-inset-bottom
 				window.alert("댓글을 작성해주세요.");
 				return;
 			}
-			console.log("댓글을 쓴다." + ment +iii+"타켓아이디"+input);
+			console.log("댓글을 쓴다." + ment + iii + "타켓아이디" + input);
 			var id = $(this).attr("aria-label");
 			var reid = "${cookie.setId.value}";
 			//console.log(id+ment);
@@ -3340,7 +3432,7 @@ safe-area-inset-bottom
 				"data" : {
 					"boardId" : id,
 					"reid" : reid,
-					"target": input,
+					"target" : input,
 					"ment" : ment
 				}
 			}).done(function(obj) {
@@ -3351,7 +3443,7 @@ safe-area-inset-bottom
 					if (boardid[i] == iii) {
 						console.log("댓글 들어왔다." + boardid[i] + obj.ment);
 						$("#sp_" + boardid[i]).append(obj.ment);
-						
+
 					}
 				}
 			})
@@ -3361,14 +3453,12 @@ safe-area-inset-bottom
 		markList(setid);
 		//댓글 리스트 자동 생성
 
-		
-
 		function markList(setid) {
 			var boardid = [];
 			$(".rebt").each(function() {
 				boardid.push($(this).attr("name"));
 			});
-			 console.log(boardid+"북마크 리스트 받아라");
+			console.log(boardid + "북마크 리스트 받아라");
 			$.ajax("/markList.do", {
 				"method" : "get",
 				"async" : true,
@@ -3411,8 +3501,8 @@ safe-area-inset-bottom
 					"like" : like
 				}
 			}).done(function(val) {
-				$("#like_"+boardid).hide();
-				$("#dislike_"+boardid).show();
+				$("#like_" + boardid).hide();
+				$("#dislike_" + boardid).show();
 				var a;
 				likeList();
 				console.log(val);
@@ -3445,8 +3535,8 @@ safe-area-inset-bottom
 				}
 			})
 			likeList();
-			$("#like_"+boardid).show();
-			$("#dislike_"+boardid).hide();
+			$("#like_" + boardid).show();
+			$("#dislike_" + boardid).hide();
 		});
 	</script> </main>
 </body>
