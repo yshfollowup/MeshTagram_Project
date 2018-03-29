@@ -161,8 +161,8 @@ public class ReplyDAO {
 			List<Map> list = new LinkedList<>();
 			for(int i=0; i<param.size();i++) {
 				String id= param.get(i).getTarget();
-				//System.out.println("댓글공지 받을 아이디"+ id);
-				Query query= new Query(Criteria.where("id").is(id));
+				System.out.println("댓글공지 받을 아이디"+ id);
+				Query query= new Query(Criteria.where("reid").is(id));
 				list.addAll(template.find(query,Map.class, "Reply"));
 			}
 			System.out.println("댓글공지 리스트"+list);

@@ -35,7 +35,7 @@ public class NoticeBoardController {
 	@Autowired
 	Gson gson;
 	
-	@RequestMapping(path = "/noticeBoard.do")
+	@RequestMapping(path = "/noticeBoard.do", produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String noticeBoardHandle(@CookieValue(name = "setId") String setId) {
 
@@ -162,10 +162,10 @@ public class NoticeBoardController {
 		});
 
 		List<Map> notice3 = new LinkedList();
-		if (noticeReply != null) {
+		if (!noticeReply.isEmpty()) {
 
 			for (int i = 0; i < noticeReply.size(); i++) {
-				String noId = noticeReply.get(i).get("id").toString();
+				String noId = noticeReply.get(i).get("reid").toString();
 				String noTarget = noticeReply.get(i).get("target").toString();
 				String code = noticeReply.get(i).get("boardId").toString();
 				Date date = (Date) noticeBoard.get(i).get("date");
