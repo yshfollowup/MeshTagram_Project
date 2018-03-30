@@ -26,6 +26,7 @@ import com.google.gson.Gson;
 
 import mvc.model.AccountDTO;
 import mvc.service.AccountDAO;
+import mvc.service.DeleteAccountDAO;
 import mvc.service.ExtractService;
 import mvc.service.FollowDAO;
 import mvc.service.MessengerDAO;
@@ -50,6 +51,8 @@ public class MyPageController {
 	SearchDAO sDAO;
 	@Autowired
 	MessengerDAO mDAO;
+	@Autowired
+	DeleteAccountDAO daDAO;
 	@Autowired
 	UploadService2 us2;
 	@Autowired
@@ -304,5 +307,21 @@ public class MyPageController {
 			modelMap.put("aDTO", aDTO);
 		}
 		return "redirect:/mypage/index.do";
+	}
+	
+	@RequestMapping("/deletePage.do")
+	public String deletePageHandle() {
+		return "delete_account";
+	}
+	
+	@RequestMapping(path = "/deleteAccount.do", method = RequestMethod.POST)
+	public String deleteAccountHandle(@RequestParam Map param) {
+		String deleteReason = (String) param.get("reason");
+		String password = (String) param.get("password");
+		System.out.println(deleteReason + " / " + password);
+		Map result = daDAO.insertReason(param);
+		
+		return "insta_login";
+		
 	}
 }

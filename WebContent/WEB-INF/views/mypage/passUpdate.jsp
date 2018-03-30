@@ -1122,7 +1122,7 @@ a:active {
 								<label for="cppOldPassword">이전 비밀번호</label>
 							</aside>
 							<div class="_cd2n1">
-								<input type="password" class="_4abhr _o716c"
+								<input type="password" class="_4abhr _o716c" onfocus="removeAlert();"
 									aria-required="true" id="op" name="oldPass" value="">
 							</div>
 						</div>
@@ -1131,9 +1131,9 @@ a:active {
 								<label for="cppNewPassword">새 비밀번호</label>
 							</aside>
 							<div class="_cd2n1">
-								<input type="password" class="_4abhr _o716c"
+								<input type="password" class="_4abhr _o716c" onfocus="removeAlert();"
 									aria-required="true" id="np" name="newPass" value="">
-								<span id="alert1"></span>
+								<span class="alert"></span>
 							</div>
 						</div>
 						<div class="_e1xik">
@@ -1141,9 +1141,9 @@ a:active {
 								<label for="cppConfirmPassword">새 비밀번호 확인</label>
 							</aside>
 							<div class="_cd2n1">
-								<input type="password" class="_4abhr _o716c"
+								<input type="password" class="_4abhr _o716c" onfocus="removeAlert();"
 									aria-required="true" id="confirm" name="confirmPass" value="">
-								<span id="alert2"></span>
+								<span class="alert"></span>
 							</div>
 						</div>
 						<div class="_e1xik">
@@ -1171,6 +1171,7 @@ a:active {
 	var oldPass = $("#op").val();
 	var newPass = $("#np").val();
 	var confirm = $("#confirm").val();
+	var passRule = "/^[a-zA-Z0-9]{8,}$/";
 	
 	$("#confirm").keypress(function() {
 		$("#passBt").prop("disabled", false);
@@ -1178,25 +1179,22 @@ a:active {
 	
 	$("#np").on("change", function() {
 		if (oldPass == newPass) {
-			$("#alert1").html("같은 비밀번호로 변경할 수 없습니다.");
-			window.setTimeout("pageReload()", 1500);
-			
-		} else if (oldPass != $("#hideOp").attr("value")) {
-			$("#alert1").html("이전 비밀번호가 일치하지 않습니다.");
-			window.setTimeout("pageReload()", 1500);
-		} else if ((!newPass.match("[A-Za-z0-9]+")) || 
-					(newPass.match("[0-9]")) || 
-					(newPass.match("[A-Za-z]+")) ||
-					(newPass.length < 8)) {
-			$("#alert1").html("비밀번호는 영문+숫자를 조합하여 8자리 이상으로 변경해주십시오.");
-			window.setTimeout("pageReload()", 1500);
-		}	
+			$(".alert").html("같은 비밀번호로 변경할 수 없습니다.");
+		}
+		if (!passRule.test()) {
+			$(".alert").html("비밀번호는 영문+숫자를 조합하여 8자리 이상으로 변경해주십시오.");
+		}
 	});
+	
+	function removeAlert() {
+		$(".alert").html("");
+		$(".alert").html("");
+	}
 	
 	$("#confirm").on("change", function() {
 		if (confirm != newPass) {
-			$("#alert2").html("확인된 비밀번호가 아닙니다.");
-			window.setTimeout("pageReload()", 1500);
+			$(".alert").html("확인된 비밀번호가 아닙니다.");
+			
 		}
 	});
 		
@@ -1231,9 +1229,7 @@ a:active {
 		reader.readAsDataURL(file);
 	});
 		
-	function pageReload() {
-		window.location.reload();
-	}
+	
 	</script>
 
 
