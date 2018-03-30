@@ -6,19 +6,24 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="robots" content="noimageindex, noarchive">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#000000">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body style="background-color: #fafafa;">
 
 <div style="height:70px;"></div>
 
 <div align="center" style="min-height: 300px; height: 300px">
 	<div align="left">
 		<p>
-			<h4 align="left"><b>사람 찾기</b></h4>
+			<h4 align="center"><b>사람 찾기</b></h4>
 			<hr/>
 		</p>
 	</div>
@@ -56,7 +61,8 @@
 					<c:forEach var="objFollowing" items="${following }">
 						<c:if test="${not doneLoop }">
 							<c:if test="${objFollowing.id } eq ${objRecom.id }">
-								<input class="follower" type="button" name="${objRecom.id }"
+								<input class="follower btn " type="button" name="${objRecom.id }"
+								
 									value="팔로잉" />
 								<c:set var="isFollowing" value="true" />
 								<c:set var="doneLoop" value="true" />
@@ -64,17 +70,19 @@
 						</c:if>
 					</c:forEach>
 					<c:if test="${not isFollowing }">
-						<input class="follower" type="button" name="${objRecom.id }" value="팔로우" />
+						<input class="follower btn btn-info" type="button" name="${objRecom.id }"
+						style="width:70px; height: 20px; padding: 0 0 0 0;"
+						value="팔로우" />
 					</c:if>
 				</p>
 				</c:if>
 		</c:forEach>
-		
-		<button type="button" id="listbt" class="btn btn-info show" data-toggle="collapse" data-target=".collapse" aria-expanded="false">더 찾아보기</button>
-		<div id="demo" class="collapse" aria-expanded="false">
+	</div>
+	<button type="button" id="listbt" class="btn btn-info show" data-toggle="collapse"
+		 data-target=".collapse" aria-expanded="false" style="margin-bottom:20px;">더 찾아보기</button>
+		<div id="demo" class="collapse" aria-expanded="false" style="">
 		
   		</div>
-	</div>
 			<div style="height:300px"></div>
 	
 </div>
@@ -82,11 +90,9 @@
 <hr/>
 
 <div align="center" style="min-height: 700px; height: 700px">
-	<div align="left">
-		<p>
-			<h4 align="left"><b>최근 소식들</b></h4>
+	<div align="center">
+			<h4 align="center"><b>최근 소식들</b></h4>
 			<hr/>
-		</p>
 	</div>
 	<div align="left">
 
@@ -113,9 +119,17 @@
 
 
 </body>
-</html>
-<!-- =========================================================================================================== -->
 
+<!-- =========================================================================================================== -->
+<script>
+$(function(){
+	   $("#listbt").click(function () {
+	      $(this).text(function(i, text){
+	          return text === "더 찾아보기" ? "숨기기" : "더 찾아보기";
+	      })
+	   });
+	})
+</script>
 <script>
 	var setid = "${cookie.setId.value}";
 	$(".show").on("click", function(){
@@ -159,8 +173,8 @@
 						}
 					}
 						if(cnt2!=1){
-							fbt= "<input  type=\"button\" name="+val[i].TARGET+"\ class=\"follower\" value=\"팔로우\"/>";
-							$("#demo").append("<a href=\"/search.do?id="+val[i].TARGET+"\">"+val[i].TARGET+"</a>"+profile+fbt);
+							fbt= "<input  type=\"button\" name="+val[i].TARGET+"\ class=\"follower btn btn-info\" style=\"width:70px; height: 20px; padding: 0; margin:1 20 0 5;\" value=\"팔로우\"/>";
+							$("#demo").append(profile+"<a href=\"/search.do?id="+val[i].TARGET+"\">"+val[i].TARGET+"</a>"+fbt);
 						}
 				}
 				
@@ -300,3 +314,4 @@
 				})
 	};
 </script>
+</html>

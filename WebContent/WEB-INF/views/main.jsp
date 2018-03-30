@@ -3004,27 +3004,29 @@ margin-bottom:env(safe-area-inset-bottom)
 				<div class=" _8oc6p">
 					<nav class="_luodr" role="navigation">
 						<ul class="_g8wl6">
-							<li class="_538w0"><a class="_hqmnd" href="/about/us/">Meshtagram
-									정보</a></li>
-							<li class="_538w0"><a class="_hqmnd"
-								href="https://help.instagram.com/">지원</a></li>
-							<li class="_538w0"><a class="_hqmnd"
-								href="http://blog.instagram.com/">블로그</a></li>
-							<li class="_538w0"><a class="_hqmnd"
-								href="https://instagram-press.com/">홍보 센터</a></li>
-							<li class="_538w0"><a class="_hqmnd" href="/developer/">API</a></li>
-							<li class="_538w0"><a class="_hqmnd" href="/about/jobs/">채용
-									정보</a></li>
-							<li class="_538w0"><a class="_hqmnd" href="/legal/privacy/">개인정보처리방침</a></li>
-							<li class="_538w0"><a class="_hqmnd _ts6wg"
-								href="/legal/terms/">약관</a></li>
-							<li class="_538w0"><a class="_hqmnd"
-								href="/explore/locations/">디렉터리</a></li>
-							<li class="_538w0"><a class="_hqmnd"
-								href="/directory/profiles/">프로필</a></li>
-							<li class="_538w0"><a class="_hqmnd"
-								href="/directory/hashtags/">해시태그</a></li>
-
+							<li class="_538w0"><a class="_hqmnd _mjfont"
+							 href="">Meshtagram정보</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont"
+							href="">지원</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont"
+							href="">블로그</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont"
+							href="">홍보 센터</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont"
+							href="">API</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont"
+							href="">채용	정보</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont"
+							href="">개인정보처리방침</a></li>
+							<li class="_538w0"><a class="_hqmnd _ts6wg _mjfont"
+							href="">약관</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont"
+							href="">디렉터리</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont"
+							href="">프로필</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont"
+							href="">해시태그</a></li>
+							
 						</ul>
 					</nav>
 					<span class="_1gmap">© 2018 Meshtagram</span>
@@ -3034,7 +3036,7 @@ margin-bottom:env(safe-area-inset-bottom)
 	</section>
 	</main>
 
-	<script type="text/javascript" src="/js/custom.js"></script>
+<script type="text/javascript" src="/js/custom.js"></script>
 <script>
 		$(".mark").on("click", function() {
 			console.log("저장 들어왔다");
