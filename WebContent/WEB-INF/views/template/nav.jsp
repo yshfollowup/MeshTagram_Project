@@ -1997,10 +1997,9 @@ px
 									<span class="caret">
 									
 									</span></a> 
-								<ul class="dropdown-menu">
-									
+								<ul class="dropdown-menu" id="dropdown-menu" style="width: 500px; height: 300px; overflow: auto">
+									<li id="noticeList"></li>
 								</ul>
-
 							</div>
 							
 							<!--  -->
@@ -2027,52 +2026,64 @@ px
 	</nav>
 
 <script>
-	//최신 소식 띄우기
-	$("#notice").on("click", function() {
-		console.log("공지사항 들어왔다.");
-		$.getJSON("/noticeBoard.do", function(val){
-			console.log(val);
-			$.each(val, function(i, key) {
-				//console.log(i);
-				//console.log(key);
-				var noId = key.noId;
-				var noLikeId = key.noLikeId;
-				var noReplyId = key.noReplyId;
-				console.log(noId+"..."+noLikeId+"..."+noReplyId);
-				$(".dropdown-menu").empty();
-				if (noId != null) {
-					$(".dropdown-menu").append("<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
-							+ key.code
-							+ "\"><b>"
-							+ key.noId
-							+ "</b>님이 새 게시물을 올렸습니다.</a><div class=\"_3lema _6g6t5\">"
-							+ key.date
-							+ "</div></div></li>");
-				} else if (noLikeId != null) {
-					$(".dropdown-menu").append("<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
-							+ key.code
-							+ "\"><b>"
-							+ key.noLikeId
-							+ "</b>님이<b>"
-							+ key.noLikeTarget
-							+ "</b>님의 게시물에 좋아요를 눌렀습니다.</a><div class=\"_3lema _6g6t5\">"
-							+ key.date
-							+ "</div></div></li>");
-				} else {
-					$(".dropdown-menu").append("<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
-							+ key.code
-							+ "\"><b>"
-							+ key.noReplyId
-							+ "</b>님이<b>"
-							+ key.noReplyTarget
-							+ "</b>님의 게시물에 댓글을 달았습니다.</a><div class=\"_3lema _6g6t5\">"
-							+ key.date
-							+ "</div></div></li>");
-				}
-			});
+//최신 소식 띄우기
+$("#notice").on("click", function() {
+	console.log("공지사항 들어왔다.");
+	var a="";
+	var b="";
+	var c="";
+	$.getJSON("/noticeBoard.do", function(val){
+		console.log(val);
+		$.each(val, function(i, key) {
+			//console.log(i);
+			//console.log(key);
+			var noId = key.noId;
+			var noLikeId = key.noLikeId;
+			var noReplyId = key.noReplyId;
+			console.log(noId+"..."+noLikeId+"..."+noReplyId);
+			$(".dropdown-menu").empty();
+			if (noId != null) {
+				console.log(" 걸렸다 이놈아");
+				$("#dropdown-menu").append("<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
+						+ key.code+ "\"><b>"+ key.noId+ "</b>님이 새 게시물을 올렸습니다.</a><div class=\"_3lema _6g6t5\">"+ key.date+ "</div></div></li>");
+				console.log("추가했을까?");
+				a+="<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
+					+ key.code+ "\"><b>"+ key.noId+ "</b>님이 새 게시물을 올렸습니다.</a><div class=\"_3lema _6g6t5\">"+ key.date+ "</div></div></li>";
+			}  else if (noLikeId != null) {
+				console.log("또 걸렸구나");
+				$("#dropdown-menu").append("<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
+						+ key.code
+						+ "\"><b>"
+						+ key.noLikeId
+						+ "</b>님이<b>"
+						+ key.noLikeTarget
+						+ "</b>님의 게시물에 좋아요를 눌렀습니다.</a><div class=\"_3lema _6g6t5\">"
+						+ key.date
+						+ "</div></div></li>");
+				b+="<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
+					+ key.code
+					+ "\"><b>"
+					+ key.noLikeId
+					+ "</b>님이<b>"
+					+ key.noLikeTarget
+					+ "</b>님의 게시물에 좋아요를 눌렀습니다.</a><div class=\"_3lema _6g6t5\">"
+					+ key.date
+					+ "</div></div></li>";
+			} else {
+				console.log("이번엔 아주 제대로야");
+				$("#dropdown-menu").append("<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
+						+ key.code+ "\"><b>"+ key.noReplyId	+ "</b>님이<b>"	+ key.noReplyTarget	+ "</b>님의 게시물에 댓글을 달았습니다.</a><div class=\"_3lema _6g6t5\">"	+ key.date
+						+ "</div></div></li>");
+				c+="<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
+					+ key.code+ "\"><b>"+ key.noReplyId	+ "</b>님이<b>"	+ key.noReplyTarget	+ "</b>님의 게시물에 댓글을 달았습니다.</a><div class=\"_3lema _6g6t5\">"	+ key.date
+					+ "</div></div></li>";
+			}  
+			
 		});
+		
+		$("#dropdown-menu").html(a+b+c);
 	});
-	
+});
 	//검색창
 	$("#search")
 				.on(

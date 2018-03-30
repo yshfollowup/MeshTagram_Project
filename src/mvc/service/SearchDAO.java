@@ -81,8 +81,8 @@ public class SearchDAO {
 	public List<Map> findSearchBoard(MultiValueMap<String, String> map) {
 		List<Map> list = new LinkedList<>();
 
-		System.out.println("게시물 받음" + map.getFirst("id"));
-		Query query = Query.query(Criteria.where("_id").in(map.getFirst("boardid")));
+		System.out.println("게시물 받음" + map);
+		Query query = Query.query(Criteria.where("code").in(map.getFirst("code")));
 		list = template.find(query, Map.class, "MeshTagramUpload");
 		System.out.println("작업완료");
 		return list;

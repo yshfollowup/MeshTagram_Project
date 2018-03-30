@@ -203,8 +203,15 @@ public class NoticeBoardController {
 		result.addAll(notice1);
 		result.addAll(notice2);
 		result.addAll(notice3);
+		
+		List<Map> resultList=new ArrayList<Map>();
+		for(int i =0; i< result.size(); i++) {
+			if(!resultList.contains(result.get(i))) {
+				resultList.add(result.get(i));
+			}
+		}
 		Gson gson = new Gson();
-		System.out.println("다 받아버려~!" + result);
-		return gson.toJson(result);
+		System.out.println("다 받아버려~!" + resultList);
+		return gson.toJson(resultList);
 	}
 }

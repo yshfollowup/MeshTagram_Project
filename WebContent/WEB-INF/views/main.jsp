@@ -3226,17 +3226,66 @@ margin-bottom:env(safe-area-inset-bottom)
 				$("#re_" + input).val("");
 				for (var i = 0; i < boardid.length; i++) {
 					if (boardid[i] == iii) {
-						console.log("댓글 들어왔다." + boardid[i] + obj.ment);
+						//console.log("댓글 들어왔다." + boardid[i] + obj.ment);
 						$("#sp_" + boardid[i]).append(obj.ment);
 
 					}
 				}
 			})
 		});
-		likeList(setid);
 		List(setid);
+		likeList(setid);
 		markList(setid);
 		//댓글 리스트 자동 생성
+function List(setid) {
+	var boardid=[];
+	$(".rebt").each(function() {
+		boardid.push($(this).attr("name"));
+	});
+	//console.log("댓글 리스트 보여"+boardid);
+	/// console.log(boardid.length);
+	 if(boardid.length>0){
+		 
+	
+	$.ajax("/listReply.do", {
+		"method" : "post",
+		"async" : true,
+		"data" : {
+			"boardId" : boardid
+		}
+	}).done(function(val){
+		//console.log(val.length+"가가가vvvvvv"+val[0].length);
+		//console.log(val);
+		var boardid = [];
+		var reply = [];
+		$(".rebt").each(function() {
+			boardid.push($(this).attr("name"));
+			reply.push($(this).attr("name"));
+		});
+		for (var i = 0; i < val.length; i++) {
+			//console.log(i+"번쨰");
+			var dd="";
+			if(val[i].reid == setid){
+				var s=val[i].ment;
+				// console.log("댓글버튼"+setid+s);
+				dd="<button type=\"button\" class=\"del\" name="+val[i].boardId+" id=\""+val[i].ment+"\" >삭제</button>";
+			}
+		//	console.log(val[i].date+"데이트 객체");
+			$("#sp_" + val[i].boardId).append("<a href=/search.do?id="+val[i].reid+">"+val[i].reid+"</a>" + "&emsp; <span id=\"ment_" + val[i].ment+" class=\"ment\" name="+val[i].ment+" >"+val[i].ment+"</span>" +"\t\t"+dd+val[i].date+"<br/>");
+		}
+		var id=setid;
+		
+		$(".del").on("click", function(){
+			var boardids;
+			var ments;
+			boardids=$(this).attr("name");
+			ments=$(this).attr("id");
+			//console.log("댓글 삭제할거다"+id+boardids+ments);
+			delReply(id,boardids,ments);
+		});
+	});
+	 }
+};
 
 		function markList(setid) {
 			var boardid = [];
@@ -3251,10 +3300,10 @@ margin-bottom:env(safe-area-inset-bottom)
 					"boardId" : boardid
 				}
 			}).done(function(val) {
-				console.log(val + "북마크ㅋㅋㅋ");
+				//console.log(val + "북마크ㅋㅋㅋ");
 				// console.log(val.length+"크키");
 				for (var i = 0; i < val.length; i++) {
-					console.log("북마크가 보여요");
+					//console.log("북마크가 보여요");
 					if (val[i].id == setid) {
 						$("#mark_" + val[i].boardId).hide();
 						$("#unmark_" + val[i].boardId).show();

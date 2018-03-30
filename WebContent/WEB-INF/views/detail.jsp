@@ -2804,7 +2804,7 @@ margin-bottom:env(safe-area-inset-bottom)
 						<div class="_j56ec" style="padding-top: 5px;">
 							<div class="_eeohz">
 								<a class="_2g7d5 notranslate _iadoq" 
-								href="/mypage/index.do?id=${obj.id }"
+								href="/search.do?id=${obj.id }"
 								>${obj.id }</a>
 							</div>
 						</div>
