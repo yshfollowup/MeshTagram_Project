@@ -21,7 +21,8 @@ public class CheckController {
 	@Autowired
 	AccountDAO aDAO;
 	
-	@RequestMapping("/account/idCheck.do")
+	//가입할 때 id 중복 체크
+	@RequestMapping(path="/account/idCheck.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public String idCheckHandle(@RequestParam(name="id") String id) {
 		System.out.println(id);
@@ -29,24 +30,24 @@ public class CheckController {
 		for (AccountDTO list : idList) {
 			String getId = list.getId();
 			System.out.println(getId);
-			if (getId.equals(id)) {
-				return "-1";
-			} else {
-				return "1";
-			}
+			if (getId.equals(id)) 
+				return "{\"result\": false}";
+			else 
+				return "{\"result\": true}";
 		}
-		return "1";
+		return "{\"result\": true}";
 	}
 
+	//이메일 인증 체크
 	@RequestMapping("/account/check.do")
-	public String checkHandle(@RequestParam String key,HttpServletRequest req, ModelMap map) {
+	public String emailCheckHandle(@RequestParam String key,HttpServletRequest req, ModelMap map) {
 		HttpSession se=req.getSession();
 		String  rst=(String)se.getAttribute("rst");
 		String email=(String)se.getAttribute("email");
 		System.out.println("key"+key+"받았다."+rst);
 		if(rst.equals(key)) {
 			boolean a=true;
-			System.out.println("설공"+email+rst);
+			System.out.println("성공"+email+rst);
 			map.put("email", email);
 			map.put("rst", a);
 			
@@ -55,5 +56,17 @@ public class CheckController {
 		}
 		
 		return "insta_join";
+	}
+	
+	@RequestMapping(path="/account/passCheck.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public boolean checkPassHandle(@RequestParam Map param) {
+		String pass = (String) param.get("pass1");
+		String passConfirm = (String) param.get("pass2");
+		System.out.println(pass +" / "+ passConfirm);
+		if (!pass.equals(passConfirm))
+			return false;
+		else
+			return true;
 	}
 }

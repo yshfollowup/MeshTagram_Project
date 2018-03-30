@@ -39,6 +39,21 @@ public class AccountDAO {
 			return r;
 		}
 	}
+	//db의 모든 정보 출력
+	public AccountDTO selectAllAccount(Map param) {
+		AccountDTO aDTO = new AccountDTO();
+		List<AccountDTO> aList=null;
+		SqlSession session = factory.openSession();
+		try {
+			aList = session.selectList("account.selectAllAccount", param);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+			return aDTO;
+		}
+	}
+	
 	//처음 로그인 시도
 	public AccountDTO selectOneAccount(String id, String pass) {
 		Map map = new HashMap<>();

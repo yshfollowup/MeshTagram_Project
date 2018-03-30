@@ -2578,7 +2578,7 @@ color : #999;
 												type="password" class="_ph6vk _jdqpn _o716c"
 												id="pass2" name="pass2" placeholder="비밀번호 확인"
 												pattern="[A-Za-z0-9]+"
-												value=""/>
+												value=""/><span id="rst2"></span>
 												
 										</div>
 										<div class="_gaby6"></div>
@@ -2678,9 +2678,9 @@ color : #999;
 				success : function(data) {
 					console.log(data);
 					console.log(data.result);
-					if(data.result == '-1') {
+					if(data.result == false) {
 						$("#rst1").html("중복된 아이디입니다.");
-					} else if(data.result == '1') {
+					} else if(data.result == true) {
 						$("#rst1").html("사용가능한 아이디입니다!");
 					} else {
 						window.alert("알 수 없는 오류 발생");
@@ -2701,6 +2701,18 @@ color : #999;
 		}).done(function(obj) {
 			console.obj(obj);
 			$("#rst2").html(obj.result);
+		});
+	});
+	
+	//비밀번호 확인
+	$(document).ready(function() {
+		$("#pass2").on("load", function() {
+			$.getJson("/account/passCheck.do", function(data) {
+				console.log(data);
+				if(data == false) {
+					$("#rst2").html("비밀번호 확인이 제대로 되지 않았습니다. 다시 입력해주세요!");
+				}
+			});
 		});
 	});
 	// 테스트 위해 일단 주석처리함.
