@@ -1096,7 +1096,7 @@ a:active {
 	<script>
 		//프로필 사진 변경
 		
-		$("#sendBt").click(function(){
+		$("#confirm").click(function(){
 			$("#form1").submit();
 			window.alert("프로필 사진이 변경되었습니다!");
 		});
@@ -1121,8 +1121,11 @@ a:active {
 		})
 		
 		$("#bioBt").click(function() {
-			$("#form2").submit();
-			window.alert("계정 정보가 변경되었습니다!");
+			var confirm = 
+				window.confirm("이대로 계정 정보를 변경하시겠습니까?");
+			if(confirm) {
+				$("#form2").submit();				
+			}
 		});
 		
 		

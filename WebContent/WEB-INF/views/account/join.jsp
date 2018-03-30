@@ -2704,17 +2704,6 @@ color : #999;
 		});
 	});
 	
-	//비밀번호 확인
-	$(document).ready(function() {
-		$("#pass2").on("load", function() {
-			$.getJson("/account/passCheck.do", function(data) {
-				console.log(data);
-				if(data == false) {
-					$("#rst2").html("비밀번호 확인이 제대로 되지 않았습니다. 다시 입력해주세요!");
-				}
-			});
-		});
-	});
 	// 테스트 위해 일단 주석처리함.
 /* 	disabled();
 	function disabled() {
