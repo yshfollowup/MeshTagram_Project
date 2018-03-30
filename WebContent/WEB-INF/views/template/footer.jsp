@@ -159,41 +159,38 @@
 		<div class="_g7lf5 _9z659" style="max-width: 935px;">
 			<nav class="_luodr" role="navigation">
 				<ul class="_g8wl6">
-					<li class="_538w0"><a class="_hqmnd" href="/about/us/"
-						style="text-decoration: none; color: #999;">Meshtagram 정보</a></li>
-					<li class="_538w0"><a class="_hqmnd"
-						href="https://help.instagram.com/"
-						style="text-decoration: none; color: #999;">지원</a></li>
-					<li class="_538w0"><a class="_hqmnd"
-						href="http://blog.instagram.com/"
-						style="text-decoration: none; color: #999;">블로그</a></li>
-					<li class="_538w0"><a class="_hqmnd"
-						href="https://instagram-press.com/"
-						style="text-decoration: none; color: #999;">홍보 센터</a></li>
-					<li class="_538w0"><a class="_hqmnd" href="/developer/"
-						style="text-decoration: none; color: #999;">API</a></li>
-					<li class="_538w0"><a class="_hqmnd" href="/about/jobs/"
-						style="text-decoration: none; color: #999;">채용 정보</a></li>
-					<li class="_538w0"><a class="_hqmnd" href="/legal/privacy/"
-						style="text-decoration: none; color: #999;">개인정보처리방침</a></li>
-					<li class="_538w0"><a class="_hqmnd _ts6wg"
-						href="/legal/terms/" style="text-decoration: none; color: #999;">약관</a></li>
-					<li class="_538w0"><a class="_hqmnd"
-						href="/explore/locations/"
-						style="text-decoration: none; color: #999;">디렉터리</a></li>
-					<li class="_538w0"><a class="_hqmnd"
-						href="/directory/profiles/"
-						style="text-decoration: none; color: #999;">프로필</a></li>
-					<li class="_538w0"><a class="_hqmnd"
-						href="/directory/hashtags/"
-						style="text-decoration: none; color: #999;">해시태그</a></li>
-					<li class="_538w0"><a class="_hqmnd"
-						href="/directory/languages/"
-						style="text-decoration: none; color: #999;">언어</a></li>
+	<li class="_538w0"><a class="_hqmnd _mjfont"
+							 href="">Meshtagram정보</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont"
+							href="">지원</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont"
+							href="">블로그</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont"
+							href="">홍보 센터</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont"
+							href="">API</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont"
+							href="">채용	정보</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont"
+							href="">개인정보처리방침</a></li>
+							<li class="_538w0"><a class="_hqmnd _ts6wg _mjfont"
+							href="">약관</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont"
+							href="">디렉터리</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont"
+							href="">프로필</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont"
+							href="">해시태그</a></li>
+							
 				</ul>
 			</nav>
 			<span class="_1gmap">© 2018 Meshtagram</span>
 		</div>
 	</footer>
 </body>
+<script>
+$("._hqmnd").click(function(){
+	window.alert("준비중입니다.");
+})
+</script>
 </html>

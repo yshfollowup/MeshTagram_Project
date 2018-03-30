@@ -2604,7 +2604,6 @@ color : #999;
 						</p>
 					</div>
 					<div class="_40dde">
-						
 						<div class="_fzj6p">
 							<a class="_o7vmf"
 								href="https://www.instagram.com/?hl=ko"><img
@@ -2623,33 +2622,40 @@ color : #999;
 				<div class="_g7lf5 _9z659" style="max-width: 935px;">
 					<nav class="_luodr" role="navigation" >
 						<ul class="_g8wl6">
-							<li class="_538w0"><a class="_hqmnd _mjfont" href="/about/us/">Meshtagram
-									정보</a></li>
 							<li class="_538w0"><a class="_hqmnd _mjfont"
-								href="https://help.instagram.com/">지원</a></li>
+							 href="">Meshtagram정보</a></li>
 							<li class="_538w0"><a class="_hqmnd _mjfont"
-								href="http://blog.instagram.com/">블로그</a></li>
+							href="">지원</a></li>
 							<li class="_538w0"><a class="_hqmnd _mjfont"
-								href="https://instagram-press.com/">홍보 센터</a></li>
-							<li class="_538w0"><a class="_hqmnd _mjfont" href="/developer/">API</a></li>
-							<li class="_538w0"><a class="_hqmnd _mjfont" href="/about/jobs/">채용
-									정보</a></li>
-							<li class="_538w0"><a class="_hqmnd _mjfont" href="/legal/privacy/">개인정보처리방침</a></li>
+							href="">블로그</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont"
+							href="">홍보 센터</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont"
+							href="">API</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont"
+							href="">채용	정보</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont"
+							href="">개인정보처리방침</a></li>
 							<li class="_538w0"><a class="_hqmnd _ts6wg _mjfont"
-								href="/legal/terms/">약관</a></li>
+							href="">약관</a></li>
 							<li class="_538w0"><a class="_hqmnd _mjfont"
-								href="/explore/locations/">디렉터리</a></li>
+							href="">디렉터리</a></li>
 							<li class="_538w0"><a class="_hqmnd _mjfont"
-								href="/directory/profiles/">프로필</a></li>
+							href="">프로필</a></li>
 							<li class="_538w0"><a class="_hqmnd _mjfont"
-								href="/directory/hashtags/">해시태그</a></li>
-							
+							href="">해시태그</a></li>
 						</ul>
 					</nav>
 					<span class="_1gmap">© 2018 Meshtagram</span>
 				</div>
 			</footer>
 		</section></span>
+<script>
+$("._hqmnd").click(function(){
+	window.alert("준비중입니다.");
+})
+</script>
+		
 <script>
 	
 	$("#ch").click(function(){
