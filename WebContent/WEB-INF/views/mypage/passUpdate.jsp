@@ -1087,6 +1087,10 @@ a:active {
 				<article class="_75z9k">
 					<div class="_1eg8c">
 						<div class="_62ai2 _5g4e2">
+							<form id="form1" action="/mypage/uploadProfile.do" method="post" 
+								enctype="multipart/form-data">
+								<input type="file" accept="image/jpeg" id="photo" name="profile"
+									class="_l8al6" style="display: none">
 							<button type="button" class="_3xjwv" onclick="$('#photo').click();" 
 								title="프로필 사진 바꾸기">
 								<c:choose>
@@ -1101,15 +1105,13 @@ a:active {
 									</c:otherwise>
 								</c:choose>
 							</button>
+							</form>
 						</div>
 						<div class="_ax54t">
 							<h1 class="_gvhl0" title="${aDTO.id }">${aDTO.id }</h1>
-							<a type="button" class="_5aav8" id="updateBt" style="cursor: hand; font-size: 16px;">적용</a>
+							<a type="button" class="_5aav8" id="uploadBt" style="cursor: hand; font-size: 16px;">적용</a>
 						</div>
 						<div>
-							<form enctype="multipart/form-data">
-								<input type="file" accept="image/jpeg" class="_l8al6">
-							</form>
 						</div>
 					</div>
 					<form class="_fx423" action="/mypage/pass.do" method="post">
