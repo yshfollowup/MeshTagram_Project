@@ -1991,8 +1991,8 @@ px
 							</div>
 							<!--  -->
 							<div class="_b28md">
-								<a href="#"
-									 role="button" class="btn btn-primary dropdown-toggle _ohbcb _gvoze" style="margin-left: 20px;" data-toggle="dropdown">
+								<a href=""
+									 role="button" class="dropdown-toggle _ohbcb _gvoze" style="margin-left: 20px; margin-right: -10px;" data-toggle="dropdown">
 									<img src="/images/heart.png" style="padding-top:2px;" id="notice"/>
 									<span class="caret">
 									
