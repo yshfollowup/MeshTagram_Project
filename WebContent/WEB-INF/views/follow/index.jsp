@@ -79,8 +79,8 @@
 		</c:forEach>
 	</div>
 	<button type="button" id="listbt" class="btn btn-info show" data-toggle="collapse"
-		 data-target=".collapse" aria-expanded="false" style="align-content: left;">더 찾아보기</button>
-		<div id="demo" class="collapse" aria-expanded="false">
+		 data-target=".collapse" aria-expanded="false" style="margin-bottom:20px;">더 찾아보기</button>
+		<div id="demo" class="collapse" aria-expanded="false" style="">
 		
   		</div>
 			<div style="height:300px"></div>
@@ -119,9 +119,17 @@
 
 
 </body>
-</html>
-<!-- =========================================================================================================== -->
 
+<!-- =========================================================================================================== -->
+<script>
+$(function(){
+	   $("#listbt").click(function () {
+	      $(this).text(function(i, text){
+	          return text === "더 찾아보기" ? "숨기기" : "더 찾아보기";
+	      })
+	   });
+	})
+</script>
 <script>
 	var setid = "${cookie.setId.value}";
 	$(".show").on("click", function(){
@@ -165,8 +173,8 @@
 						}
 					}
 						if(cnt2!=1){
-							fbt= "<input  type=\"button\" name="+val[i].TARGET+"\ class=\"follower\" value=\"팔로우\"/>";
-							$("#demo").append("<a href=\"/search.do?id="+val[i].TARGET+"\">"+val[i].TARGET+"</a>"+profile+fbt);
+							fbt= "<input  type=\"button\" name="+val[i].TARGET+"\ class=\"follower btn btn-info\" style=\"width:70px; height: 20px; padding: 0; margin:1 20 0 5;\" value=\"팔로우\"/>";
+							$("#demo").append(profile+"<a href=\"/search.do?id="+val[i].TARGET+"\">"+val[i].TARGET+"</a>"+fbt);
 						}
 				}
 				
@@ -306,3 +314,4 @@
 				})
 	};
 </script>
+</html>
