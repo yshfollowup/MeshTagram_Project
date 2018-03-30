@@ -63,6 +63,11 @@
 		<put-attribute name="body" value="/WEB-INF/views/mypage/following.jsp"></put-attribute>
 	</definition>
 	
+	<!-- 계정 삭제 페이지 -->
+	<definition name="delete_account" extends="insta_abstract">
+		<put-attribute name="body" value="/WEB-INF/views/mypage/deleteAccount.jsp"></put-attribute>
+	</definition>
+	
 	<!-- 디테일 페이지 -->
 	<definition name="detail_insta" extends="insta_abstract">
 		<put-attribute name="body" value="/WEB-INF/views/detail.jsp"></put-attribute>
@@ -74,4 +79,5 @@
 		<put-attribute name="nav" value="/WEB-INF/views/template/nav.jsp"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/views/dm/dmpage.jsp"></put-attribute>
 	</definition>
+	
 </tiles-definitions>

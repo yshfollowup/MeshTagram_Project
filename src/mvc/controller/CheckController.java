@@ -42,7 +42,7 @@ public class CheckController {
 	@RequestMapping("/account/check.do")
 	public String emailCheckHandle(@RequestParam String key,HttpServletRequest req, ModelMap map) {
 		HttpSession se=req.getSession();
-		String  rst=(String)se.getAttribute("rst");
+		String rst=(String)se.getAttribute("rst");
 		String email=(String)se.getAttribute("email");
 		System.out.println("key"+key+"받았다."+rst);
 		if(rst.equals(key)) {
@@ -58,6 +58,7 @@ public class CheckController {
 		return "insta_join";
 	}
 	
+	//패스워드 중복 체크
 	@RequestMapping(path="/account/passCheck.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public boolean checkPassHandle(@RequestParam Map param) {
@@ -68,5 +69,13 @@ public class CheckController {
 			return false;
 		else
 			return true;
+	}
+	
+	//패스워드 잊어버렸을 때 이메일로 전송
+	@RequestMapping(path="/account/changePass.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String changePasswordHandle() {
+		
+		return null;
 	}
 }

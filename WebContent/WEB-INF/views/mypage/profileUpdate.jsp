@@ -1078,7 +1078,7 @@ a:active {
 								<div class="_eqmpg">
 									<span class="_ov9ai" ><button type="submit" id="bioBt"
 											class="_qv64e _gexxb _r9b8f _jfvwv" disabled="">적용하기</button></span>
-										<a class="_61tuv" href="#">계정 삭제</a>
+										<a class="_61tuv" href="/mypage/deletePage.do">계정 삭제</a>
 								</div>
 							</div>
 						</div>
