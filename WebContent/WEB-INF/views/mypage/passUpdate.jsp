@@ -1080,9 +1080,11 @@ a:active {
 					<li><a class="_fvhml _etlo6" href="/mypage/edit.do">프로필 편집</a></li>
 					<li><a class="_fvhml _t0stc" href="/mypage/pass.do">비밀번호
 							변경</a></li>
+							<!-- 
 					<li><a class="_fvhml _etlo6" href="/accounts/comment_filter/">댓글</a></li>
 					<li><a class="_fvhml _etlo6" href="/accounts/contact_history/">연락처
 							관리</a></li>
+							 -->
 				</ul>
 				<article class="_75z9k">
 					<div class="_1eg8c">

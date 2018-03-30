@@ -1995,7 +1995,7 @@ px
 									 role="button" class="dropdown-toggle _ohbcb _gvoze" style="margin-left: 20px;" data-toggle="dropdown">
 									<img src="/images/heart.png" style="padding-top:2px;" id="notice"/>
 									</a> 
-								<ul class="dropdown-menu" id="dropdown-menu" style="width: 500px; height: 300px; overflow: auto">
+								<ul class="dropdown-menu" id="dropdown-menu" style="width: 500px; height: 300px; overflow: auto; padding : 10px;">
 									<li id="noticeList"></li>
 								</ul>
 							</div>
