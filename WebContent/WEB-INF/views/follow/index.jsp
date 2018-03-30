@@ -94,15 +94,15 @@
 	</div>
 	<div align="left">
 
-		<div class="col-sm-8 text-left">
+		<div style="margin : 0 80 0 80;">
 			<c:forEach var="objLatest" items="${latest}">
-				<p style="float: left; width: 50%;">
+				<p style="float: left; width: 33%; text-align:center;">
 				<a href="${applictionScope.path}/detail/detail.do?boardid=${objLatest.code }"
 							data-toggle="tooltip" id="top_${objLatest.code }" name="${objLatest.code }"
 							class="tool" title=""> <c:forEach items="${objLatest.image }"
 								var="image" varStatus="st" end="0">
 								<img src="${objLatest.path }${image }"
-									style="width: 230px; height: 230px;" />
+									style="width: 230px; height: 230px;"/>
 							</c:forEach>
 						</a>
 				</p>
