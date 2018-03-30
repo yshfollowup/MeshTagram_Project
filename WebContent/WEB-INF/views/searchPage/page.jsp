@@ -3032,7 +3032,7 @@ ul {
 						<small><c:forEach items="${obj.tags }" var="tag">
 								<a href="/account/search.do?tag=${fn:replace(tag,'#','%23') }">${tag }</a>
 							</c:forEach> </small> <br /> <a
-							href="${applictionScope.path}/detail/detail.do?boardid=${obj._id }"
+							href="${applictionScope.path}/detail/detail.do?boardid=${obj.code }"
 							data-toggle="tooltip" id="top_${obj._id }" name="${obj._id }"
 							class="tool" title=""> <c:forEach items="${obj.image }"
 								var="image" varStatus="st" end="0">

@@ -75,7 +75,7 @@ background-color: #fafafa;
 						<a href="/account/search.do?tag=${fn:replace(tag,'#','%23') }">${tag }</a>
 				</c:forEach> </small> <br />
 			
-				<a href="${applictionScope.path}/detail/detail.do?boardid=${obj._id }" data-toggle="tooltip" id="top_${obj._id }" name="${obj._id }" class="tool" title="">
+				<a href="${applictionScope.path}/detail/detail.do?boardid=${obj.code }" data-toggle="tooltip" id="top_${obj._id }" name="${obj._id }" class="tool" title="">
 				<c:forEach items="${obj.image }" var="image" varStatus="st">
 						<img src="${obj.path }${image }"
 								style="width: 230px; height: 230px; " />
