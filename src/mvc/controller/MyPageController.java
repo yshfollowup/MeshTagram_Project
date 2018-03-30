@@ -305,4 +305,10 @@ public class MyPageController {
 		}
 		return "redirect:/mypage/index.do";
 	}
+	
+	@RequestMapping(path = "/deleteAccount.do", method = RequestMethod.POST)
+	public String deleteAccountHandle(@RequestParam Map param) {
+		return null;
+		
+	}
 }
