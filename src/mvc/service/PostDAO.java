@@ -34,6 +34,7 @@ public class PostDAO {
 			map.put("id", (String)param.get("writer"));
 			map.put("image", param.get("image"));
 			//map.put("path", param.get("path"));
+			map.put("profile", param.get("profile"));
 			map.put("date", param.get("time"));
 			map.put("comment", (List)param.get("comment"));
 			map.put("tags", (List)param.get("tags"));
