@@ -153,7 +153,7 @@ $(function(){
 					var image=val[i].PROFILE;
 					var profile;
 					if(val[i].PROFILE !=null){
-						profile="<img src="+image+" style=\"width: 30px; height: 30px; border-radius: 30px\" class=\"recomId\">"
+						profile="<img src="+path+image+" style=\"width: 30px; height: 30px; border-radius: 30px\" class=\"recomId\">"
 					}else{
 						profile="<img src=\"/images/insta.jpg\" style=\"width: 30px; height: 30px; border-radius: 30px\" class=\"recomId\">"
 					}
@@ -166,7 +166,6 @@ $(function(){
 							
 							cnt1++;
 						}else{
-							//fbt= "<input  type=\"button\" name="+val[j].ID+"class=\"follow\" value=\"팔로잉\"/>";
 							cnt2++;
 						}
 					}
