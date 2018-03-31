@@ -235,11 +235,13 @@ public class AccountController {
 
 		}
 
-		/*
-		 * for(int i=0;i<eachResult.size(); i++) {
-		 * System.out.println("마지막 값들"+eachResult.get(i)); }
-		 */
-		modelMap.put("eachResult", eachResult);
+		List<Map> resultList=new ArrayList<Map>();
+		for(int i =0; i< eachResult.size(); i++) {
+			if(!resultList.contains(eachResult.get(i))) {
+				resultList.add(eachResult.get(i));
+			}
+		}
+		modelMap.put("eachResult", resultList);
 		// ==================================================================
 		// 이전에 대화한 모든 메시지
 		/*
@@ -394,11 +396,13 @@ public class AccountController {
 
 		}
 
-		/*
-		 * for(int i=0;i<eachResult.size(); i++) {
-		 * System.out.println("마지막 값들"+eachResult.get(i)); }
-		 */
-		modelMap.put("eachResult", eachResult);
+		List<Map> resultList=new ArrayList<Map>();
+		for(int i =0; i< eachResult.size(); i++) {
+			if(!resultList.contains(eachResult.get(i))) {
+				resultList.add(eachResult.get(i));
+			}
+		}
+		modelMap.put("eachResult", resultList);
 		// ==================================================================
 		/*
 		 * //이전에 대화한 모든 메시지 List<Map> allMessage = mDAO.findAllMessage(); if(allMessage

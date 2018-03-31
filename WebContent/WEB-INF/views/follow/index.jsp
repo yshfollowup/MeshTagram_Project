@@ -171,6 +171,7 @@ $(function(){
 						}
 					}
 						if(cnt2!=1){
+							console.log("필요항 것만 들어가");
 							fbt= "<input  type=\"button\" name="+val[i].TARGET+"\ class=\"follower btn btn-info\" style=\"width:70px; height: 20px; padding: 0; margin:1 20 0 5;\" value=\"팔로우\"/>";
 							$("#demo").append(profile+"<a href=\"/search.do?id="+val[i].TARGET+"\">"+val[i].TARGET+"</a>"+fbt);
 						}

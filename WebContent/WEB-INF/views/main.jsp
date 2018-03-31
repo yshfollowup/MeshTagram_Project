@@ -2898,7 +2898,7 @@ margin-bottom:env(safe-area-inset-bottom)
 								<div class="_4a48i _277v9">
 									<ul class="_b0tqa">
 										<li class="_ezgzd"><a class="_2g7d5 notranslate _95hvo"
-											href="/mypage/index.do?id=${obj.id }"> <span>${obj.id }</span></a>
+											href="/search.do?id=${obj.id }"> <span>${obj.id }</span></a>
 											<c:forEach items="${obj.comment }" var="comm">
 												<span>${comm }</span>
 											</c:forEach> <c:forEach items="${obj.tags }" var="tag">

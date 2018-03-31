@@ -176,6 +176,12 @@ public class FollowController {
 		List<Map> result = fDAO.selectFollwerProfileId(owner);
 		List<Map> result2 = fDAO.selectFollwingListId(result);
 		System.out.println("팔로우 리스트를 받았다."+result2);
-		return gson.toJson(result2);
+		List<Map> resultList=new ArrayList<Map>();
+		for(int i =0; i< result2.size(); i++) {
+			if(!resultList.contains(result2.get(i))) {
+				resultList.add(result2.get(i));
+			}
+		}
+		return gson.toJson(resultList);
 	}
 }
