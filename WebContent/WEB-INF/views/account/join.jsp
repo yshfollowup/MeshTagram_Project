@@ -2521,7 +2521,7 @@ color : #999;
 								<div class="_agqzm">
 									<div class="_sjplo">
 										<div class="_ev9xl">
-											<input type="text" class="_ph6vk _jdqpn _o716c"
+											<input type="text" class="_ph6vk _jdqpn _o716c" onfocus="removeAlert();"
 												id="id" name="id" placeholder="아이디(영문 숫자 최소 5자리)"
 												pattern="[A-Za-z0-9]+"
 												value=""/>
@@ -2529,7 +2529,7 @@ color : #999;
 										<div class="_gaby6">
 											<button type="button" class="_qv64e _gexxb _4tgw8 _njrw0 btn btn-default" 
 												id="idConfirm">중복체크</button>
-											<span id="rst1"></span>
+											<span id="rst1" class="alert"></span>
 										</div>
 									</div>
 								</div>
@@ -2537,7 +2537,7 @@ color : #999;
 									<div class="_sjplo">
 										<div class="_ev9xl">
 											<input
-												type="text" class="_ph6vk _jdqpn _o716c" id="name"
+												type="text" class="_ph6vk _jdqpn _o716c" id="name" onfocus="removeAlert();"
 												placeholder="이름" name="name"
 												value=""/>
 										</div>
@@ -2548,14 +2548,14 @@ color : #999;
 									<div class="_sjplo">
 										<div class="_ev9xl">
 											<input
-												type="text" class="_ph6vk _jdqpn _o716c"
+												type="text" class="_ph6vk _jdqpn _o716c" onfocus="removeAlert();"
 												 id="email" name="email" placeholder="이메일"
 												value="${email }"/>
 										</div>
 										<div class="_gaby6">
 											<button type="button" class="_qv64e _gexxb _4tgw8 _njrw0 btn btn-default"
 											 id="emConfirm">인증</button>
-												<span id="rst2"></span>
+												<span id="rst2" class="alert"></span>
 										</div>
 									</div>
 								</div>
@@ -2563,7 +2563,7 @@ color : #999;
 									<div class="_sjplo">
 										<div class="_ev9xl">
 											<input
-												type="password" class="_ph6vk _jdqpn _o716c"
+												type="password" class="_ph6vk _jdqpn _o716c" onfocus="removeAlert();"
 												id="pass1" name="pass1" placeholder="비밀번호(영문+숫자 조합 8자리 이상)"
 												pattern="[A-Za-z0-9]+"
 												value="">
@@ -2575,10 +2575,10 @@ color : #999;
 									<div class="_sjplo">
 										<div class="_ev9xl">
 											<input
-												type="password" class="_ph6vk _jdqpn _o716c"
+												type="password" class="_ph6vk _jdqpn _o716c" onfocus="removeAlert();"
 												id="pass2" name="pass2" placeholder="비밀번호 확인"
 												pattern="[A-Za-z0-9]+"
-												value=""/><span id="rst2"></span>
+												value=""/><span id="rst3" class="alert"></span>
 												
 										</div>
 										<div class="_gaby6"></div>
@@ -2676,6 +2676,7 @@ $("._hqmnd").click(function(){
 	$(document).ready(function() {
 		$("#idConfirm").click(function() {
 			var id = $("#id").val();
+			var idFlag = validate_id(id);
 			console.log(id);
 			$.ajax("/account/idCheck.do", {
 				"method" : "get",
@@ -2686,15 +2687,24 @@ $("._hqmnd").click(function(){
 					console.log(data.result);
 					if(data.result == false) {
 						$("#rst1").html("중복된 아이디입니다.");
-					} else if(data.result == true) {
-						$("#rst1").html("사용가능한 아이디입니다!");
+					} else if(!idFlag) {
+						$("#rst1").html("ID는 영문+숫자의 5자리 이상이어야 합니다.");
 					} else {
-						window.alert("알 수 없는 오류 발생");
+						window.alert("사용 가능한 ID입니다!");
 					}
 				}
 			});
 		});	
 	});
+	
+	function validate_id(id) {
+		var pattern = new RegExp("/^[a-zA-Z0-9]{5,}$/");
+		return pattern.test(id);
+	}
+	
+	function removeAlert() {
+		$(".alert").empty();
+	}
 	
 	$("#emConfirm").click(function() {
 		$.ajax("/key/sendKey.do", {

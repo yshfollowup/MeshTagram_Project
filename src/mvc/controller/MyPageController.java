@@ -1,15 +1,14 @@
 package mvc.controller;
 
 import java.io.File;
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -315,13 +314,20 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(path = "/deleteAccount.do", method = RequestMethod.POST)
-	public String deleteAccountHandle(@RequestParam Map param) {
+	@ResponseBody
+	public String deleteAccountHandle(@RequestParam Map param, 
+				@CookieValue(name="setId", required=false) String setId,
+				HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		String sessionPass = (String) session.getAttribute("pass");
+		String id = setId;
 		String deleteReason = (String) param.get("reason");
 		String password = (String) param.get("password");
-		System.out.println(deleteReason + " / " + password);
+		System.out.println(id + " / " + deleteReason + " / " + password);
+		if (!password.equals(sessionPass)) {
+			System.out.println("[SERVER] 등록 실패...");
+		}
 		Map result = daDAO.insertReason(param);
-		
-		return "insta_login";
-		
+		return "{\"result\" : true}";
 	}
 }
