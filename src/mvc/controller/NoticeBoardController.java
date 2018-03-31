@@ -65,16 +65,16 @@ public class NoticeBoardController {
 		});
 
 		List<Map> notice1 = new LinkedList();
-		System.out.println(noticeBoard.size());
+		//System.out.println(noticeBoard.size());
 
 		long ct = System.currentTimeMillis();
 		for (int i = 0; i < noticeBoard.size(); i++) {
 			if (!noticeBoard.isEmpty()) {
-				System.out.println("비어있지 아");
+				//System.out.println("비어있지 아");
 				String noId = noticeBoard.get(i).get("id").toString();
 				String code = noticeBoard.get(i).get("code").toString();
 				Date date = (Date) noticeBoard.get(i).get("date");
-				System.out.println(noId + code + "받았다." + date.getTime());
+				//System.out.println(noId + code + "받았다." + date.getTime());
 
 				long dt = date.getTime();
 				long prv = ct - dt;
@@ -82,7 +82,7 @@ public class NoticeBoardController {
 				String rt = "";
 				if (prv > 0 && prv < 1000L * 60) {
 					// 몇분전
-					System.out.println(prv + "..." + (int) prv / (60) + "전전전");
+					//System.out.println(prv + "..." + (int) prv / (60) + "전전전");
 					rt = (long) prv / (60) + "분 전";
 				} else if (prv > 1000L * 60 && prv < 1000L * 60 * 60) {
 					// 몇 시간전
@@ -114,7 +114,7 @@ public class NoticeBoardController {
 
 		List<Map> notice2 = new LinkedList();
 		if (!noticeLike.isEmpty()) {
-			System.out.println("noticeBoard" + noticeLike.size());
+			//System.out.println("noticeBoard" + noticeLike.size());
 			for (int i = 0; i < noticeLike.size(); i++) {
 				if (!noticeLike.isEmpty()) {
 					String noId = noticeLike.get(i).get("id").toString();
@@ -128,7 +128,7 @@ public class NoticeBoardController {
 					String rt = "";
 					if (prv > 0 && prv < 1000L * 60) {
 						// 몇분전
-						System.out.println(prv + "..." + (int) prv / (60) + "전전전");
+						//System.out.println(prv + "..." + (int) prv / (60) + "전전전");
 						rt = (long) prv / (60) + "분 전";
 					} else if (prv > 1000L * 60 && prv < 1000L * 60 * 60) {
 						// 몇 시간전
@@ -199,7 +199,7 @@ public class NoticeBoardController {
 		}
 
 		List<Map> result = new LinkedList<>();
-		System.out.println("합치기 전" + notice1 + notice2 + notice3);
+		//System.out.println("합치기 전" + notice1 + notice2 + notice3);
 		result.addAll(notice1);
 		result.addAll(notice2);
 		result.addAll(notice3);
@@ -211,7 +211,7 @@ public class NoticeBoardController {
 			}
 		}
 		Gson gson = new Gson();
-		System.out.println("다 받아버려~!" + resultList);
-		return gson.toJson(resultList);
+		//System.out.println("다 받아버려~!" + resultList);
+		return gson.toJson(result);
 	}
 }
