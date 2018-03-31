@@ -50,9 +50,25 @@
 		</div>
 			<div class="_otm4c">
 				<span class="_ov9ai">
-					<button id="deleteBt" class="_qv64e _gexxb _4tgw8 _jfvwv" disabled="">계정 삭제</button>
+					<button id="deleteBt" onclick="deleteAccount();" class="_qv64e _gexxb _4tgw8 _jfvwv" disabled="">계정 삭제</button>
 				</span>
 			</div>
 		</form>
 		
 </div>
+<script>
+	function deleteAccount() {
+		$.getJson("/mypage/deleteAccount.do", function(data) {
+			console.log(data);
+			if (data.result == true) {
+				window.alert("계정이 삭제되었습니다. 3초 뒤 메인페이지로 이동합니다.");
+				moveToIndex();
+			}
+		})		
+	}
+	function moveToIndex() {
+		window.location("/");	
+	}
+	
+	setTimeout(moveToIndex, 3000);
+</script>

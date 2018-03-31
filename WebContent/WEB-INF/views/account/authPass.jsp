@@ -10,9 +10,10 @@
 					<aside class="_kx10g">
 						<label for="cppEmailOrUsername">이메일 또는 사용자 이름</label>
 					</aside>
+					<p>새 비밀번호를 받을 이메일 주소를 입력하세요</p><br/>
 					<div class="_cd2n1">
 						<input type="email" class="_faljv _o716c" aria-required="true" 
-							id="cppEmail" name="email" disabled="" value="${aDTO.email }">
+							id="cppEmail" name="email" value="${aDTO.email }">
 					</div>
 				</div>
 				<div class="_e1xik">
@@ -31,7 +32,7 @@
 		</article>
 <script>
 	$("#authBt").click(function() {
-		val email = $("#cppEmail").value;
+		var email = $("#cppEmail").val();
 		console.log(email);
 		$.ajax("/account/changePass.do", function() {
 			"method" : "get",
@@ -39,7 +40,8 @@
 			"data" : {"email" : email}
 		}).done(function(data) {
 			console.log(data);
-			window.alert("이메일을 통해 비밀번호를 전송했습니다!");
+			window.alert("이메일을 통해 비밀번호를 전송했습니다! 바뀐 비밀번호로 다시 접속해주세요!");
+			window.location("/");
 		});
 	});
 </script>

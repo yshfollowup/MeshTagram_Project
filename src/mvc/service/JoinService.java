@@ -46,4 +46,22 @@ public class JoinService {
 		
 		return map; 
 	}
+	
+	public String sendNewPass() {
+		String[] uuids = UUID.randomUUID().toString().split("-");
+		String newPass = uuids[2]+uuids[3];	//8자리
+		System.out.println("새 비밀번호 : " + newPass);
+		MimeMessage message = sender.createMimeMessage();
+		try {
+			message.addRecipients(RecipientType.TO, newPass);
+			message.setSubject("새로운 비밀번호입니다");
+			String text = "<h3>새로운 비밀번호</h3>";
+			text += "<p>새로운 비밀번호" + newPass + "를 입력하세요";
+			message.setContent(text, "text/html; charset= UTF-8");
+			sender.send(message);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return newPass;
+	}
 }

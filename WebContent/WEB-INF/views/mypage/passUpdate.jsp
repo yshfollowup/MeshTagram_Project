@@ -1133,7 +1133,7 @@ a:active {
 							<div class="_cd2n1">
 								<input type="password" class="_4abhr _o716c" onfocus="removeAlert();"
 									aria-required="true" id="np" name="newPass" value="">
-								<span class="alert"></span>
+								<span id="alert1" class="alert"></span>
 							</div>
 						</div>
 						<div class="_e1xik">
@@ -1143,7 +1143,7 @@ a:active {
 							<div class="_cd2n1">
 								<input type="password" class="_4abhr _o716c" onfocus="removeAlert();"
 									aria-required="true" id="confirm" name="confirmPass" value="">
-								<span class="alert"></span>
+								<span id="alert2" class="alert"></span>
 							</div>
 						</div>
 						<div class="_e1xik">
@@ -1168,45 +1168,52 @@ a:active {
 	</span> 
 <script> 
 	//비밀번호 변경
-	var oldPass = $("#op").val();
-	var newPass = $("#np").val();
-	var confirm = $("#confirm").val();
-	var passRule = "/^[a-zA-Z0-9]{8,}$/";
+	$(document).ready(function() {
+		$("#passBt").on("click", function(event) {
+			var oldPass = $("#op").val();
+			var newPass = $("#np").val();
+			var confirm = $("#confirm").val();
+			var validFlag = validatePass(newPass);
+			
+			console.log(oldPass);
+			console.log(newPass);
+			console.log(confirm);
+			
+			if (oldPass == newPass) {
+				$("#alert1").html("같은 비밀번호로 변경할 수 없습니다!");
+				event.preventDefault();
+			}
+			
+			if (!validFlag) {
+				$("#alert1").html("비밀번호는 영문+숫자를 조합하여 8자리 이상으로 변경해주십시오.");
+				event.preventDefault();
+			}
+			
+			if (confirm != newPass) {
+				$(".alert").html("확인된 비밀번호가 아닙니다.");
+				event.preventDefault();
+			}
+			
+			$("#form2").submit();
+			window.alert("비밀번호가 변경되었습니다!");
+		});
+		
+		
+	});
 	
 	$("#confirm").keypress(function() {
 		$("#passBt").prop("disabled", false);
 	});
 	
-	$("#np").on("change", function() {
-		if (oldPass == newPass) {
-			$(".alert").html("같은 비밀번호로 변경할 수 없습니다.");
-		}
-		if (!passRule.test()) {
-			$(".alert").html("비밀번호는 영문+숫자를 조합하여 8자리 이상으로 변경해주십시오.");
-		}
-	});
 	
-	function removeAlert() {
-		$(".alert").html("");
-		$(".alert").html("");
+	function validatePass(pass) {
+		var pattern = new RegExp("/^[a-zA-Z0-9]{8,}$/");
+		return pattern.test(pass);
 	}
 	
-	$("#confirm").on("change", function() {
-		if (confirm != newPass) {
-			$(".alert").html("확인된 비밀번호가 아닙니다.");
-			
-		}
-	});
-		
-	$("#passBt").on("click", function() {
-		
-		console.log(oldPass);
-		console.log(newPass);
-		console.log(confirm);
-		
-		$("#form2").submit();
-		window.alert("비밀번호가 변경되었습니다!");
-	});
+	function removeAlert() {
+		$(".alert").empty();
+	}
 		
 	
 	//프로필 사진 변경

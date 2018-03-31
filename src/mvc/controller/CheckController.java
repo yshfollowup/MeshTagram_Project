@@ -1,6 +1,8 @@
 package mvc.controller;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -8,18 +10,24 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+
 import mvc.model.AccountDTO;
 import mvc.service.AccountDAO;
+import mvc.service.JoinService;
 
 @Controller
 public class CheckController {
 	@Autowired
 	AccountDAO aDAO;
+	@Autowired
+	JoinService js;
+	@Autowired
+	Gson gson;
 	
 	//가입할 때 id 중복 체크
 	@RequestMapping(path="/account/idCheck.do", produces = "application/json;charset=utf-8")
@@ -71,11 +79,26 @@ public class CheckController {
 			return true;
 	}
 	
-	//패스워드 잊어버렸을 때 이메일로 전송
+	@RequestMapping("/account/authPass.do")
+	public String authPassHandle(HttpServletRequest req, ModelMap modelMap) {
+		HttpSession session = req.getSession();
+		String id = (String) session.getAttribute("id");
+		System.out.println("세션에서 가져온 Id : " + id);
+		AccountDTO aDTO = aDAO.selectOneAccountre(id);
+		modelMap.addAttribute("aDTO", aDTO);
+		return "insta_pass_reset";
+	}
+	
+	//패스워드 잊어버렸을 때 이메일로 전송 후 db에 바뀐 비밀번호 저장
 	@RequestMapping(path="/account/changePass.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public String changePasswordHandle() {
-		
-		return null;
+	public String changePasswordHandle(@RequestParam String email) {
+		System.out.println(email);
+		String newPass = js.sendNewPass();	//이메일로 새 비밀번호가 전송됨
+		System.out.println(newPass);
+		Map param = new HashMap();
+			param.put("pass", newPass);
+		aDAO.updatePassword(param);
+		return gson.toJson(param);
 	}
 }

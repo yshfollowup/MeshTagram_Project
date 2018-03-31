@@ -43,7 +43,7 @@ public class JoinController {
 	}
 	
 	@RequestMapping("/join.do")  // join
-	public String accountJoinHandle(@RequestParam MultiValueMap<String, String> vmap) {
+	public String accountJoinHandle(@RequestParam MultiValueMap<String, String> vmap, HttpServletRequest req) {
 		String id = vmap.getFirst("id");
 		String name = vmap.getFirst("name");
 		String email = vmap.getFirst("email");
@@ -54,6 +54,8 @@ public class JoinController {
 			System.out.println("[SERVER]: join failed");
 			return "insta_loginPage";
 		}
+		HttpSession session = req.getSession();
+		session.setAttribute("pass", pass);
 		System.out.println("[SERVER]: join success");
 		return "insta_login";  // join success
 	}
