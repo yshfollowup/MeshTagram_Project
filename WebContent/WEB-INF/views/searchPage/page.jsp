@@ -3033,7 +3033,7 @@ ul {
 								<a href="/account/search.do?tag=${fn:replace(tag,'#','%23') }">${tag }</a>
 							</c:forEach> </small> <br /> <a
 							href="${applictionScope.path}/detail/detail.do?boardid=${obj.code }"
-							data-toggle="tooltip" id="top_${obj._id }" name="${obj._id }"
+							data-toggle="tooltip" id="top_${obj.code }" name="${obj.code }"
 							class="tool" title=""> <c:forEach items="${obj.image }"
 								var="image" varStatus="st" end="0">
 								<img src="${obj.path }${image }"
@@ -3204,11 +3204,17 @@ ul {
 						"boardId" : boardid,
 					}
 				}).done(function(val) {
-					console.log(val + "댓글 좋아요");
+					console.log(val );
 					for (var i = 0; i < val.length; i++) {
 						// console.log(val.length);
 						//$("#top_" + val[i].boardId).attr("title","좋아요 " + val[i].count+"개");
-						$("#top_" + val[i].boardId).val(val[i].count + "개");
+						if(val[i].count==0){
+							
+						}else{
+							$("#top_" + val[i].boardId).val(val[i].count + "개");
+						$("#top_" + val[i].boardId).attr("title","좋아요"+val[i].count + "개");
+						}
+						
 					}
 					List();
 				})

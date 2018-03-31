@@ -3144,9 +3144,15 @@ transform
 							style="width: 30%; height: 50%; display: inline-block;">
 							<div class="_4rbun">
 								<div class="mouseIn" class="_2di5p">
-									<img src="${applicationScope.Path }${obj.image}"
-										style="width: 270px; height: 270px; border-radius: 30px"
-										id="preview"> <span class="In"></span>
+									 <a
+							href="${applictionScope.path}/detail/detail.do?boardid=${obj.code }"
+							data-toggle="tooltip" id="top_${obj.code }" name="${obj.code }"
+							class="tool" title="" val=""> <c:forEach items="${obj.image }"
+								var="image" varStatus="st" end="0">
+								<img src="${obj.path }${image }"
+									style="width: 230px; height: 230px;" />
+							</c:forEach>
+						</a> <span class="In"></span>
 								</div>
 								<p style="float: left; width: 33%;">
 									<small><c:forEach items="${obj.tags }" var="tag">
@@ -3188,7 +3194,75 @@ transform
 	</div>
 	<script>
 		var setid = "${cookie.setId.value}";
+		$(document).ready(function() {
+			$('[data-toggle="tooltip"]').tooltip();
+		});
+		function likeList() {
+				var cnt;
+			var boardid = [];
+			$(".tool").each(function() {
+				boardid.push($(this).attr("name"));
+			});
+			console.log(boardid);
+			$.ajax("/likecountList.do", {
+				"method" : "get",
+				"async" : true,
+				"data" : {
+					"boardId" : boardid,
+				}
+			}).done(function(val) {
+				console.log(val + "댓글 좋아요");
+				for (var i = 0; i < val.length; i++) {
+					// console.log(val.length);
+					//$("#top_" + val[i].boardId).attr("title","좋아요 " + val[i].count+"개");
+					if(val[i].count==0){
+						
+					}else{
+						$("#top_" + val[i].boardId).val(val[i].count + "개");
+					$("#top_" + val[i].boardId).attr("title","좋아요"+val[i].count + "개");
+					}
+					
+				}
+				List();
+			})
 
+		};
+		likeList();
+		function List() {
+			var boardid = [];
+
+			$(".tool").each(function() {
+				boardid.push($(this).attr("name"));
+			});
+			console.log(boardid);
+			$.ajax("/ReList.do", {
+				"method" : "get",
+				"async" : true,
+				"data" : {
+					"boardId" : boardid
+				}
+			}).done(
+					function(val) {
+
+						var boardid = [];
+						var reply = [];
+						$(".rebt").each(function() {
+							boardid.push($(this).attr("name"));
+							reply.push($(this).attr("name"));
+						});
+						 console.log(val.length);
+
+						for (var i = 0; i < val.length; i++) {
+							var reply = $("#top_" + val[i].boardId).val();
+							console.log(reply);
+							$("#top_" + val[i].boardId).attr("title","좋아요 "
+											+ $("#top_" + val[i].boardId)
+													.val() + "댓글 "
+											+ val[i].count + "개");
+							//reply.appent("댓글 "+ val[i].count + "개");
+						}
+					})
+		};
 		/*$ ("#markboard").on("click",function(){
 			console.log("들어왔다.");
 			$.ajax("/mypage/markBoard.do",{

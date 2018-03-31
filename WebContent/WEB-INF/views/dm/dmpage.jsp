@@ -341,10 +341,6 @@ body {
 							<div style="text-align: left;" id="showre"></div>
 						</div>
 
-						<div align="right" style="margin: 20 0;">
-							<input type="file" id="upload" value="이미지 파일 업로드"
-								style="margin-right: -50px;" />
-						</div>
 						<div style="width: 100%" align="center">
 							<input type="text" name="target" id="sender" style="width: 99%;">
 						</div>

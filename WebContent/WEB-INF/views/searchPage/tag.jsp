@@ -108,7 +108,13 @@ function likeList() {
 		for (var i = 0; i < val.length; i++) {
 			// console.log(val.length);
 			//$("#top_" + val[i].boardId).attr("title","좋아요 " + val[i].count+"개");
-			$("#top_" + val[i].boardId).val( val[i].count+"개");
+			if(val[i].count==0){
+				
+			}else{
+				$("#top_" + val[i].boardId).val(val[i].count + "개");
+			$("#top_" + val[i].boardId).attr("title","좋아요"+val[i].count + "개");
+			}
+			
 		}
 		List();
 	})
