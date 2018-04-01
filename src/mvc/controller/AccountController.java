@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -422,7 +423,7 @@ public class AccountController {
 
 	// 로그아웃
 	@RequestMapping("/logout.do")
-	public String lougoutHandle(HttpServletResponse resp, HttpServletRequest req) {
+	public String lougoutHandle(HttpServletResponse resp, HttpServletRequest req,HttpSession se) {
 		Cookie[] cookies = req.getCookies();
 
 		if (cookies != null) {
@@ -438,6 +439,8 @@ public class AccountController {
 			}
 
 		}
+		se.invalidate();
+		
 		System.out.println("쿠키값 삭제");
 		return "insta_login";
 	}
