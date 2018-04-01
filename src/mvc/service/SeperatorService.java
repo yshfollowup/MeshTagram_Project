@@ -23,10 +23,10 @@ public class SeperatorService {
 			String id = post.get("id").toString();
 			idList.add(id);
 			result.add(idList);	//get(0)
-			System.out.println(id);
+		//	System.out.println(id);
 			
 			List tag = (List)post.get("tags");
-			System.out.println(tag);
+		//	System.out.println(tag);
 			for(int i = 0; i < tag.size(); i++) {	
 				if (!tagList.contains(tag.get(i))) 
 					tagList.add((String)tag.get(i));
@@ -34,7 +34,7 @@ public class SeperatorService {
 			}
 			
 			List annotation = (List) post.get("annotations"); 
-			System.out.println(annotation);
+		//	System.out.println(annotation);
 			for(int i = 0; i < annotation.size(); i++) {
 				if(!annoList.contains(annotation.get(i)))
 					annoList.add((String)annotation.get(i));
@@ -42,9 +42,9 @@ public class SeperatorService {
 			}
 		}
 		
-		System.out.println(idList.size());
-		System.out.println(tagList.size());
-		System.out.println(annoList.size());
+		//System.out.println(idList.size());
+		//System.out.println(tagList.size());
+		//System.out.println(annoList.size());
 		
 		return result;
 	}

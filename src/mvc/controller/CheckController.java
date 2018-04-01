@@ -37,7 +37,7 @@ public class CheckController {
 		List<AccountDTO> idList = aDAO.selectAllmemberCheck(id);
 		for (AccountDTO list : idList) {
 			String getId = list.getId();
-			System.out.println(getId);
+		//	System.out.println(getId);
 			if (getId.equals(id)) 
 				return "{\"result\": false}";
 			else 
@@ -52,10 +52,10 @@ public class CheckController {
 		HttpSession se=req.getSession();
 		String rst=(String)se.getAttribute("rst");
 		String email=(String)se.getAttribute("email");
-		System.out.println("key"+key+"받았다."+rst);
+		//System.out.println("key"+key+"받았다."+rst);
 		if(rst.equals(key)) {
 			boolean a=true;
-			System.out.println("성공"+email+rst);
+			//System.out.println("성공"+email+rst);
 			map.put("email", email);
 			map.put("rst", a);
 			
@@ -72,7 +72,7 @@ public class CheckController {
 	public boolean checkPassHandle(@RequestParam Map param) {
 		String pass = (String) param.get("pass1");
 		String passConfirm = (String) param.get("pass2");
-		System.out.println(pass +" / "+ passConfirm);
+		//System.out.println(pass +" / "+ passConfirm);
 		if (!pass.equals(passConfirm))
 			return false;
 		else
@@ -83,7 +83,7 @@ public class CheckController {
 	public String authPassHandle(HttpServletRequest req, ModelMap modelMap) {
 		HttpSession session = req.getSession();
 		String id = (String) session.getAttribute("id");
-		System.out.println("세션에서 가져온 Id : " + id);
+		//System.out.println("세션에서 가져온 Id : " + id);
 		AccountDTO aDTO = aDAO.selectOneAccountre(id);
 		modelMap.addAttribute("aDTO", aDTO);
 		return "insta_pass_reset";
@@ -93,7 +93,7 @@ public class CheckController {
 	@RequestMapping(path="/account/changePass.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public String changePasswordHandle(@RequestParam String email) {
-		System.out.println(email);
+		//System.out.println(email);
 		String newPass = js.sendNewPass();	//이메일로 새 비밀번호가 전송됨
 		System.out.println(newPass);
 		Map param = new HashMap();

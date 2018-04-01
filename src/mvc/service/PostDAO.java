@@ -174,4 +174,10 @@ public class PostDAO {
 		template.findAllAndRemove(query, "MeshTagramUpload");
 	}
 	
+	//==================================================================
+	public void tagsCOUNT(Map map) {
+		System.out.println(map);
+		template.insert(map,"TagsCount");
+	}
+	
 }

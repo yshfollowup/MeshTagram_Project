@@ -123,7 +123,7 @@ public class AccountController {
 		List<String> idList=null;
 		List<String> tagList=null;
 		List<String> annoList=null;
-		System.out.println(list+"으으으으");
+		//System.out.println(list+"으으으으");
 		if(!list.isEmpty()) {
 			idList = list.get(0);
 			tagList = list.get(1);
@@ -285,7 +285,7 @@ public class AccountController {
 		List<String> idList=null;
 		List<String> tagList=null;
 		List<String> annoList=null;
-		System.out.println(list+"으으으으");
+	//	System.out.println(list+"으으으으");
 		if(!list.isEmpty()) {
 			idList = list.get(0);
 			tagList = list.get(1);

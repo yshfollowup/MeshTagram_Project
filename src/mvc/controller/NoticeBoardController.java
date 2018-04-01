@@ -49,9 +49,9 @@ public class NoticeBoardController {
 			noticeLike = rDAO.LikefollowingList(followingList);
 			noticeReply = rDAO.findAllReplyFollowingList(followingList);
 		}
-		System.out.println("공지사항 ajax" + noticeBoard);
-		System.out.println("공지사항 like" + noticeLike);
-		System.out.println("공지사항 Reply" + noticeReply);
+		//System.out.println("공지사항 ajax" + noticeBoard);
+		//System.out.println("공지사항 like" + noticeLike);
+		//System.out.println("공지사항 Reply" + noticeReply);
 
 		noticeBoard.sort(new Comparator<Map>() {
 			@Override

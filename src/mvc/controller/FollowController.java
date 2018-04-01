@@ -67,11 +67,6 @@ public class FollowController {
 						continue logic;
 					}
 				}
-//				for (AccountDTO oneRecom : recomList) {
-//					if (oneFOAF.getId().equals(oneRecom)) {
-//						continue logic;
-//					}
-//				}
 				recomList.add(oneFOAF);
 			}
 		}
