@@ -153,7 +153,7 @@ $(function(){
 					var image=val[i].PROFILE;
 					var profile;
 					if(val[i].PROFILE !=null){
-						profile="<img src="+path+image+" style=\"width: 30px; height: 30px; border-radius: 30px\" class=\"recomId\">"
+						profile="<img src="+image+" style=\"width: 30px; height: 30px; border-radius: 30px\" class=\"recomId\">"
 					}else{
 						profile="<img src=\"/images/insta.jpg\" style=\"width: 30px; height: 30px; border-radius: 30px\" class=\"recomId\">"
 					}
@@ -170,9 +170,16 @@ $(function(){
 						}
 					}
 						if(cnt2!=1){
-							console.log("필요항 것만 들어가");
+							var tar="";
+							if(tar != val[i].TARGET){
+							console.log("필요항 것만 들어가"+tar);
 							fbt= "<input  type=\"button\" name="+val[i].TARGET+"\ class=\"follower btn btn-info\" style=\"width:70px; height: 20px; padding: 0; margin:1 20 0 5;\" value=\"팔로우\"/>";
 							$("#demo").append(profile+"<a href=\"/search.do?id="+val[i].TARGET+"\">"+val[i].TARGET+"</a>"+fbt);
+								tar=val[i].TARGET;
+							}else{
+								
+							}
+							
 						}
 				}
 				
@@ -267,6 +274,7 @@ $(function(){
 				// console.log(val.length);
 				//$("#top_" + val[i].boardId).attr("title","좋아요 " + val[i].count+"개");
 				$("#top_" + val[i].boardId).val(val[i].count + "개");
+				$("#top_"+val[i].boardId).attr("title", "좋아요"+val[i].count+"개");
 			}
 			console.log(boardid);
 			List(boardid);
@@ -301,6 +309,7 @@ $(function(){
 					for (var i = 0; i < val.length; i++) {
 						var reply = $("#top_" + val[i].boardId).val();
 						console.log(reply);
+						$("#top_"+val[i].boardId).attr("title", "");
 						$("#top_" + val[i].boardId).attr(
 								"title",
 								"좋아요 "
