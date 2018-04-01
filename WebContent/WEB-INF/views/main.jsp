@@ -2886,8 +2886,8 @@ margin-bottom:env(safe-area-inset-bottom)
 								</section>
 								<section class="_1w76c _nlmjy">
 									<div class="">
-										<a class="_nzn1h" data-toggle="modal" data-target="#myModal1"
-											style="color: black; font-weight: bold; text-decoration: none;">좋아요
+										<a class="_nzn1h List_like" data-toggle="modal" data-target="#myModal1"
+											style="color: black; font-weight: bold; text-decoration: none;" name="${obj.code }">좋아요
 											<span data-toggle="modal" data-target="#myModal1"
 											id="cnt_${obj.code }"></span>개
 										</a>
@@ -3097,7 +3097,7 @@ margin-bottom:env(safe-area-inset-bottom)
 							var address = $("#myList");
 							$
 									.ajax("/likeList.do", {
-										"method" : "get",
+										"method" : "post",
 										"async" : true,
 										"data" : {
 											"boardId" : boardid,
@@ -3106,6 +3106,7 @@ margin-bottom:env(safe-area-inset-bottom)
 									})
 									.done(
 											function(val) {
+												console.log(val);
 												for (var i = 0; i < val.length; i++) {
 													if (val[i].boardId == value) {
 														listId.push(val[i].id);
@@ -3123,25 +3124,24 @@ margin-bottom:env(safe-area-inset-bottom)
 																})
 														.done(
 																function(val) {
+																	console.log(val);
 																	address
 																			.html("");
 																	var img = "<img src=\"/images/insta.jpg\" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
-																	var img2 = "<img src=\"${applicationScope.path }"+val.PROFILE+" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
+																	var img2 ;
 																	var ii = null;
 																	var sl = null;
+																	
 																	for (var i = 0; i < val.length; i++) {
 																		var follower = "<input class=\"follow\" type=\"button\" name="+val[i].id+" value=\"팔로우\" />"
 																		if (val[i].profile == null) {
 																			ii = img;
 																		} else {
+																			img2="<img src="+val[i].profile+" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
 																			ii = img2
 																		}
 																		address
-																				.append(ii
-																						+ val[i].id
-																						+ "<br/>"
-																						+ val[i].name
-																						+ follower);
+																				.append("<a href=\"/search.do?id="+val[i].id+"\">"+ii+ val[i].id+"</a><br/>"+ val[i].name + follower);
 																	}
 																	check(setid);
 																	$(".follow")
