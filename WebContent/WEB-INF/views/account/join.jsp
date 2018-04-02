@@ -2578,7 +2578,7 @@ color : #999;
 												type="password" class="_ph6vk _jdqpn _o716c" onfocus="removeAlert();"
 												id="pass2" name="pass2" placeholder="비밀번호 확인"
 												pattern="[A-Za-z0-9]+"
-												value=""/><span id="rst3" class="alert"></span>
+												value=""><span id="rst3" class="alert"></span>
 												
 										</div>
 										<div class="_gaby6"></div>
@@ -2661,44 +2661,61 @@ $("._hqmnd").click(function(){
 	$("#ch").click(function(){
 		location.replace("/account/loginPage.do");
 	});
-	$("#pass2").on("change", function() {
-		if ($("#pass2").val().length == 0) {
-			$("#check").html("영문과 숫자 조합 8자리 이상")
-		} else {
-			if ($("#pass1").val() != $("#pass2").val()) {
-				$("#check").html("비밀번호가 일치하지 않습니다.")
-			} else {
-				$("#check").html("일치합니다.")
-			}
-		}
+	
+	$(document).ready(function() {
+		$("#pass2").on("change", function() {
+			var pass1 = $("#pass1").val();
+			var pass2 = $("#pass2").val();
+			console.log(pass1+pass2);
+			$.ajax("/account/passCheck.do", {
+				"method" : "get",
+				"async" : true,
+				"data" : {
+					"pass1" : pass1,
+					"pass2" : pass2
+				},
+				success : function(data) {
+					console.log(data);
+					console.log(data.result);
+					if(data.result == false) {
+						$("#rst3").html("비밀번호가 일치하지 않습니다.");
+					}else {
+						$("#rst3").html("일치합니다.");
+					}
+				}
+			});	
+		});
 	});
 	
 	$(document).ready(function() {
 		$("#idConfirm").click(function() {
 			var id = $("#id").val();
-			var idFlag = validate_id(id);
+			var idFlag = validate_id(id);	//true or false
 			console.log(id);
-			$.ajax("/account/idCheck.do", {
-				"method" : "get",
-				"async" : true,
-				"data" : {"id" : id},
-				success : function(data) {
-					console.log(data);
-					console.log(data.result);
-					if(data.result == false) {
-						$("#rst1").html("중복된 아이디입니다.");
-					} else if(!idFlag) {
-						$("#rst1").html("ID는 영문+숫자의 5자리 이상이어야 합니다.");
-					} else {
-						window.alert("사용 가능한 ID입니다!");
+			console.log(idFlag);
+			if (!idFlag) {
+				$("#rst1").html("아이디는 영문과 숫자를 혼합하여 5자리 이상이어야 합니다!");
+			} else {
+				$.ajax("/account/idCheck.do", {
+					"method" : "get",
+					"async" : true,
+					"data" : {"id" : id},
+					success : function(data) {
+						console.log(data);
+						console.log(data.result);
+						if(data.result == false) {
+							$("#rst1").html("중복된 아이디입니다.");
+						}else {
+							$("#rst1").html("사용 가능한 ID입니다!");
+						}
 					}
-				}
-			});
+				});
+			}
 		});	
 	});
 	
 	function validate_id(id) {
-		var pattern = new RegExp("/^[a-zA-Z0-9]{5,}$/");
+		var pattern = new RegExp(/^[a-zA-Z0-9]{5,}$/);
 		return pattern.test(id);
 	}
 	
@@ -2732,5 +2749,5 @@ $("._hqmnd").click(function(){
 	} */
 
 </script>
-		</body>
+</body>
 </html>

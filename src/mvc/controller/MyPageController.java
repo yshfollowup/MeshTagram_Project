@@ -66,6 +66,7 @@ public class MyPageController {
 		System.out.println("[SERVER]: MyPage success" + setId);
 		String id = setId;
 		// 계정 정보
+	
 		AccountDTO aDTO = aDAO.selectOneAccountre(id);
 		modelMap.put("aDTO", aDTO);
 
@@ -95,6 +96,7 @@ public class MyPageController {
 		List<Map> result = new ArrayList<>();
 		result=	rDAO.markBoardFind(id);
 		List<Map> result2=rDAO.AllmarkBoardFind(result);
+		
 		AccountDTO aDTO = aDAO.selectOneAccountre(id);
 		modelMap.put("aDTO", aDTO);
 
@@ -131,6 +133,7 @@ public class MyPageController {
 		System.out.println("[SERVER]: MyPage success" + setId);
 		String id = setId;
 		// 계정 정보
+
 		AccountDTO aDTO = aDAO.selectOneAccountre(id);
 		modelMap.put("aDTO", aDTO);
 
@@ -158,6 +161,7 @@ public class MyPageController {
 		System.out.println("[SERVER]: MyPage success" + setId);
 		String id = setId;
 		// 계정 정보
+
 		AccountDTO aDTO = aDAO.selectOneAccountre(id);
 		modelMap.put("aDTO", aDTO);
 

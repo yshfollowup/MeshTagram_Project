@@ -1,13 +1,10 @@
 package mvc.controller;
 
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +18,6 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import mvc.model.AccountDTO;
 import mvc.model.FollowDTO;
@@ -259,6 +255,7 @@ public class AccountController {
 	public String logingetHandle(ModelMap modelMap, @CookieValue(name = "setId", required = false) String setId) {
 		System.out.println("[SERVER]: login success" + setId);
 		String id = setId;
+
 		// 계정 정보
 		AccountDTO aDTO = aDAO.selectOneAccountre(id);
 		modelMap.put("aDTO", aDTO);

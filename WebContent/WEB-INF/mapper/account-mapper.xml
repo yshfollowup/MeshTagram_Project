@@ -16,8 +16,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="selectOneAccountre" resultType="mvc.model.AccountDTO">
-		select * from account
+		select * from account 
 		where id = #{id }
+	</select>
+	
+	<select id="selectOneAccountReByEmail" resultType="mvc.model.AccountDTO">
+		select * from account 
+		where email = #{email }
 	</select>
 
 	<select id="selectAllAccountNotme" resultType="mvc.model.AccountDTO">
@@ -98,6 +103,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 프로필 이미지 가져오기 -->
 	<select id="selectProfile" resultType="mvc.model.AccountDTO">
 		select profile from account where id= #{id }
+	</select>
+	
+	<!-- 이메일 주소 가져오기 -->
+	<select id="selectEmail" resultType="mvc.model.AccountDTO">
+		select email from account where id= #{id }
+	</select>
+	
+	<!-- 생년월일 가져오기 -->
+	<select id="selectBirth" resultType="mvc.model.AccountDTO">
+		select birth from account where id= #{id }
+	</select>
+	
+	<!-- 성별 가져오기 -->
+	<select id="selectGender" resultType="mvc.model.AccountDTO">
+		select gender from account where id= #{id }
 	</select>
 
 	<!-- 내가 follwing 한 사람 리스트 -->

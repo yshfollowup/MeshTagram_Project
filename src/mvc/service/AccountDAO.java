@@ -40,17 +40,17 @@ public class AccountDAO {
 		}
 	}
 	//db의 모든 정보 출력
-	public AccountDTO selectAllAccount(Map param) {
+	public List<AccountDTO> selectAllAccount() {
 		AccountDTO aDTO = new AccountDTO();
 		List<AccountDTO> aList=null;
 		SqlSession session = factory.openSession();
 		try {
-			aList = session.selectList("account.selectAllAccount", param);
+			aList = session.selectList("account.selectAllAccount");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			session.close();
-			return aDTO;
+			return aList;
 		}
 	}
 	
@@ -74,7 +74,7 @@ public class AccountDAO {
 	//새로고침 --쿠키
 	public AccountDTO selectOneAccountre(String id) {
 		Map map = new HashMap<>();
-			map.put("id", id);
+			map.put("id", id);			
 		AccountDTO aDTO = new AccountDTO();
 			
 		SqlSession session = factory.openSession();
@@ -87,6 +87,24 @@ public class AccountDAO {
 			return aDTO;
 		}
 	}
+	
+	//새로고침 -- email
+	public AccountDTO selectOneAccountReByEmail(String email) {
+		Map map = new HashMap<>();
+			map.put("email", email);			
+		AccountDTO aDTO = new AccountDTO();
+			
+		SqlSession session = factory.openSession();
+		try {
+			aDTO = session.selectOne("account.selectOneAccountReByEmail", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+			return aDTO;
+		}
+	}
+	
 	//나를 제외하고 모든 회원을 출력
 	public List<AccountDTO> selectAllAccountNotMe(String id) {
 		Map map = new HashMap<>();
@@ -274,6 +292,54 @@ public class AccountDAO {
 		SqlSession session = factory.openSession();
 		try {
 			aList = session.selectOne("account.selectProfile", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+			return aList;
+		}
+	}
+	
+	//이메일 주소 가져오기
+	public AccountDTO selectEmail(String id) {
+		Map map = new HashMap<>();
+			map.put("id", id);
+		AccountDTO aList = null;
+		SqlSession session = factory.openSession();
+		try {
+			aList = session.selectOne("account.selectEmail", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+			return aList;
+		}
+	}
+	
+	//생년월일 가져오기
+	public AccountDTO selectBirth(String id) {
+		Map map = new HashMap<>();
+			map.put("id", id);
+		AccountDTO aList = null;
+		SqlSession session = factory.openSession();
+		try {
+			aList = session.selectOne("account.selectEmail", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+			return aList;
+		}
+	}
+		
+	//성 가져오기
+	public AccountDTO selectGender(String id) {
+		Map map = new HashMap<>();
+			map.put("id", id);
+		AccountDTO aList = null;
+		SqlSession session = factory.openSession();
+		try {
+			aList = session.selectOne("account.selectEmail", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

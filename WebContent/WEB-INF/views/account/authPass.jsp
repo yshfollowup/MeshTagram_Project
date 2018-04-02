@@ -13,7 +13,7 @@
 					<p>새 비밀번호를 받을 이메일 주소를 입력하세요</p><br/>
 					<div class="_cd2n1">
 						<input type="email" class="_faljv _o716c" aria-required="true" 
-							id="cppEmail" name="email" value="${aDTO.email }">
+							id="cppEmail" name="email">
 					</div>
 				</div>
 				<div class="_e1xik">
@@ -34,14 +34,20 @@
 	$("#authBt").click(function() {
 		var email = $("#cppEmail").val();
 		console.log(email);
-		$.ajax("/account/changePass.do", function() {
+		$.ajax("/account/changePass.do", {
 			"method" : "get",
 			"async" : true,
-			"data" : {"email" : email}
+			"data" : {
+				"email" : email
+			}
 		}).done(function(data) {
 			console.log(data);
 			window.alert("이메일을 통해 비밀번호를 전송했습니다! 바뀐 비밀번호로 다시 접속해주세요!");
 			window.location("/");
 		});
+	});
+	
+	$("#cppEmail").keypress(function() {
+		$("#authBt").prop("disabled", false);
 	});
 </script>

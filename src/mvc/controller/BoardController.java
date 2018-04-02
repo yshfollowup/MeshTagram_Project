@@ -3,6 +3,7 @@ package mvc.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -78,16 +78,16 @@ public class BoardController {
 		String[] uuids = UUID.randomUUID().toString().split("-");
 		String key= uuids[2]+"-"+uuids[1];
 		if (rst) {
-			Map map = new LinkedHashMap<>();
+			Map<String, Object> map = new LinkedHashMap<>();
 			map.put("writer", id);
 			//업로드한 파일의 갯수만큼 uploads에 저장
 			List<String> result2 = (List) result.get("uploadResult");
 				map.put("image", result2);
 				//System.out.println(result2);
-			map.put("time", new Date());
-			map.put("comment", commList);
-			map.put("tags", tagList);
-			map.put("annotations", annoList);
+				map.put("time", new Date());
+				map.put("comment", commList);
+				map.put("tags", tagList);
+				map.put("annotations", annoList);
 			AccountDTO aDTO = aDAO.selectOneAccountre(id);
 		//	System.out.println(aDTO.getProfile()+"값");
 			map.put("profile", aDTO.getProfile()=="null" ? "null" : aDTO.getProfile());

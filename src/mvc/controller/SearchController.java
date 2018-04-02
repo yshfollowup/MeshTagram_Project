@@ -56,7 +56,8 @@ public class SearchController {
 	@RequestMapping("/search.do")
 	public String searchHandle(@RequestParam("id") String id, ModelMap map) {
 		System.out.println(id+"검색한다.");
-		AccountDTO aDTO=aDAO.selectOneAccountre(id);
+
+		AccountDTO aDTO = aDAO.selectOneAccountre(id);
 		map.put("aDTO", aDTO);
 		
 		//이전에 쓴 모든 게시물 정보
