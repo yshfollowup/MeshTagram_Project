@@ -91,6 +91,8 @@ public class BoardController {
 			AccountDTO aDTO = aDAO.selectOneAccountre(id);
 		//	System.out.println(aDTO.getProfile()+"값");
 			map.put("profile", aDTO.getProfile()=="null" ? "null" : aDTO.getProfile());
+			map.put("birth", aDTO.getBirth());
+			map.put("gender", aDTO.getGender());
 			//System.out.println("게시물 이디이"+key);
 			map.put("code", key);
 		//	System.out.println(map);

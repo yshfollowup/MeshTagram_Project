@@ -33,7 +33,7 @@ public class HadoopController {
 	SeperatorService ss;
 
 	// 회원가입 페이지
-	@RequestMapping("/index.do")
+	@RequestMapping("/alltags.do")
 	public void MapHandle(@CookieValue(name = "setId") String setId) {
 		
 		List<Map> allpost=pDAO.findAllPost();
@@ -68,6 +68,74 @@ public class HadoopController {
 		
 		
 	}
-	
+	@RequestMapping("/birthgendercount.do")
+	public void BirthGenderCountHandle() {
+		List<Map> allpost =pDAO.findAllPost();
+		List<String> list=new ArrayList();
+		Map map=new LinkedHashMap();
+		String[] q=null;
+		for(int i=0; i<allpost.size(); i++) {
+			Object tags=allpost.get(i).get("tags");
+			Object bt=allpost.get(i).get("birth");
+			Object gen=allpost.get(i).get("gender");
+			String tag=tags.toString().replace("[", "").replace("]", "").replace(",", "").replace(" ", "");
+			String birth="";
+			String gender="";
+			System.out.println(bt+"생일"+gen);
+			if(bt !=null) {
+				birth=bt.toString().substring(24, 28);
+				
+			}else {
+				birth="null";
+			}
+			if(gen !=null) {
+				gender=gen.toString();
+			}else {
+				gender="null";
+			}
+			String sum=tag+","+birth+","+gen;
+			System.out.println(tag+"..."+birth+"..."+gender);
+			map.put("birth",birth);
+			map.put("gender", gender);
+			q=tag.split("#");
+			for(int j=0; j<q.length; j++) {
+				System.out.println(q[j]);
+				if(!q[j].equals("")) {
+					map.put("tags", q[j]);
+					pDAO.BirthgenderCount(map);
+					
+				}
+
+			}
+			list.add(sum);
+		}
+		
+		System.out.println(list);
+		
+		
+	}
+	@RequestMapping("/replycount.do")
+	public void replycountHandle() {
+		List<Map> allReply=rDAO.allReply();
+		List<String>list=new ArrayList<>();
+		Map map=new LinkedHashMap();
+		String[] ment;
+		for(int i=0; i<allReply.size();i++) {
+			Object me=allReply.get(i).get("ment");
+			String s=me.toString();
+			ment=s.split("\\s");
+			System.out.println(Arrays.toString(ment)+"멘트이다.");
+		
+			for(String aa:ment) {
+				list.add(aa);
+				map.put("ment", aa);
+				pDAO.ReplyCOUNT(map);
+			}
+		}
+
+		
+
+		System.out.println(list);
+	}
 	
 }

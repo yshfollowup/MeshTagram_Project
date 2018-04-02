@@ -131,6 +131,8 @@ $(function(){
 <script>
 	var setid = "${cookie.setId.value}";
 	$(".show").on("click", function(){
+		var tar="";
+		var list=[];
 		$("#demo").html("");
 		$.ajax("/follow/followListSomeone.do",{
 			"method" : "get",
@@ -170,11 +172,9 @@ $(function(){
 						}
 					}
 						if(cnt2!=1){
-							var tar="";
 							if(tar != val[i].TARGET){
+								list.push(val[i].TARGET);
 							console.log("필요항 것만 들어가"+tar);
-							fbt= "<input  type=\"button\" name="+val[i].TARGET+"\ class=\"follower btn btn-info\" style=\"width:70px; height: 20px; padding: 0; margin:1 20 0 5;\" value=\"팔로우\"/>";
-							$("#demo").append(profile+"<a href=\"/search.do?id="+val[i].TARGET+"\">"+val[i].TARGET+"</a>"+fbt);
 								tar=val[i].TARGET;
 							}else{
 								
@@ -182,6 +182,18 @@ $(function(){
 							
 						}
 				}
+				var uniqueNames = [];
+
+				$.each(list, function(i, el){
+					if($.inArray(el, uniqueNames) == -1) uniqueNames.push(el);
+				});
+				console.log(uniqueNames);
+				for(var i=0; i<uniqueNames.length; i++){
+					fbt= "<input  type=\"button\" name="+uniqueNames[i]+"\ class=\"follower btn btn-info\" style=\"width:70px; height: 20px; padding: 0; margin:1 20 0 5;\" value=\"팔로우\"/>";
+					$("#demo").append(profile+"<a href=\"/search.do?id="+uniqueNames[i]+"\">"+uniqueNames[i]+"</a>"+fbt);
+					
+				}
+				
 				
 		$(".follower").on("click", function() {
 			console.log("팔로우 들어왔다.");

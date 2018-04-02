@@ -252,4 +252,11 @@ public class ReplyDAO {
 
 		return true;
 	}
+	
+	public List<Map> allReply(){
+		List<Map> allList=new LinkedList<>();
+		
+		allList=template.findAll(Map.class, "Reply");
+		return allList;
+	}
 }
