@@ -35,6 +35,8 @@ public class PostDAO {
 			map.put("image", param.get("image"));
 			//map.put("path", param.get("path"));
 			map.put("profile", param.get("profile"));
+			map.put("birth", param.get("birth"));
+			map.put("gender", param.get("gender"));
 			map.put("date", param.get("time"));
 			map.put("comment", (List)param.get("comment"));
 			map.put("tags", (List)param.get("tags"));
@@ -178,6 +180,14 @@ public class PostDAO {
 	public void tagsCOUNT(Map map) {
 		System.out.println(map);
 		template.insert(map,"TagsCount");
+	}
+	public void BirthgenderCount(Map map) {
+		System.out.println(map);
+		template.insert(map,"birthgenderCount");
+	}
+	public void ReplyCOUNT(Map map) {
+		System.out.println(map);
+		template.insert(map,"ReplyCount");
 	}
 	
 }

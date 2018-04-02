@@ -137,150 +137,109 @@
 </script>
 <script>
 	var setid = "${cookie.setId.value}";
-	$(".show")
-			.on(
-					"click",
-					function() {
-						$("#demo").html("");
-						$
-								.ajax("/follow/followListSomeone.do", {
-									"method" : "get",
-									"async" : true,
-									"data" : {
-										"setId" : setid
-									}
-								})
-								.done(
-										function(val) {
-											console.log(val);
-											$
-													.ajax("/checkFollow.do", {
-														"method" : "get",
-														"async" : true,
-														"data" : {
-															"setId" : setid
-														}
-													})
-													.done(
-															function(val2) {
-																console
-																		.log(val2);
-																for (var i = 0; i < val.length; i++) {
-																	var fbt;
-																	var image = val[i].PROFILE;
-																	var profile;
-																	if (val[i].PROFILE != null) {
-																		profile = "<img src="+image+" style=\"width: 30px; height: 30px; border-radius: 30px\" class=\"recomId\">"
-																	} else {
-																		profile = "<img src=\"/images/insta.jpg\" style=\"width: 30px; height: 30px; border-radius: 30px\" class=\"recomId\">"
-																	}
+	$(".show").on("click", function(){
+		var tar="";
+		var list=[];
+		$("#demo").html("");
+		$.ajax("/follow/followListSomeone.do",{
+			"method" : "get",
+			"async" : true,
+			"data" : {
+				"setId" : setid
+			}
+		}).done(function(val){
+			console.log(val);
+			$.ajax("/checkFollow.do",{
+				"method" : "get",
+				"async" : true,
+				"data" : {
+					"setId" : setid
+				}
+			}).done(function(val2){
+				console.log(val2);
+				for(var i=0; i<val.length; i++){
+					var fbt;
+					var image=val[i].PROFILE;
+					var profile;
+					if(val[i].PROFILE !=null){
+						profile="<img src="+image+" style=\"width: 30px; height: 30px; border-radius: 30px\" class=\"recomId\">"
+					}else{
+						profile="<img src=\"/images/insta.jpg\" style=\"width: 30px; height: 30px; border-radius: 30px\" class=\"recomId\">"
+					}
+					
+					var cnt1=0;
+					var cnt2=0;
+					for(var j=0; j<val2.length; j++){
+					var follow = val2[j].ID;
+						if(val[i].TARGET != val2[j].TARGET){
+							
+							cnt1++;
+						}else{
+							cnt2++;
+						}
+					}
+						if(cnt2!=1){
+							if(tar != val[i].TARGET){
+								list.push(val[i].TARGET);
+							console.log("필요항 것만 들어가"+tar);
+								tar=val[i].TARGET;
+							}else{
+								
+							}
+							
+						}
+				}
+				var uniqueNames = [];
 
-																	var cnt1 = 0;
-																	var cnt2 = 0;
-																	for (var j = 0; j < val2.length; j++) {
-																		var follow = val2[j].ID;
-																		if (val[i].TARGET != val2[j].TARGET) {
-
-																			cnt1++;
-																		} else {
-																			cnt2++;
-																		}
-																	}
-																	if (cnt2 != 1) {
-																		var tar = "";
-																		if (tar != val[i].TARGET) {
-																			console
-																					.log("필요항 것만 들어가"
-																							+ tar);
-																			fbt = "<input  type=\"button\" name="+val[i].TARGET+"\ class=\"follower btn btn-info\" style=\"width:70px; height: 20px; padding: 0; margin:1 20 0 5;\" value=\"팔로우\"/>";
-																			$(
-																					"#demo")
-																					.append(
-																									"<p style=\"float : left; width : 25%; \">" + profile
-																									+ "<a href=\"/search.do?id="
-																									+ val[i].TARGET
-																									+ "\">"
-																									+ val[i].TARGET
-																									+ "</a>"
-																									+ fbt);
-																									+ "</p>"
-																			tar = val[i].TARGET;
-																		} else {
-
-																		}
-
-																	}
-																}
-
-																$(".follower")
-																		.on(
-																				"click",
-																				function() {
-																					console
-																							.log("팔로우 들어왔다.");
-																					var src = $(this);
-																					var a = $(
-																							this)
-																							.attr(
-																									"name");
-																					if (src
-																							.val() == "팔로잉") {
-																						$
-																								.ajax(
-																										"/follow/delete.do",
-																										{
-																											"method" : "get",
-																											"async" : true,
-																											"data" : {
-																												"owner" : setid,
-																												"target" : a
-																											}
-																										})
-																								.done(
-																										function(
-																												obj2) {
-																											console
-																													.log("삭제 들어왔다.");
-																											src
-																													.val("팔로우");
-																											src
-																													.attr(
-																															"name",
-																															a);
-																										});
-																					} else {
-																						$
-																								.ajax(
-																										"/follow/insert.do",
-																										{
-																											"method" : "get",
-																											"async" : true,
-																											"data" : {
-																												"owner" : setid,
-																												"target" : a
-																											}
-																										})
-																								.done(
-																										function(
-																												obj) {
-																											console
-																													.log("들어왔다."
-																															+ src);
-																											src
-																													.val("팔로잉");
-																											src
-																													.attr(
-																															"name",
-																															a);
-																										});
-																					}
-																				});
-															})
-
-										})
-
-						console.log("팔로우 리스트 들어왔다.");
-					});
+				$.each(list, function(i, el){
+					if($.inArray(el, uniqueNames) == -1) uniqueNames.push(el);
+				});
+				console.log(uniqueNames);
+				for(var i=0; i<uniqueNames.length; i++){
+					fbt= "<input  type=\"button\" name="+uniqueNames[i]+"\ class=\"follower btn btn-info\" style=\"width:70px; height: 20px; padding: 0; margin:1 20 0 5;\" value=\"팔로우\"/>";
+					$("#demo").append(profile+"<a href=\"/search.do?id="+uniqueNames[i]+"\">"+uniqueNames[i]+"</a>"+fbt);
+					
+				}
+				
+				
+		$(".follower").on("click", function() {
+			console.log("팔로우 들어왔다.");
+			var src= $(this);
+			var a = $(this).attr("name");
+			if(src.val() == "팔로잉"){
+				$.ajax("/follow/delete.do",{
+					"method" : "get",
+					"async" : true,
+					"data" :{
+						"owner" : setid,
+						"target" : a
+					}
+				}).done(function(obj2){
+					console.log("삭제 들어왔다.");
+					src.val("팔로우");
+					src.attr("name", a);
+				});
+			}else{
+			$.ajax("/follow/insert.do",{
+				"method" : "get",
+				"async" : true,
+				"data" :{
+					"owner" : setid,
+					"target" : a
+				}
+			}).done(function(obj){
+				console.log("들어왔다."+src);
+				src.val("팔로잉");
+				src.attr("name", a);
+			});
+			}
+		});
+			})
+			
+		})
+		
+		console.log("팔로우 리스트 들어왔다.");
+	});
 	$(".follower").click(function() {
 		var owner = "${cookie.setId.value}";
 		var src = $(this);
