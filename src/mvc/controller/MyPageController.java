@@ -309,6 +309,7 @@ public class MyPageController {
 			AccountDTO aDTO = aDAO.selectOneAccountre(id);
 			modelMap.put("aDTO", aDTO);
 		}
+		pDAO.updateProfile(param);
 		return "redirect:/mypage/index.do";
 	}
 	

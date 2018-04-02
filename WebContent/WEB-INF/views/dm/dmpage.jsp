@@ -337,12 +337,12 @@ body {
 					<div class="_82odm" style="height: 100%; width: 100%;">
 						<div id="chatBoard"
 							style="width: 100%; height: 85%; overflow-y: scroll; background-color: white; border-bottom: 1px solid #DCDCDC">
-							<span id="showdm" style="text-align: right;"></span>
-							<div style="text-align: left;" id="showre"></div>
+							<span id="showdm"></span>
+							<div id="showre"></div>
 						</div>
 
 						<div style="width: 100%; margin-top:20px;" align="center" >대화내용 입력<br/><br/>
-							<input type="text" name="target" id="sender" style="width: 99%;">
+							<input type="text" name="target" id="sender" class="sender"  style="width: 99%;"/>
 						</div>
 					</div>
 				</div>
@@ -353,14 +353,40 @@ body {
 </body>
 <script>
 	var setid = "${cookie.setId.value}";
-	
+	var reid2="";
 	
 	
 	$(".mesen").on("click", function() {
 		var reid = $(this).attr("id");
 		console.log("들어왔다." + reid);
 		findAllMessage(reid);
+		reid2=reid;
 	});
+		$(".sender").on("change", function() {
+			var content = $(".sender").val();
+			var scope = 0;
+			var like = 0;
+			if (content.length == 0) {
+				window.alert("댓글을 작성해주세요.");
+				return;
+			}
+			console.log("채팅을 치자"+reid2);
+			$.ajax("/direct/insertMessage.do", {
+				"method" : "get",
+				"async" : false,
+				"data" : {
+					"sender" : setid,
+					"target" : reid2,
+					"content" : content,
+					"like" : like,
+					"scope" : scope
+				}
+			}).done(function(val) {
+			$("#sender").val("");
+				console.log(val);
+				findAllMessage(reid2);
+			})
+		}); 
 	showMessage();
 
 	function setDigit(num, digit) {
@@ -426,16 +452,16 @@ body {
 
 	function findAllMessage(reid) {
 		var code;
-		var target;
+		var target=reid;
 		var oid;
-		console.log(reid+"이것이 들어왔다."+setid);
+		console.log(reid+"이것이 들어왔다."+setid+target);
 		$
 				.ajax("/direct/showMessage.do", {
 					"method" : "post",
 					"async" : true,
 					"data" : {
 						"sender" : setid,
-						"target" : reid
+						"target" : target
 					}
 				})
 				.done(
@@ -446,19 +472,19 @@ body {
 							for (var i = 0; i < val.length; i++) {
 								var bt = "<input class=\"_eszkz _l9yih like\" name=\""+val[i].code+"\" type=\"image\" id=\"like_${obj._id }\" src=\"/images/sheart.png\"/>";
 								var bt2 = "<input class=\"_eszkz _l9yih dislike\" name=\""+val[i].code+"\" type=\"image\" id=\"dislike_${obj._id }\" src=\"/images/sheart_full.png\"/>";
-								console.log(val[i].content + val.length);
+								//console.log(val[i].content + val.length);
 								if (val[i].sender == setid) {
 									if(val[i].like =="좋아요"){
 										$("#showdm").append(
-												"<div id="+val[i].sender+"\" style=\"font-size:16px;\">"
+												"<div id="+val[i].sender+"\" style=\"font-size:16px; text-align: right;\">"
 														+ bt2 +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
 														+ val[i].content
 														+ "</button>" + "</div>"
-														+ "<br/>");										
+														+ "<br/>");		
 									}else{
 										
 									$("#showdm").append(
-											"<div id="+val[i].sender+"\" style=\"font-size:16px;\">"
+											"<div id="+val[i].sender+"\" style=\"font-size:16px; text-align: right;\">"
 													+ bt +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
 													+ val[i].content
 													+ "</button>" + "</div>"
@@ -466,8 +492,8 @@ body {
 									}
 								} else {
 									if(val[i].like=="좋아요"){
-										$("#showre").append(
-												"<div id="+val[i].sender+"\">"
+										$("#showdm").append(
+												"<div id="+val[i].sender+"\" style=\" text-align: left;\"  >"
 														+ bt2 +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
 														+ val[i].content
 														+ "</button>" + "</div>"
@@ -475,8 +501,8 @@ body {
 										
 									}else{
 										
-									$("#showre").append(
-											"<div id="+val[i].sender+"\">"
+									$("#showdm").append(
+											"<div id="+val[i].sender+"\"align=right\" style=\"text-align: left;\" >"
 													+ bt +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
 													+ val[i].content
 													+ "</button>" + "</div>"
@@ -484,12 +510,13 @@ body {
 										
 									}
 									target = val[i].sender;
-									console.log(target + "댓그르그");
+									//console.log(target + "저장");
 								}
 								
 								
 							}
-							console.log("타켓팅" + reid + "scope업데이트");
+							
+						//	console.log("타켓팅" + reid + "scope업데이트");
 							$.ajax("/direct/updateScope.do", {
 								"method" : "get",
 								"async" : true,
@@ -501,7 +528,7 @@ body {
 
 							}).done(function(val2) {
 								var a = 0;
-								console.log("업데이트 ");
+							//	console.log("업데이트 ");
 								$("#sp_" + target).html(" ");
 							});
 							$("#charBoard").scrollTop();
@@ -541,7 +568,7 @@ body {
 									}
 								}).done(function(val) {
 								//=====================================================
-									console.log(val+"좋아요 버튼이 들어왔다잉");
+								//	console.log(val+"좋아요 버튼이 들어왔다잉");
 									checkLike(reid);
 								//=====================================================
 						});
@@ -549,22 +576,23 @@ body {
 					})
 
 						});
-		$("#sender").on("change", function() {
+/* 		$("#sender").on("change", function() {
 			var content = $(this).val();
 			var scope = 0;
 			var like = 0;
+			var targetq=reid;
 			if (content.length == 0) {
 				window.alert("댓글을 작성해주세요.");
 				return;
 			}
-			console.log("채팅을 치자");
+			console.log("채팅을 치자"+reid);
 			$("#sender").val("");
 			$.ajax("/direct/insertMessage.do", {
 				"method" : "get",
 				"async" : false,
 				"data" : {
 					"sender" : setid,
-					"target" : reid,
+					"target" : targetq,
 					"content" : content,
 					"like" : like,
 					"scope" : scope
@@ -574,14 +602,14 @@ body {
 				findAllMessage(reid);
 			})
 		});
-
+ */
 	};
 //=========================================================================================
 	function checkLike(reid) {
 		var code;
 		var target;
 		var oid;
-		console.log(reid);
+		console.log(reid+"이게 문제네");
 		$
 				.ajax("/direct/showMessage.do", {
 					"method" : "post",
@@ -603,15 +631,16 @@ body {
 								if (val[i].sender == setid) {
 									if(val[i].like =="좋아요"){
 										$("#showdm").append(
-												"<div id="+val[i].sender+"\" style=\"font-size:16px;\">"
+												
+												"<div id="+val[i].sender+"\" style=\"font-size:16px; text-align: right;\">"
 														+ bt2 +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
 														+ val[i].content
 														+ "</button>" + "</div>"
-														+ "<br/>");										
+														+ "<br/>");			
 									}else{
 										
-									$("#showdm").append(
-											"<div id="+val[i].sender+"\" style=\"font-size:16px;\">"
+										$("#showdm").append(
+											"<div id="+val[i].sender+"\" style=\"font-size:16px; text-align: right;\">"
 													+ bt +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
 													+ val[i].content
 													+ "</button>" + "</div>"
@@ -619,8 +648,8 @@ body {
 									}
 								} else {
 									if(val[i].like=="좋아요"){
-										$("#showre").append(
-												"<div id="+val[i].sender+"\">"
+										$("#showdm").append(
+												"<div id="+val[i].sender+"\ style=\"text-align: left;\">"
 														+ bt2 +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
 														+ val[i].content
 														+ "</button>" + "</div>"
@@ -628,16 +657,16 @@ body {
 										
 									}else{
 										
-									$("#showre").append(
-											"<div id="+val[i].sender+"\">"
+										$("#showdm").append(
+											"<div id="+val[i].sender+"\" style=\"text-align: left;\">"
 													+ bt +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
 													+ val[i].content
 													+ "</button>" + "</div>"
 													+ "<br/>");
-										
+										console.log("저장하였습니다.")
 									}
 									target = val[i].sender;
-									console.log(target + "댓그르그");
+									//console.log(target + "댓그르그");
 								}
 								
 								
@@ -702,31 +731,7 @@ body {
 					})
 
 						});
-		$("#sender").on("change", function() {
-			var content = $(this).val();
-			var scope = 0;
-			var like = 0;
-			if (content.length == 0) {
-				window.alert("댓글을 작성해주세요.");
-				return;
-			}
-			console.log("채팅을 치자");
-			$("#sender").val("");
-			$.ajax("/direct/insertMessage.do", {
-				"method" : "get",
-				"async" : false,
-				"data" : {
-					"sender" : setid,
-					"target" : reid,
-					"content" : content,
-					"like" : like,
-					"scope" : scope
-				}
-			}).done(function(val) {
-				console.log(val);
-				findAllMessage(reid);
-			})
-		});
+		
 
 	};
 </script>

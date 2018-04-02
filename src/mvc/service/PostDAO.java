@@ -163,6 +163,17 @@ public class PostDAO {
 		update.set("content", postContent);
 		template.updateFirst(query, update, "MeshTagramUpload");
 	}
+	//Update
+	public void updateProfile(Map param) {
+		String id=(String)param.get("id");
+		String profile=(String)param.get("profile");
+		System.out.println(id+profile+"프로필 업데이트");
+
+		Query query = new Query(Criteria.where("id").in(id));
+		Update update = new Update();
+		update.set("profile", profile);
+		template.updateMulti(query, update, "MeshTagramUpload");
+	}
 
 	//Delete
 	public void deletePost(Map param) {
