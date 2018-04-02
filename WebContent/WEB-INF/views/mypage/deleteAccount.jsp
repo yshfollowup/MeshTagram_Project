@@ -41,7 +41,7 @@
 			<div>
 				<input type="password" class="_5zrjn _o716c" aria-required="true" 
 					id="password" name="password">
-				<a class="_g73r6" href="#">비밀번호를 잊으셨나요?</a>
+				<a class="_g73r6" href="/account/authPass.do">비밀번호를 잊으셨나요?</a>
 			</div>
 		</div>
 		</div>
@@ -50,24 +50,33 @@
 		</div>
 			<div class="_otm4c">
 				<span class="_ov9ai">
-					<button id="deleteBt" onclick="deleteAccount();" class="_qv64e _gexxb _4tgw8 _jfvwv" disabled="">계정 삭제</button>
+					<button id="deleteBt" class="_qv64e _gexxb _4tgw8 _jfvwv" disabled="">계정 삭제</button>
 				</span>
 			</div>
 		</form>
 		
 </div>
 <script>
-	function deleteAccount() {
-		$.getJson("/mypage/deleteAccount.do", function(data) {
-			console.log(data);
-			if (data.result == true) {
-				window.alert("계정이 삭제되었습니다. 3초 뒤 메인페이지로 이동합니다.");
-				moveToIndex();
-			}
-		})		
-	}
+	$("#deleteBt").click(function() {
+		window.confirm("삭제된 계정은 복구되지 않습니다. 정말 계정을 삭제하시겠습니까?");
+		if (confirm) {
+			$.getJson("/mypage/deleteAccount.do", function(data) {
+				console.log(data);
+				console.log(data.result);
+				if (data.result == true) {
+					window.alert("계정이 안전하게 삭제되었습니다. 3초 뒤 메인페이지로 이동합니다.");
+					moveToIndex();
+				}
+			});		
+		}
+	});
+	
+	$("#password").keypress(function() {
+		$("#deleteBt").prop("disabled", false);
+	});
+	
 	function moveToIndex() {
-		window.location("/");	
+		window.location.host;	
 	}
 	
 	setTimeout(moveToIndex, 3000);

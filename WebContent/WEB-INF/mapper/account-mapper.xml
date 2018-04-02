@@ -57,7 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 계정 삭제 -->
 	<delete id="deleteAccount">
-		delete * from account where id= #{id }
+		delete from account where id= #{id }
 	</delete>
 
 

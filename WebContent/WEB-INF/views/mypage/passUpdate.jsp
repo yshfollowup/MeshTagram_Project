@@ -1169,45 +1169,49 @@ a:active {
 <script> 
 	//비밀번호 변경
 	$(document).ready(function() {
-		$("#passBt").on("click", function(event) {
+		$("#np").on("change", function() {
 			var oldPass = $("#op").val();
 			var newPass = $("#np").val();
-			var confirm = $("#confirm").val();
-			var validFlag = validatePass(newPass);
+			var passFlag = validate_pass(newPass);
 			
 			console.log(oldPass);
 			console.log(newPass);
-			console.log(confirm);
 			
-			if (oldPass == newPass) {
-				$("#alert1").html("같은 비밀번호로 변경할 수 없습니다!");
-				event.preventDefault();
-			}
-			
-			if (!validFlag) {
+			if (!passFlag) {
 				$("#alert1").html("비밀번호는 영문+숫자를 조합하여 8자리 이상으로 변경해주십시오.");
-				event.preventDefault();
+				$("#op").html("");
+			}else {
+				if (oldPass == newPass) {
+					$("#alert1").html("같은 비밀번호로 변경할 수 없습니다!");
+					$("#op").html("");
+					$("#np").html("");
+				} 
 			}
-			
-			if (confirm != newPass) {
-				$(".alert").html("확인된 비밀번호가 아닙니다.");
-				event.preventDefault();
-			}
-			
-			$("#form2").submit();
-			window.alert("비밀번호가 변경되었습니다!");
 		});
 		
-		
+		$("#confirm").on("change", function() {
+			var confirm = $("#confirm").val();
+			console.log(confirm);
+			if (confirm != $("#np").val()) {
+				$("#alert2").html("입력하신 새 비밀번호와 같지 않습니다!");
+				$("#confirm").html("");
+			}
+		});
 	});
 	
 	$("#confirm").keypress(function() {
 		$("#passBt").prop("disabled", false);
 	});
 	
+	$("#passBt").on("click", function(event) {
+		$("#form2").submit();
+		window.alert("비밀번호가 변경되었습니다!");
+	});
 	
-	function validatePass(pass) {
-		var pattern = new RegExp("/^[a-zA-Z0-9]{8,}$/");
+	
+	
+	function validate_pass(pass) {
+		var pattern = new RegExp(/^[a-zA-Z0-9]{8,}$/);
 		return pattern.test(pass);
 	}
 	

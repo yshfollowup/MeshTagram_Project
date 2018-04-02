@@ -81,11 +81,6 @@ public class CheckController {
 	
 	@RequestMapping("/account/authPass.do")
 	public String authPassHandle(HttpServletRequest req, ModelMap modelMap) {
-		//HttpSession session = req.getSession();
-		//String email = (String) session.getAttribute("email");
-		//System.out.println("세션에서 가져온 email : " + email);
-		//AccountDTO aDTO = aDAO.selectOneAccountReByEmail(email);
-		//modelMap.addAttribute("aDTO", aDTO);
 		return "insta_pass_reset";
 	}
 	
@@ -100,10 +95,12 @@ public class CheckController {
 			String newPass = js.sendNewPass();	//이메일로 새 비밀번호가 전송됨
 			System.out.println(newPass);
 			Map param = new HashMap();
-			param.put("pass", newPass);
+				param.put("id", id);
+				param.put("pass", newPass);
 			aDAO.updatePassword(param);			
 			return "{\"result\": true}";
+		}else {
+			return "{\"result\": false}";			
 		}
-		return "{\"result\": false}";
 	}
 }

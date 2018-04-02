@@ -2529,7 +2529,7 @@ color : #999;
 										<div class="_gaby6">
 											<button type="button" class="_qv64e _gexxb _4tgw8 _njrw0 btn btn-default" 
 												id="idConfirm">중복체크</button>
-											<span id="rst1" class="alert" style="display:none;"></span>
+											<span id="rst1" class="alert"></span>
 										</div>
 									</div>
 								</div>
@@ -2549,13 +2549,12 @@ color : #999;
 										<div class="_ev9xl">
 											<input
 												type="text" class="_ph6vk _jdqpn _o716c" onfocus="removeAlert();"
-												 id="email" name="email" placeholder="이메일"
-												value="${email }"/>
+												 id="email" name="email" placeholder="이메일"/>
 										</div>
 										<div class="_gaby6">
 											<button type="button" class="_qv64e _gexxb _4tgw8 _njrw0 btn btn-default"
 											 id="emConfirm">인증</button>
-												<span id="rst2" class="alert" style="display : none;"></span>
+												<span id="rst2" class="alert"></span>
 										</div>
 									</div>
 								</div>
@@ -2578,7 +2577,7 @@ color : #999;
 												type="password" class="_ph6vk _jdqpn _o716c" onfocus="removeAlert();"
 												id="pass2" name="pass2" placeholder="비밀번호 확인"
 												pattern="[A-Za-z0-9]+"
-												value=""><span id="rst3" class="alert" style="display:none;"></span>
+												value=""><span id="rst3" class="alert"></span>
 										</div>
 										<div class="_gaby6"></div>
 									</div>
@@ -2665,24 +2664,29 @@ $("._hqmnd").click(function(){
 		$("#pass2").on("change", function() {
 			var pass1 = $("#pass1").val();
 			var pass2 = $("#pass2").val();
+			var passFlag = validate_pass(pass1);
 			console.log(pass1+pass2);
-			$.ajax("/account/passCheck.do", {
-				"method" : "get",
-				"async" : true,
-				"data" : {
-					"pass1" : pass1,
-					"pass2" : pass2
-				},
-				success : function(data) {
-					console.log(data);
-					console.log(data.result);
-					if(data.result == false) {
-						$("#rst3").html("비밀번호가 일치하지 않습니다.");
-					}else {
-						$("#rst3").html("일치합니다.");
+			if (!passFlag) {
+				$("#rst3").html("비밀번호는 영문과 숫자를 혼합하여 8자리 이상이어야 합니다!");
+			}else {
+				$.ajax("/account/passCheck.do", {
+					"method" : "get",
+					"async" : true,
+					"data" : {
+						"pass1" : pass1,
+						"pass2" : pass2
+					},
+					success : function(data) {
+						console.log(data);
+						console.log(data.result);
+						if(data.result == false) {
+							$("#rst3").html("비밀번호가 일치하지 않습니다.");
+						}else {
+							$("#rst3").html("일치합니다.");
+						}
 					}
-				}
-			});	
+				});	
+			}
 		});
 	});
 	
@@ -2718,6 +2722,11 @@ $("._hqmnd").click(function(){
 		return pattern.test(id);
 	}
 	
+	function validate_pass(pass) {
+		var pattern = new RegExp(/^[a-zA-Z0-9]{8,}$/);
+		return pattern.test(pass);
+	}
+	
 	function removeAlert() {
 		$(".alert").empty();
 	}
@@ -2732,7 +2741,7 @@ $("._hqmnd").click(function(){
 			}
 		}).done(function(obj) {
 			console.obj(obj);
-			$("#rst2").html(obj.result);
+			$("#rst2").html("인증이 완료되었습니다!");
 		});
 	});
 	

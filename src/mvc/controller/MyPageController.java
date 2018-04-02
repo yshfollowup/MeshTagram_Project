@@ -324,6 +324,7 @@ public class MyPageController {
 				HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		String sessionPass = (String) session.getAttribute("pass");
+		System.out.println(sessionPass);
 		String id = setId;
 		String deleteReason = (String) param.get("reason");
 		String password = (String) param.get("password");
@@ -331,6 +332,7 @@ public class MyPageController {
 		if (!password.equals(sessionPass)) {
 			System.out.println("[SERVER] 등록 실패...");
 		}
+		aDAO.deleteAccount(id, password);
 		Map result = daDAO.insertReason(param);
 		return "{\"result\" : true}";
 	}

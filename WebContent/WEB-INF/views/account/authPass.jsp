@@ -42,8 +42,10 @@
 			}
 		}).done(function(data) {
 			console.log(data);
-			window.alert("이메일을 통해 비밀번호를 전송했습니다! 바뀐 비밀번호로 다시 접속해주세요!");
-			window.location("/");
+			if(data.result == true) {
+				window.alert("이메일을 통해 비밀번호를 전송했습니다! 바뀐 비밀번호로 다시 접속해주세요!");
+				window.location("/");				
+			}
 		});
 	});
 	
