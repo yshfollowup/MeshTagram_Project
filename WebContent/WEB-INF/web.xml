@@ -39,7 +39,6 @@
 	<url-pattern>/direct/index.do</url-pattern>
 	<url-pattern>/detail/detail.do</url-pattern>
 	<url-pattern>/account/upload.do</url-pattern>
-	<url-pattern>/account/login.do</url-pattern>
 	<url-pattern>/search.do</url-pattern>
   </filter-mapping>
     <filter>
@@ -53,7 +52,6 @@
 	<url-pattern>/direct/index.do</url-pattern>
 	<url-pattern>/detail/detail.do</url-pattern>
 	<url-pattern>/account/upload.do</url-pattern>
-		<url-pattern>/account/login.do</url-pattern>
 	<url-pattern>/search.do</url-pattern>
   </filter-mapping>
 </web-app>

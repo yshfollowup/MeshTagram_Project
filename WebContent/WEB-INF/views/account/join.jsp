@@ -2224,7 +2224,7 @@ table {
 	-ms-flex-direction: row;
 	flex-direction: row;
 	height: 100%;
-	padding-right: 8px;
+	padding-right: 2px;
 	vertical-align: middle
 }
 
@@ -2529,7 +2529,7 @@ color : #999;
 										<div class="_gaby6">
 											<button type="button" class="_qv64e _gexxb _4tgw8 _njrw0 btn btn-default" 
 												id="idConfirm">중복체크</button>
-											<span id="rst1" class="alert"></span>
+											<span id="rst1" class="alert" style="display:none;"></span>
 										</div>
 									</div>
 								</div>
@@ -2555,7 +2555,7 @@ color : #999;
 										<div class="_gaby6">
 											<button type="button" class="_qv64e _gexxb _4tgw8 _njrw0 btn btn-default"
 											 id="emConfirm">인증</button>
-												<span id="rst2" class="alert"></span>
+												<span id="rst2" class="alert" style="display : none;"></span>
 										</div>
 									</div>
 								</div>
@@ -2578,7 +2578,7 @@ color : #999;
 												type="password" class="_ph6vk _jdqpn _o716c" onfocus="removeAlert();"
 												id="pass2" name="pass2" placeholder="비밀번호 확인"
 												pattern="[A-Za-z0-9]+"
-												value=""/><span id="rst3" class="alert"></span>
+												value=""/><span id="rst3" class="alert" style="display:none;"></span>
 												
 										</div>
 										<div class="_gaby6"></div>
@@ -2686,8 +2686,10 @@ $("._hqmnd").click(function(){
 					console.log(data);
 					console.log(data.result);
 					if(data.result == false) {
+						window.alert("중복된 아이디입니다.");
 						$("#rst1").html("중복된 아이디입니다.");
 					} else if(!idFlag) {
+						window.alert("조건을 충족해 주세요.");
 						$("#rst1").html("ID는 영문+숫자의 5자리 이상이어야 합니다.");
 					} else {
 						window.alert("사용 가능한 ID입니다!");

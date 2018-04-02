@@ -149,8 +149,10 @@
 
 ._hqmnd {
 	margin-left: 5px;
+	cursor : Pointer;
 }
-}
+
+
 </style>
 
 </head>
@@ -159,28 +161,28 @@
 		<div class="_g7lf5 _9z659" style="max-width: 935px;">
 			<nav class="_luodr" role="navigation">
 				<ul class="_g8wl6">
-	<li class="_538w0"><a class="_hqmnd _mjfont"
-							 href="">Meshtagram정보</a></li>
 							<li class="_538w0"><a class="_hqmnd _mjfont"
-							href="">지원</a></li>
+							>Meshtagram정보</a></li>
 							<li class="_538w0"><a class="_hqmnd _mjfont"
-							href="">블로그</a></li>
+							>지원</a></li>
 							<li class="_538w0"><a class="_hqmnd _mjfont"
-							href="">홍보 센터</a></li>
+							>블로그</a></li>
 							<li class="_538w0"><a class="_hqmnd _mjfont"
-							href="">API</a></li>
+							>홍보 센터</a></li>
 							<li class="_538w0"><a class="_hqmnd _mjfont"
-							href="">채용	정보</a></li>
+							>API</a></li>
 							<li class="_538w0"><a class="_hqmnd _mjfont"
-							href="">개인정보처리방침</a></li>
+							>채용	정보</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont"
+							>개인정보처리방침</a></li>
 							<li class="_538w0"><a class="_hqmnd _ts6wg _mjfont"
-							href="">약관</a></li>
+							>약관</a></li>
 							<li class="_538w0"><a class="_hqmnd _mjfont"
-							href="">디렉터리</a></li>
+							>디렉터리</a></li>
 							<li class="_538w0"><a class="_hqmnd _mjfont"
-							href="">프로필</a></li>
+							>프로필</a></li>
 							<li class="_538w0"><a class="_hqmnd _mjfont"
-							href="">해시태그</a></li>
+							>해시태그</a></li>
 							
 				</ul>
 			</nav>
@@ -189,8 +191,11 @@
 	</footer>
 </body>
 <script>
-$("._hqmnd").click(function(){
+$("._hqmnd").removeAttr("href");
+
+$("._mjfont").click(function(){
 	window.alert("준비중입니다.");
+	
 })
 </script>
 </html>
