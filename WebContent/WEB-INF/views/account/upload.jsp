@@ -33,9 +33,9 @@
 					 <input type="file" name="photo"
 					id="photo" accept="image/*" style="display: none;" multiple />
 				&nbsp;&nbsp;&nbsp;
-				 <a href="javascript:" onclick="refreshImage();"
+				 <a href="javascript:" onclick="removeAllImage();"
 				 id="refresh" class="btn btn-info"
-				 style="width:140px; height: 30px; padding: 4 0 0 0;">새로고침</a>
+				 style="width:140px; height: 30px; padding: 4 0 0 0;">이미지 전체삭제</a>
 			</div>
 			<div>
 				<div>
@@ -51,13 +51,13 @@
 			<b>내용 작성</b>
 			</div>
 			<div>
-				<textarea name="comment"
+				<textarea id="comment" name="comment"
 					style="resize: none; width: 300px; height: 70px; padding: 2px; margin-bottom: 10px; ' font-family: 맑은고딕"></textarea>
 			</div>
 
 			<p style="margin-bottom: 100px;">
 				<button type="submit" id="bt2" class="btn btn-info"
-					style="width: 300px;">업로드</button>
+					style="width: 300px;" disabled="">업로드</button>
 			</p>
 		</form>
 	</div>
@@ -118,7 +118,7 @@
 
 	function deleteImgAction(index) {
 		select_files.splice(index, 1);
-		var rst = window.confirm("정말 삭제하시겠습니까?");
+		var rst = window.confirm("이미지를 삭제하시겠습니까?");
 		if (rst) {
 			var img_id = "#img_id_" + index;
 			$(img_id).remove();
@@ -127,9 +127,13 @@
 		console.log(select_files);
 	}
 
-	function refreshImage() {
-		window.location.reload();
+	function removeAllImage() {
+		$(".content").empty();
 	}
+	
+	$("#comment").keypress(function() {
+		$("#bt2").prop("disabled", false);
+	});
 </script>
 
 </html>
