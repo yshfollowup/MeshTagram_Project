@@ -341,7 +341,7 @@ body {
 							<div style="text-align: left;" id="showre"></div>
 						</div>
 
-						<div style="width: 100%" align="center">
+						<div style="width: 100%; margin-top:20px;" align="center" >대화내용 입력<br/><br/>
 							<input type="text" name="target" id="sender" style="width: 99%;">
 						</div>
 					</div>
