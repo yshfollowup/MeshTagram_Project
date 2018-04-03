@@ -120,6 +120,8 @@ public class HadoopController {
 		List<String>list=new ArrayList<>();
 		Map map=new LinkedHashMap();
 		String[] ment;
+		String match = "[^\uAC00-\uD7A3xfe0-9a-zA-Z\\s]";
+
 		for(int i=0; i<allReply.size();i++) {
 			Object me=allReply.get(i).get("ment");
 			String s=me.toString();
@@ -127,9 +129,15 @@ public class HadoopController {
 			System.out.println(Arrays.toString(ment)+"멘트이다.");
 		
 			for(String aa:ment) {
-				list.add(aa);
-				map.put("ment", aa);
-				pDAO.ReplyCOUNT(map);
+				aa=aa.replaceAll(match, "");
+				if(aa.equals("")) {
+					
+				}else {
+					list.add(aa);
+					map.put("ment", aa);
+					pDAO.ReplyCOUNT(map);
+					
+				}
 			}
 		}
 

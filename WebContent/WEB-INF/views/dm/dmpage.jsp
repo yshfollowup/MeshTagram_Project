@@ -336,8 +336,8 @@ body {
 				<div class="_i4wsm">
 					<div class="_82odm" style="height: 100%; width: 100%;">
 						<div id="chatBoard"
-							style="width: 100%; height: 85%; overflow-y: scroll; background-color: white; border-bottom: 1px solid #DCDCDC">
-							<span id="showdm"></span>
+							style="width: 100%; height: 85%; overflow-y: scroll; background-color: white; border-bottom: 1px solid #DCDCDC; overflow:auto">
+							<span id="showdm" ></span>
 							<div id="showre"></div>
 						</div>
 
@@ -476,7 +476,7 @@ body {
 								if (val[i].sender == setid) {
 									if(val[i].like =="좋아요"){
 										$("#showdm").append(
-												"<div id="+val[i].sender+"\" style=\"font-size:16px; text-align: right;\">"
+												"<div id="+val[i].sender+"\" style=\"font-size:16px; text-align: right;  \">"
 														+ bt2 +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
 														+ val[i].content
 														+ "</button>" + "</div>"
@@ -484,7 +484,7 @@ body {
 									}else{
 										
 									$("#showdm").append(
-											"<div id="+val[i].sender+"\" style=\"font-size:16px; text-align: right;\">"
+											"<div id="+val[i].sender+"\" style=\"font-size:16px; text-align: right; \">"
 													+ bt +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
 													+ val[i].content
 													+ "</button>" + "</div>"
@@ -493,7 +493,7 @@ body {
 								} else {
 									if(val[i].like=="좋아요"){
 										$("#showdm").append(
-												"<div id="+val[i].sender+"\" style=\" text-align: left;\"  >"
+												"<div id="+val[i].sender+"\" style=\" text-align: left; \"  >"
 														+ bt2 +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
 														+ val[i].content
 														+ "</button>" + "</div>"
@@ -502,7 +502,7 @@ body {
 									}else{
 										
 									$("#showdm").append(
-											"<div id="+val[i].sender+"\"align=right\" style=\"text-align: left;\" >"
+											"<div id="+val[i].sender+"\"align=right\" style=\"text-align: left; \" >"
 													+ bt +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
 													+ val[i].content
 													+ "</button>" + "</div>"
@@ -515,6 +515,8 @@ body {
 								
 								
 							}
+							$("#chatBoard").scrollTop($("#chatBoard").prop("scrollHeight"));
+							
 							
 						//	console.log("타켓팅" + reid + "scope업데이트");
 							$.ajax("/direct/updateScope.do", {
@@ -632,7 +634,7 @@ body {
 									if(val[i].like =="좋아요"){
 										$("#showdm").append(
 												
-												"<div id="+val[i].sender+"\" style=\"font-size:16px; text-align: right;\">"
+												"<div id="+val[i].sender+"\" style=\"font-size:16px; text-align: right; \">"
 														+ bt2 +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
 														+ val[i].content
 														+ "</button>" + "</div>"
@@ -640,7 +642,7 @@ body {
 									}else{
 										
 										$("#showdm").append(
-											"<div id="+val[i].sender+"\" style=\"font-size:16px; text-align: right;\">"
+											"<div id="+val[i].sender+"\" style=\"font-size:16px; text-align: right; \">"
 													+ bt +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
 													+ val[i].content
 													+ "</button>" + "</div>"
@@ -649,7 +651,7 @@ body {
 								} else {
 									if(val[i].like=="좋아요"){
 										$("#showdm").append(
-												"<div id="+val[i].sender+"\ style=\"text-align: left;\">"
+												"<div id="+val[i].sender+"\ style=\"text-align: left; \">"
 														+ bt2 +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
 														+ val[i].content
 														+ "</button>" + "</div>"
@@ -658,7 +660,7 @@ body {
 									}else{
 										
 										$("#showdm").append(
-											"<div id="+val[i].sender+"\" style=\"text-align: left;\">"
+											"<div id="+val[i].sender+"\" style=\"text-align: left; \">"
 													+ bt +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
 													+ val[i].content
 													+ "</button>" + "</div>"
@@ -671,6 +673,8 @@ body {
 								
 								
 							}
+							$("#chatBoard").scrollTop($("#chatBoard").prop("scrollHeight"));
+
 							console.log("타켓팅" + target + "scope업데이트");
 							$.ajax("/direct/updateScope.do", {
 								"method" : "get",

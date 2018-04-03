@@ -260,11 +260,6 @@ public class AccountController {
 		AccountDTO aDTO = aDAO.selectOneAccountre(id);
 		modelMap.put("aDTO", aDTO);
 
-		// 이전에 쓴 모든 게시물 정보
-		/*
-		 * List<Map> allPost = pDAO.findAllPost(); if(allPost != null)
-		 * modelMap.put("allPost", allPost); System.out.println("모든 게시물"+allPost);
-		 */
 		// ==================================================================
 		List<Map> eachResult = null;
 
@@ -274,8 +269,6 @@ public class AccountController {
 			String eachFollowid = eachfollow.getId();
 			if (id != null) {
 				eachResult = pDAO.findPostById(eachFollowid);
-				// modelMap.addAttribute("eachResult", eachResult);
-				// System.out.println(eachResult.size()+"...eachResult"+eachResult);
 			}
 		}
 		// =========================================================================
@@ -283,7 +276,6 @@ public class AccountController {
 		List<String> idList=null;
 		List<String> tagList=null;
 		List<String> annoList=null;
-	//	System.out.println(list+"으으으으");
 		if(!list.isEmpty()) {
 			idList = list.get(0);
 			tagList = list.get(1);
@@ -323,15 +315,10 @@ public class AccountController {
 		// 팔로워 수 많은 순대로 뽑고 그에 대한 게시물 보냄(3순위)
 		List<Map> topResult = null;
 		for (AccountDTO top : topFollowerList) {
-			// System.out.println(top.getId());
 			String[] tops = top.getId().split(",");
-			if (tops.length != 0) {
 				for (String s : tops) {
 					topResult = pDAO.findPostById(s);
-					// modelMap.addAttribute("top5Result", topResult);
-					// System.out.println(topResult.size()+"...top5"+topResult);
 				}
-			}
 		}
 		if (topResult != null && eachResult != null) {
 
@@ -363,18 +350,12 @@ public class AccountController {
 				if (myFollower != null || followingMe != null) {
 					followerResult = pDAO.findPostById(myFollower);
 					followingResult = pDAO.findPostById(followingMe);
-					// modelMap.addAttribute("followerResult", followerResult);
-					// modelMap.addAttribute("followingResult", followingResult);
-					// System.out.println(followerResult.size()+" / "+followingResult.size());
 				}
 				if (followerResult.size() > 0 && eachResult != null) {
 					for (int i = 0; i < followerResult.size(); i++) {
 						if(eachResult.size() > 0) {
 							
-								// System.out.println("비교값이 들어갔다.
-								// 사이즈="+followerResult.size()+followerResult.get(i));
 								eachResult.add(followerResult.get(i));
-								// modelMap.addAttribute("eachResult", followerResult.get(i));
 								
 						}
 					}
