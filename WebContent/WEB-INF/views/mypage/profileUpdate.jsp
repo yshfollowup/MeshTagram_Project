@@ -1037,12 +1037,32 @@ a:active {
 							</aside>
 							<div class="_cd2n1">
 								<div class="_sx05v">
-									<span class="_4v6lq _8scx2 coreSpriteChevronDownGrey"></span> <select
-										id="pepGender" class="_nxkvc _fx9to" name="gender">
-										<option value="남">남성</option>
-										<option value="여">여성</option>
-										<option value="Unknown" selected="selected">선택 안 함</option>
-									</select>
+									<c:choose>
+										<c:when test="${aDTO.gender eq 남성 }">
+											<span class="_4v6lq _8scx2 coreSpriteChevronDownGrey"></span> <select
+											id="pepGender" class="_nxkvc _fx9to" name="gender">
+											<option value="남" selected="selected">남성</option>
+											<option value="여">여성</option>
+											<option value="Unknown">선택 안 함</option>
+											</select>
+										</c:when>
+										<c:when test="${aDTO.gender eq 여성 }">
+											<span class="_4v6lq _8scx2 coreSpriteChevronDownGrey"></span> <select
+											id="pepGender" class="_nxkvc _fx9to" name="gender">
+											<option value="남">남성</option>
+											<option value="여" selected="selected">여성</option>
+											<option value="Unknown">선택 안 함</option>
+											</select>
+										</c:when>
+										<c:otherwise>
+											<span class="_4v6lq _8scx2 coreSpriteChevronDownGrey"></span> <select
+											id="pepGender" class="_nxkvc _fx9to" name="gender">
+											<option value="남">남성</option>
+											<option value="여">여성</option>
+											<option value="Unknown" selected="selected">선택 안 함</option>
+											</select>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</div>
 						</div>

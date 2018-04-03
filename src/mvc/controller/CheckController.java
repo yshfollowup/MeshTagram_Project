@@ -87,18 +87,19 @@ public class CheckController {
 	//패스워드 잊어버렸을 때 이메일로 전송 후 db에 바뀐 비밀번호 저장
 	@RequestMapping(path="/account/changePass.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public String changePasswordHandle(@CookieValue(name="setId") String setId, @RequestParam String email) {
+	public String changePasswordHandle(@RequestParam String email) {
 		//System.out.println(email);
-		String id = setId;
-		String getEmail = aDAO.selectEmail(id).getEmail();
+		AccountDTO aDTO = aDAO.selectInfoByEmail(email);
+		String id = aDTO.getId();
+		String getEmail = aDTO.getEmail();
 		if (email.equals(getEmail)) {
-			String newPass = js.sendNewPass();	//이메일로 새 비밀번호가 전송됨
+			String newPass = js.sendNewPass(email);	//이메일로 새 비밀번호가 전송됨
 			System.out.println(newPass);
 			Map param = new HashMap();
 				param.put("id", id);
 				param.put("pass", newPass);
 			aDAO.updatePassword(param);			
-			return "{\"result\": true}";
+			return "{\"result\": true}";	
 		}else {
 			return "{\"result\": false}";			
 		}

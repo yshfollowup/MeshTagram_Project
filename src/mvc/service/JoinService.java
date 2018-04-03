@@ -47,13 +47,14 @@ public class JoinService {
 		return map; 
 	}
 	
-	public String sendNewPass() {
+	public String sendNewPass(String email) {
+		System.out.println("email:"+email+"받았다.");
 		String[] uuids = UUID.randomUUID().toString().split("-");
-		String newPass = uuids[2]+uuids[3];	//8자리
+		String newPass = uuids[3] + uuids[2];	//8자리
 		System.out.println("새 비밀번호 : " + newPass);
 		MimeMessage message = sender.createMimeMessage();
 		try {
-			message.addRecipients(RecipientType.TO, newPass);
+			message.addRecipients(RecipientType.TO, email);
 			message.setSubject("새로운 비밀번호입니다");
 			String text = "<h3>새로운 비밀번호</h3>";
 			text += "<p>새로운 비밀번호" + newPass + "를 입력하세요";

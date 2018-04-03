@@ -313,8 +313,17 @@ public class MyPageController {
 		return "redirect:/mypage/index.do";
 	}
 	
+	@RequestMapping(path="/uploadProfileByAjax.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String uploadProfileHandleByAjax(@RequestParam Map param) {
+		
+		return "";
+	}
+	
 	@RequestMapping("/deletePage.do")
-	public String deletePageHandle() {
+	public String deletePageHandle(@CookieValue(name="setId") String id, ModelMap modelMap) {
+		AccountDTO aDTO = aDAO.selectOneAccountre(id);
+		modelMap.put("aDTO", aDTO);
 		return "delete_account";
 	}
 	

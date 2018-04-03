@@ -300,14 +300,14 @@ public class AccountDAO {
 		}
 	}
 	
-	//이메일 주소 가져오기
-	public AccountDTO selectEmail(String id) {
+	//이메일 주소로 정보 가져오기
+	public AccountDTO selectInfoByEmail(String email) {
 		Map map = new HashMap<>();
-			map.put("id", id);
+			map.put("email", email);
 		AccountDTO aList = null;
 		SqlSession session = factory.openSession();
 		try {
-			aList = session.selectOne("account.selectEmail", map);
+			aList = session.selectOne("account.selectInfoByEmail", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

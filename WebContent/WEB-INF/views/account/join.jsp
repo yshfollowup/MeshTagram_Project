@@ -2657,6 +2657,7 @@ $("._hqmnd").click(function(){
 <script>
 	
 	$("#ch").click(function(){
+		window.alert("가입이 완료되었습니다!");
 		location.replace("/account/loginPage.do");
 	});
 	
@@ -2732,6 +2733,7 @@ $("._hqmnd").click(function(){
 	}
 	
 	$("#emConfirm").click(function() {
+		window.alert("해당 주소로 인증 메일을 보냈습니다!");
 		$.ajax("/key/sendKey.do", {
 			"email" : "get",
 			"async" : true,

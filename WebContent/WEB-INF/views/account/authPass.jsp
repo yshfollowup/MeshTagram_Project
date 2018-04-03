@@ -42,15 +42,17 @@
 			},
 			success : function(data) {
 				console.log(data);
-				if(data.result == true) {
-					window.alert("이메일을 통해 비밀번호를 전송했습니다! 바뀐 비밀번호로 다시 접속해주세요!");
-					window.location("/");				
-				}
+				window.alert("새 비밀번호를 보내드렸습니다. 바뀐 비밀번호로 접속해주세요!");
+				window.location("/");
+			},
+			error : function(data) {
+				console.log(data);
+				window.alert("해당 이메일 계정이 없거나 알 수 없는 오류가 발생했습니다. 다시 이용해주세요!");
 			}
 		});
 	});
 	
-	$("#cppEmail").keypress(function() {
+	$("#cppEmail").change(function() {
 		$("#authBt").prop("disabled", false);
 	});
 </script>

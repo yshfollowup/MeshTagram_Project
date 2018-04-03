@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div>
 	<h1>계정 삭제</h1>
-		<span>${aDTO.name }</span>님, 안녕하세요!
+		<b><span>${aDTO.name }</span></b>님, 안녕하세요!
 			<p>계정을 삭제하시면 보관되어있던 모든 정보가 영구적으로 삭제됩니다.</p>
 			<p>아래 설문조사를 통해 탈퇴하고자 하는 사유를 선택해주시면 
 				MeshTagram의 더 나은 서비스에 보탬이 될 자료로 쓰도록 하겠습니다!</p>
@@ -71,7 +71,7 @@
 		}
 	});
 	
-	$("#password").keypress(function() {
+	$("#password").change(function() {
 		$("#deleteBt").prop("disabled", false);
 	});
 	

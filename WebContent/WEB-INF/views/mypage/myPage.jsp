@@ -3078,27 +3078,17 @@ transform
 			<div class="_b0acm">
 				<div class="_qdmzb">
 					<div class="_62ai2">
-						<button class="_3xjwv" onclick="uploadAction();"
-							title="프로필 사진 바꾸기">
-							<c:choose>
-								<c:when test="${empty  aDTO.profile}">
-									<img alt="프로필 사진 바꾸기" class="_cuacn" src="/images/insta.jpg"
-										id="preview">${aDTO.id }
-							</c:when>
-								<c:otherwise>
-									<span class="_3xjwv"> <img id="preview"
-										src="${applicationScope.path }${aDTO.profile}" class="_cuacn" />
-									</span>
-								</c:otherwise>
-							</c:choose>
-						</button>
-						<div>
-							<form action="/mypage/uploadProfile.do" method="post"
-								enctype="multipart/form-data">
-								<input type="file" accept="image/jpeg" id="photo" name="profile"
-									class="_l8al6">
-							</form>
-						</div>
+						<c:choose>
+							<c:when test="${empty  aDTO.profile}">
+								<img alt="프로필 사진 바꾸기" class="_cuacn" src="/images/insta.jpg"
+									id="preview">${aDTO.id }
+						</c:when>
+							<c:otherwise>
+								<span class="_3xjwv"> <img id="preview"
+									src="${applicationScope.path }${aDTO.profile}" class="_cuacn" />
+								</span>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>
@@ -3193,6 +3183,7 @@ transform
 		</div>
 	</div>
 	<script>
+	
 		var setid = "${cookie.setId.value}";
 		$(document).ready(function() {
 			$('[data-toggle="tooltip"]').tooltip();
