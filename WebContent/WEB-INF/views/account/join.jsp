@@ -2655,7 +2655,6 @@ $("._hqmnd").click(function(){
 </script>
 		
 <script>
-	
 	$("#ch").click(function(){
 		window.alert("가입이 완료되었습니다!");
 		location.replace("/account/loginPage.do");

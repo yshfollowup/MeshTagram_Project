@@ -48,11 +48,11 @@ public class JoinController {
 		String name = vmap.getFirst("name");
 		String email = vmap.getFirst("email");
 		String pass = vmap.getFirst("pass1");
-		
+		System.out.println(id+pass+email+name);
 		int r = aDAO.insertAccount(id, pass, email, name);
 		if (r == 0) {  // join fail
 			System.out.println("[SERVER]: join failed");
-			return "insta_loginPage";
+			return "insta_login";
 		}
 		HttpSession session = req.getSession();
 		session.setAttribute("pass", pass);
