@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -279,17 +281,29 @@ public class MyPageController {
 		System.out.println(param.get("oldPass") + " / " + param.get("newPass") + " / " + param.get("confirmPass"));
 		String id = setId;
 		String pass = (String) param.get("newPass");
+		String oldPass=(String)param.get("oldPass");
 		// 계정 정보
 		param.put("id", id);
 		param.put("pass", pass);
-		int r = aDAO.updatePassword(param);
+		AccountDTO dto= aDAO.selectOneAccountre(id);
+		int r=0;
+		if(dto.getPass().equals(oldPass)) {
+			r = aDAO.updatePassword(param);
+			
+		}else {
+			AccountDTO aDTO = aDAO.selectOneAccountre(id);
+			modelMap.put("aDTO", aDTO);
+			modelMap.put("check", "이전 비밀번호와 같아야합니다.");
+			return "mypage_pass";
+		}
 		if (r > 0) {
 			AccountDTO aDTO = aDAO.selectOneAccountre(id);
 			modelMap.put("aDTO", aDTO);
+			modelMap.put("checkOk", "비밀번호가 변경되었습니다.");
 		}
 		
 		System.out.println("[SERVER]: login success");
-		return "redirect:/mypage/index.do";
+		return "mypage_pass";
 	}
 
 	@RequestMapping(path = "/uploadProfile.do", method = RequestMethod.POST)
@@ -327,23 +341,40 @@ public class MyPageController {
 		return "delete_account";
 	}
 	
-	@RequestMapping(path = "/deleteAccount.do", method = RequestMethod.POST)
+	@RequestMapping(path = "/deleteAccount.do", method = RequestMethod.GET, produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String deleteAccountHandle(@RequestParam Map param, 
 				@CookieValue(name="setId", required=false) String setId,
-				HttpServletRequest req) {
+				HttpServletResponse resp, HttpServletRequest req,HttpSession se) {
 		HttpSession session = req.getSession();
-		String sessionPass = (String) session.getAttribute("pass");
-		System.out.println(sessionPass);
+		AccountDTO dto=aDAO.selectOneAccountre(setId);
+		System.out.println("비밀번호 확인"+dto.getPass());
 		String id = setId;
 		String deleteReason = (String) param.get("reason");
 		String password = (String) param.get("password");
 		System.out.println(id + " / " + deleteReason + " / " + password);
-		if (!password.equals(sessionPass)) {
+		
+		if (!password.equals(dto.getPass())) {
 			System.out.println("[SERVER] 등록 실패...");
+			return "{\"result\" : false}";
 		}
+		Cookie[] cookies = req.getCookies();
+
+		if (cookies != null) {
+
+			for (int i = 0; i < cookies.length; i++) {
+				if (cookies[i].getName().equals("setId")) {
+					System.out.println(cookies[i].getName());
+					cookies[i].setPath("/"); // 유효시간을 0으로 설정
+					cookies[i].setMaxAge(0);
+					resp.addCookie(cookies[i]); // 응답 헤더에 추가
+				}
+
+			}
+
+		}
+		se.invalidate();	
 		aDAO.deleteAccount(id, password);
-		Map result = daDAO.insertReason(param);
 		return "{\"result\" : true}";
 	}
 }

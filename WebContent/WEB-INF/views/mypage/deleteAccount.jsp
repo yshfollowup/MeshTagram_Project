@@ -8,8 +8,6 @@
 			<p>아래 설문조사를 통해 탈퇴하고자 하는 사유를 선택해주시면 
 				MeshTagram의 더 나은 서비스에 보탬이 될 자료로 쓰도록 하겠습니다!</p>
 			<hr/>
-			<form id="form" name="deleteAccount" class="_boku8" method="post"
-				action="/mypage/deleteAccount.do">
 				<div class="_vr46h">
 					<div class="_e1xik">
 						<aside class=" _l9ywh">
@@ -40,7 +38,7 @@
 		<div class="_cd2n1">
 			<div>
 				<input type="password" class="_5zrjn _o716c" aria-required="true" 
-					id="password" name="password">
+					id="password" name="password"/>
 				<a class="_g73r6" href="/account/authPass.do">비밀번호를 잊으셨나요?</a>
 			</div>
 		</div>
@@ -50,24 +48,37 @@
 		</div>
 			<div class="_otm4c">
 				<span class="_ov9ai">
-					<button id="deleteBt" class="_qv64e _gexxb _4tgw8 _jfvwv" disabled="">계정 삭제</button>
+					<button id="deleteBt" class="_qv64e _gexxb _4tgw8 _jfvwv" >계정 삭제</button><span id="check"></span>
 				</span>
 			</div>
-		</form>
 		
 </div>
 <script>
 	$("#deleteBt").click(function() {
 		window.confirm("삭제된 계정은 복구되지 않습니다. 정말 계정을 삭제하시겠습니까?");
+		var pass=$("#password").val();
+		var reason=$("#deletion-reason option:selected").val();
+		console.log(pass+reason);
 		if (confirm) {
-			$.getJson("/mypage/deleteAccount.do", function(data) {
-				console.log(data);
-				console.log(data.result);
-				if (data.result == true) {
-					window.alert("계정이 안전하게 삭제되었습니다. 3초 뒤 메인페이지로 이동합니다.");
-					moveToIndex();
+			$.ajax("/mypage/deleteAccount.do",  {
+				"method" :"get",
+				"async" :true,
+				"data" :{
+					"password" : pass,
+					"reason" : reason
 				}
-			});		
+			}).done(function(val){
+				
+				console.log(val.result);
+				if (val.result == true) {
+					window.alert("계정이 안전하게 삭제되었습니다. 3초 뒤 메인페이지로 이동합니다.");
+					window.location.href = 'http://localhost/account/loginPage.do';
+				}else{
+					$("#password").val("");
+					$("#check").html("비밀번호가 틀렸습니다.");
+					
+				}
+			});
 		}
 	});
 	

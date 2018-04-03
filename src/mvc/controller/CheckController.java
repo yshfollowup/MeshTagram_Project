@@ -42,6 +42,7 @@ public class CheckController {
 			System.out.println(getId);
 			if (getId.equals(id)) 
 				return "{\"result\": false}";
+			
 		}
 		return "{\"result\": true}";
 	}

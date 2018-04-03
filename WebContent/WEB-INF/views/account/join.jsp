@@ -2748,15 +2748,17 @@ $("._hqmnd").click(function(){
 	});
 	
 	// 테스트 위해 일단 주석처리함.
-/* 	disabled();
+	disabled();
 	function disabled() {
-		$(".btn").prop("disabled", true);
+		$("#submit").prop("disabled", true);
 		if ("${rst }" == "true") {
-			$(".btn").prop("disabled", false);
-			$(".btn-default").prop("disabled", false);
+			$("#submit").prop("disabled", false);
+			$("#submit").prop("disabled", false);
+			$("#email").val("${email}");
+			
 		}
 
-	} */
+	} 
 
 </script>
 </body>

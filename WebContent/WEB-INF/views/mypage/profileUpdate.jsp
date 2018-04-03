@@ -1038,7 +1038,7 @@ a:active {
 							<div class="_cd2n1">
 								<div class="_sx05v">
 									<c:choose>
-										<c:when test="${aDTO.gender eq 남성 }">
+										<c:when test="${aDTO.gender eq '남' }">
 											<span class="_4v6lq _8scx2 coreSpriteChevronDownGrey"></span> <select
 											id="pepGender" class="_nxkvc _fx9to" name="gender">
 											<option value="남" selected="selected">남성</option>
@@ -1046,7 +1046,7 @@ a:active {
 											<option value="Unknown">선택 안 함</option>
 											</select>
 										</c:when>
-										<c:when test="${aDTO.gender eq 여성 }">
+										<c:when test="${aDTO.gender eq '여' }">
 											<span class="_4v6lq _8scx2 coreSpriteChevronDownGrey"></span> <select
 											id="pepGender" class="_nxkvc _fx9to" name="gender">
 											<option value="남">남성</option>

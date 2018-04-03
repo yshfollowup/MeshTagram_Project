@@ -1124,6 +1124,7 @@ a:active {
 							<div class="_cd2n1">
 								<input type="password" class="_4abhr _o716c" onfocus="removeAlert();"
 									aria-required="true" id="op" name="oldPass" value="">
+									<span id="check">${check}</span>
 							</div>
 						</div>
 						<div class="_e1xik">
@@ -1155,6 +1156,7 @@ a:active {
 									<span class="_ov9ai">
 										<button id="passBt" class="_qv64e _gexxb _r9b8f _jfvwv"
 											disabled="">비밀번호 변경</button>
+									<span>${checkOk}</span>
 									</span>
 								</div>
 							</div>
@@ -1173,7 +1175,7 @@ a:active {
 			var oldPass = $("#op").val();
 			var newPass = $("#np").val();
 			var passFlag = validate_pass(newPass);
-			
+			$("#check").html("");
 			console.log(oldPass);
 			console.log(newPass);
 			
@@ -1203,8 +1205,9 @@ a:active {
 	});
 	
 	$("#passBt").on("click", function(event) {
+		
 		$("#form2").submit();
-		window.alert("비밀번호가 변경되었습니다!");
+		var cc=$("#check").html();
 	});
 	
 	
