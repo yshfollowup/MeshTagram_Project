@@ -53,7 +53,7 @@ background-color: #fafafa;
 	align-items: center
 }
 ._dis{
-	display : flex;
+	display : inline-block;
 }
 </style>
 </head>
@@ -72,7 +72,7 @@ background-color: #fafafa;
 		<c:forEach var="obj" items="${tagList}">
 		<p style="float: left; width: 33%;">
 				<small><c:forEach items="${obj.tags }" var="tag">
-						<a href="/search.do?tags=${fn:replace(tag,'#','%23') }">${tag }</a>
+						<a href="/searchtag.do?tags=${fn:replace(tag,'#','%23') }">${tag }</a>
 				</c:forEach> </small> <br />
 			
 				<a href="${applictionScope.path}/detail/detail.do?code=${obj.code }" data-toggle="tooltip" id="top_${obj._id }" name="${obj._id }" class="tool" title="">
