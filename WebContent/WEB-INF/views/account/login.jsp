@@ -2531,7 +2531,7 @@ color : #999;
 										<div class="_gaby6"></div>
 									</div>
 								</div>
-								<span style="font-size : 13px; color : #8A0808; text-align:center;">${fail }</span>
+								<span style="font-size : 13px; color : #8A0808; text-align:center;">${fail } ${joinfail }</span>
 								<span class="_t38eb _ov9ai">
 								<button id="loginBt" type="submit"
 										class="_qv64e _gexxb _4tgw8 _njrw0 btn btn-default">로그인</button></span> <a

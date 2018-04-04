@@ -3030,7 +3030,7 @@ ul {
 				<c:forEach var="obj" items="${myPost }">
 					<p style="float: left; width: 33%;">
 						<small><c:forEach items="${obj.tags }" var="tag">
-								<a href="/search.do?tags=${fn:replace(tag,'#','%23') }">${tag }</a>
+								<a href="/searchtag.do?tags=${fn:replace(tag,'#','%23') }">${tag }</a>
 							</c:forEach> </small> <br /> <a
 							href="${applictionScope.path}/detail/detail.do?code=${obj.code }"
 							data-toggle="tooltip" id="top_${obj.code }" name="${obj.code }"
@@ -3091,7 +3091,7 @@ ul {
 																			var image = val[i].PROFILE;
 																			var profile;
 																			if (val[i].PROFILE != null) {
-																				profile = "<img src="+path+image+" style=\"width: 30px; height: 30px; border-radius: 30px\" class=\"recomId\">"
+																				profile = "<img src="+image+" style=\"width: 30px; height: 30px; border-radius: 30px\" class=\"recomId\">"
 																			} else {
 																				profile = "<img src=\"/images/insta.jpg\" style=\"width: 30px; height: 30px; border-radius: 30px\" class=\"recomId\">"
 																			}

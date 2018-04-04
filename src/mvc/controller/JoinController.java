@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,7 +45,7 @@ public class JoinController {
 	}
 	
 	@RequestMapping("/join.do")  // join
-	public String accountJoinHandle(@RequestParam MultiValueMap<String, String> vmap, HttpServletRequest req) {
+	public String accountJoinHandle(@RequestParam MultiValueMap<String, String> vmap, HttpServletRequest req,ModelMap map) {
 		String id = vmap.getFirst("id");
 		String name = vmap.getFirst("name");
 		String email = vmap.getFirst("email");
@@ -53,10 +54,12 @@ public class JoinController {
 		int r = aDAO.insertAccount(id, pass, email, name);
 		if (r == 0) {  // join fail
 			System.out.println("[SERVER]: join failed");
+			map.put("joinfail", "이메일 중복이거나 다른 이유로 가입을 하지 못하였습니다.");
 			return "insta_login";
 		}
 		HttpSession session = req.getSession();
 		session.setAttribute("pass", pass);
+		map.put("join", "가입에 성공하셨습니다.");
 		System.out.println("[SERVER]: join success");
 		return "insta_login";  // join success
 	}

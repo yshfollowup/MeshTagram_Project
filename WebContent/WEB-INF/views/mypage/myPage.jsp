@@ -3147,7 +3147,7 @@ transform
 								<p style="float: left; width: 33%;">
 									<small><c:forEach items="${obj.tags }" var="tag">
 											<a
-												href="/searchtag.do?tag=${fn:replace(tag,'#','%23') }">${tag }</a>
+												href="/searchtag.do?tags=${fn:replace(tag,'#','%23') }">${tag }</a>
 										</c:forEach> </small>
 								</p>
 

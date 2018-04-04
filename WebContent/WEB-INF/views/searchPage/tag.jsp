@@ -53,7 +53,7 @@ background-color: #fafafa;
 	align-items: center
 }
 ._dis{
-	display : inline-block;
+	display : flex;
 }
 </style>
 </head>
