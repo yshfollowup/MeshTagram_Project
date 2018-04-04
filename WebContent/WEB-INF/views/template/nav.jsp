@@ -2011,7 +2011,7 @@ px
 									href="/mypage/index.do" style="margin-left: 20px;">마이페이지</a>
 							</div>
 							<div class="_b28md">
-								<a href="/" style="margin-left: 20px;"> <img
+								<a href="/statistics.do" style="margin-left: 20px;"> <img
 									src="/images/statistics.png" />
 
 								</a>
