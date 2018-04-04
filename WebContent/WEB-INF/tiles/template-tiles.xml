@@ -84,4 +84,9 @@
 		<put-attribute name="body" value="/WEB-INF/views/dm/dmpage.jsp"></put-attribute>
 	</definition>
 	
+	<!-- 이달의 통계 페이지 -->
+	<definition name="stat_page" extends="insta_abstract">
+		<put-attribute name="body" value="/WEB-INF/views/statistics/statisticPage.jsp"></put-attribute>
+	</definition>
+	
 </tiles-definitions>
