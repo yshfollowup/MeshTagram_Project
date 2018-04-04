@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -144,7 +144,7 @@ html {
 }
 
 ._s5vm9 {
-	background-color: rgba(100,100,100,0);
+	background-color: rgba(100, 100, 100, 0);
 	-webkit-box-ordinal-group: 6;
 	-webkit-order: 5;
 	-ms-flex-order: 5;
@@ -184,8 +184,9 @@ html {
 }
 
 @
-supports (margin-bottom:env(safe-area-inset-bottom) ){ .
-	_evlcw: not(._b696q){margin-bottom:env(safe-area-inset-bottom)
+supports (margin-bottom:env(safe-area-inset-bottom) ){ . _evlcw: not (._b696q
+	){
+	margin-bottom: env(safe-area-inset-bottom)
 }
 
 }
@@ -243,8 +244,7 @@ supports (margin-bottom:env(safe-area-inset-bottom) ){ .
 	-webkit-align-self: center;
 	-ms-flex-item-align: center;
 	align-self: center;
-	background-image:
-		url(/images/stars.png);
+	background-image: url(/images/stars.png);
 	background-position: 0 0;
 	background-size: 454px 618px;
 	-webkit-flex-basis: 454px;
@@ -253,8 +253,8 @@ supports (margin-bottom:env(safe-area-inset-bottom) ){ .
 	height: 618px;
 	margin-left: -45px;
 	margin-right: -15px;
-	border : none;
-	border-radius : 0px;
+	border: none;
+	border-radius: 0px;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:1.5) , screen and
@@ -354,7 +354,7 @@ table {
 }
 
 ._f9sjj {
-	background-color: rgba(255,255,255,0.4);
+	background-color: rgba(255, 255, 255, 0.4);
 	border: 0px solid #e6e6e6;
 	border-radius: 15px;
 	margin: 0 0 10px;
@@ -1925,7 +1925,7 @@ table {
 }
 
 ._i6l6r, ._mb54c {
-	color: rgb(0,0,0);
+	color: rgb(0, 0, 0);
 	text-align: center
 }
 
@@ -1979,7 +1979,7 @@ table {
 }
 
 ._fd2m9, ._ieqkf {
-	color: rgb(255,255,220);
+	color: rgb(255, 255, 220);
 	font-size: 14px;
 	line-height: 18px;
 	margin: 10px 40px;
@@ -2072,7 +2072,7 @@ table {
 }
 
 ._gexxb, ._i63ih._gexxb {
-	background: rgb(0,28,40);
+	background: rgb(0, 28, 40);
 	border-color: #3897f0;
 	color: #fff
 }
@@ -2167,7 +2167,7 @@ table {
 </style>
 <style type="text/css" data-isostyle-id="is683f5b37">
 ._ph6vk, ._sjplo {
-	background: rgb(230,230,230);
+	background: rgb(230, 230, 230);
 }
 
 ._sjplo {
@@ -2484,7 +2484,6 @@ table {
 	font-weight: 400;
 	line-height: 13px;
 	text-transform: capitalize;
-	
 }
 
 ._8oc6p ._1gmap {
@@ -2492,20 +2491,21 @@ table {
 }
 </style>
 <style type="text/css">
-._mjfont{
-color : #999;
-
+._mjfont {
+	color: #999;
 }
 </style>
 </head>
-<body class="" style="background-image : url(/images/background/night_mesh.jpg)">
+<body class=""
+	style="background-image: url(/images/background/night_mesh.jpg)">
 
-	<span id="react-root"><section class="_sq4bv _29u45" >
-			<main class="_8fi2q _2v79o" role="main" style="background-color:rgba(255,255,255,0);">
+	<span id="react-root"><section class="_sq4bv _29u45">
+			<main class="_8fi2q _2v79o" role="main"
+				style="background-color:rgba(255,255,255,0);">
 			<article class="_qmq8y">
 				<div class="_ngtox _sf3lp">
 					<img src="/images/stars.png">
-					
+
 				</div>
 				<div class="_kbq82">
 					<div class="_f9sjj">
@@ -2513,7 +2513,8 @@ color : #999;
 						<div class="_7g6uj">
 							<form class="_asaim" action="/key/join.do" autocomplete="off">
 								<h2 class="_mb54c">친구들과 사진을 공유하고 싶다면 가입하세요.</h2>
-								
+								<p style="font-size : 13px; color : #8A0808; text-align:center;">이메일 인증부터 진행해주세요 : )</p>
+
 								<div class="_fhskl">
 									<div class="_j5suk"></div>
 									<div class="_j5suk"></div>
@@ -2521,25 +2522,25 @@ color : #999;
 								<div class="_agqzm">
 									<div class="_sjplo">
 										<div class="_ev9xl">
-											<input type="text" class="_ph6vk _jdqpn _o716c" onfocus="removeAlert();"
-												id="id" name="id" placeholder="아이디(영문 숫자 최소 5자리)"
-												pattern="[A-Za-z0-9]+"
-												value=""/>
+											<input type="text" class="_ph6vk _jdqpn _o716c"
+												onfocus="removeAlert();" id="id" name="id"
+												placeholder="아이디(영문 숫자 최소 5자리)" pattern="[A-Za-z0-9]+"
+												value="" />
 										</div>
 										<div class="_gaby6">
-											<button type="button" class="_qv64e _gexxb _4tgw8 _njrw0 btn btn-default" 
+											<button type="button"
+												class="_qv64e _gexxb _4tgw8 _njrw0 btn btn-default"
 												id="idConfirm">중복체크</button>
-											<span id="rst1" class="alert"></span>
+											<span id="rst1" class="alert" style="display: none;"></span>
 										</div>
 									</div>
 								</div>
 								<div class="_agqzm">
 									<div class="_sjplo">
 										<div class="_ev9xl">
-											<input
-												type="text" class="_ph6vk _jdqpn _o716c" id="name" onfocus="removeAlert();"
-												placeholder="이름" name="name"
-												value=""/>
+											<input type="text" class="_ph6vk _jdqpn _o716c" id="name"
+												onfocus="removeAlert();" placeholder="이름" name="name"
+												value="" />
 										</div>
 										<div class="_gaby6"></div>
 									</div>
@@ -2547,24 +2548,24 @@ color : #999;
 								<div class="_agqzm">
 									<div class="_sjplo">
 										<div class="_ev9xl">
-											<input
-												type="text" class="_ph6vk _jdqpn _o716c" onfocus="removeAlert();"
-												 id="email" name="email" placeholder="이메일"/>
+											<input type="text" class="_ph6vk _jdqpn _o716c"
+												onfocus="removeAlert();" id="email" name="email"
+												placeholder="이메일" />
 										</div>
 										<div class="_gaby6">
-											<button type="button" class="_qv64e _gexxb _4tgw8 _njrw0 btn btn-default"
-											 id="emConfirm">인증</button>
-												<span id="rst2" class="alert"></span>
+											<button type="button"
+												class="_qv64e _gexxb _4tgw8 _njrw0 btn btn-default"
+												id="emConfirm">인증</button>
+											<span id="rst2" class="alert" style="display: none;"></span>
 										</div>
 									</div>
 								</div>
 								<div class="_agqzm">
 									<div class="_sjplo">
 										<div class="_ev9xl">
-											<input
-												type="password" class="_ph6vk _jdqpn _o716c" onfocus="removeAlert();"
-												id="pass1" name="pass1" placeholder="비밀번호(영문+숫자 조합 8자리 이상)"
-												pattern="[A-Za-z0-9]+"
+											<input type="password" class="_ph6vk _jdqpn _o716c"
+												onfocus="removeAlert();" id="pass1" name="pass1"
+												placeholder="비밀번호(영문+숫자 조합 8자리 이상)" pattern="[A-Za-z0-9]+"
 												value="">
 										</div>
 										<div class="_gaby6"></div>
@@ -2573,42 +2574,42 @@ color : #999;
 								<div class="_agqzm">
 									<div class="_sjplo">
 										<div class="_ev9xl">
-											<input
-												type="password" class="_ph6vk _jdqpn _o716c" onfocus="removeAlert();"
-												id="pass2" name="pass2" placeholder="비밀번호 확인"
-												pattern="[A-Za-z0-9]+"
-												value=""><span id="rst3" class="alert"></span>
+											<input type="password" class="_ph6vk _jdqpn _o716c"
+												onfocus="removeAlert();" id="pass2" name="pass2"
+												placeholder="비밀번호 확인" pattern="[A-Za-z0-9]+" value=""><span
+												id="rst3" class="alert" style="display: none;"></span>
 										</div>
 										<div class="_gaby6"></div>
 									</div>
 								</div>
 								<div>
 									<span class="_9mno0 _ov9ai">
-									<button	type="submit" class="_qv64e _gexxb _4tgw8 _njrw0 btn btn-default"
-									id="submit">가입</button></span>
+										<button type="submit"
+											class="_qv64e _gexxb _4tgw8 _njrw0 btn btn-default"
+											id="submit">가입</button>
+									</span>
 								</div>
-								<p class="_fd2m9" style="color:rgb(0,0,0); font-weight:bold;">
-									가입하면 Meshtagram의 약관
-									및 개인정보처리방침에 동의하게
-									됩니다.
-								</p>
+								<p class="_fd2m9"
+									style="color: rgb(0, 0, 0); font-weight: bold;">가입하면
+									Meshtagram의 약관 및 개인정보처리방침에 동의하게 됩니다.</p>
 							</form>
 						</div>
 					</div>
 					<div class="_f9sjj">
-						<p class="_g9ean" style="color:rgb(0,0,0); font-weight:bold;">
-							계정이 있으신가요?&nbsp;&nbsp;&nbsp;<button type="button" id="ch" class="_qv64e _gexxb _4tgw8 _njrw0 btn btn-default" style="width:70px;">로그인</button>
-							
+						<p class="_g9ean" style="color: rgb(0, 0, 0); font-weight: bold;">
+							계정이 있으신가요?&nbsp;&nbsp;&nbsp;
+							<button type="button" id="ch"
+								class="_qv64e _gexxb _4tgw8 _njrw0 btn btn-default"
+								style="width: 70px;">로그인</button>
+
 						</p>
 					</div>
 					<div class="_40dde">
 						<div class="_fzj6p">
-							<a class="_o7vmf"
-								href="https://www.instagram.com/?hl=ko"><img
+							<a class="_o7vmf" href="https://www.instagram.com/?hl=ko"><img
 								class="_8a10v" alt="인스타그램"
 								src="/images/homepage/buttons/insta_logo.png"></a><a
-								class="_o7vmf"
-								href="http://www.kgitbank.co.kr/"><img
+								class="_o7vmf" href="http://www.kgitbank.co.kr/"><img
 								class="_8a10v" alt="kg아이티뱅크"
 								src="/images/homepage/buttons/kg_logo.png"></a>
 						</div>
@@ -2616,149 +2617,157 @@ color : #999;
 				</div>
 			</article>
 			</main>
-			<footer class="_s5vm9" role="contentinfo" >
+			<footer class="_s5vm9" role="contentinfo">
 				<div class="_g7lf5 _9z659" style="max-width: 935px;">
-					<nav class="_luodr" role="navigation" >
+					<nav class="_luodr" role="navigation">
 						<ul class="_g8wl6">
-							<li class="_538w0"><a class="_hqmnd _mjfont"
-							 href="">Meshtagram정보</a></li>
-							<li class="_538w0"><a class="_hqmnd _mjfont"
-							href="">지원</a></li>
-							<li class="_538w0"><a class="_hqmnd _mjfont"
-							href="">블로그</a></li>
-							<li class="_538w0"><a class="_hqmnd _mjfont"
-							href="">홍보 센터</a></li>
-							<li class="_538w0"><a class="_hqmnd _mjfont"
-							href="">API</a></li>
-							<li class="_538w0"><a class="_hqmnd _mjfont"
-							href="">채용	정보</a></li>
-							<li class="_538w0"><a class="_hqmnd _mjfont"
-							href="">개인정보처리방침</a></li>
-							<li class="_538w0"><a class="_hqmnd _ts6wg _mjfont"
-							href="">약관</a></li>
-							<li class="_538w0"><a class="_hqmnd _mjfont"
-							href="">디렉터리</a></li>
-							<li class="_538w0"><a class="_hqmnd _mjfont"
-							href="">프로필</a></li>
-							<li class="_538w0"><a class="_hqmnd _mjfont"
-							href="">해시태그</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont" href="">Meshtagram정보</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont" href="">지원</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont" href="">블로그</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont" href="">홍보
+									센터</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont" href="">API</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont" href="">채용
+									정보</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont" href="">개인정보처리방침</a></li>
+							<li class="_538w0"><a class="_hqmnd _ts6wg _mjfont" href="">약관</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont" href="">디렉터리</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont" href="">프로필</a></li>
+							<li class="_538w0"><a class="_hqmnd _mjfont" href="">해시태그</a></li>
 						</ul>
 					</nav>
 					<span class="_1gmap">© 2018 Meshtagram</span>
 				</div>
 			</footer>
 		</section></span>
-<script>
-$("._hqmnd").click(function(){
-	window.alert("준비중입니다.");
-})
-</script>
-		
-<script>
-	$("#ch").click(function(){
-		window.alert("가입이 완료되었습니다!");
-		location.replace("/account/loginPage.do");
-	});
-	
-	$(document).ready(function() {
-		$("#pass2").on("change", function() {
-			var pass1 = $("#pass1").val();
-			var pass2 = $("#pass2").val();
-			var passFlag = validate_pass(pass1);
-			console.log(pass1+pass2);
-			if (!passFlag) {
-				$("#rst3").html("비밀번호는 영문과 숫자를 혼합하여 8자리 이상이어야 합니다!");
-			}else {
-				$.ajax("/account/passCheck.do", {
-					"method" : "get",
-					"async" : true,
-					"data" : {
-						"pass1" : pass1,
-						"pass2" : pass2
-					},
-					success : function(data) {
-						console.log(data);
-						console.log(data.result);
-						if(data.result == false) {
-							$("#rst3").html("비밀번호가 일치하지 않습니다.");
-						}else {
-							$("#rst3").html("일치합니다.");
-						}
-					}
-				});	
-			}
-		});
-	});
-	
-	$(document).ready(function() {
-		$("#idConfirm").click(function() {
-			var id = $("#id").val();
-			var idFlag = validate_id(id);	//true or false
-			console.log(id);
-			console.log(idFlag);
-			if (!idFlag) {
-				$("#rst1").html("아이디는 영문과 숫자를 혼합하여 5자리 이상이어야 합니다!");
-			} else {
-				$.ajax("/account/idCheck.do", {
-					"method" : "get",
-					"async" : true,
-					"data" : {"id" : id},
-					success : function(data) {
-						console.log(data);
-						console.log(data.result);
-						if(data.result == false) {
-							$("#rst1").html("중복된 아이디입니다.");
-						}else {
-							$("#rst1").html("사용 가능한 ID입니다!");
-						}
-					}
-				});
-			}
-		});	
-	});
-	
-	function validate_id(id) {
-		var pattern = new RegExp(/^[a-zA-Z0-9]{5,}$/);
-		return pattern.test(id);
-	}
-	
-	function validate_pass(pass) {
-		var pattern = new RegExp(/^[a-zA-Z0-9]{8,}$/);
-		return pattern.test(pass);
-	}
-	
-	function removeAlert() {
-		$(".alert").empty();
-	}
-	
-	$("#emConfirm").click(function() {
-		window.alert("해당 주소로 인증 메일을 보냈습니다!");
-		$.ajax("/key/sendKey.do", {
-			"email" : "get",
-			"async" : true,
-			"data" : {
-				"email" : $("#email").val()
+	<script>
+		$("._hqmnd").click(function() {
+			window.alert("준비중입니다.");
+		})
+	</script>
 
-			}
-		}).done(function(obj) {
-			console.obj(obj);
-			$("#rst2").html("인증이 완료되었습니다!");
+	<script>
+		$("#ch").click(function() {
+			window.alert("가입이 완료되었습니다!");
+			location.replace("/account/loginPage.do");
 		});
-	});
-	
-	// 테스트 위해 일단 주석처리함.
-	disabled();
-	function disabled() {
-		$("#submit").prop("disabled", true);
-		if ("${rst }" == "true") {
-			$("#submit").prop("disabled", false);
-			$("#submit").prop("disabled", false);
-			$("#email").val("${email}");
-			
+
+		$(document).ready(function() {
+			$("#pass2").on("change", function() {
+				var pass1 = $("#pass1").val();
+				var pass2 = $("#pass2").val();
+				var passFlag = validate_pass(pass1);
+				console.log(pass1 + pass2);
+				if (!passFlag) {
+					//$("#rst3").html("비밀번호는 영문과 숫자를 혼합하여 8자리 이상이어야 합니다!");
+					alert("비밀번호는 영문과 숫자를 혼합하여 8자리 이상이어야 합니다!");
+					$("#pass1").val() = "";
+					$("#pass1").focus();
+				} else {
+					$.ajax("/account/passCheck.do", {
+						"method" : "get",
+						"async" : true,
+						"data" : {
+							"pass1" : pass1,
+							"pass2" : pass2
+						},
+						success : function(data) {
+							console.log(data);
+							console.log(data.result);
+							if (data.result == false) {
+								$("#rst3").html("비밀번호가 일치하지 않습니다.");
+							} else {
+								$("#rst3").html("일치합니다.");
+							}
+						}
+					});
+				}
+			});
+		});
+
+		$(document).ready(function() {
+			$("#idConfirm").click(function() {
+				var id = $("#id").val();
+				var idFlag = validate_id(id); //true or false
+				console.log(id);
+				console.log(idFlag);
+				if (!idFlag) {
+					window.alert("아이디는 5자리 이상의 영문/숫자/혼합 만 가능합니다!");
+					$("#id").focus();
+				} else {
+					$.ajax("/account/idCheck.do", {
+						"method" : "get",
+						"async" : true,
+						"data" : {
+							"id" : id
+						},
+						success : function(data) {
+							console.log(data);
+							console.log(data.result);
+							if (data.result == false) {
+								window.alert("중복된 아이디입니다!");
+								$("#id").focus();
+							} else {
+								window.alert("사용 가능한 아이디입니다.^^");
+								$("#name").focus();
+							}
+						}
+					});
+				}
+			});
+		});
+
+		function validate_id(id) {
+			var pattern = new RegExp(/^[a-zA-Z0-9]{5,}$/);
+			return pattern.test(id);
 		}
 
-	} 
+		function validate_pass(pass) {
+			var pattern = new RegExp(/^[a-zA-Z0-9]{8,}$/);
+			return pattern.test(pass);
+		}
 
-</script>
+		function removeAlert() {
+			$(".alert").empty();
+		}
+
+		$("#emConfirm").click(function() {
+			if ($("#email").val().trim() == "") {
+				alert("이메일을 입력해주세요!");
+				$("#email").focus();
+			} else if($("#email").val().indexOf("@") == -1){
+				alert("잘못된 이메일 형식입니다!");
+				$("#email").focus();
+			}
+			else{
+				window.alert("해당 주소로 인증 메일을 보냈습니다!");
+				$("#pass1").focus();
+				$.ajax("/key/sendKey.do", {
+					"email" : "get",
+					"async" : true,
+					"data" : {
+						"email" : $("#email").val()
+					}
+				}).done(function(obj) {
+					console.obj(obj);
+					//$("#rst2").html("인증이 완료되었습니다!");
+					alert("인증이 완료되었습니다^^");
+				});
+			}
+		});
+
+		// 테스트 위해 일단 주석처리함.
+		//disabled();
+		function disabled() {
+			$("#submit").prop("disabled", true);
+			if ("${rst }" == "true") {
+				$("#submit").prop("disabled", false);
+				$("#submit").prop("disabled", false);
+				$("#email").val("${email}");
+
+			}
+
+		}
+	</script>
 </body>
 </html>
