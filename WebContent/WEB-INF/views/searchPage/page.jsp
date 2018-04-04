@@ -3346,7 +3346,7 @@ ul {
 											style="width: 30px; border-radius: 100%" id="profile" />
 									</c:otherwise>
 								</c:choose>
-								<a href="/search.do?id=${obj.id}" name="id">${obj.id }</a> <input
+								<a href="/searchtag.do?id=${obj.id}" name="id">${obj.id }</a> <input
 									type="button" name="${obj.id }" value="팔로dn"
 									class="follower btn btn-info"
 									style="height: 20px; padding: 0 12px; float: right;" />
