@@ -3135,7 +3135,7 @@ transform
 							<div class="_4rbun">
 								<div class="mouseIn" class="_2di5p">
 									 <a
-							href="${applictionScope.path}/detail/detail.do?boardid=${obj.code }"
+							href="${applictionScope.path}/detail/detail.do?code=${obj.code }"
 							data-toggle="tooltip" id="top_${obj.code }" name="${obj.code }"
 							class="tool" title="" val=""> <c:forEach items="${obj.image }"
 								var="image" varStatus="st" end="0">

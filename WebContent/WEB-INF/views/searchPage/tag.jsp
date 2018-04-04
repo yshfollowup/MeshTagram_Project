@@ -146,11 +146,14 @@ function List() {
 				// console.log(val);
 					
 				for (var i = 0; i < val.length; i++) {
-					var reply=$("#top_" + val[i].boardId).val();
-					console.log(reply);
-					$("#top_" + val[i].boardId).attr("title","좋아요 " + $("#top_"+val[i].boardId).val()+"댓글 "+ val[i].count + "개");
-					//reply.appent("댓글 "+ val[i].count + "개");
-				}
+							var reply = $("#top_" + val[i].boardId).val();
+							console.log(reply);
+							$("#top_" + val[i].boardId).attr("title","좋아요 "
+											+ $("#top_" + val[i].boardId)
+													.val() + "댓글 "
+											+ val[i].count + "개");
+							//reply.appent("댓글 "+ val[i].count + "개");
+						}
 			})
 };
 $(document).ready(function(){

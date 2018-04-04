@@ -3109,17 +3109,20 @@ ul {
 																				}
 																			}
 																			if (cnt2 != 1) {
-																				fbt = "<input  type=\"button\" name="+val[i].TARGET+"\ class=\"follower\" value=\"팔로우\"/>";
-																				$(
-																						"#demo").append(
-																								"<a href=\"/search.do?id="
-																										+ val[i].TARGET
-																										+ "\">"
-																										+ val[i].TARGET
-																										+ "</a>"
-																										+ profile
-																										+ fbt);
-																			}
+					                                                            fbt = "<input  type=\"button\" name="+val[i].TARGET+"\ class=\"follower btn btn-info\" style=\"height: 20px; padding: 0 12px;\" value=\"팔로우\"/>";
+					                                                            $(
+					                                                                  "#demo")
+					                                                                  .append(
+					                                                                        "<p style=\"width : 25%; float : left;\">"
+					                                                                              + profile
+					                                                                              + "&nbsp;" +"<a href=\"/search.do?id="
+					                                                                              + val[i].TARGET
+					                                                                              + "\">"
+					                                                                              + val[i].TARGET
+					                                                                              + "</a>&nbsp;"
+					                                                                              + fbt
+					                                                                              + "</p>");
+					                                                         }
 																		}
 
 																		$(
@@ -3246,17 +3249,15 @@ ul {
 							// console.log(val);
 
 							for (var i = 0; i < val.length; i++) {
-								var reply = $("#top_" + val[i].boardId).val();
-								console.log(reply);
-								$("#top_" + val[i].boardId).attr(
-										"title",
-										"좋아요 "
-												+ $("#top_" + val[i].boardId)
-														.val() + "댓글 "
-												+ val[i].count + "개");
-								//reply.appent("댓글 "+ val[i].count + "개");
+							var reply = $("#top_" + val[i].boardId).val();
+							console.log(reply);
+							$("#top_" + val[i].boardId).attr("title","좋아요 "
+											+ $("#top_" + val[i].boardId)
+													.val() + "댓글 "
+											+ val[i].count + "개");
+							//reply.appent("댓글 "+ val[i].count + "개");
 							}
-						})
+					})
 			};
 			$(document).ready(function() {
 				$('[data-toggle="tooltip"]').tooltip();
