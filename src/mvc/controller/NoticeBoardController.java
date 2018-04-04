@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import mvc.model.FollowDTO;
 import mvc.service.AccountDAO;
 import mvc.service.FollowDAO;
+import mvc.service.MessengerDAO;
 import mvc.service.PostDAO;
 import mvc.service.ReplyDAO;
 
@@ -32,6 +33,8 @@ public class NoticeBoardController {
 	AccountDAO aDAO;
 	@Autowired
 	ReplyDAO rDAO;
+	@Autowired
+	MessengerDAO mDAO;
 	@Autowired
 	Gson gson;
 	
@@ -49,7 +52,9 @@ public class NoticeBoardController {
 		if (noticeBoard != null) {
 			noticeLike = rDAO.LikefollowingList(followingList);
 			noticeReply = rDAO.findAllReplyFollowingList(followingList);
+			noticeMess= mDAO.noticeMessage(followingList, setId);
 		}
+		//System.out.println("공지사항 메세지"+noticeMess);
 		//System.out.println("공지사항 ajax" + noticeBoard);
 		//System.out.println("공지사항 like" + noticeLike);
 		//System.out.println("공지사항 Reply" + noticeReply);
@@ -107,6 +112,65 @@ public class NoticeBoardController {
 				ss.put("time", time);
 
 				notice1.add(ss);
+			}
+		}
+		List<Map> notice5 = new LinkedList();
+		noticeMess.sort(new Comparator<Map>() {
+			@Override
+			public int compare(Map o1, Map o2) {
+				Date d1 = (Date) o1.get("date");
+				Date d2 = (Date) o2.get("date");
+				int result = d1.compareTo(d2);
+				return -result;
+			}
+
+		});
+		
+		for (int i = 0; i < noticeMess.size(); i++) {
+			if (!noticeMess.isEmpty()) {
+				//System.out.println("비어있지 아");
+				String sender = noticeMess.get(i).get("sender").toString();
+				String target = noticeMess.get(i).get("target").toString();
+				Date date = (Date) noticeMess.get(i).get("date");
+				//System.out.println(noId + code + "받았다." + date.getTime());
+
+				long dt = date.getTime();
+				long prv = ct - dt;
+				prv /= 1000L;
+				String rt = "";
+				long minute = 1000* 60;
+				long hour =minute*2;
+				long day = hour * 24;
+				long time=0;
+				if (prv > 0 && prv < minute) {
+					// 몇분전
+					//System.out.println(prv + "..." + (int) prv / (60) + "전전전");
+					rt = (long) prv / (60) + "분 전";
+					time = (long) prv / (60) ;
+				} else if (prv > minute && prv < hour) {
+					// 몇 시간전
+					rt = prv / (60 * 60) + "시간 전";
+					time = (long) prv / (60* 60) ;
+				} else if (prv > hour && prv < day) {
+					// 몇 일전
+					rt = prv / (60 * 60 * 24) + "일 전";
+					time = (long) prv / (60 *60 *24) ;
+				}
+
+				Map ss = new LinkedHashMap();
+				ss.put("sender", sender);
+				ss.put("target", target);
+				ss.put("date", rt);
+				ss.put("time", time);
+
+				notice5.add(ss);
+			}
+		}
+		
+		List<Map> resultList3=new ArrayList<Map>();
+		for(int i =0; i< notice5.size(); i++) {
+			if(!resultList3.contains(notice5.get(i))) {
+				resultList3.add(notice5.get(i));
 			}
 		}
 		List<Map> notice4 = new LinkedList();
@@ -276,11 +340,12 @@ public class NoticeBoardController {
 	
 
 		List<Map> result = new LinkedList<>();
-		System.out.println("합치기 전" +resultList2);
+		System.out.println("합치기 전" +resultList3);
 		result.addAll(resultList2);
 		result.addAll(notice1);
 		result.addAll(notice2);
 		result.addAll(notice3);
+		result.addAll(resultList3);
 		
 		List<Map> resultList=new ArrayList<Map>();
 		for(int i =0; i< result.size(); i++) {

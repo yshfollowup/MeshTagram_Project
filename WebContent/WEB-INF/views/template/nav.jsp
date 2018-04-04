@@ -2031,6 +2031,7 @@ $("#notice").on("click", function() {
 	var b="";
 	var c="";
 	var d="";
+	var e="";
 	$.getJSON("/noticeBoard.do", function(val){
 		console.log(val);
 		$.each(val, function(i, key) {
@@ -2040,6 +2041,7 @@ $("#notice").on("click", function() {
 			var noLikeId = key.noLikeId;
 			var noReplyId = key.noReplyId;
 			var senderId = key.senderId;
+			var messSender=key.sender;
 			console.log(noId+"..."+noLikeId+"..."+noReplyId);
 			$(".dropdown-menu").empty();
 			if (noId != null) {
@@ -2090,6 +2092,26 @@ $("#notice").on("click", function() {
 					+ "</div></div></li>";
 				
 				
+			}else if(messSender !=null){
+				$("#dropdown-menu").append("<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/direct/index.do"
+						+ "\"><b>"
+						+ key.sender
+						+ "</b>님이<b>"
+						+ key.target
+						+ "</b>님에게 메세지를 보냈습니다.</a><div class=\"_3lema _6g6t5\">"
+						+ key.date
+						+ "</div></div></li>");
+				
+				e+="<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/direct/index.do"
+					+ "\"><b>"
+					+ key.sender
+					+ "</b>님이<b>"
+					+ key.target
+					+ "</b>님에게 메세지를 보냈습니다.</a><div class=\"_3lema _6g6t5\">"
+					+ key.date
+					+ "</div></div></li>";
+				
+				
 			}else {
 				console.log("이번엔 아주 제대로야");
 				$("#dropdown-menu").append("<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
@@ -2102,7 +2124,7 @@ $("#notice").on("click", function() {
 			
 		});
 		
-		$("#dropdown-menu").html(d+a+b+c);
+		$("#dropdown-menu").html(d+a+b+e+c);
 	});
 });
 	//검색창

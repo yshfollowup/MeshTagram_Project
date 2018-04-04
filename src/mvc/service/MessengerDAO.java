@@ -12,6 +12,8 @@ import org.springframework.util.MultiValueMap;
 
 import com.google.gson.Gson;
 
+import mvc.model.FollowDTO;
+
 /*
  * db의 이름 : MeshTagramMessenger
  * 컬럼 : me, target, date
@@ -58,6 +60,17 @@ public class MessengerDAO {
 		Query query2 = Query.query(Criteria.where("sender").in(map.get("target")).and("target").in(map.get("sender")));
 		list2 = template.find(query2 ,Map.class, "Messenger");
 		
+		return list2;
+	}
+	
+	public List<Map> noticeMessage( List<FollowDTO> param,String setId) {
+		List<Map> list2 = new LinkedList<>();
+		for(int i=0; i<param.size();i++) {
+			String id= param.get(i).getTarget();
+			Query query = Query.query(Criteria.where("sender").in(id).and("target").in(setId));
+			list2.addAll(template.find(query ,Map.class, "Messenger"));
+		}
+		//System.out.println("공지사항 메세지"+list2);
 		return list2;
 	}
 	
