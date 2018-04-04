@@ -108,7 +108,61 @@ public class NoticeBoardController {
 				notice1.add(ss);
 			}
 		}
+		List<Map> notice4 = new LinkedList();
+		for (int i = 0; i < noticeBoard.size(); i++) {
+			if (!noticeBoard.isEmpty()) {
+				if(!noticeBoard.get(i).get("annotations").toString().equals("[]")) {
+					System.out.println(noticeBoard.get(i).get("annotations"));
+				String noId = noticeBoard.get(i).get("id").toString();
+				String code = noticeBoard.get(i).get("code").toString();
+				String anno="";
+					
+					anno = noticeBoard.get(i).get("annotations").toString().replace("[", "").replace("]", "");
+				System.out.println(anno);
+				Date date = (Date) noticeBoard.get(i).get("date");
+				//System.out.println(noId + code + "받았다." + date.getTime());
 
+				long dt = date.getTime();
+				long prv = ct - dt;
+				prv /= 1000L;
+				String rt = "";
+				long minute = 1000* 60;
+				long hour =minute*2;
+				long day = hour * 24;
+				long time=0;
+				if (prv > 0 && prv < minute) {
+					// 몇분전
+					//System.out.println(prv + "..." + (int) prv / (60) + "전전전");
+					rt = (long) prv / (60) + "분 전";
+					time = (long) prv / (60) ;
+				} else if (prv > minute && prv < hour) {
+					// 몇 시간전
+					rt = prv / (60 * 60) + "시간 전";
+					time = (long) prv / (60* 60) ;
+				} else if (prv > hour && prv < day) {
+					// 몇 일전
+					rt = prv / (60 * 60 * 24) + "일 전";
+					time = (long) prv / (60 *60 *24) ;
+				}
+
+				Map ss = new LinkedHashMap();
+				ss.put("senderId", noId);
+				ss.put("anno", anno);
+				ss.put("code", code);
+				ss.put("date", rt);
+				ss.put("time", time);
+
+				notice4.add(ss);
+				}
+			}
+		}
+
+		List<Map> resultList2=new ArrayList<Map>();
+		for(int i =0; i< notice4.size(); i++) {
+			if(!resultList2.contains(notice4.get(i))) {
+				resultList2.add(notice4.get(i));
+			}
+		}
 		noticeLike.sort(new Comparator<Map>() {
 			@Override
 			public int compare(Map o1, Map o2) {
@@ -119,7 +173,6 @@ public class NoticeBoardController {
 			}
 
 		});
-
 		List<Map> notice2 = new LinkedList();
 		if (!noticeLike.isEmpty()) {
 			//System.out.println("noticeBoard" + noticeLike.size());
@@ -154,7 +207,8 @@ public class NoticeBoardController {
 					}
 
 					Map ss = new LinkedHashMap();
-					ss.put("noId", noId);
+					ss.put("noLikeid", noId);
+					ss.put("noLikeTarget", noTarget);
 					ss.put("code", code);
 					ss.put("date", rt);
 					ss.put("time", time);
@@ -209,7 +263,8 @@ public class NoticeBoardController {
 				}
 
 				Map ss = new LinkedHashMap();
-				ss.put("noId", noId);
+				ss.put("noReplyid", noId);
+				ss.put("noReplyTarget", noTarget);
 				ss.put("code", code);
 				ss.put("date", rt);
 				ss.put("time", time);
@@ -220,7 +275,8 @@ public class NoticeBoardController {
 	
 
 		List<Map> result = new LinkedList<>();
-		System.out.println("합치기 전" + notice1 + notice2 + notice3);
+		System.out.println("합치기 전" +resultList2);
+		result.addAll(resultList2);
 		result.addAll(notice1);
 		result.addAll(notice2);
 		result.addAll(notice3);
