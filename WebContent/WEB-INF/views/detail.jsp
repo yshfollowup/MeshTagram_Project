@@ -3154,19 +3154,22 @@ $(".unmark").on("click", function() {
 	// 댓글 쓰기
 	$(".reply").on("change", function() {
 		var boardid = [];
-		var input = $(this).attr("aria-label");
-		$(".rebt").each(function() {
-			boardid.push($(this).attr("name"));
+		var input = $(this).attr("name");
+		var iii = $(this).attr("aria-label");
+		$(".reply").each(function() {
+			boardid.push($(this).attr("aria-label"));
 		});
+		console.log(boardid);
 		var ment = $(this).val();
 		var src = $(this);
 		if (ment.length == 0) {
 			window.alert("댓글을 작성해주세요.");
 			return;
 		}
-		console.log("댓글을 쓴다." + ment + boardid);
+		console.log("댓글을 쓴다." + ment + iii + "타켓아이디" + input);
 		var id = $(this).attr("aria-label");
 		var reid = "${cookie.setId.value}";
+		$(this).val("");
 		//console.log(id+ment);
 		$.ajax("/addreply.do", {
 			"method" : "post",
@@ -3174,18 +3177,19 @@ $(".unmark").on("click", function() {
 			"data" : {
 				"boardId" : id,
 				"reid" : reid,
+				"target" : input,
 				"ment" : ment
 			}
 		}).done(function(obj) {
 			//console.log($(this).val());
 			$(ment).val("");
-				$(ment).html("");
+			$(ment).html("");
 			$("#reply_" + input).val("");
 			$("#re_" + input).val("");
 			for (var i = 0; i < boardid.length; i++) {
-				if (boardid[i] == input) {
-					console.log("댓글 들어왔다." + input + obj.ment);
-					$("#sp_" + input).append(obj.ment);
+				if (boardid[i] == iii) {
+					//console.log("댓글 들어왔다." + boardid[i] + obj.ment);
+					$("#sp_" + boardid[i]).append(obj.ment);
 
 				}
 			}
@@ -3194,7 +3198,7 @@ $(".unmark").on("click", function() {
 
 	//댓글 리스트 자동 생성
 
-		//좋아요 ....
+	//좋아요 ....
 		$(".like").on("click", function() {
 
 			console.log("좋아요 들어왔다");

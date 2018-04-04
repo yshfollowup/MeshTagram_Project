@@ -75,7 +75,10 @@ background-color: #fafafa;
 						<a href="/searchtag.do?tags=${fn:replace(tag,'#','%23') }">${tag }</a>
 				</c:forEach> </small> <br />
 			
-				<a href="${applictionScope.path}/detail/detail.do?code=${obj.code }" data-toggle="tooltip" id="top_${obj._id }" name="${obj._id }" class="tool" title="">
+				<a
+							href="${applictionScope.path}/detail/detail.do?code=${obj.code }"
+							data-toggle="tooltip" id="top_${obj.code }" name="${obj.code }"
+							class="tool" title="">
 				<c:forEach items="${obj.image }" var="image" varStatus="st">
 						<img src="${obj.path }${image }"
 								style="width: 230px; height: 230px; " />
@@ -149,11 +152,11 @@ function List() {
 							var reply = $("#top_" + val[i].boardId).val();
 							console.log(reply);
 							$("#top_" + val[i].boardId).attr("title","좋아요 "
-											+ $("#top_" + val[i].boardId)
-													.val() + "댓글 "
-											+ val[i].count + "개");
-							//reply.appent("댓글 "+ val[i].count + "개");
-						}
+									+ $("#top_" + val[i].boardId)
+											.val() + "댓글 "
+									+ val[i].count + "개");
+					//reply.appent("댓글 "+ val[i].count + "개");
+					}
 			})
 };
 $(document).ready(function(){

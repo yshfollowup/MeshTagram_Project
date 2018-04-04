@@ -3026,7 +3026,7 @@ ul {
 			<div style="min-height: 80px;"></div>
 			<div id="demo" class="collapse">추천계정</div>
 			<div align="center" style="min-height: 100px;" ></div>
-			<div>
+			<div style="clear:both;">
 				<c:forEach var="obj" items="${myPost }">
 					<p style="float: left; width: 33%;">
 						<small><c:forEach items="${obj.tags }" var="tag">
