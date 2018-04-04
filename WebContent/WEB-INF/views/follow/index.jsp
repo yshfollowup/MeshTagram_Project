@@ -156,11 +156,13 @@
 					"setId" : setid
 				}
 			}).done(function(val2){
-				console.log(val2);
+				console.log(val);
+					var profile;
+					var image;
+					var arr=[];
 				for(var i=0; i<val.length; i++){
 					var fbt;
-					var image=val[i].PROFILE;
-					var profile;
+					image=val[i].PROFILE;
 					if(val[i].PROFILE !=null){
 						profile="<img src="+image+" style=\"width: 30px; height: 30px; border-radius: 30px\" class=\"recomId\">"
 					}else{
@@ -181,6 +183,7 @@
 						if(cnt2!=1){
 							if(tar != val[i].TARGET){
 								list.push(val[i].TARGET);
+								arr.push(profile);
 							console.log("필요항 것만 들어가"+tar);
 								tar=val[i].TARGET;
 							}else{
@@ -188,6 +191,7 @@
 							}
 							
 						}
+				
 				}
 				var uniqueNames = [];
 
@@ -197,10 +201,9 @@
 				console.log(uniqueNames);
 				for(var i=0; i<uniqueNames.length; i++){
 					fbt= "<input  type=\"button\" name="+uniqueNames[i]+"\ class=\"follower btn btn-info\" style=\"width:70px; height: 20px; padding: 0; margin:1 20 0 5;\" value=\"팔로우\"/>";
-					$("#demo").append(profile+"<a href=\"/search.do?id="+uniqueNames[i]+"\">"+uniqueNames[i]+"</a>"+fbt);
+					$("#demo").append(arr[i]+"<a href=\"/search.do?id="+uniqueNames[i]+"\">"+uniqueNames[i]+"</a>"+fbt);
 					
 				}
-				
 				
 		$(".follower").on("click", function() {
 			console.log("팔로우 들어왔다.");

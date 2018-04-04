@@ -2,6 +2,7 @@ package mvc.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -132,7 +133,12 @@ public class AccountController {
 			for (String tag : tagList) {
 				if (tag != null) {
 					tagResult = pDAO.findPostByTag(tag);
-					
+					if(tagResult !=null && eachResult !=null) {
+						for(int i=0; i<tagResult.size(); i++) {
+							eachResult.add(tagResult.get(i));
+						}
+						
+					}
 				}
 			}
 			
@@ -142,17 +148,21 @@ public class AccountController {
 
 		//System.out.println("첫 게시판" + myresult);
 		if (eachResult != null) {
-
-			eachResult.addAll(myresult);
+			for(int i=0; i<myresult.size(); i++) {
+				
+				eachResult.add(myresult.get(i));
+			}
 		} else {
 			eachResult = myresult;
 		}
 
-		modelMap.addAttribute("ids", idList);
+		//modelMap.addAttribute("ids", idList);
 		//System.out.println("ids" + idList);
-		modelMap.addAttribute("tags", tagList);
+		//modelMap.addAttribute("tags", tagList);
+		//eachResult.add((Map) tagList);
 		//System.out.println("tags" + tagList);
-		modelMap.addAttribute("annos", annoList);
+		//modelMap.addAttribute("annos", annoList);
+		//eachResult.add((Map) annoList);
 		//System.out.println("annos" + annoList);
 		// ==================================================================
 		List<AccountDTO> topFollowerList = aDAO.selectTop5Account(setId);
@@ -165,11 +175,14 @@ public class AccountController {
 			if (tops.length != 0) {
 				for (String s : tops) {
 					topResult = pDAO.findPostById(s);
-					// modelMap.addAttribute("top5Result", topResult);
-					// System.out.println(topResult.size()+"...top5"+topResult);
+					for(int i=0; i<topResult.size(); i++) {
+						eachResult.add(topResult.get(i));
+					}
 				}
 			}
 		}
+		
+		
 		if (topResult != null && eachResult != null) {
 
 			for (int i = 0; i < topResult.size(); i++) {
@@ -269,6 +282,8 @@ public class AccountController {
 			String eachFollowid = eachfollow.getId();
 			if (id != null) {
 				eachResult = pDAO.findPostById(eachFollowid);
+				// modelMap.addAttribute("eachResult", eachResult);
+				// System.out.println(eachResult.size()+"...eachResult"+eachResult);
 			}
 		}
 		// =========================================================================
@@ -276,6 +291,7 @@ public class AccountController {
 		List<String> idList=null;
 		List<String> tagList=null;
 		List<String> annoList=null;
+		//System.out.println(list+"으으으으");
 		if(!list.isEmpty()) {
 			idList = list.get(0);
 			tagList = list.get(1);
@@ -287,7 +303,12 @@ public class AccountController {
 			for (String tag : tagList) {
 				if (tag != null) {
 					tagResult = pDAO.findPostByTag(tag);
-					
+					if(tagResult !=null && eachResult !=null) {
+						for(int i=0; i<tagResult.size(); i++) {
+							eachResult.add(tagResult.get(i));
+						}
+						
+					}
 				}
 			}
 			
@@ -297,17 +318,21 @@ public class AccountController {
 
 		//System.out.println("첫 게시판" + myresult);
 		if (eachResult != null) {
-
-			eachResult.addAll(myresult);
+			for(int i=0; i<myresult.size(); i++) {
+				
+				eachResult.add(myresult.get(i));
+			}
 		} else {
 			eachResult = myresult;
 		}
 
-		modelMap.addAttribute("ids", idList);
+		//modelMap.addAttribute("ids", idList);
 		//System.out.println("ids" + idList);
-		modelMap.addAttribute("tags", tagList);
+		//modelMap.addAttribute("tags", tagList);
+		//eachResult.add((Map) tagList);
 		//System.out.println("tags" + tagList);
-		modelMap.addAttribute("annos", annoList);
+		//modelMap.addAttribute("annos", annoList);
+		//eachResult.add((Map) annoList);
 		//System.out.println("annos" + annoList);
 		// ==================================================================
 		List<AccountDTO> topFollowerList = aDAO.selectTop5Account(setId);
@@ -315,11 +340,19 @@ public class AccountController {
 		// 팔로워 수 많은 순대로 뽑고 그에 대한 게시물 보냄(3순위)
 		List<Map> topResult = null;
 		for (AccountDTO top : topFollowerList) {
+			// System.out.println(top.getId());
 			String[] tops = top.getId().split(",");
+			if (tops.length != 0) {
 				for (String s : tops) {
 					topResult = pDAO.findPostById(s);
+					for(int i=0; i<topResult.size(); i++) {
+						eachResult.add(topResult.get(i));
+					}
 				}
+			}
 		}
+		
+		
 		if (topResult != null && eachResult != null) {
 
 			for (int i = 0; i < topResult.size(); i++) {
@@ -350,12 +383,18 @@ public class AccountController {
 				if (myFollower != null || followingMe != null) {
 					followerResult = pDAO.findPostById(myFollower);
 					followingResult = pDAO.findPostById(followingMe);
+					// modelMap.addAttribute("followerResult", followerResult);
+					// modelMap.addAttribute("followingResult", followingResult);
+					// System.out.println(followerResult.size()+" / "+followingResult.size());
 				}
 				if (followerResult.size() > 0 && eachResult != null) {
 					for (int i = 0; i < followerResult.size(); i++) {
 						if(eachResult.size() > 0) {
 							
+								// System.out.println("비교값이 들어갔다.
+								// 사이즈="+followerResult.size()+followerResult.get(i));
 								eachResult.add(followerResult.get(i));
+								// modelMap.addAttribute("eachResult", followerResult.get(i));
 								
 						}
 					}
@@ -368,6 +407,7 @@ public class AccountController {
 								// 사이즈="+followingResult.size()+followingResult.get(i));
 								eachResult.add(followingResult.get(i));
 								// modelMap.addAttribute("eachResult", followingResult.get(i));
+								
 						}
 					}
 				}

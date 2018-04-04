@@ -2903,7 +2903,7 @@ margin-bottom:env(safe-area-inset-bottom)
 												<span>${comm }</span>
 											</c:forEach> <c:forEach items="${obj.tags }" var="tag">
 												<span><a
-													href="/account/search.do?tag=${fn:replace(tag,'#','%23') }">${tag }</a></span>
+													href="/searchtag.do?tags=${fn:replace(tag,'#','%23') }">${tag }</a></span>
 											</c:forEach></li>
 									</ul>
 								</div>

@@ -2123,7 +2123,7 @@ $("#notice").on("click", function() {
 																.startsWith("#")) {
 															console
 																	.log(val[i].tags[i]);
-															var a = val[i].tags[i];
+															var a = val[i].tags[0];
 															s = a.replace('#',
 																	'%23');
 														}
