@@ -43,7 +43,7 @@
 						<b style="font-size: 15px;">이미지 미리보기</b>
 					</h2>
 				</div>
-				<div class="content" style="margin-bottom: 50px;">
+				<div class="content" id="content" style="margin-bottom: 50px;">
 					<img id="img">
 				</div>
 			</div>
@@ -101,20 +101,31 @@
 					var reader = new FileReader();
 					console.log(reader);
 					reader.onload = function(e) {
-						var html = "<a href=\"javascript:void(0);\" onclick=\"deleteImgAction("
+						var html = "<a href=\"javascript:void(0);\" name=\"사진\" onclick=\"deleteImgAction("
 								+ index
 								+ ")\" id=\"img_id_"
 								+ index
 								+ "\"><img src=\"" 
-							+ e.target.result + "\" style=\"width:120px; height:120px; padding: 10px;\" data-file='"
+							+ e.target.result + "\"style=\"width:120px; height:120px; padding: 10px;\" data-file='"
 							+f.name+"' class='selProductFile' title='Click to remove'></a>";
 						//$("#preview").attr("src", this.result);
 						$(".content").append(html);
 						index++;
 					}
 					reader.readAsDataURL(f);
-				});
-	}
+		uploadCheck();
+		function uploadCheck(){
+			console.log("으아아아");
+			var s= $("#img_id_0");
+			console.log(s);
+			if(s != "undefined"){
+				$("#bt2").prop("disabled", false);
+			}else{
+				$("#bt2").prop("disabled", true);
+			}
+		};
+	});
+}
 
 	function deleteImgAction(index) {
 		select_files.splice(index, 1);
@@ -128,12 +139,13 @@
 	}
 
 	function removeAllImage() {
+		$("#bt2").prop("disabled", true);
 		$(".content").empty();
 	}
-	
+	/* 
 	$("#comment").keypress(function() {
 		$("#bt2").prop("disabled", false);
-	});
+	}); */
 </script>
 
 </html>

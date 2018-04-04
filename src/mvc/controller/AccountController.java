@@ -73,10 +73,11 @@ public class AccountController {
 		AccountDTO aDTO = aDAO.selectOneAccount(id, pass);
 		if (aDTO == null) {
 			System.out.println("[SERVER]: login failed");
-			return "redirect:/account/loginPage.do";
+			modelMap.put("fail", "아이디와 비밀번호가 일치하지 않습니다.");
+			return "insta_login";
 		}
 		System.out.println("[SERVER]: login success");
-
+		modelMap.put("fail", "");
 		// 계정 정보
 		modelMap.put("aDTO", aDTO);
 

@@ -2648,7 +2648,6 @@ table {
 
 	<script>
 		$("#ch").click(function() {
-			window.alert("가입이 완료되었습니다!");
 			location.replace("/account/loginPage.do");
 		});
 
@@ -2658,6 +2657,7 @@ table {
 				var pass2 = $("#pass2").val();
 				var passFlag = validate_pass(pass1);
 				console.log(pass1 + pass2);
+				
 				if (!passFlag) {
 					//$("#rst3").html("비밀번호는 영문과 숫자를 혼합하여 8자리 이상이어야 합니다!");
 					alert("비밀번호는 영문과 숫자를 혼합하여 8자리 이상이어야 합니다!");
@@ -2694,6 +2694,7 @@ table {
 				if (!idFlag) {
 					window.alert("아이디는 5자리 이상의 영문/숫자/혼합 만 가능합니다!");
 					$("#id").focus();
+					return ;
 				} else {
 					$.ajax("/account/idCheck.do", {
 						"method" : "get",
@@ -2757,14 +2758,14 @@ table {
 		});
 
 		// 테스트 위해 일단 주석처리함.
-		//disabled();
+		disabled();
 		function disabled() {
 			$("#submit").prop("disabled", true);
 			if ("${rst }" == "true") {
 				$("#submit").prop("disabled", false);
 				$("#submit").prop("disabled", false);
+				$("#emConfirm").prop("disabled", true);
 				$("#email").val("${email}");
-
 			}
 
 		}

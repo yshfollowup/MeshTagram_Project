@@ -2516,7 +2516,7 @@ color : #999;
 									<div class="_sjplo">
 										<div class="_ev9xl">
 											<input type="text" class="_ph6vk _jdqpn _o716c" id="id"
-												name="id" placeholder="아이디" pattern="[A-Za-z0-9]+" value="">
+												name="id" placeholder="아이디" pattern="[A-Za-z0-9]+" value="" required>
 										</div>
 										<div class="_gaby6"></div>
 									</div>
@@ -2526,12 +2526,14 @@ color : #999;
 										<div class="_ev9xl">
 											<input type="password" class="_ph6vk _jdqpn _o716c" id="pass"
 												placeholder="비밀번호" pattern="[A-Za-z0-9]+" name="pass"
-												value="">
+												value="" required>
 										</div>
 										<div class="_gaby6"></div>
 									</div>
 								</div>
-								<span class="_t38eb _ov9ai"><button id="loginBt" type="submit"
+								<span style="font-size : 13px; color : #8A0808; text-align:center;">${fail }</span>
+								<span class="_t38eb _ov9ai">
+								<button id="loginBt" type="submit"
 										class="_qv64e _gexxb _4tgw8 _njrw0 btn btn-default">로그인</button></span> <a
 									class="_pbd5h" href="/account/authPass.do"> 비밀번호를 잊으셨나요?</a>
 							</form>

@@ -35,6 +35,7 @@ public class JoinController {
 		HttpSession session = req.getSession();
 		session.setAttribute("rst", rst);
 		session.setAttribute("email", email);
+		session.setAttribute("emailCheck", "true");
 
 		System.out.println("{\"result\":" + result + "}" + rst);
 

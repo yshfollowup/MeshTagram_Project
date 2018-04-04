@@ -45,6 +45,7 @@ public class NoticeBoardController {
 		noticeBoard = pDAO.findAllFollowingPost(followingList);
 		List<Map> noticeLike = null;
 		List<Map> noticeReply = null;
+		List<Map> noticeMess =null;
 		if (noticeBoard != null) {
 			noticeLike = rDAO.LikefollowingList(followingList);
 			noticeReply = rDAO.findAllReplyFollowingList(followingList);
