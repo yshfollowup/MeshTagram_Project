@@ -45,7 +45,7 @@
 
 			<c:forEach var="objRecom" items="${recommend }" varStatus="vs">
 				<c:if test="${vs.index lt 8}">
-					<p style="float: left; width: 25%;">
+					<p style="float : left; width: 25%; text-align : center;">
 						<c:choose>
 							<c:when test="${empty objRecom.profile }">
 								<img src="/images/insta.jpg"
@@ -84,7 +84,7 @@
 		<button type="button" id="listbt" class="btn btn-info show"
 			data-toggle="collapse" data-target=".collapse" aria-expanded="false"
 			style="margin-bottom: 20px;">더 찾아보기</button>
-		<div id="demo" class="collapse" aria-expanded="false">
+		<div id="demo" class="collapse container" aria-expanded="false"">
 
 		</div>
 	</div>
@@ -201,8 +201,7 @@
 				console.log(uniqueNames);
 				for(var i=0; i<uniqueNames.length; i++){
 					fbt= "<input  type=\"button\" name="+uniqueNames[i]+"\ class=\"follower btn btn-info\" style=\"width:70px; height: 20px; padding: 0; margin:1 20 0 5;\" value=\"팔로우\"/>";
-					$("#demo").append(arr[i]+"<a href=\"/search.do?id="+uniqueNames[i]+"\">"+uniqueNames[i]+"</a>"+fbt);
-					
+					$("#demo").append("<p style=\"width : 25%; float : left;\">"+arr[i]+"<a href=\"/search.do?id="+uniqueNames[i]+"\">"+uniqueNames[i]+"</a>"+fbt+"</p>");
 				}
 				
 		$(".follower").on("click", function() {
