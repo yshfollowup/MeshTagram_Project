@@ -357,9 +357,13 @@ body {
 	
 	
 	$(".mesen").on("click", function() {
+		clearInterval();
 		var reid = $(this).attr("id");
 		console.log("들어왔다." + reid);
-		findAllMessage(reid);
+		var second=1000;
+		setInterval(function(){
+			findAllMessage(reid);}, 30*second);
+		
 		reid2=reid;
 	});
 		$(".sender").on("change", function() {

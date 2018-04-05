@@ -36,7 +36,7 @@
 							style="width: 30px; height: 30px; border-radius: 100%" id="profile" />
 					</c:otherwise>
 				</c:choose>
-				<a href="/account/myPage.do?id=${obj.ID}" name="id">${obj.ID }</a> <input
+				<a href="/search.do?id=${obj.ID}" name="id">${obj.ID }</a> <input
 					type="button" name="${obj.ID }" class="follower btn btn-info"]
 					style="width:70px; height: 20px; padding: 0 0 0 0;" value="팔로우" />
 			</p>

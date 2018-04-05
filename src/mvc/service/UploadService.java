@@ -33,7 +33,7 @@ public class UploadService {
 		int i=0;
 		String path = ctx.getRealPath("/");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-		System.out.println(path);
+		System.out.println("실제 업로드 경로"+path);
 
 		for (MultipartFile file : files) {
 			String str = sdf.format(System.currentTimeMillis());
