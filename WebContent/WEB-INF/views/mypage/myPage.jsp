@@ -3171,7 +3171,7 @@ transform
 						<li class="_o2wxh"><a href="/mypage/pass.do"><button
 									class="_h74gn">비밀번호 변경</button></a></li>
 						<li class="_o2wxh"><button class="_h74gn">알림</button></li>
-						<li class="_o2wxh"><button class="_h74gn">개발자정보</button></li>
+						<li class="_o2wxh"><button class="_h74gn" onclick="devs()">개발자정보</button></li>
 						<li class="_o2wxh"><a href="/account/logout.do"><button
 									class="_h74gn">로그아웃</button></a></li>
 						<li class="_o2wxh"><button class="_h74gn"
@@ -3182,6 +3182,14 @@ transform
 			<button class="_dcj9f" data-dismiss="modal">&times;</button>
 		</div>
 	</div>
+	
+	<script>
+	function devs(){
+		alert("   ▶ 마대성(PL)\n\n   ▶ 유성현(Back-End)\n\n   ▶ 황문주(Front-End)\n\n   ▶ Special thanks to ☞ 윤형호(센세)");
+	}
+	
+	
+	</script>
 	<script>
 	
 		var setid = "${cookie.setId.value}";
