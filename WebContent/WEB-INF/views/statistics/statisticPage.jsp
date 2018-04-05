@@ -137,55 +137,58 @@
 
 </head>
 <body style="background-color: #fafafa;">
-	<div style="height: 70px;"></div>
-	<div style="display: inline-block;" align="center" >
-		<h2>이 달의 통계 자료</h2>
-		<small>MeshTagram의 소중한 자료를 토대로 선정된 이 달의 통계 자료입니다!</small><br/>
-		<small style="color:green;">이미지를 클릭하면 크게 보실 수 있습니다</small>
-		<hr/>
-		<c:forEach items="${statImage }" var="obj" varStatus="status">
-			<div style="margin-top: 20px; float: left; width: 33%; ">
-				<button id="zoomBt" data-toggle="modal" data-target="#myModal">
-					<img id="img${status.count }" class="imgs" alt="${obj.title }" src="/images/statImage/${obj.name }" style="width: 300px; height: 250px;"/></button>
-				<div id="title">${obj.title }</div>		
-			</div>
-		</c:forEach>
-	</div>
+   <div style="height: 70px;"></div>
+   <div style="display: inline-block;" align="center" >
+      <h2>이 달의 통계 자료</h2>
+      <small>MeshTagram의 소중한 자료를 토대로 선정된 이 달의 통계 자료입니다!</small><br/>
+      <small style="color:green;">이미지를 클릭하면 크게 보실 수 있습니다</small>
+      <hr/>
+      <c:forEach items="${statImage }" var="obj" varStatus="i">
+         <div style="margin-top: 20px; float: left; width: 33%; " class="sss" src="/images/statImage/${obj.name }" >
+               <img id="img${i }" class="imgs" src="/images/statImage/${obj.name }" style="width: 300px; height: 250px;"
+               class="_q8y0e coreSpriteMobileNavSettings _8scx2 static"
+               data-toggle="modal" data-target="#myModal"/>
+               
+            <div id="title"><b>${obj.title }</b></div>      
+         </div>
+      </c:forEach>
+   </div>
+   
+   <!-- Modal -->
+   <div id="myModal" class="modal fade" role="dialog">
+      <div class="_pfyik" role="dialog">
+         <div class="_23gmb"></div>
+         <div class="_o0j5z">
+            <div class="_784q7">
+            <ul class="_cepxb" role="menu">
+               <li class="_o2wxh">
+               <img class="modal-content" src="" id="content" style="width: 900px; height: 600px;"/>
+               </li>
+               </ul>
+            </div>
+         </div>
+         <button class="_dcj9f" data-dismiss="modal">&times;</button>
+      </div>
+   </div>
+<script>
+   var modal = $('#myModal');
+   var img = $('.imgs');
+   var modalImg = $("#img01");
+   var captionText = $("#caption");
+   
+   $(".static").on("click", function(){
+      var src=$(this).attr("src");
+      console.log("크게키워라"+src);
+      $("#content").attr("src", src);
+   });
+   $(".sss").on("click", function(){
+      var src=$(this).attr("src");
+      console.log("크게키워라"+src);
+      $("#content").attr("src", src);
+   });
+   
+   var span = $(".close")[0];
+   
+</script>
 </body>
 </html>
-
-<!-- Modal -->
-	<div id="myModal" class="modal fade" role="dialog">
-		<div class="_pfyik" role="dialog">
-			<div class="_784q7">
-				<img class="modal-content" id="content">
-				<div id="caption"></div>
-			</div>
-			<button class="_dcj9f" data-dismiss="modal">&times;</button>
-		</div>
-	</div>
-	
-<script>
-	
-	var modal = document.getElementById('myModal');
-
-	//Get the image and insert it inside the modal - use its "alt" text as a caption
-	//var img = document.getElementById('myImg');
-	var modalImg = document.getElementById("content");
-	var captionText = document.getElementById("caption");
-	$("body").on("click", "[id^=img]", function() {
-		var uId = this.id;
-		modal.style.display = "block";
-		modalImg.src = uId.src;
-		captionText.innerHTML = uId.alt;
-	});
-	
-	//Get the <span> element that closes the modal
-	var span = document.getElementsByClassName("_dcj9f")[0];
-	
-	//When the user clicks on <span> (x), close the modal
-	span.onclick = function() { 
-		modal.style.display = "none";
-	}
-	
-</script>
