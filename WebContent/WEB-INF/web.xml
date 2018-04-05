@@ -42,7 +42,9 @@
 	<url-pattern>/direct/index.do</url-pattern>
 	<url-pattern>/detail/detail.do</url-pattern>
 	<url-pattern>/account/upload.do</url-pattern>
+	<url-pattern>/account/uploadp.do</url-pattern>
 	<url-pattern>/search.do</url-pattern>
+	<url-pattern>/statistics.do</url-pattern>
   </filter-mapping>
     <filter>
   	<filter-name>keep</filter-name>
@@ -55,6 +57,8 @@
 	<url-pattern>/direct/index.do</url-pattern>
 	<url-pattern>/detail/detail.do</url-pattern>
 	<url-pattern>/account/upload.do</url-pattern>
+	<url-pattern>/account/uploadp.do</url-pattern>
 	<url-pattern>/search.do</url-pattern>
+	<url-pattern>/statistics.do</url-pattern>
   </filter-mapping>
 </web-app>

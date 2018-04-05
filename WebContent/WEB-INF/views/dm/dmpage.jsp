@@ -354,16 +354,17 @@ body {
 <script>
 	var setid = "${cookie.setId.value}";
 	var reid2="";
-	
+	var thread;
 	
 	$(".mesen").on("click", function() {
-		clearInterval();
+		if(thread != undefined)
+			clearInterval(thread);
+		
 		var reid = $(this).attr("id");
 		console.log("들어왔다." + reid);
 		var second=1000;
-		setInterval(function(){
-			findAllMessage(reid);}, 30*second);
-		
+		thread=setInterval(function(){
+			findAllMessage(reid);}, 30000);
 		reid2=reid;
 	});
 		$(".sender").on("change", function() {
@@ -582,33 +583,6 @@ body {
 					})
 
 						});
-/* 		$("#sender").on("change", function() {
-			var content = $(this).val();
-			var scope = 0;
-			var like = 0;
-			var targetq=reid;
-			if (content.length == 0) {
-				window.alert("댓글을 작성해주세요.");
-				return;
-			}
-			console.log("채팅을 치자"+reid);
-			$("#sender").val("");
-			$.ajax("/direct/insertMessage.do", {
-				"method" : "get",
-				"async" : false,
-				"data" : {
-					"sender" : setid,
-					"target" : targetq,
-					"content" : content,
-					"like" : like,
-					"scope" : scope
-				}
-			}).done(function(val) {
-				console.log(val);
-				findAllMessage(reid);
-			})
-		});
- */
 	};
 //=========================================================================================
 	function checkLike(reid) {
