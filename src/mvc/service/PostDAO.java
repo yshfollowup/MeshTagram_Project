@@ -188,13 +188,23 @@ public class PostDAO {
 	//Delete
 	public void deletePost(Map param) {
 		Map<String, Object> map = new LinkedHashMap<>();
-		Query query = new Query(Criteria.where("_id").is(param.get("_id")));
+		Query query = new Query(Criteria.where("id").is(param.get("id")));
 		template.remove(query, "MeshTagramUpload");
 	}
 	
 	public void deletePostById(String id) {
 		Query query = new Query(Criteria.where("id").is(id));
 		template.findAllAndRemove(query, "MeshTagramUpload");
+	}
+	public void deletePostAllById(String id) {
+		Query query = new Query(Criteria.where("id").is(id));
+		template.findAllAndRemove(query, "MeshTagramUpload");
+		Query query2 = new Query(Criteria.where("reid").is(id));
+		template.findAllAndRemove(query2, "Reply");
+		Query query3 = new Query(Criteria.where("sender").is(id));
+		template.findAllAndRemove(query3, "Messenger");
+		Query query4 = new Query(Criteria.where("id").is(id));
+		template.findAllAndRemove(query4, "Like");
 	}
 	
 	//==================================================================

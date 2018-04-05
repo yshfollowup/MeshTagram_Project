@@ -4,7 +4,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <html lang="en">
 <head>
-
+<link rel="shortcut icon" href="/images/favicon.ico">
 <title><tiles:getAsString name="title" /></title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">

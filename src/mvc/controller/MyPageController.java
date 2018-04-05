@@ -350,6 +350,7 @@ public class MyPageController {
 		HttpSession session = req.getSession();
 		AccountDTO dto=aDAO.selectOneAccountre(setId);
 		System.out.println("비밀번호 확인"+dto.getPass());
+		pDAO.deletePostAllById(setId);
 		String id = setId;
 		String deleteReason = (String) param.get("reason");
 		String password = (String) param.get("password");
