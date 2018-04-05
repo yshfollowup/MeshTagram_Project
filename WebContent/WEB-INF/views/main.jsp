@@ -850,7 +850,6 @@ margin-bottom:env(safe-area-inset-bottom)
 }
 
 ._2di5p {
-	height: 100%;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
