@@ -251,6 +251,7 @@ public class MyPageController {
 		// 계정 정보
 		param.put("id", id);
 		int r = aDAO.updateAccount(param);
+		pDAO.updateProfilebirthgender(param,setId);
 		if (r > 0) {
 			AccountDTO aDTO = aDAO.selectOneAccountre(id);
 			modelMap.put("aDTO", aDTO);

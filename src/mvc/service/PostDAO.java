@@ -174,6 +174,16 @@ public class PostDAO {
 		update.set("profile", profile);
 		template.updateMulti(query, update, "MeshTagramUpload");
 	}
+	//Update
+	public void updateProfilebirthgender(Map param,String setId) {
+		String birth=(String)param.get("birth");
+		String gender=(String)param.get("gender");
+		Query query = new Query(Criteria.where("id").in(setId));
+		Update update = new Update();
+		update.set("birth", birth);
+		update.set("gender", gender);
+		template.updateMulti(query, update, "MeshTagramUpload");
+	}
 
 	//Delete
 	public void deletePost(Map param) {

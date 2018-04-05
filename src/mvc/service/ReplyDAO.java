@@ -96,7 +96,7 @@ public class ReplyDAO {
 		List<Map> list = new LinkedList<>();
 		String s=(String)param.get("boardId");
 		String id=(String)param.get("id");
-		System.out.println(s+id+"좋아요 추가 아이디");
+		System.out.println(s+id+param+"좋아요 추가 아이디");
 		Query query = Query.query(Criteria.where("boardId").is(s));
 		list=template.find(query, Map.class,"Like");
 		System.out.println("좋아요 추가"+list);

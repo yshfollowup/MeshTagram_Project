@@ -2857,7 +2857,7 @@ margin-bottom:env(safe-area-inset-bottom)
 					<div class="_ebcx9">
 								<section class="_hmd6j _8oo9w">
 									<a class="_eszkz _l9yih like" name="${obj.code }" role="button"
-										id="like_${obj.code }"> <span
+										id="like_${obj.code }" title="${obj.id }"> <span
 										class="_8scx2 coreSpriteHeartOpen" id="likespan_${obj.code }">좋아요</span>
 									</a> <a class="_eszkz _l9yih dislike ${obj.id }"
 										name="${obj.code }" role="button" id="dislike_${obj.code }"
@@ -3007,8 +3007,8 @@ $(".unmark").on("click", function() {
 		$(".rebt").each(function() {
 			boardid.push($(this).attr("name"));
 		});
-		console.log("댓글 리스트 보여"+boardid);
-		 console.log(boardid.length);
+		//console.log("댓글 리스트 보여"+boardid);
+		/// console.log(boardid.length);
 		 if(boardid.length>0){
 			 
 		
@@ -3019,21 +3019,27 @@ $(".unmark").on("click", function() {
 				"boardId" : boardid
 			}
 		}).done(function(val){
+			//console.log(val.length+"가가가vvvvvv"+val[0].length);
+			//console.log(val);
 			var boardid = [];
 			var reply = [];
 			$(".rebt").each(function() {
 				boardid.push($(this).attr("name"));
 				reply.push($(this).attr("name"));
 			});
-			// console.log(val);
 			for (var i = 0; i < val.length; i++) {
+				$("#sp_" + val[i].boardId).html("");
+				
+			}
+			for (var i = 0; i < val.length; i++) {
+				//console.log(i+"번쨰");
 				var dd="";
 				if(val[i].reid == setid){
 					var s=val[i].ment;
 					// console.log("댓글버튼"+setid+s);
-					dd="<button type=\"button\" class=\"del\" name="+val[i].boardId+" id=\""+val[i].ment+"\" >삭제룽</button>";
+					dd="<button type=\"button\" class=\"del\" name="+val[i].boardId+" id=\""+val[i].ment+"\" >삭제</button>";
 				}
-				console.log(val[i].date+"데이트 객체");
+			//	console.log(val[i].date+"데이트 객체");
 				$("#sp_" + val[i].boardId).append("<a href=/search.do?id="+val[i].reid+">"+val[i].reid+"</a>" + "&emsp; <span id=\"ment_" + val[i].ment+" class=\"ment\" name="+val[i].ment+" >"+val[i].ment+"</span>" +"\t\t"+dd+val[i].date+"<br/>");
 			}
 			var id=setid;
@@ -3043,12 +3049,13 @@ $(".unmark").on("click", function() {
 				var ments;
 				boardids=$(this).attr("name");
 				ments=$(this).attr("id");
-				console.log("댓글 삭제할거다"+id+boardids+ments);
+				//console.log("댓글 삭제할거다"+id+boardids+ments);
 				delReply(id,boardids,ments);
 			});
 		});
 		 }
 	};
+
 	$(".List_like")
 			.on(
 					"click",

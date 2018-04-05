@@ -1180,11 +1180,11 @@ a:active {
 			console.log(newPass);
 			
 			if (!passFlag) {
-				$("#alert1").html("비밀번호는 영문+숫자를 조합하여 8자리 이상으로 변경해주십시오.");
+				window.alert("비밀번호는 영문+숫자를 조합하여 8자리 이상으로 변경해주십시오.");
 				
 			}else {
 				if (oldPass == newPass) {
-					$("#alert1").html("같은 비밀번호로 변경할 수 없습니다!");
+					window.alert("같은 비밀번호로 변경할 수 없습니다!");
 					
 				} 
 			}
@@ -1194,7 +1194,7 @@ a:active {
 			var confirm = $("#confirm").val();
 			console.log(confirm);
 			if (confirm != $("#np").val()) {
-				$("#alert2").html("입력하신 새 비밀번호와 같지 않습니다!");
+				window.alert("입력하신 새 비밀번호와 같지 않습니다!");
 			
 			}
 		});

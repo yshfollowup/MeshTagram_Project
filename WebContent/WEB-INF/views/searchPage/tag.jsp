@@ -79,7 +79,7 @@ background-color: #fafafa;
 							href="${applictionScope.path}/detail/detail.do?code=${obj.code }"
 							data-toggle="tooltip" id="top_${obj.code }" name="${obj.code }"
 							class="tool" title="">
-				<c:forEach items="${obj.image }" var="image" varStatus="st">
+				<c:forEach items="${obj.image }" var="image" varStatus="st" end="0">
 						<img src="${obj.path }${image }"
 								style="width: 230px; height: 230px; " />
 					</c:forEach>

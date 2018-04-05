@@ -101,12 +101,14 @@ public class DetailPageController {
 			List<Map> list3=new ArrayList();
 			String boardId=(String)list2.get(i).get("boardId");
 			String id=(String)list2.get(i).get("id");
+			String target=(String)list2.get(i).get("target");
 			String date=(String)list2.get(i).get("date");
 			list3=rDAO.findLikeBoardId(boardId);
 			//System.out.println(list3.size()+"카운트 개수");
 			count=list3.size();
 			list2.get(i).put("boardId", boardId);
 			list2.get(i).put("id",id);
+			list2.get(i).put("target",id);
 			list2.get(i).put("date", date);
 			list2.get(i).put("count", count);
 			
@@ -138,6 +140,7 @@ public class DetailPageController {
 			List<Map> list3=new ArrayList();
 			String boardId=(String)list2.get(i).get("boardId");
 			String id=(String)list2.get(i).get("id");
+			String target=(String)list2.get(i).get("target");
 			String date=(String)list2.get(i).get("date");
 			list3=rDAO.findLikeBoardId(boardId);
 			//System.out.println(list3.size()+"카운트 개수");
@@ -145,6 +148,7 @@ public class DetailPageController {
 			count=list3.size();
 			list2.get(i).put("boardId", boardId);
 			list2.get(i).put("id",id);
+			list2.get(i).put("target",id);
 			list2.get(i).put("date", date);
 			list2.get(i).put("count", count);
 			

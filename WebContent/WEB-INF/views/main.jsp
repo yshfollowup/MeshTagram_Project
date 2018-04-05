@@ -3259,6 +3259,10 @@ function List(setid) {
 			reply.push($(this).attr("name"));
 		});
 		for (var i = 0; i < val.length; i++) {
+			$("#sp_" + val[i].boardId).html("");
+			
+		}
+		for (var i = 0; i < val.length; i++) {
 			//console.log(i+"번쨰");
 			var dd="";
 			if(val[i].reid == setid){
@@ -3282,21 +3286,7 @@ function List(setid) {
 	});
 	 }
 };
-function delReply(id, boardid, ment){
-	console.log("delReply 받음"+id+boardid+ment);
-	$.ajax("/delReply.do",{
-		"method" : "get",
-		"async" :true,
-		"data" : {
-			"boardid" : boardid,
-			"id" : id,
-			"ment" : ment
-		}
-	}).done(function(val){
-		console.log("댓글리스트 받는다");
-		List(id);
-	})
-}
+
 
 		function markList(setid) {
 			var boardid = [];
