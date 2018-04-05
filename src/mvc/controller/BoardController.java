@@ -98,7 +98,8 @@ public class BoardController {
 		//	System.out.println(map);
 			pDao.insertImage(map);
 		}
-		return "insta_main";
+		return "redirect:/account/login.do";
+		
 	}
 
 	// ==============================================================
