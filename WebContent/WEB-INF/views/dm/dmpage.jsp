@@ -364,7 +364,7 @@ body {
 		console.log("들어왔다." + reid);
 		var second=1000;
 		thread=setInterval(function(){
-			findAllMessage(reid);}, 30000);
+			findAllMessage(reid);}, 3000);
 		reid2=reid;
 	});
 		$(".sender").on("change", function() {
