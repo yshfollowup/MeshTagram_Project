@@ -72,7 +72,7 @@
 				console.log(val.result);
 				if (val.result == true) {
 					window.alert("계정이 안전하게 삭제되었습니다. 3초 뒤 메인페이지로 이동합니다.");
-					window.location.href = 'http://localhost/account/loginPage.do';
+					moveToIndex();
 				}else{
 					$("#password").val("");
 					$("#check").html("비밀번호가 틀렸습니다.");
@@ -87,7 +87,7 @@
 	});
 	
 	function moveToIndex() {
-		window.location.host;	
+		window.location.href = 'http://13.125.195.100/account/loginPage.do';	
 	}
 	
 	setTimeout(moveToIndex, 3000);
