@@ -2025,36 +2025,45 @@ px
 	</nav>
 
 <script>
-//최신 소식 띄우기
-$("#notice").on("click", function() {
-	console.log("공지사항 들어왔다.");
-	var a="";
-	var b="";
-	var c="";
-	var d="";
-	var e="";
-	$.getJSON("/noticeBoard.do", function(val){
-		console.log(val);
-		$.each(val, function(i, key) {
-			//console.log(i);
-			//console.log(key);
-			var noId = key.noId;
-			var noLikeId = key.noLikeId;
-			var noReplyId = key.noReplyId;
-			var senderId = key.senderId;
-			var messSender=key.sender;
-			console.log(noId+"..."+noLikeId+"..."+noReplyId);
-			$(".dropdown-menu").empty();
-			if (noId != null) {
-				console.log(" 걸렸다 이놈아");
-				$("#dropdown-menu").append("<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
-						+ key.code+ "\"><b>"+ key.noId+ "</b>님이 새 게시물을 올렸습니다.</a><div class=\"_3lema _6g6t5\">"+ key.date+ "</div></div></li>");
-				console.log("추가했을까?");
-				a+="<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
-					+ key.code+ "\"><b>"+ key.noId+ "</b>님이 새 게시물을 올렸습니다.</a><div class=\"_3lema _6g6t5\">"+ key.date+ "</div></div></li>";
-			}  else if (noLikeId != null) {
-				console.log("또 걸렸구나");
-				$("#dropdown-menu").append("<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
+	//최신 소식 띄우기
+	$("#notice").on("click", function() {
+		console.log("공지사항 들어왔다.");
+		var a="";
+		var b="";
+		var c="";
+		var d="";
+		var e="";
+		$.getJSON("/noticeBoard.do", function(val){
+			console.log(val);
+			$.each(val, function(i, key) {
+				//console.log(i);
+				//console.log(key);
+				var noId = key.noId;
+				var noLikeId = key.noLikeId;
+				var noReplyId = key.noReplyId;
+				var senderId = key.senderId;
+				var messSender=key.sender;
+				console.log(noId+"..."+noLikeId+"..."+noReplyId);
+				$(".dropdown-menu").empty();
+				if (noId != null) {
+					console.log(" 걸렸다 이놈아");
+					$("#dropdown-menu").append("<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
+							+ key.code+ "\"><b>"+ key.noId+ "</b>님이 새 게시물을 올렸습니다.</a><div class=\"_3lema _6g6t5\">"+ key.date+ "</div></div></li>");
+					console.log("추가했을까?");
+					a+="<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
+						+ key.code+ "\"><b>"+ key.noId+ "</b>님이 새 게시물을 올렸습니다.</a><div class=\"_3lema _6g6t5\">"+ key.date+ "</div></div></li>";
+				}  else if (noLikeId != null) {
+					console.log("또 걸렸구나");
+					$("#dropdown-menu").append("<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
+							+ key.code
+							+ "\"><b>"
+							+ key.noLikeId
+							+ "</b>님이<b>"
+							+ key.noLikeTarget
+							+ "</b>님의 게시물에 좋아요를 눌렀습니다.</a><div class=\"_3lema _6g6t5\">"
+							+ key.date
+							+ "</div></div></li>");
+					b+="<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
 						+ key.code
 						+ "\"><b>"
 						+ key.noLikeId
@@ -2062,18 +2071,18 @@ $("#notice").on("click", function() {
 						+ key.noLikeTarget
 						+ "</b>님의 게시물에 좋아요를 눌렀습니다.</a><div class=\"_3lema _6g6t5\">"
 						+ key.date
-						+ "</div></div></li>");
-				b+="<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
-					+ key.code
-					+ "\"><b>"
-					+ key.noLikeId
-					+ "</b>님이<b>"
-					+ key.noLikeTarget
-					+ "</b>님의 게시물에 좋아요를 눌렀습니다.</a><div class=\"_3lema _6g6t5\">"
-					+ key.date
-					+ "</div></div></li>";
-			} else if(senderId !=null){
-				$("#dropdown-menu").append("<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
+						+ "</div></div></li>";
+				} else if(senderId !=null){
+					$("#dropdown-menu").append("<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
+							+ key.code
+							+ "\"><b>"
+							+ key.senderId
+							+ "</b>님이<b>"
+							+ key.anno
+							+ "</b>님을 게시물에 태그하였습니다.</a><div class=\"_3lema _6g6t5\">"
+							+ key.date
+							+ "</div></div></li>");
+					d+="<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
 						+ key.code
 						+ "\"><b>"
 						+ key.senderId
@@ -2081,132 +2090,114 @@ $("#notice").on("click", function() {
 						+ key.anno
 						+ "</b>님을 게시물에 태그하였습니다.</a><div class=\"_3lema _6g6t5\">"
 						+ key.date
-						+ "</div></div></li>");
-				d+="<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
-					+ key.code
-					+ "\"><b>"
-					+ key.senderId
-					+ "</b>님이<b>"
-					+ key.anno
-					+ "</b>님을 게시물에 태그하였습니다.</a><div class=\"_3lema _6g6t5\">"
-					+ key.date
-					+ "</div></div></li>";
-				
-				
-			}else if(messSender !=null){
-				$("#dropdown-menu").append("<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/direct/index.do"
+						+ "</div></div></li>";
+					
+					
+				}else if(messSender !=null){
+					$("#dropdown-menu").append("<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/direct/index.do"
+							+ "\"><b>"
+							+ key.sender
+							+ "</b>님이<b>"
+							+ key.target
+							+ "</b>님에게 메세지를 보냈습니다.</a><div class=\"_3lema _6g6t5\">"
+							+ key.date
+							+ "</div></div></li>");
+					
+					e+="<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/direct/index.do"
 						+ "\"><b>"
 						+ key.sender
 						+ "</b>님이<b>"
 						+ key.target
 						+ "</b>님에게 메세지를 보냈습니다.</a><div class=\"_3lema _6g6t5\">"
 						+ key.date
-						+ "</div></div></li>");
-				
-				e+="<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/direct/index.do"
-					+ "\"><b>"
-					+ key.sender
-					+ "</b>님이<b>"
-					+ key.target
-					+ "</b>님에게 메세지를 보냈습니다.</a><div class=\"_3lema _6g6t5\">"
-					+ key.date
-					+ "</div></div></li>";
-				
-				
-			}else {
-				console.log("이번엔 아주 제대로야");
-				$("#dropdown-menu").append("<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
+						+ "</div></div></li>";
+					
+					
+				}else {
+					console.log("이번엔 아주 제대로야");
+					$("#dropdown-menu").append("<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
+							+ key.code+ "\"><b>"+ key.noReplyId	+ "</b>님이<b>"	+ key.noReplyTarget	+ "</b>님의 게시물에 댓글을 달았습니다.</a><div class=\"_3lema _6g6t5\">"	+ key.date
+							+ "</div></div></li>");
+					c+="<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
 						+ key.code+ "\"><b>"+ key.noReplyId	+ "</b>님이<b>"	+ key.noReplyTarget	+ "</b>님의 게시물에 댓글을 달았습니다.</a><div class=\"_3lema _6g6t5\">"	+ key.date
-						+ "</div></div></li>");
-				c+="<li class=\"_75ljm _3qhgf\" roll=\"presentation\"><div class=\"_b96u5\">회원님이 팔로잉한<a href=\"/detail/detail.do?code="
-					+ key.code+ "\"><b>"+ key.noReplyId	+ "</b>님이<b>"	+ key.noReplyTarget	+ "</b>님의 게시물에 댓글을 달았습니다.</a><div class=\"_3lema _6g6t5\">"	+ key.date
-					+ "</div></div></li>";
-			}  
+						+ "</div></div></li>";
+				}  
+				
+			});
 			
+			$("#dropdown-menu").html(d+a+b+e+c);
 		});
-		
-		$("#dropdown-menu").html(d+a+b+e+c);
 	});
-});
 	//검색창
-	$("#search")
-				.on(
-						"keyup",
-						function() {
-							var value = $("#search").val();
-							var tag = null;
-							var idsh = null;
-							var comm = null
-							if (value.startsWith("#")) {
-								tag = value;
-							} else if (value.startsWith("@")) {
-								idsh = value;
-							} else {
-								comm = value;
-							}
-							$
-									.ajax("/autocom.do", {
-										"method" : "post",
-										"async" : true,
-										"data" : {
-											"tag" : tag,
-											"idsh" : idsh,
-											"comm" : comm
-										}
-									})
-									.done(
-											function(val) {
-												console.log(val);
-												var str = "";
-												var img = "<img src=\"/images/insta.jpg\" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
-												for (var i = 0; i < val.length; i++) {
-													var img2 = "<img src=\"${applicationScope.path }"+val.PROFILE+" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
-													var com = null;
-													var ii = null;
-													if (val[i]._id != null) {
-														var s = null;
-														if (val[i].tags[0]
-																.startsWith("#")) {
-															console
-																	.log(val[i].tags[i]);
-															var a = val[i].tags[0];
-															s = a.replace('#',
-																	'%23');
-														}
-														str += "<a href=/searchtag.do?tags="
-																+ s
-																+ ">"
-																+ val[i].tags
-																+ "<br/>게시물 "
-																+ val[i].count
-																+ "</a>"
-																+ "<br/>";
-													} else {
-														if (val.PROFILE == null) {
-															ii = img;
-														} else {
-															ii = img2;
-														}
-														if (val[i].NAME == null) {
-															name = "";
-														} else {
-															name = val[i].NAME;
-														}
-														str += "<a href=/search.do?id="
-																+ val[i].ID
-																+ "><div>"
-																+ ii
-																+ "<div>"
-																+ val[i].ID
-																+ "</div><div style=\"border-bottom: 1px solid grey;\">"
-																+ name
-																+ "</div></div></a>"
-																+ "<br/>";
-													}
-												}
-												$("#pp").html(str);
-											})
-						});
+	
+	$("#search").on("keyup", function() {
+		var value = $("#search").val();
+		var tag = null;
+		var idsh = null;
+		var comm = null
+		if (value.startsWith("#")) {
+			tag = value;
+		} else if (value.startsWith("@")) {
+			idsh = value;
+		} else {
+			comm = value;
+		}
+		$.ajax("/autocom.do", {
+			"method" : "post",
+			"async" : true,
+			"data" : {
+				"tag" : tag,
+				"idsh" : idsh,
+				"comm" : comm
+			}
+		}).done(function(val) {
+			console.log(val);
+			var str = "";
+			var img = "<img src=\"/images/insta.jpg\" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
+			for (var i = 0; i < val.length; i++) {
+				var img2 = "<img src=\"${applicationScope.path }"+val.PROFILE+" style=\"width: 30px; height: 30px; border-radius: 30px\" id=\"writer\">";
+				var com = null;
+				var ii = null;
+				if (val[i]._id != null) {
+					var s = null;
+					if (val[i].tags[0].startsWith("#")) {
+						console.log(val[i].tags[i]);
+						var a = val[i].tags[0];
+						s = a.replace('#', '%23');
+					}
+					str += "<a href=/searchtag.do?tags="
+						+ s
+						+ ">"
+						+ val[i].tags
+						+ "<br/>게시물 "
+						+ val[i].count
+						+ "</a>" + "<br/>";
+				} else {
+					if (val.PROFILE == null) {
+						ii = img;
+					} else {
+						ii = img2;
+					}
+					if (val[i].NAME == null) {
+						name = "";
+					} else {
+						name = val[i].NAME;
+					}
+					str += "<a href=/search.do?id="
+						+ val[i].ID
+						+ "><div>"
+						+ ii
+						+ "<div>"
+						+ val[i].ID
+						+ "</div><div style=\"border-bottom: 1px solid grey;\">"
+						+ name
+						+ "</div></div></a>"
+						+ "<br/>";
+				}
+			}
+			$("#pp").html(str);
+		})
+	});
 </script>
 </body>
 </html>

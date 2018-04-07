@@ -2582,7 +2582,8 @@ color : #999;
 					<span class="_1gmap">© 2018 Meshtagram</span>
 				</div>
 			</footer>
-		</section></span>
+		</section>
+	</span>
 <script>
 	$("#ch1").click( function(){
 		location.replace("/account/join.do");

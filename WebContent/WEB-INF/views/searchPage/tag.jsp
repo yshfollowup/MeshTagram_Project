@@ -91,79 +91,72 @@ background-color: #fafafa;
 </div>
 </body>	
 <script>
-var setid = "${cookie.setId.value}";
-likeList();
-
-function likeList() {
-	var boardid=[];
-	$(".tool").each(function() {
-		boardid.push($(this).attr("name"));
-	});
-	console.log(boardid);
-	$.ajax("/likecountList.do", {
-		"method" : "get",
-		"async" : true,
-		"data" : {
-			"boardId" : boardid,
-		}
-	}).done(function(val) {
-		console.log(val + "댓글 좋아요");
-		for (var i = 0; i < val.length; i++) {
-			// console.log(val.length);
-			//$("#top_" + val[i].boardId).attr("title","좋아요 " + val[i].count+"개");
-			if(val[i].count==0){
-				
-			}else{
-				$("#top_" + val[i].boardId).val(val[i].count + "개");
-			$("#top_" + val[i].boardId).attr("title","좋아요"+val[i].count + "개");
-			}
-			
-		}
-		List();
-	})
+	var setid = "${cookie.setId.value}";
+	likeList();
 	
-};
-
-function List() {
-	var boardid=[];
-
-	$(".tool").each(function() {
-		boardid.push($(this).attr("name"));
-	});
-	console.log(boardid);
-	$.ajax("/ReList.do", {
-		"method" : "get",
-		"async" : true,
-		"data" : {
-			"boardId" : boardid
-		}
-	}).done(
-			function(val) {
+	function likeList() {
+		var boardid=[];
+		$(".tool").each(function() {
+			boardid.push($(this).attr("name"));
+		});
+		console.log(boardid);
+		$.ajax("/likecountList.do", {
+			"method" : "get",
+			"async" : true,
+			"data" : {
+				"boardId" : boardid,
+			}
+		}).done(function(val) {
+			console.log(val + "댓글 좋아요");
+			for (var i = 0; i < val.length; i++) {
+				// console.log(val.length);
+				//$("#top_" + val[i].boardId).attr("title","좋아요 " + val[i].count+"개");
+				if(val[i].count != 0){
+					$("#top_" + val[i].boardId).val(val[i].count + "개");
+					$("#top_" + val[i].boardId).attr("title","좋아요"+val[i].count + "개");					
+				}
+			}
+			List();
+		})	
+	};
+	
+	function List() {
+		var boardid=[];
+	
+		$(".tool").each(function() {
+			boardid.push($(this).attr("name"));
+		});
+		console.log(boardid);
+		$.ajax("/ReList.do", {
+			"method" : "get",
+			"async" : true,
+			"data" : {
+				"boardId" : boardid
+			}
+		}).done(function(val) {
+			var boardid = [];
+			var reply = [];
+			$(".rebt").each(function() {
+				boardid.push($(this).attr("name"));
+				reply.push($(this).attr("name"));
+			});
+			// console.log(val);
 				
-				var boardid = [];
-				var reply = [];
-				$(".rebt").each(function() {
-					boardid.push($(this).attr("name"));
-					reply.push($(this).attr("name"));
-				});
-				// console.log(val);
-					
-				for (var i = 0; i < val.length; i++) {
-							var reply = $("#top_" + val[i].boardId).val();
-							console.log(reply);
-							$("#top_" + val[i].boardId).attr("title","좋아요 "
-									+ $("#top_" + val[i].boardId)
-											.val() + "댓글 "
-									+ val[i].count + "개");
-					//reply.appent("댓글 "+ val[i].count + "개");
-					}
-			})
-};
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();   
-});
+			for (var i = 0; i < val.length; i++) {
+				var reply = $("#top_" + val[i].boardId).val();
+				console.log(reply);
+				$("#top_" + val[i].boardId).attr("title","좋아요 "
+						+ $("#top_" + val[i].boardId)
+								.val() + "댓글 "
+						+ val[i].count + "개");
+				//reply.appent("댓글 "+ val[i].count + "개");
+			}
+		})
+	};
+	
+	$(document).ready(function(){
+	    $('[data-toggle="tooltip"]').tooltip();   
+	});
+	
 </script>
-
-
-
 </html>

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class JoinService {
+public class AuthService {
 
 	/*
 		특정 이메일 주소로 인증키를 보내는 기능을 만들꺼임.

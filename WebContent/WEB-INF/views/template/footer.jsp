@@ -191,11 +191,10 @@
 	</footer>
 </body>
 <script>
-$("._hqmnd").removeAttr("href");
+	$("._hqmnd").removeAttr("href");
 
-$("._mjfont").click(function(){
-	window.alert("준비중입니다.");
-	
+	$("._mjfont").click(function(){
+		window.alert("준비중입니다.");	
 })
 </script>
 </html>

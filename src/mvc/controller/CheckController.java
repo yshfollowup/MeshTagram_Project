@@ -20,14 +20,14 @@ import com.google.gson.Gson;
 
 import mvc.model.AccountDTO;
 import mvc.service.AccountDAO;
-import mvc.service.JoinService;
+import mvc.service.AuthService;
 
 @Controller
 public class CheckController {
 	@Autowired
 	AccountDAO aDAO;
 	@Autowired
-	JoinService js;
+	AuthService js;
 	@Autowired
 	Gson gson;
 	

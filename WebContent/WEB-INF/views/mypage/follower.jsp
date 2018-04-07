@@ -48,7 +48,7 @@
 			console.log("팔로우 들어왔다.")
 			var setid = "${cookie.setId.value}";
 			var src = $(this);
-			var a = $(this).attr("name");
+			var name = $(this).attr("name");
 
 			if ($(this).val() == "팔로잉") {
 				$.ajax("/follow/delete.do", {
@@ -56,12 +56,12 @@
 					"async" : true,
 					"data" : {
 						"owner" : setid,
-						"target" : a
+						"target" : name
 					}
 				}).done(function(obj2) {
 					console.log("삭제 들어왔다.");
 					src.val("팔로우");
-					src.attr("name", a);
+					src.attr("name", name);
 				});
 			} else {
 
@@ -70,12 +70,12 @@
 					"async" : true,
 					"data" : {
 						"owner" : "${cookie.setId.value}",
-						"target" : a
+						"target" : name
 					}
 				}).done(function(obj) {
 					console.log("들어왔다." + src);
 					src.val("팔로잉");
-					src.attr("name", a);
+					src.attr("name", name);
 				});
 			}
 		});
