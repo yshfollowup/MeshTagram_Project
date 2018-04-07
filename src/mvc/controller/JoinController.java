@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import mvc.service.AccountDAO;
-import mvc.service.JoinService;
+import mvc.service.AuthService;
 
 @Controller
 @RequestMapping("/key")
 public class JoinController {
 	@Autowired
-	JoinService joinService;
+	AuthService joinService;
 
 	@Autowired
 	AccountDAO aDAO;

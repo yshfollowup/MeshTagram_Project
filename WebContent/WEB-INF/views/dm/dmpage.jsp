@@ -367,31 +367,33 @@ body {
 			findAllMessage(reid);}, 3000);
 		reid2=reid;
 	});
-		$(".sender").on("change", function() {
-			var content = $(".sender").val();
-			var scope = 0;
-			var like = 0;
-			if (content.length == 0) {
-				window.alert("댓글을 작성해주세요.");
-				return;
+	
+	$(".sender").on("change", function() {
+		var content = $(".sender").val();
+		var scope = 0;
+		var like = 0;
+		if (content.length == 0) {
+			window.alert("댓글을 작성해주세요.");
+			return;
+		}
+		console.log("채팅을 치자"+reid2);
+		$.ajax("/direct/insertMessage.do", {
+			"method" : "get",
+			"async" : false,
+			"data" : {
+				"sender" : setid,
+				"target" : reid2,
+				"content" : content,
+				"like" : like,
+				"scope" : scope
 			}
-			console.log("채팅을 치자"+reid2);
-			$.ajax("/direct/insertMessage.do", {
-				"method" : "get",
-				"async" : false,
-				"data" : {
-					"sender" : setid,
-					"target" : reid2,
-					"content" : content,
-					"like" : like,
-					"scope" : scope
-				}
-			}).done(function(val) {
+		}).done(function(val) {
 			$("#sender").val("");
-				console.log(val);
-				findAllMessage(reid2);
-			})
-		}); 
+			console.log(val);
+			findAllMessage(reid2);
+		})
+	}); 
+	
 	showMessage();
 
 	function setDigit(num, digit) {
@@ -404,6 +406,7 @@ body {
 		}
 		return zero + num;
 	}
+	
 	function display() {
 		var now = new Date();
 		var currentHour = setDigit(now.getHours(), 2);
@@ -418,6 +421,7 @@ body {
 	}
 
 	setTimeout(display, 1000);
+	
 	function showMessage() {
 		senderId = [];
 		console.log("체크하거라");
@@ -427,32 +431,28 @@ body {
 		});
 		
 		console.log(senderId);
-		if(senderId !=""){
-			
-		$.ajax("/direct/senderId.do", {
-			"method" : "get",
-			"async" : true,
-			"data" : {
-				"sender" : senderId,
-				"target" : setid
-			}
-
-		}).done(function(val) {
-			console.log(val);
-			for (var i = 0; i < val.length; i++) {
-				var a = 0;
-				if (val[i].scope == "0") {
-					a++;
-					console.log(val[i].sender+"이사랑이 보냄");
-					$("#sp_" + val[i].sender).html("1");
+		if(senderId !=""){			
+			$.ajax("/direct/senderId.do", {
+				"method" : "get",
+				"async" : true,
+				"data" : {
+					"sender" : senderId,
+					"target" : setid
 				}
-
-			}
-
-		});
-			
+	
+			}).done(function(val) {
+				console.log(val);
+				for (var i = 0; i < val.length; i++) {
+					var a = 0;
+					if (val[i].scope == "0") {
+						a++;
+						console.log(val[i].sender+"이사랑이 보냄");
+						$("#sp_" + val[i].sender).html("1");
+					}
+	
+				}
+			});
 		}
-
 	}
 
 	function findAllMessage(reid) {
@@ -460,129 +460,120 @@ body {
 		var target=reid;
 		var oid;
 		console.log(reid+"이것이 들어왔다."+setid+target);
-		$
-				.ajax("/direct/showMessage.do", {
-					"method" : "post",
+		$.ajax("/direct/showMessage.do", {
+			"method" : "post",
+			"async" : true,
+			"data" : {
+				"sender" : setid,
+				"target" : target
+			}
+		}).done(function(val) {
+			console.log(val);
+			$("#showdm").html("");
+			$("#showre").html("");
+			for (var i = 0; i < val.length; i++) {
+				var bt = "<input class=\"_eszkz _l9yih like\" name=\""+val[i].code+"\" type=\"image\" id=\"like_${obj._id }\" src=\"/images/sheart.png\"/>";
+				var bt2 = "<input class=\"_eszkz _l9yih dislike\" name=\""+val[i].code+"\" type=\"image\" id=\"dislike_${obj._id }\" src=\"/images/sheart_full.png\"/>";
+				//console.log(val[i].content + val.length);
+				if (val[i].sender == setid) {
+					if(val[i].like =="좋아요"){
+						$("#showdm").append(
+								"<div id="+val[i].sender+"\" style=\"font-size:16px; text-align: right;  \">"
+										+ bt2 +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
+										+ val[i].content
+										+ "</button>" + "</div>"
+										+ "<br/>");		
+					}else{						
+						$("#showdm").append(
+								"<div id="+val[i].sender+"\" style=\"font-size:16px; text-align: right; \">"
+										+ bt +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
+										+ val[i].content
+										+ "</button>" + "</div>"
+										+ "<br/>");
+					}
+				} else {
+					if(val[i].like=="좋아요"){
+						$("#showdm").append(
+							"<div id="+val[i].sender+"\" style=\" text-align: left; \"  >"
+								+ bt2 +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
+								+ val[i].content
+								+ "</button>" + "</div>"
+								+ "<br/>");
+					} else {
+						
+					$("#showdm").append(
+						"<div id="+val[i].sender+"\"align=right\" style=\"text-align: left; \" >"
+							+ bt +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
+							+ val[i].content
+							+ "</button>" + "</div>"
+							+ "<br/>");
+				
+					}
+					
+					target = val[i].sender;
+					//console.log(target + "저장");
+				}
+								
+								
+			}
+			
+			$("#chatBoard").scrollTop($("#chatBoard").prop("scrollHeight"));
+			//	console.log("타켓팅" + reid + "scope업데이트");
+			$.ajax("/direct/updateScope.do", {
+				"method" : "get",
+				"async" : true,
+				"data" : {
+					"sender" : setid,
+					"target" : target
+				}
+
+			}).done(function(val2) {
+				var a = 0;
+			//	console.log("업데이트 ");
+				$("#sp_" + target).html(" ");
+			});
+			
+			$("#charBoard").scrollTop();
+			//======
+			//좋아요 취소
+			$(".dislike").on("click", function(){
+				var oid = $(this).attr("name");
+				console.log(oid);
+				$.ajax("/direct/deleteLike.do",{
+					"method" : "get",
+					"async" :true,
+					"data" :{
+						"sender": setid,
+						"target" : reid,
+						"oid" : oid			
+					}
+				}).done(function(val){
+					checkLike(reid);
+				});
+			});
+			
+			//=======
+			//좋아요 버튼
+			$(".like").on("click", function() {
+				var oid = $(this).attr("name");
+				console.log(oid);
+				$.ajax("/direct/updateLike.do", {
+					"method" : "get",
 					"async" : true,
 					"data" : {
 						"sender" : setid,
-						"target" : target
+						"target" : reid,
+						"oid" : oid
 					}
-				})
-				.done(
-						function(val) {
-							console.log(val);
-							$("#showdm").html("");
-							$("#showre").html("");
-							for (var i = 0; i < val.length; i++) {
-								var bt = "<input class=\"_eszkz _l9yih like\" name=\""+val[i].code+"\" type=\"image\" id=\"like_${obj._id }\" src=\"/images/sheart.png\"/>";
-								var bt2 = "<input class=\"_eszkz _l9yih dislike\" name=\""+val[i].code+"\" type=\"image\" id=\"dislike_${obj._id }\" src=\"/images/sheart_full.png\"/>";
-								//console.log(val[i].content + val.length);
-								if (val[i].sender == setid) {
-									if(val[i].like =="좋아요"){
-										$("#showdm").append(
-												"<div id="+val[i].sender+"\" style=\"font-size:16px; text-align: right;  \">"
-														+ bt2 +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
-														+ val[i].content
-														+ "</button>" + "</div>"
-														+ "<br/>");		
-									}else{
-										
-									$("#showdm").append(
-											"<div id="+val[i].sender+"\" style=\"font-size:16px; text-align: right; \">"
-													+ bt +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
-													+ val[i].content
-													+ "</button>" + "</div>"
-													+ "<br/>");
-									}
-								} else {
-									if(val[i].like=="좋아요"){
-										$("#showdm").append(
-												"<div id="+val[i].sender+"\" style=\" text-align: left; \"  >"
-														+ bt2 +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
-														+ val[i].content
-														+ "</button>" + "</div>"
-														+ "<br/>");
-										
-									}else{
-										
-									$("#showdm").append(
-											"<div id="+val[i].sender+"\"align=right\" style=\"text-align: left; \" >"
-													+ bt +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
-													+ val[i].content
-													+ "</button>" + "</div>"
-													+ "<br/>");
-										
-									}
-									target = val[i].sender;
-									//console.log(target + "저장");
-								}
-								
-								
-							}
-							$("#chatBoard").scrollTop($("#chatBoard").prop("scrollHeight"));
-							
-							
-						//	console.log("타켓팅" + reid + "scope업데이트");
-							$.ajax("/direct/updateScope.do", {
-								"method" : "get",
-								"async" : true,
-								"data" : {
-									"sender" : setid,
-									"target" : target
-
-								}
-
-							}).done(function(val2) {
-								var a = 0;
-							//	console.log("업데이트 ");
-								$("#sp_" + target).html(" ");
-							});
-							$("#charBoard").scrollTop();
-							//======
-							//좋아요 취소
-							$(".dislike").on("click", function(){
-								var oid = $(this).attr("name");
-								console.log(oid);
-								$.ajax("/direct/deleteLike.do",{
-									"method" : "get",
-									"async" :true,
-									"data" :{
-										"sender": setid,
-										"target" : reid,
-										"oid" : oid
-										
-									}
-									
-								}).done(function(val){
-									checkLike(reid);
-								});
-							});
-							//=======
-							//좋아요 버튼
-							$(".like").on("click", function() {
-								var oid = $(this).attr("name");
-								console.log(oid);
-
-								$.ajax("/direct/updateLike.do", {
-									"method" : "get",
-									"async" : true,
-									"data" : {
-										"sender" : setid,
-										"target" : reid,
-										"oid" : oid
-
-									}
-								}).done(function(val) {
-								//=====================================================
-								//	console.log(val+"좋아요 버튼이 들어왔다잉");
-									checkLike(reid);
-								//=====================================================
-						});
+				}).done(function(val) {
+				//=====================================================
+				//	console.log(val+"좋아요 버튼이 들어왔다잉");
+					checkLike(reid);
+				//=====================================================
+				});
 								//====================================================================
-					})
-
-						});
+			});
+		});
 	};
 //=========================================================================================
 	function checkLike(reid) {
@@ -590,131 +581,119 @@ body {
 		var target;
 		var oid;
 		console.log(reid+"이게 문제네");
-		$
-				.ajax("/direct/showMessage.do", {
-					"method" : "post",
+		$.ajax("/direct/showMessage.do", {
+			"method" : "post",
+			"async" : true,
+			"data" : {
+				"sender" : setid,
+				"target" : reid
+			}
+		}).done(
+			function(val) {
+				console.log(val);
+				$("#showdm").html("");
+				$("#showre").html("");
+				
+				for (var i = 0; i < val.length; i++) {
+					var bt = "<input class=\"_eszkz _l9yih like\" name=\""+val[i].code+"\" type=\"image\" id=\"like_${obj._id }\" src=\"/images/sheart.png\"/>";
+					var bt2 = "<input class=\"_eszkz _l9yih dislike\" name=\""+val[i].code+"\" type=\"image\" id=\"dislike_${obj._id }\" src=\"/images/sheart_full.png\"/>";
+					console.log(val[i].content + val.length);
+					if (val[i].sender == setid) {
+						if(val[i].like =="좋아요") {
+							$("#showdm").append(
+								"<div id="+val[i].sender+"\" style=\"font-size:16px; text-align: right; \">"
+										+ bt2 +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
+										+ val[i].content
+										+ "</button>" + "</div>"
+										+ "<br/>");			
+						}else{
+							$("#showdm").append(
+								"<div id="+val[i].sender+"\" style=\"font-size:16px; text-align: right; \">"
+										+ bt +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
+										+ val[i].content
+										+ "</button>" + "</div>"
+										+ "<br/>");
+						}
+					} else {
+						if(val[i].like=="좋아요"){
+							$("#showdm").append(
+								"<div id="+val[i].sender+"\ style=\"text-align: left; \">"
+										+ bt2 +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
+										+ val[i].content
+										+ "</button>" + "</div>"
+										+ "<br/>");						
+						} else {
+							$("#showdm").append(
+								"<div id="+val[i].sender+"\" style=\"text-align: left; \">"
+										+ bt +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
+										+ val[i].content
+										+ "</button>" + "</div>"
+										+ "<br/>");
+							console.log("저장하였습니다.")
+						}
+						target = val[i].sender;
+						//console.log(target + "댓그르그");
+					}
+				}
+				
+				$("#chatBoard").scrollTop($("#chatBoard").prop("scrollHeight"));
+	
+				console.log("타켓팅" + target + "scope업데이트");
+				$.ajax("/direct/updateScope.do", {
+					"method" : "get",
 					"async" : true,
 					"data" : {
 						"sender" : setid,
-						"target" : reid
+						"target" : target
+	
 					}
-				})
-				.done(
-						function(val) {
-							console.log(val);
-							$("#showdm").html("");
-							$("#showre").html("");
-							for (var i = 0; i < val.length; i++) {
-								var bt = "<input class=\"_eszkz _l9yih like\" name=\""+val[i].code+"\" type=\"image\" id=\"like_${obj._id }\" src=\"/images/sheart.png\"/>";
-								var bt2 = "<input class=\"_eszkz _l9yih dislike\" name=\""+val[i].code+"\" type=\"image\" id=\"dislike_${obj._id }\" src=\"/images/sheart_full.png\"/>";
-								console.log(val[i].content + val.length);
-								if (val[i].sender == setid) {
-									if(val[i].like =="좋아요"){
-										$("#showdm").append(
-												
-												"<div id="+val[i].sender+"\" style=\"font-size:16px; text-align: right; \">"
-														+ bt2 +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
-														+ val[i].content
-														+ "</button>" + "</div>"
-														+ "<br/>");			
-									}else{
-										
-										$("#showdm").append(
-											"<div id="+val[i].sender+"\" style=\"font-size:16px; text-align: right; \">"
-													+ bt +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
-													+ val[i].content
-													+ "</button>" + "</div>"
-													+ "<br/>");
-									}
-								} else {
-									if(val[i].like=="좋아요"){
-										$("#showdm").append(
-												"<div id="+val[i].sender+"\ style=\"text-align: left; \">"
-														+ bt2 +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
-														+ val[i].content
-														+ "</button>" + "</div>"
-														+ "<br/>");
-										
-									}else{
-										
-										$("#showdm").append(
-											"<div id="+val[i].sender+"\" style=\"text-align: left; \">"
-													+ bt +"&nbsp;&nbsp;&nbsp;&nbsp;"+ val[i].sender + " : "
-													+ val[i].content
-													+ "</button>" + "</div>"
-													+ "<br/>");
-										console.log("저장하였습니다.")
-									}
-									target = val[i].sender;
-									//console.log(target + "댓그르그");
-								}
-								
-								
-							}
-							$("#chatBoard").scrollTop($("#chatBoard").prop("scrollHeight"));
-
-							console.log("타켓팅" + target + "scope업데이트");
-							$.ajax("/direct/updateScope.do", {
-								"method" : "get",
-								"async" : true,
-								"data" : {
-									"sender" : setid,
-									"target" : target
-
-								}
-
-							}).done(function(val2) {
-								var a = 0;
-								console.log("업데이트 ");
-								$("#sp_" + target).html(" ");
-							});
-							$("#charBoard").scrollTop();
-							//======
-							//좋아요 취소
-							$(".dislike").on("click", function(){
-								var oid = $(this).attr("name");
-								console.log(oid);
-								$.ajax("/direct/deleteLike.do",{
-									"method" : "get",
-									"async" :true,
-									"data" :{
-										"sender": setid,
-										"target" : reid,
-										"oid" : oid
-										
-									}
-									
-								}).done(function(val){
-									findAllMessage(reid);
-								});
-							});
-							//=======
-							//좋아요 버튼
-							$(".like").on("click", function() {
-								var oid = $(this).attr("name");
-								console.log(oid);
-
-								$.ajax("/direct/updateLike.do", {
-									"method" : "get",
-									"async" : true,
-									"data" : {
-										"sender" : setid,
-										"target" : reid,
-										"oid" : oid
-
-									}
-								}).done(function(val) {
-								//=====================================================
-									console.log(val+"좋아요 버튼이 들어왔다잉");
-									findAllMessage(reid);
-								//=====================================================
-						});
-								//====================================================================
-					})
-
-						});
-		
-
-	};
+				}).done(function(val2) {
+					var a = 0;
+					console.log("업데이트 ");
+					$("#sp_" + target).html(" ");
+				});
+				
+				$("#charBoard").scrollTop();
+				//======
+				//좋아요 취소
+				$(".dislike").on("click", function(){
+					var oid = $(this).attr("name");
+					console.log(oid);
+					$.ajax("/direct/deleteLike.do",{
+						"method" : "get",
+						"async" :true,
+						"data" :{
+							"sender": setid,
+							"target" : reid,
+							"oid" : oid			
+						}
+					}).done(function(val){
+						findAllMessage(reid);
+					});
+				});
+				
+				//=======
+				//좋아요 버튼
+				$(".like").on("click", function() {
+					var oid = $(this).attr("name");
+					console.log(oid);
+					$.ajax("/direct/updateLike.do", {
+						"method" : "get",
+						"async" : true,
+						"data" : {
+							"sender" : setid,
+							"target" : reid,
+							"oid" : oid
+						}
+					}).done(function(val) {
+					//=====================================================
+						console.log(val+"좋아요 버튼이 들어왔다잉");
+						findAllMessage(reid);
+					//=====================================================
+			}		);
+					//====================================================================
+				});
+			});
+		};
 </script>
 </html>

@@ -83,49 +83,48 @@
 		var filesArr = Array.prototype.slice.call(files); //files 배열에서 call한 부분을 복사한 배열
 
 		var index = 0; //미리보기 배열의 인덱스와 연결할 변수
-		filesArr
-				.forEach(function(f) {
-					if (!f.type.match("image.*")) {
-						window.alert("이미지만 선택 가능 합니다.");
-						return;
-					}
-
-					var result = select_files.push(f); //f를 select_files에 집어넣는다
-					console.log(result);
-
-					if (select_files.length > capacity) {
-						window.alert("이미지는 최대 10장까지 등록 가능합니다.");
-						return;
-					}
-
-					var reader = new FileReader();
-					console.log(reader);
-					reader.onload = function(e) {
-						var html = "<a href=\"javascript:void(0);\" name=\"사진\" onclick=\"deleteImgAction("
-								+ index
-								+ ")\" id=\"img_id_"
-								+ index
-								+ "\"><img src=\"" 
-							+ e.target.result + "\"style=\"width:120px; height:120px; padding: 10px;\" data-file='"
-							+f.name+"' class='selProductFile' title='Click to remove'></a>";
-						//$("#preview").attr("src", this.result);
-						$(".content").append(html);
-						index++;
-					}
-					reader.readAsDataURL(f);
-		uploadCheck();
-		function uploadCheck(){
-			console.log("으아아아");
-			var s= $("#img_id_0");
-			console.log(s);
-			if(s != "undefined"){
-				$("#bt2").prop("disabled", false);
-			}else{
-				$("#bt2").prop("disabled", true);
+		filesArr.forEach(function(f) {
+			if (!f.type.match("image.*")) {
+				window.alert("이미지만 선택 가능 합니다.");
+				return;
 			}
-		};
-	});
-}
+
+			var result = select_files.push(f); //f를 select_files에 집어넣는다
+			console.log(result);
+
+			if (select_files.length > capacity) {
+				window.alert("이미지는 최대 10장까지 등록 가능합니다.");
+				return;
+			}
+
+			var reader = new FileReader();
+			console.log(reader);
+			reader.onload = function(e) {
+				var html = "<a href=\"javascript:void(0);\" name=\"사진\" onclick=\"deleteImgAction("
+						+ index
+						+ ")\" id=\"img_id_"
+						+ index
+						+ "\"><img src=\"" 
+					+ e.target.result + "\"style=\"width:120px; height:120px; padding: 10px;\" data-file='"
+					+f.name+"' class='selProductFile' title='Click to remove'></a>";
+				//$("#preview").attr("src", this.result);
+				$(".content").append(html);
+				index++;
+			}
+			reader.readAsDataURL(f);
+			uploadCheck();
+			function uploadCheck(){
+				console.log("으아아아");
+				var s= $("#img_id_0");
+				console.log(s);
+				if(s != "undefined"){
+					$("#bt2").prop("disabled", false);
+				}else{
+					$("#bt2").prop("disabled", true);
+				}
+			};
+		});
+	}
 
 	function deleteImgAction(index) {
 		select_files.splice(index, 1);
@@ -142,10 +141,7 @@
 		$("#bt2").prop("disabled", true);
 		$(".content").empty();
 	}
-	/* 
-	$("#comment").keypress(function() {
-		$("#bt2").prop("disabled", false);
-	}); */
+	
 </script>
 
 </html>

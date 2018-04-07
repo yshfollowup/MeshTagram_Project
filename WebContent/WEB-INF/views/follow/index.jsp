@@ -133,7 +133,7 @@
 				return text === "더 찾아보기" ? "숨기기" : "더 찾아보기";
 			});
 		});
-	})
+	});
 </script>
 <script>
 	var setid = "${cookie.setId.value}";
@@ -141,7 +141,7 @@
 		var tar="";
 		var list=[];
 		$("#demo").html("");
-		$.ajax("/follow/followListSomeone.do",{
+		$.ajax("/follow/followListSomeone.do", {
 			"method" : "get",
 			"async" : true,
 			"data" : {
@@ -149,7 +149,7 @@
 			}
 		}).done(function(val){
 			console.log(val);
-			$.ajax("/checkFollow.do",{
+			$.ajax("/checkFollow.do", {
 				"method" : "get",
 				"async" : true,
 				"data" : {
@@ -160,26 +160,28 @@
 					var profile;
 					var image;
 					var arr=[];
-				for(var i=0; i<val.length; i++){
-					var fbt;
-					image=val[i].PROFILE;
-					if(val[i].PROFILE !=null){
-						profile="<img src="+image+" style=\"width: 30px; height: 30px; border-radius: 30px\" class=\"recomId\">"
-					}else{
-						profile="<img src=\"/images/insta.jpg\" style=\"width: 30px; height: 30px; border-radius: 30px\" class=\"recomId\">"
-					}
-					
-					var cnt1=0;
-					var cnt2=0;
-					for(var j=0; j<val2.length; j++){
-					var follow = val2[j].ID;
-						if(val[i].TARGET != val2[j].TARGET){
-							
-							cnt1++;
+					for(var i=0; i<val.length; i++){
+						var fbt;
+						image=val[i].PROFILE;
+						
+						if(val[i].PROFILE !=null){
+							profile="<img src="+image+" style=\"width: 30px; height: 30px; border-radius: 30px\" class=\"recomId\">"
 						}else{
-							cnt2++;
+							profile="<img src=\"/images/insta.jpg\" style=\"width: 30px; height: 30px; border-radius: 30px\" class=\"recomId\">"
 						}
-					}
+						
+						var cnt1=0;
+						var cnt2=0;
+						
+						for(var j=0; j<val2.length; j++){
+							var follow = val2[j].ID;
+							if(val[i].TARGET != val2[j].TARGET){	
+								cnt1++;
+							}else{
+								cnt2++;
+							}
+						}
+						
 						if(cnt2!=1){
 							if(tar != val[i].TARGET){
 								list.push(val[i].TARGET);
@@ -188,158 +190,152 @@
 								tar=val[i].TARGET;
 							}else{
 								
-							}
-							
+							}	
 						}
-				
-				}
-				var uniqueNames = [];
-
-				$.each(list, function(i, el){
-					if($.inArray(el, uniqueNames) == -1) uniqueNames.push(el);
-				});
-				console.log(uniqueNames);
-				for(var i=0; i<uniqueNames.length; i++){
-					fbt= "<input  type=\"button\" name="+uniqueNames[i]+"\ class=\"follower btn btn-info\" style=\"width:70px; height: 20px; padding: 0; margin:1 20 0 5;\" value=\"팔로우\"/>";
-					$("#demo").append("<p style=\"width : 25%; float : left;\">"+arr[i]+"<a href=\"/search.do?id="+uniqueNames[i]+"\">"+uniqueNames[i]+"</a>"+fbt+"</p>");
-				}
-				
-		$(".follower").on("click", function() {
-			console.log("팔로우 들어왔다.");
-			var src= $(this);
-			var a = $(this).attr("name");
-			if(src.val() == "팔로잉"){
-				$.ajax("/follow/delete.do",{
-					"method" : "get",
-					"async" : true,
-					"data" :{
-						"owner" : setid,
-						"target" : a
 					}
-				}).done(function(obj2){
+					
+					var uniqueNames = [];
+	
+					$.each(list, function(i, el){
+						if($.inArray(el, uniqueNames) == -1) uniqueNames.push(el);
+					});
+					
+					console.log(uniqueNames);
+					for(var i=0; i<uniqueNames.length; i++){
+						fbt= "<input  type=\"button\" name="+uniqueNames[i]+"\ class=\"follower btn btn-info\" style=\"width:70px; height: 20px; padding: 0; margin:1 20 0 5;\" value=\"팔로우\"/>";
+						$("#demo").append("<p style=\"width : 25%; float : left;\">"+arr[i]+"<a href=\"/search.do?id="+uniqueNames[i]+"\">"+uniqueNames[i]+"</a>"+fbt+"</p>");
+					}
+				
+					$(".follower").on("click", function() {
+						console.log("팔로우 들어왔다.");
+						var src= $(this);
+						var name = $(this).attr("name");
+						if(src.val() == "팔로잉"){
+							$.ajax("/follow/delete.do",{
+								"method" : "get",
+								"async" : true,
+								"data" :{
+									"owner" : setid,
+									"target" : name
+								}
+							}).done(function(obj2){
+								console.log("삭제 들어왔다.");
+								src.val("팔로우");
+								src.attr("name", name);
+							});
+						}else{
+							$.ajax("/follow/insert.do",{
+								"method" : "get",
+								"async" : true,
+								"data" :{
+									"owner" : setid,
+									"target" : name
+								}
+							}).done(function(obj){
+								console.log("들어왔다."+src);
+								src.val("팔로잉");
+								src.attr("name", name);
+							});
+						}
+					});
+				});	
+			});
+			console.log("팔로우 리스트 들어왔다.");
+		});
+		$(".follower").click(function() {
+			var owner = "${cookie.setId.value}";
+			var src = $(this);
+			var target = $(this).attr("name");
+	
+			if ($(this).val() == "팔로잉") {
+				$.ajax("/follow/delete.do", {
+					"method" : "post",
+					"async" : true,
+					"data" : {
+						"owner" : owner,
+						"target" : target
+					}
+				}).done(function(btnFollow) {
 					console.log("삭제 들어왔다.");
 					src.val("팔로우");
-					src.attr("name", a);
+					src.attr("name", target);
 				});
-			}else{
-			$.ajax("/follow/insert.do",{
-				"method" : "get",
-				"async" : true,
-				"data" :{
-					"owner" : setid,
-					"target" : a
-				}
-			}).done(function(obj){
-				console.log("들어왔다."+src);
-				src.val("팔로잉");
-				src.attr("name", a);
-			});
-			}
-		});
-			})
-			
-		})
-		
-		console.log("팔로우 리스트 들어왔다.");
-	});
-	$(".follower").click(function() {
-		var owner = "${cookie.setId.value}";
-		var src = $(this);
-		var target = $(this).attr("name");
-
-		if ($(this).val() == "팔로잉") {
-			$.ajax("/follow/delete.do", {
-				"method" : "post",
-				"async" : true,
-				"data" : {
-					"owner" : owner,
-					"target" : target
-				}
-			}).done(function(btnFollow) {
-				console.log("삭제 들어왔다.");
-				src.val("팔로우");
-				src.attr("name", target);
-			});
-
-		} else {
-			$.ajax("/follow/insert.do", {
-				"method" : "post",
-				"async" : true,
-				"data" : {
-					"owner" : owner,
-					"target" : target
-				}
-			}).done(function(btnFollowing) {
-				console.log("들어왔다." + src);
-				src.val("팔로잉");
-				src.attr("name", target);
-			});
-		}
-	});
-	likeList();
-	function likeList() {
-		var boardid = [];
-		$(".tool").each(function() {
-			boardid.push($(this).attr("name"));
-		});
-		console.log(boardid);
-		$.ajax("/likecountList.do", {
-			"method" : "get",
-			"async" : true,
-			"data" : {
-				"boardId" : boardid,
-			}
-		}).done(
-				function(val) {
-					console.log(val + "댓글 좋아요");
-					for (var i = 0; i < val.length; i++) {
-						// console.log(val.length);
-						//$("#top_" + val[i].boardId).attr("title","좋아요 " + val[i].count+"개");
-						$("#top_" + val[i].boardId).val(val[i].count + "개");
-						$("#top_" + val[i].boardId).attr("title",
-								"좋아요" + val[i].count + "개");
+	
+			} else {
+				$.ajax("/follow/insert.do", {
+					"method" : "post",
+					"async" : true,
+					"data" : {
+						"owner" : owner,
+						"target" : target
 					}
-					console.log(boardid);
-					List(boardid);
-				})
-
-	};
-
-	function List(boardid) {
-		/* 	var boardid = [];
-
+				}).done(function(btnFollowing) {
+					console.log("들어왔다." + src);
+					src.val("팔로잉");
+					src.attr("name", target);
+				});
+			}
+		});
+		likeList();
+		function likeList() {
+			var boardid = [];
 			$(".tool").each(function() {
 				boardid.push($(this).attr("name"));
-			}); */
-		console.log(boardid);
-		$.ajax("/ReList.do", {
-			"method" : "get",
-			"async" : true,
-			"data" : {
-				"boardId" : boardid
-			}
-		}).done(
-				function(val) {
+			});
+			console.log(boardid);
+			$.ajax("/likecountList.do", {
+				"method" : "get",
+				"async" : true,
+				"data" : {
+					"boardId" : boardid,
+				}
+			}).done(function(val) {
+				console.log(val + "댓글 좋아요");
+				for (var i = 0; i < val.length; i++) {
+					// console.log(val.length);
+					//$("#top_" + val[i].boardId).attr("title","좋아요 " + val[i].count+"개");
+					$("#top_" + val[i].boardId).val(val[i].count + "개");
+					$("#top_" + val[i].boardId).attr("title",
+							"좋아요" + val[i].count + "개");
+				}
+				console.log(boardid);
+				List(boardid);
+			});
+		};
 
-					var boardid = [];
-					var reply = [];
-					$(".rebt").each(function() {
-						boardid.push($(this).attr("name"));
-						reply.push($(this).attr("name"));
-					});
-					// console.log(val);
+		function List(boardid) {
+			/* 	var boardid = [];
+	
+				$(".tool").each(function() {
+					boardid.push($(this).attr("name"));
+				}); */
+			console.log(boardid);
+			$.ajax("/ReList.do", {
+				"method" : "get",
+				"async" : true,
+				"data" : {
+					"boardId" : boardid
+				}
+			}).done(function(val) {
+				var boardid = [];
+				var reply = [];
+				$(".rebt").each(function() {
+					boardid.push($(this).attr("name"));
+					reply.push($(this).attr("name"));
+				});
+				// console.log(val);
 
-					for (var i = 0; i < val.length; i++) {
-						var reply = $("#top_" + val[i].boardId).val();
-						console.log(reply);
-						$("#top_" + val[i].boardId).attr("title", "");
-						$("#top_" + val[i].boardId).attr(
-								"title",
-								"좋아요 " + $("#top_" + val[i].boardId).val()
-										+ "댓글 " + val[i].count + "개");
-						//reply.appent("댓글 "+ val[i].count + "개");
-					}
-				})
+				for (var i = 0; i < val.length; i++) {
+					var reply = $("#top_" + val[i].boardId).val();
+					console.log(reply);
+					$("#top_" + val[i].boardId).attr("title", "");
+					$("#top_" + val[i].boardId).attr(
+							"title",
+							"좋아요 " + $("#top_" + val[i].boardId).val()
+									+ "댓글 " + val[i].count + "개");
+					//reply.appent("댓글 "+ val[i].count + "개");
+				}
+			})
 	};
 </script>
 </html>
